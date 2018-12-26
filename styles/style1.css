@@ -98,6 +98,8 @@ nav {
 .sideDiv a {
     text-decoration: none;
     color: #2e2e1f;
+    display: block;
+    width: 100%;
 }
 
 .sideDiv:hover{
@@ -113,47 +115,96 @@ nav {
 #mainContainer {
     display: block;
     position: relative;
-    width: 78%;
+    width: 100%;
     margin-top: 100px;
-    min-height: 500px;
-    min-width: 400px;
+    padding-left: 200px;
+    padding-right: 25%;
+    max-height: 500px;
+    min-width: 300px;
 }
 
 #contenidoMain {
     background-color: #3399ff;
-    height: auto;
-    min-height: 500px;
+    height: 500px;
+    max-height: 500px;
     z-index: 50;
+}
+
+#main_container_servicios {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin-top: 100px;
+    margin-left: 200px;
+    max-height: 500px;
+    min-width: 300px;
+    overflow-y: scroll;
+    background-color: #3399ff;
 }
 
 .flex_rows {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+}
+
+.flex_cols {
+    display: flex;
+    flex-direction: column;
 }
 
 #contenedor_main_ads {
     display: fixed;
-    margin: 0px 5% 0px 200px;
+}
+
+.servicio_container {
+    position: relative;
+    width: 90%;
+    height: 33.33%;
+    min-height: 110px;
+    margin: 15px 5% 15px 5%;
+    padding: 10px 0px 10px 0px;
+    border: 2.5px solid #2e2e1f;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.img_servicio{
+    width: 92.5%;
+    position: relative;
+    margin: 10px 5% 10px 2.5%;
+}
+
+.servicio_info {
+    overflow-y: scroll;
 }
 
 
-#adsLateral {
+.adsLateral {
     position: fixed;
-    width: 20%;
     height: auto;
-    right: 0px;
     margin-top: 100px;
     overflow: hidden;
     z-index: 3;
 }
 
+.adDerecha {
+    right: 0px;
+    width: 20%;
+    padding-right: 5%;
+}
+
+.adIzquierda {
+    left: 0px;
+    width: 200px;
+}
+
 @media (max-width: 750px) {
-    #adsLateral {
+    .adDerecha{
         display: none;
     }
 }
 
-#lista_ads {
+.lista_ads {
     position: relative;
     padding-inline-start: 0px;
     width: 100%;
