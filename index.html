@@ -3,56 +3,88 @@
     <head>
         <meta charset="utf-8">
         <meta name="author" content="Gonzalo Senovilla, Miguel Vitores">
+        <meta name="keywords" content="hardware components">
+        <meta name="robots" content="NoIndex, NoFollow">
+        <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="styles/style1.css">
     </head>
     <body>
-            <nav>
-                <a id="logo" href="https://placeholder.com/"><img src="https://via.placeholder.com/60/6600cc/2e2e1f?text=Logo"></a>
-                <ul class="lista_nav">
-                    <li class="cont_enlace_interno">
-                        <a id="enlace_inicio">Inicio</a>
+        <nav>
+            <a id="logo" href="https://placeholder.com/"><img src="https://via.placeholder.com/60/6600cc/2e2e1f?text=Logo"></a>
+            <ul id="lista_nav">
+                <li class="cont_enlace_interno">
+                    <a href="index.html">Inicio</a>
+                </li>
+                <li class="cont_enlace_interno">
+                    <a href="catalogo/index.html">Catálogo</a>
+                </li>
+                <li class="cont_enlace_interno">
+                    <a href="servicios/index.html">Servicios</a>
+                </li>
+                <li class="cont_enlace_interno">
+                    <a href="encuentranos/index.html">Encuéntranos</a>
+                </li>
+                <li>
+                    <form>
+                        <input type="search" placeholder="Search">
+                    </form>
+                </li>
+                <li>
+                    <a id="img_usuario" href="https://placeholder.com/"><img src="https://via.placeholder.com/20?text=Usuario"></a>
+                </li>
+                <li>
+                    <a id="img_carrito" href="https://placeholder.com/"><img src="https://via.placeholder.com/20?text=Carrito"></a>
+                </li>
+            </ul>
+        </nav>
+<!--            Este contiene los divs laterales-->
+            <div id="sideContainer">
+                <ul id="lista_side">
+                    <li class="sideDiv">
+                        <a>Conócenos</a>
                     </li>
-                    <li class="cont_enlace_interno">
-                        <a id="enlace_catalogo">Catálogo</a>
+                    <li class="sideDiv">
+                        <a>Filosofía Comercial</a>
                     </li>
-                    <li class="cont_enlace_interno">
-                        <a id="enlace_servicios">Servicios</a>
+                    <li class="sideDiv">
+                        <a>Historia de la empresa</a>
                     </li>
-                    <li class="cont_enlace_interno">
-                        <a id="enlace_encuentranos">Encuéntranos</a>
+                    <li class="sideDiv">
+                        <a>Catálogo</a>
                     </li>
-                    <li>
-                        <form>
-                            <input type="search" placeholder="Search">
-                        </form>
+                    <li class="sideDiv">
+                        <a>Encuéntranos</a>
+                    </li> 
+                </ul>       
+            </div>
+        <div class="flex_rows" id="contenedor_main_ads">
+<!--        Este div contiene la parte central -->
+            <div id="mainContainer">
+                <div id="contenidoMain"></div>
+            </div>
+    <!--        Este div contiene los anuncios -->
+            <aside id="adsLateral">
+                <ul id="lista_ads">
+                    <li class="ad_container">
+                        <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                            <div><b>ANUNCIO</b></div>
+                            <div><img alt="UEMC" width="150px" src="img/ad1.png"></div>
+                        </a>
                     </li>
-                    <li>
-                        <a id="img_usuario" href="https://placeholder.com/"><img src="https://via.placeholder.com/20?text=Usuario"></a>
+                    <li class="ad_container">
+                        <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                            <div><b>ANUNCIO</b></div>
+                            <div><img alt="UEMC" width="150px" src="img/ad2.png"></div>
+                        </a>
                     </li>
-                    <li>
-                        <a id="img_carrito" href="https://placeholder.com/"><img src="https://via.placeholder.com/20?text=Carrito"></a>
+                    <li class="ad_container">
+                        <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                            <div><b>ANUNCIO</b></div>
+                            <div><img alt="UEMC" width="150px" src="img/ad3.png"></div>
+                        </a>
                     </li>
                 </ul>
-            </nav>
-<!--        Este div contiene la parte central -->
-        <div id="mainContainer">
-<!--            Este contiene los divs laterales-->
-           <div id="sideContainer">
-                <div class="sideDiv">Conocenos</div>
-                <div class="sideDiv">Filosofía Comercial</div>
-                <div class="sideDiv">Historia de la empresa</div>
-                <div class="sideDiv">Catálogo</div>
-                <div class="sideDiv">Encuéntranos</div>         
-            </div> 
-            <div id="contenidoMain"></div>
+            </aside>
         </div>
-        
-        <aside id="adsLateral">
-            <div class="adv"></div>
-            <div class="adv"></div>
-            <div class="adv"></div>
-        
-        
-        </aside>
     </body>
 </html>

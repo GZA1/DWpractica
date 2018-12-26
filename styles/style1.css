@@ -26,7 +26,7 @@ nav {
     margin-right: 70px;
 }
 
-.lista_nav {
+#lista_nav {
     position: relative;
     padding: 2.5px 10px 2.5px 10px;
     padding-inline-start: 0px;
@@ -39,8 +39,7 @@ nav {
     border: 2.5px solid #2e2e1f;
 }
 
-.lista_nav li {
-    color: #2e2e1f;
+#lista_nav li {
     display: inline-block;
     float: left;
     position: relative;
@@ -48,89 +47,128 @@ nav {
     margin: 5px 3% 5px 3%;
 }
 
-.cont_enlace_interno:hover {
-    color: white;
-    background-color: #6600cc;
-    cursor: pointer;
-    border-radius: 5px;
+.cont_enlace_interno a {
+    text-decoration: none;
+    color: #2e2e1f;
+    padding: 5px;
+    margin: 5px 3% 5px 3%;
 }
 
-#mainContainer {
-    background-color: white;
-    display: block;
-    position: relative;
-    top: 100px;
-    margin-left: 9.5vw;
-    margin-right: 22vw;
-    height: 40vw;
-/*    box-sizing: border-box;*/
-    
+.cont_enlace_interno:hover a{
+    background-color: #6600cc;
+    border-radius: 5px;
+    color: white;
 }
+
 
 #sideContainer {
-    display: inline-block;
-    position: relative;
-    bottom: 370px;
-    margin-left: 10px;
+    position: fixed;
+    width: 200px;
+    height: auto;
+    left: 0;
+    max-width: 200px;
+    margin-top: 100px;
+    overflow: hidden;
     z-index: 3;
 }
 
-
+#lista_side {
+    display: table;
+    position: relative;
+    padding-inline-start: 0px;
+    margin: 0px 0px 0px 60px;
+    width: 140px;
+    min-width: 140px;
+    height: auto;
+    overflow: hidden;
+}
 
 .sideDiv {
     background-color: white;
-    color: black;
     border: solid;
-    
     border-color: #6600cc;
     display: block;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    box-shadow: 1px 3px ;
+    margin: 6px 0px 6px 0px;
+    box-shadow: 1px 3px;
     border-radius: 10px;
     padding: 2px 7px 2px 7px;
     z-index: 4;
-    
 }
 
-.sideDiv:hover {
+.sideDiv a {
+    text-decoration: none;
+    color: #2e2e1f;
+}
+
+.sideDiv:hover{
     background-color: #6600cc;
     cursor: pointer;
-    
+}
+
+.sideDiv:hover a{
+    color: white;
+}
+
+
+#mainContainer {
+    display: block;
+    position: relative;
+    width: 78%;
+    margin-top: 100px;
+    min-height: 500px;
+    min-width: 400px;
 }
 
 #contenidoMain {
-    display: inline-block;
-    background-color: aqua;
-    height: 97%;
-    width: 81%;
-    margin-top: 7px;
-    margin-left: -10px;
+    background-color: #3399ff;
+    height: auto;
+    min-height: 500px;
     z-index: 50;
-    
-/*    position: relative;*/
-    
-    
 }
+
+.flex_rows {
+    display: flex;
+    flex-direction: row
+}
+
+#contenedor_main_ads {
+    display: fixed;
+    margin: 0px 5% 0px 200px;
+}
+
 
 #adsLateral {
-    background-color: orange;
-/*    height: 200px;*/
-    width: 250px;
     position: fixed;
-    top: 107px;
-    right: 30px;
-    max-height: 1000vw;
+    width: 20%;
+    height: auto;
+    right: 0px;
+    margin-top: 100px;
+    overflow: hidden;
+    z-index: 3;
 }
 
-.adv {
-    background-color: darkblue;
-    display: block;
-    height: 70px;
-    width: 150px;
+@media (max-width: 750px) {
+    #adsLateral {
+        display: none;
+    }
+}
+
+#lista_ads {
     position: relative;
-    top: 0px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    left: 50px;
+    padding-inline-start: 0px;
+    width: 100%;
+    min-width: 150px;
+    height: auto;
+    overflow: hidden;
+}
+
+.ad_container {
+    border-color: #6600cc;
+    margin-bottom: 50px;
+    z-index: 4;
+}
+
+.ad_enlace {
+    text-decoration: none;
+    color: #2e2e1f;
 }
