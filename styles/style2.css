@@ -1,3 +1,63 @@
+/*
+*Colores
+*Morado: #6600cc
+*Azul: #3399ff
+*Negro: #2e2e1f
+*/
+
+
+#sideContainer {
+    position: fixed;
+    width: 200px;
+    height: auto;
+    left: 0;
+    max-width: 200px;
+    margin-top: 100px;
+    overflow: hidden;
+    z-index: 55;
+}
+
+#lista_side {
+    display: table;
+    position: relative;
+    padding-inline-start: 0px;
+    margin: 0px 0px 0px 60px;
+    width: 140px;
+    min-width: 140px;
+    height: auto;
+    overflow: hidden;
+}
+
+.sideDiv {
+    background-color: white;
+    border: solid;
+    border-color: #6600cc;
+    display: block;
+    margin: 6px 0px 6px 0px;
+    box-shadow: 2px 3px 4px;
+    border-radius: 10px;
+    padding: 2px 7px 2px 7px;
+   
+}
+
+.sideDiv a {
+    text-decoration: none;
+    color: #2e2e1f;
+    display: block;
+    width: 100%;
+    
+}
+
+.sideDiv:hover{
+    background-color: #6600cc;
+    cursor: pointer;
+}
+
+.sideDiv:hover a{
+    color: white;
+}
+
+
 .productRow {
     background-color: white;
     display: flex;
@@ -11,7 +71,7 @@
     margin-left: 3%;
     
     padding: 2% 2% 2% 2%;
-    
+    z-index: 51;
 }
 
 .product {
@@ -21,7 +81,7 @@
     height: 100%;
     margin-top: 0;
     vertical-align: top;
-    border: solid;
+    border: solid thin;
     border-color: #6600cc;
     background-color: white;
     z-index: 60;
@@ -58,4 +118,18 @@
     margin: auto;
     margin-bottom: 4%;
     
+}
+
+#contenidoMainCatalogo {
+    border: solid thin;
+    border-radius: 2%;
+    border-top-left-radius: 1%;
+    box-shadow: 1px 2px 5px 1px #3399ff;
+    
+    border-color: #3399ff;
+    position: relative;
+    padding: 2% 1% 1% 1%;
+    
+    max-height: 100%;
+    z-index: 50;
 }

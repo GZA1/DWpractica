@@ -14,6 +14,7 @@ body{
 }
 
 nav {
+    background-color: white;
     position: fixed;
     width: 100%;
     height: 60px;
@@ -64,57 +65,6 @@ nav {
 }
 
 
-#sideContainer {
-    position: fixed;
-    width: 200px;
-    height: auto;
-    left: 0;
-    max-width: 200px;
-    margin-top: 100px;
-    overflow: hidden;
-    z-index: 3;
-}
-
-#lista_side {
-    display: table;
-    position: relative;
-    padding-inline-start: 0px;
-    margin: 0px 0px 0px 60px;
-    width: 140px;
-    min-width: 140px;
-    height: auto;
-    overflow: hidden;
-}
-
-.sideDiv {
-    background-color: white;
-    border: solid;
-    border-color: #6600cc;
-    display: block;
-    margin: 6px 0px 6px 0px;
-    box-shadow: 1px 3px;
-    border-radius: 10px;
-    padding: 2px 7px 2px 7px;
-    z-index: 4;
-}
-
-.sideDiv a {
-    text-decoration: none;
-    color: #2e2e1f;
-    display: block;
-    width: 100%;
-}
-
-.sideDiv:hover{
-    background-color: #6600cc;
-    cursor: pointer;
-}
-
-.sideDiv:hover a{
-    color: white;
-}
-
-
 #mainContainer {
 /*    background-color: orange;*/
     display: block;
@@ -130,7 +80,8 @@ nav {
 #contenidoMain {
     background-color: #3399ff;
     position: relative;
-    padding: 2% 1% 0% 1%;
+/*    padding: 2% 1% 0% 1%;*/
+    
     max-height: 100%;
     z-index: 50;
 }
@@ -174,7 +125,7 @@ nav {
 }
 
 .img_servicio{
-    width: 92.5%;
+    width: 9.5%;
     position: relative;
     margin: 10px 5% 10px 2.5%;
 }
