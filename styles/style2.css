@@ -11,7 +11,7 @@
     width: 200px;
     height: auto;
     left: 0;
-    max-width: 200px;
+    max-width: 220px;
     margin-top: 100px;
     overflow: hidden;
     z-index: 55;
@@ -34,13 +34,16 @@
     border: solid;
     border-color: #6600cc;
     display: block;
-    margin: 6px 0px 6px 0px;
-    box-shadow: 6px 3px 4px 5px;
+    margin: 6px 6px 6px 0px;
+    box-shadow: 1px 1px 3px 2px;
 /*    box-shadow: 0 0 10px black;*/
     position: relative;
     border-radius: 10px;
     padding: 2px 7px 2px 7px;
     z-index: 55;
+    font-size: 13px;
+    font-family: Segoe UI;
+    font-weight: 500;
 }
 
 .sideDiv a {
@@ -64,7 +67,7 @@
 .productRow {
     background-color: white;
     display: flex;
-/*    position: relative;*/
+    position: relative;
     width: 90%;
     height: 20vh;
     vertical-align: top;
@@ -78,7 +81,7 @@
 }
 
 .product {
-/*    position: relative;*/
+    position: relative;
     display: inline-block;
     width: 30%;
     height: 100%;
@@ -124,14 +127,14 @@
 }
 
 #contenidoMainCatalogo {
+    position: relative;
     border: solid thin;
     border-radius: 2%;
     border-top-left-radius: 1%;
 /*    box-shadow: inset 0 10px 10px -10px black;*/
     box-shadow: 1px 2px 5px 1px #3399ff;
-    
+    right: 6px;
     border-color: #3399ff;
-/*    position: relative;*/
     padding: 2% 1% 1% 1%;
     
     max-height: 100%;
