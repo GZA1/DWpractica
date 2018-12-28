@@ -71,6 +71,63 @@ nav {
     color: white;
 }
 
+#sideContainer {
+    position: fixed;
+    width: 195px;
+    height: auto;
+    left: 0;
+    max-width: 195px;
+    margin-top: 100px;
+    overflow: hidden;
+    z-index: 55;
+    
+}
+
+#lista_side {
+    display: table;
+    position: relative;
+    padding-inline-start: 0px;
+    margin: 0px 0px 0px 50px;
+    padding: 1px 5px 0px 5px;
+    width: 135px;
+    min-width: 135px;
+    height: auto;
+    overflow: hidden;
+}
+
+.sideDiv {
+    background-color: white;
+    border: solid;
+    border-color: #6600cc;
+    display: block;
+    margin: 0px 0px 20px 0px;
+    box-shadow: 1px 1px 3px 2px;
+/*    box-shadow: 0 0 10px black;*/
+    position: relative;
+    border-radius: 10px;
+    z-index: 55;
+    font-size: 13px;
+    font-family: Segoe UI;
+    font-weight: 500;
+}
+
+.sideDiv a {
+    text-decoration: none;
+    color: #2e2e1f;
+    display: block;
+    width: 100%;
+    padding: 2px 7px 2px 7px;
+}
+
+.sideDiv:hover{
+    background-color: #6600cc;
+    cursor: pointer;
+}
+
+.sideDiv:hover a{
+    color: white;
+}
+
 
 #mainContainer {
 /*    background-color: orange;*/
@@ -130,36 +187,9 @@ nav {
     display: fixed;
 }
 
-.servicio_container {
-    position: relative;
-    width: 90%;
-    height: 33.33%;
-    max-height: 12vh;
-/*    min-height: 110px;*/
-    margin: 15px 5% 15px 5%;
-    padding: 10px 0px 10px 0px;
-    border: 2.5px solid #2e2e1f;
-    border-radius: 15px;
-    background-color: white;
-    
-}
-
-.img_servicio{
-    width: 9.5%;
-    height: auto;
-    position: relative;
-    margin: 10px 5% 10px 2.5%;
-}
-
-.servicio_info {
-    display: inline-block;
-    
-    overflow-y: scroll;
-}
-
 
 .adsLateral {
-    position: fixed;
+    position: absolute;
     height: auto;
     margin-top: 100px;
     overflow: hidden;
@@ -208,4 +238,9 @@ nav {
     margin-top: 30px;
     background-color: #2e2e1f;
     height: 250px;
+}
+
+//Le metes esta clase a un mainContainer para que tenga la altura fija a 600
+.altura_body_main_container {
+    height: 600px;
 }
