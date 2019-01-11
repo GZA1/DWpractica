@@ -32,7 +32,7 @@ nav {
 }
 
 #lista_nav {
-    
+    border-radius: 10px;
     position: relative;
     padding: 2.5px 10px 2.5px 10px;
     padding-inline-start: 0px;
