@@ -201,8 +201,68 @@
 }
 #lftCategorias > a:hover {
     background-color: rgba(46,46,31,0.17);
+     
 /*    animation-name: grow;*/
 /*    animation-duration: 0.1s;    */
     
 }
 
+#lftCategorias > a:hover + div{
+/*
+    opacity: 1;
+    transition: opacity 0s;
+*/
+    visibility: visible;
+}
+
+#subSobremesa {
+    background-color: white;
+/*    opacity: 1;*/
+    visibility: hidden;
+/*    transition: opacity 0s 0.2s;*/
+    
+    position: absolute;
+    height: 40vh;
+/*    width: 30vw;*/
+    left: 15vw;
+    top: 1vh;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 3px 12px 3px;
+    
+}
+#subSobremesa:hover {
+    visibility: visible;
+}
+
+
+
+
+#subSobremesa > a {
+    font-family: 'Lato', sans-serif;
+    margin: 0px 0 5px 0;
+    width: 12vw;
+    padding-left: 10px;
+}
+
+#subSobremesa > a:hover {
+    color: rgba(102,0,204,0.80);
+    font-weight: 600;
+    
+/*    background-color: rgba(46,46,31,0.17)*/
+}
+
+
+
+#subSobremesa > div {
+    margin: 0 0 6px 0;
+    padding: 0 0 0 4px;
+/*    background-color: aqua;*/
+    background-color: #3399ff;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    display: block;
+    height: 3vh;
+    line-height: 3vh;
+}
