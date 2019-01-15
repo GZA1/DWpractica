@@ -72,15 +72,14 @@ nav {
 }
 
 #sideContainer {
-    position: relative;
-    display: block;
-    width: 300px;
+    position: fixed;
+    width: 195px;
     height: auto;
     left: 0;
-/*    max-width: 195px;*/
+    max-width: 195px;
     margin-top: 100px;
     overflow: hidden;
-    z-index: 999;
+    z-index: 55;
     
 }
 
@@ -90,7 +89,7 @@ nav {
     padding-inline-start: 0px;
     margin: 0px 0px 0px 50px;
     padding: 1px 5px 0px 5px !important; 
-    width: 155px;
+    width: 135px;
     min-width: 135px;
     height: auto;
     overflow: hidden;
@@ -101,7 +100,7 @@ nav {
     border: solid;
     border-color: #6600cc;
     display: block;
-    margin: 0px 0px 10px 0px;
+    margin: 0px 0px 20px 0px;
     padding: 2px 0px 2px 0px;
     box-shadow: 1px 1px 3px 2px;
 /*    box-shadow: 0 0 10px black;*/
@@ -133,12 +132,12 @@ nav {
 
 #mainContainer {
 /*    background-color: orange;*/
-    display: inline-block;
+    display: block;
     position: relative;
     width: 100%;
     margin-top: 100px;
-/*    padding-left: 200px;*/
-/*    padding-right: 0%;*/
+    padding-left: 200px;
+    padding-right: 25%;
     max-height: 100%;
     min-width: 300px;
 }
@@ -164,7 +163,6 @@ nav {
 .flex_rows {
     display: flex;
     flex-direction: row;
-    
 }
 
 .flex_cols {
@@ -178,8 +176,7 @@ nav {
 
 
 .adsLateral {
-    position: relative;
-    margin-left: 20px;
+    position: absolute;
     height: auto;
     margin-top: 100px;
     overflow: hidden;
@@ -188,8 +185,8 @@ nav {
 
 .adDerecha {
     right: 0px;
-    width: 15%;
-    padding-right: 2%;
+    width: 20%;
+    padding-right: 5%;
 }
 
 .adIzquierda {
@@ -224,8 +221,6 @@ nav {
 }
 
 .pageFoot {
-    top: 10vh;
-    position: relative;
     margin-top: 30px;
     background-color: #2e2e1f;
     height: 250px;
