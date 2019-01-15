@@ -101,7 +101,7 @@
 #sideLFTblank {
     position: relative;
 /*    background-color: crimson;*/    
-    width: 20vw;;    
+    width: 160px;
 }
 
 #categoriesWrapper {
@@ -126,11 +126,17 @@
 #mid {
     
 /*    background-color: rgba(46,46,31,0.17);*/
-    width: 90%;
+    width: 100%;
+    padding-right: 25%;
     margin-left: 0px;
     display: block;
     position: relative;
     
+}
+@media (max-width: 680px) {
+    #mid{
+        padding-right: 0px;
+    }
 }
 
 #midFiller {
