@@ -46,12 +46,11 @@ nav {
 }
 
 #lista_nav li {
-    
     display: inline-block;
     float: left;
     position: relative;
-    padding: 5px;
-    margin: 5px 3% 5px 3%;
+    padding: 10px;
+    margin: 0px 3% 0px 3%;
     font-size: 14px;
     font-family: Segoe UI;
     font-weight: 500;
@@ -194,6 +193,9 @@ nav {
 @media (max-width: 680px) {
     .adDerecha{
         display: none;
+    }
+    .mainContainer{
+        padding-right: 0px;
     }
 }
 
