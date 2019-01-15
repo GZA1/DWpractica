@@ -1,61 +1,153 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="author" content="Gonzalo Senovilla, Miguel Vitores">
-        <meta name="keywords" content="hardware components">
-        <meta name="robots" content="NoIndex, NoFollow">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="../styles/style-shared.css">
-        <link rel="stylesheet" href="../styles/style-catalogo.css">
-        <title>Catálogo</title>
-    </head>
-    <body>
-        <nav>
-            <a id="logo" href="https://placeholder.com/"><img src="https://via.placeholder.com/60/6600cc/2e2e1f?text=Logo"></a>
-            <ul id="lista_nav">
-                <li class="cont_enlace_interno">
-                    <a href="../main/index.html">Inicio</a>
-                </li>
-                <li class="cont_enlace_interno">
-                    <a href="../catalogo/index.html">Catálogo</a>
-                </li>
-                <li class="cont_enlace_interno">
-                    <a href="../servicios/index.html">Servicios</a>
-                </li>
-                <li class="cont_enlace_interno">
-                    <a href="../encuentranos/index.html">Encuéntranos</a>
-                </li>
-                <li>
-                    <form>
-                        <input type="search" placeholder="Search">
-                    </form>
-                </li>
-                <li>
-                    <a id="img_usuario" href="https://placeholder.com/"><img src="https://via.placeholder.com/20?text=Usuario"></a>
-                </li>
-                <li>
-                    <a id="img_carrito" href="https://placeholder.com/"><img src="https://via.placeholder.com/20?text=Carrito"></a>
-                </li>
-            </ul>
-        </nav>
-<!--            Este contiene los divs laterales-->
-        
-        <div class="flex_rows" id="contenedor_main_ads">
-            
-            <div id="filtersWrapper">
-            
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Gonzalo Senovilla, Miguel Vitores">
+    <meta name="keywords" content="hardware components">
+    <meta name="robots" content="NoIndex, NoFollow">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../styles/style-shared.css">
+    <link rel="stylesheet" href="../styles/style-catalogo.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+    <title>Catálogo</title>
+</head>
+
+<body>
+
+
+    <!--        NAV PRINCIPAL-->
+    <nav>
+        <a id="logo" href="https://placeholder.com/"><img src="https://via.placeholder.com/60/6600cc/2e2e1f?text=Logo"></a>
+        <ul id="lista_nav">
+            <li class="cont_enlace_interno">
+                <a href="../main/index.html">Inicio</a>
+            </li>
+            <li class="cont_enlace_interno">
+                <a href="../catalogo/index.html">Catálogo</a>
+            </li>
+            <li class="cont_enlace_interno">
+                <a href="../servicios/index.html">Servicios</a>
+            </li>
+            <li class="cont_enlace_interno">
+                <a href="../encuentranos/index.html">Encuéntranos</a>
+            </li>
+            <li>
+                <form>
+                    <input type="search" placeholder="Search">
+                </form>
+            </li>
+            <li>
+                <a id="img_usuario" href="https://placeholder.com/"><img src="https://via.placeholder.com/20?text=Usuario"></a>
+            </li>
+            <li>
+                <a id="img_carrito" href="https://placeholder.com/"><img src="https://via.placeholder.com/20?text=Carrito"></a>
+            </li>
+        </ul>
+    </nav>
+    
+    
+    <!--            Este contiene los divs laterales-->
+    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+    <div id="flex_cols">
+        <div class="flex_rows">
+
+            <div id="filtersWrapper" class="flex_cols">
+
                 <div id="filtersContainer">
+                    <div id="filtersHeader">FILTROS</div>
+                    <div id="filterBrCrumbsWrapper">
+                        <a>Catálogo</a>
+                        <span>&gt;</span>
+                        <a>Periféricos</a>
+                        <span>&gt;</span>
+                        <a>Discos duros</a>
+                    </div>
+                    <div class="filtroItem">
+                        <span>Rango de precio</span>
+                        <div id="priceSlider">
+                            <input type="range" min="0" max="900" value="900" class="slider" id="miSlider">
+                            <div id=""></div>
+                            <script>
+                                var slider = document.getElementById("mySlider");
+                                var output = document.getElementById("demo");
+                                output.innerHTML = slider.value; // Display the default slider value
+
+                                // Update the current slider value (each time you drag the slider handle)
+                                slider.oninput = function() {
+                                  output.innerHTML = this.value;
+                                }
+                            </script>
+                            
+                        </div>
+                    </div>
+                    <div class="filtroItem">
+                        <span>Capacidad</span>
+                        <ul class="filterOpts">
+                            <li>
+                                <input type="radio" id="a-opt">
+                                <label for="a-opt">4 TB</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="b-opt">
+                                <label for="b-opt">2 TB</label>
+                            </li>
+                            <li>                                
+                                <input type="radio" id="c-opt">
+                                <label for="c-opt">1 TB</label>                            
+                            </li>
+                            <li>
+                                <input type="radio" id="d-opt">
+                                <label for="d-opt">500 GB</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="e-opt">
+                                <label for="e-opt">250 GB</label>
+                            </li>
+                        </ul>
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class="filtroItem">
+                        <span>Marcas</span>
+                        <ul class="filterOpts">
+                            <li>
+                                <input type="radio" id="a-opt2">
+                                <label for="a-opt2">Maxtor</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="b-opt2">
+                                <label for="b-opt2">Samsung</label>
+                            </li>
+                            <li>                                
+                                <input type="radio" id="c-opt2">
+                                <label for="c-opt2">SanDisk</label>                            
+                            </li>
+                            <li>
+                                <input type="radio" id="d-opt2">
+                                <label for="d-opt2">Lacie</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="e-opt2">
+                                <label for="e-opt2">Toshiba</label>
+                                
+                            </li>
+                        </ul>                                            
+                    </div>
                     
                 </div>
-                   
+
             </div>
-            
-<!--        Este div contiene la parte central -->
-            <div id="mainContainer">
-                
+
+            <!--        Este div contiene la parte central -->
+            <div class="mainContainer" style="padding-left: 0">
+
                 <div id="contenidoMainCatalogo">
-                    
+                    <div id="category">Discos Duros</div>
                     <div class="productRow">
                         <div class="product">
                             <a href="https://placeholder.com/"><img src="https://via.placeholder.com/100x100?text=Usuario"></a>
@@ -85,21 +177,21 @@
                         <div class="product"></div>
                         <div class="product"></div>
                     </div>
-                
-                
+
+
                 </div>
             </div>
-            
-            
-            
-            
-    <!--        Este div contiene los anuncios -->
-            <aside class="adsLateral adDerecha">
+
+
+
+
+            <!--        Este div contiene los anuncios -->
+            <aside class="adsLateral adDerecha" style="max-width: 15vw;">
                 <ul class="lista_ads">
                     <li class="ad_container">
                         <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
                             <div><b>ANUNCIO</b></div>
-                            <div><img alt="UEMC" width="100%"  src="../img/ad1.png"></div>
+                            <div><img alt="UEMC" width="100%" src="../img/ad1.png"></div>
                         </a>
                     </li>
                     <li class="ad_container">
@@ -117,10 +209,12 @@
                 </ul>
             </aside>
         </div>
-    </body>
-    <footer class="pageFoot">
-        
-    
-    
-    </footer>
+    </div>
+</body>
+<footer class="pageFoot">
+
+
+
+</footer>
+
 </html>
