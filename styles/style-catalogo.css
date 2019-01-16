@@ -95,12 +95,15 @@
     display: inline-block;
     width: 20%;
     margin: 0 20px 0 0;
+    border-radius: 5px;
+    align-items: flex-start;
+        
     
 }
 
 #filtersContainer {
     display: inline-block;
-    vertical-align: middle;
+/*    vertical-align: middle;*/
     width: 100%;
     height: 100%;
     background-color: rgba(46,46,31,0.17);
@@ -191,10 +194,7 @@ input[type=radio]:checked ~ label{
     color: rgba(102,0,204,1);
 }
 
-.priceSlider {
-    width: 100%;
 
-}
 
 .slider {
     -webkit-appearance: none;
@@ -227,13 +227,14 @@ input[type=radio]:checked ~ label{
   background: rgba(102,0,204,1); 
   cursor: pointer;
 }
-#valor {
-    display: inline-block;
+#priceSlider > *{
+    font-family: 'Lato', sans-serif;
 }
-#desde {
-    display: inline-block;
-    font-family: 'Lato';
-}
+
+
+
+
+
 /*-------------------------------------------------------------------------------------*/
 
 #sideLFTblank {

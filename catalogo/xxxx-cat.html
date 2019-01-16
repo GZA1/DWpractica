@@ -12,16 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
     <title>Catálogo</title>
-    <script>
-        var slider = document.getElementById("mySlider");
-        var output = document.getElementById("valor");
-        output.innerHTML = slider.value; // Display the default slider value
-
-        // Update the current slider value (each time you drag the slider handle)
-        slider.oninput = function() {
-          output.innerHTML = this.value;
-        }
-    </script>
+    
 </head>
 
 <body>
@@ -82,12 +73,18 @@
                         <span>Rango de precio</span>
                         <div id="priceSlider">
                             <input type="range" min="0" max="900" value="900" class="slider" id="miSlider">
-                            <div id="desde">0 - </div>
-                            <span id="valor"></span>
-                            
-                            
-                            
+                            <p>0 -<span id="valor"></span> $</p> 
                         </div>
+                        <script>
+                            var slider = document.getElementById("miSlider");
+                            var output = document.getElementById("valor");
+                            output.innerHTML = slider.value; // Display the default slider value
+
+                            // Update the current slider value (each time you drag the slider handle)
+                            slider.oninput = function() {
+                              output.innerHTML = this.value;
+                            }
+                        </script>
                     </div>
                     <div class="filtroItem">
                         <span>Capacidad</span>
