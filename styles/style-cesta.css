@@ -1,3 +1,7 @@
 .cesta_main_container {
-    
+    min-height: 80vh;
+}
+
+.ajusta-tam-container {
+    height: inherit;
 }
