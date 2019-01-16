@@ -144,7 +144,7 @@ nav {
 #contenidoMain {
     background-color: white;
     display: block;
-    height: inherit;
+/*    height: auto;*/
     position: relative;
 /*    padding: 2% 1% 0% 1%;*/
     border: solid thin;
@@ -156,6 +156,11 @@ nav {
     border-color: #3399ff;
     /*padding: 2% 1% 1% 1%;*/
     z-index: 50;
+}
+
+.mapa_central {
+    height: 95% !important;
+    padding: 1.5% !important;
 }
 
 .flex_rows {
