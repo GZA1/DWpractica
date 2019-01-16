@@ -12,6 +12,16 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
     <title>Catálogo</title>
+    <script>
+        var slider = document.getElementById("mySlider");
+        var output = document.getElementById("valor");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+          output.innerHTML = this.value;
+        }
+    </script>
 </head>
 
 <body>
@@ -49,7 +59,11 @@
     
     
     <!--            Este contiene los divs laterales-->
-    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+    <div style="height: 10vh; min-height: 70px; visibility: hidden">
+    
+    
+    
+    </div>
     <div id="flex_cols">
         <div class="flex_rows">
 
@@ -68,17 +82,10 @@
                         <span>Rango de precio</span>
                         <div id="priceSlider">
                             <input type="range" min="0" max="900" value="900" class="slider" id="miSlider">
-                            <div id=""></div>
-                            <script>
-                                var slider = document.getElementById("mySlider");
-                                var output = document.getElementById("demo");
-                                output.innerHTML = slider.value; // Display the default slider value
-
-                                // Update the current slider value (each time you drag the slider handle)
-                                slider.oninput = function() {
-                                  output.innerHTML = this.value;
-                                }
-                            </script>
+                            <div id="desde">0 - </div>
+                            <span id="valor"></span>
+                            
+                            
                             
                         </div>
                     </div>
@@ -138,6 +145,23 @@
                             </li>
                         </ul>                                            
                     </div>
+                    <div class="filtroItem">
+                        <span>Velocidad de rotación</span>
+                        <ul class="filterOpts">
+                            <li>
+                                <input type="radio" id="a-opt3">
+                                <label for="a-opt3">5.200</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="b-opt3">
+                                <label for="b-opt3">5.400</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="c-opt3">
+                                <label for="c-opt3">5.400</label>
+                            </li>
+                        </ul>
+                    </div>
                     
                 </div>
 
@@ -150,17 +174,36 @@
                     <div id="category">Discos Duros</div>
                     <div class="productRow">
                         <div class="product">
-                            <a href="https://placeholder.com/"><img src="https://via.placeholder.com/100x100?text=Usuario"></a>
+                            <a href=""><img src="..//img/externos/1.jpg"></a>
                             <p class="proTitulo">Producto 1</p>
                             <p class="proDescripcion">Precio y mierdas</p>
                         </div>
-                        <div class="product"></div>
-                        <div class="product"></div>
+                        <div class="product">
+                            <a href=""><img src="..//img/externos/2.jpg"></a>
+                            <p class="proTitulo">Producto 1</p>
+                            <p class="proDescripcion">Precio y mierdas</p></div>
+                        <div class="product">
+                            <a href=""><img src="..//img/externos/3.jpg"></a>
+                            <p class="proTitulo">Producto 1</p>
+                            <p class="proDescripcion">Precio y mierdas</p>
+                        </div>
                     </div>
                     <div class="productRow">
-                        <div class="product"></div>
-                        <div class="product"></div>
-                        <div class="product"></div>
+                        <div class="product">
+                            <a href=""><img src="..//img/externos/4.jpg"></a>
+                            <p class="proTitulo">Producto 1</p>
+                            <p class="proDescripcion">Precio y mierdas</p>
+                        </div>
+                        <div class="product">
+                            <a href=""><img src="..//img/externos/5.jpg"></a>
+                            <p class="proTitulo">Producto 1</p>
+                            <p class="proDescripcion">Precio y mierdas</p>
+                        </div>
+                        <div class="product">
+                            <a href=""><img src="..//img/externos/6.jpg"></a>
+                            <p class="proTitulo">Producto 1</p>
+                            <p class="proDescripcion">Precio y mierdas</p>
+                        </div>
                     </div>
                     <div class="productRow">
                         <div class="product"></div>

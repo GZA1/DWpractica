@@ -193,15 +193,15 @@ input[type=radio]:checked ~ label{
 
 .priceSlider {
     width: 100%;
-/*    background-color: orange;*/
+
 }
 
 .slider {
     -webkit-appearance: none;
     width: 90%;
     appearence: none;
-    height: 2vh;
-    background: orange;
+    height: 0.5vh;
+    background: #3399ff;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
@@ -213,19 +213,26 @@ input[type=radio]:checked ~ label{
     opacity: 1;
 }
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none; 
   appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  width: 4px; 
+  height: 15px; 
+  background: rgba(102,0,204,1); 
+  cursor: pointer; 
 }
 
 .slider::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  width: 4px;
+  height: 15px;
+  background: rgba(102,0,204,1); 
+  cursor: pointer;
+}
+#valor {
+    display: inline-block;
+}
+#desde {
+    display: inline-block;
+    font-family: 'Lato';
 }
 /*-------------------------------------------------------------------------------------*/
 
