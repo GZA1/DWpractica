@@ -298,3 +298,8 @@ nav {
     padding: 0;
     margin: 0;
 }
+
+.footer_container a:hover {
+    text-decoration: underline;
+    font-weight: 600;
+}
