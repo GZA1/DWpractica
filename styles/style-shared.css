@@ -8,14 +8,11 @@
 html body {
     max-height: 100%;
     background-color: #2e2e1f;
+    font-family: 'Lato', sans-serif;
 }
 body{
     margin: 0;
     z-index: 99;
-}
-
-html * {
-    font-family: 'Lato', sans-serif;
 }
 
 nav {
@@ -289,15 +286,19 @@ nav {
     font-size: 12px;
 }
 
-.footer_container .content li{
+li {
     list-style-type: none;
-    padding-bottom: 2%;
 }
 
-.footer_container .content ul{
+ul {
     padding: 0;
     margin: 0;
 }
+
+.footer_container .content li{
+    padding-bottom: 2%;
+}
+
 
 .footer_container a:hover {
     text-decoration: underline;
