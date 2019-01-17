@@ -625,7 +625,7 @@ input[type=radio]:checked ~ label{
 
 #prStockWrapper {
     height: 60%;
-    width: 100%;
+    max-width: 100%;
     border-top: solid rgba(102,0,204,1);
     padding: 10px 10px 10px 10px;
 }
@@ -658,10 +658,9 @@ input[type=radio]:checked ~ label{
     max-width: 100%;
     visibility: visible;
     border: solid  rgba(102,0,204,0.80);
-/*    max-height: 20%;*/
-/*    height: 20vh;*/
+    border-radius: 5px;
     position: relative;
-/*    transition: height 1s;*/
+
 }
 
 
@@ -705,4 +704,95 @@ input[type=radio]:checked ~ label{
     margin-block-end: 0px;
 }
 
+#infoEnvio {
+    border: solid rgba(102,0,204, 1);
+    border-width: 3px 0 0 0;
+    display: block;
+    max-height: 100%;
+    padding: 20px;
+     
+/*    text-align: center;*/
+}
 
+#mainEnvio {
+    position: relative;
+    display: inline-block;
+/*    width: 40%;*/
+    width: 35%;
+    height: 100%;
+    
+}
+
+#mainEnvio > img{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#restoEnvios {
+    display: inline-block;
+    position: relative;
+    height: 10%;
+    width: 50%;
+    list-style: none;  
+    padding-left: 10%;
+}
+
+#restoEnvios > ul {
+    
+    display: block;
+    height: 60%;
+}
+
+#restoEnvios > h1 {
+    margin-block-start: 0px;
+
+    display: block;
+    font-size: 14px;
+    position: relative;
+    
+}
+
+#restoEnvios > ul > li{
+    display: inline-block;
+    position: relative;
+    max-width: 25%;
+    padding: 2px;
+    
+}
+
+#restoEnvios > ul > li > img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#sugerencias {
+    display: inline-block;
+    max-width: 20%;
+    vertical-align: top;
+    margin-top: 6vh;
+    padding-left: 5%;
+}
+#sugerencias > ul {
+    background-color: white;
+    border: solid rgba(102,0,204);
+}
+#sugerencias > ul > li:hover {
+/*    box-shadow: 2px 2px 6px rgba(102,0,204);*/
+    border: solid rgba(102,0,204);
+/*    border-radius: 6px;*/
+    cursor: pointer;
+}
+
+#sugerencias h1 {
+    text-align: center;
+    border-bottom: solid rgba(102,0,204);
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    background-color: rgba(102,0,204, 0.8);
+    border-radius: 12px 12px 0 0;
+}
+
+#sugerencias img {
+    max-width: 100%;
+    max-height: 100%;
+}

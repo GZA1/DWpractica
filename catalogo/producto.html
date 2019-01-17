@@ -17,11 +17,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <title>Catálogo</title>
-    
+
 </head>
 
 <body>
-     <nav>
+    <nav>
         <a id="logo" href="https://placeholder.com/"><img src="https://via.placeholder.com/60/6600cc/2e2e1f?text=Logo"></a>
         <ul id="lista_nav">
             <li class="cont_enlace_interno">
@@ -49,24 +49,24 @@
             </li>
         </ul>
     </nav>
-    
-    
+
+
     <!--            Este contiene los divs laterales-->
     <div style="height: 10vh; min-height: 70px; visibility: hidden">
     </div>
-    
+
     <div class="mainProductoWrapper">
-        
+
         <div class="prodContainer">
             <div class="maxedMini">
                 <img src="..//img/externos/5.jpg">
-<!--
+                <!--
                 <img src="../img/externos/maxtor/maxtor1.jpg">            
                 <img src="../img/externos/maxtor/maxtor2.jpg">
                 <img src="../img/externos/maxtor/maxtor3.jpg">
 -->
             </div>
-            
+
             <div class="prodMiniaturas flex_rows">
                 <img src="..//img/externos/5.jpg">
                 <img src="../img/externos/maxtor/maxtor1.jpg">
@@ -75,12 +75,12 @@
 
             </div>
         </div>
-        
+
         <div class="prodDescriptionWrapper">
             <h1 id="desTitulo" style="padding: 8px 8px 8px 8px;">SAMSUNG/MAXTOR M3 EXTTERNAL 2.5" INCH 2TB MOBILE HARD DRIVE - MACBOOK/LAPTOP/IMAC DATA & TIME MACHINE BACKUP DISK</h1>
             <h2 id="desDesc" style="padding: 8px 8px 8px 8px;">135.90€</h2>
             <div style="border: solid; border-color: #6600cc; border-width: 3px 0; height: 0.5vh; width: 100%; margin: 10px 0"></div>
-            <div id="desCantidadesWrapper">                
+            <div id="desCantidadesWrapper">
                 <span id="desCantidad">Cantidad: </span>
                 <div id="dCant2">
                     <a id="dCMenos">-</a>
@@ -88,9 +88,9 @@
                         <input id="dCShow" min="0" value="1">
                     </div>
                     <a id="dCMas">+</a>
-                    
+
                 </div>
-            
+
             </div>
             <div id="botonesCompras" class="flex_rows">
                 <a>Añadir a la cesta</a>
@@ -100,26 +100,35 @@
                 <div id="prStElement">
                     <span style="margin-right: 12px;">Stock:</span>
                     <span id="prStock">5</span>
-                    <span>Disponibles</span>              
+                    <span>Disponibles</span>
                 </div>
-                <div id="prNdElement" onclick="showDiv()">
-                    Descubre donde 
+                <div id="prNdElement">
+                    Descubre donde
                     <span style="font-size: 12px; border-radius: 50%; border: solid transparent;">&or;</span>
-                    
                 </div>
-                
             </div>
-                <div id="prStockEspecifico">
-                        <p>2 Disponibles en Avda. Juan Perales</p>
-                        <p>3 Disponibles en Calle Enrique Madroño</p>  
+            <div id="prStockEspecifico">
+                <p>2 Disponibles en Avda. Juan Perales</p>
+                <p>3 Disponibles en Calle Enrique Madroño</p>
+            </div>
+            <div id="infoEnvio">
+                <div id="mainEnvio"><img src="../img/Envios/envios1.jpg"></div>
+                <div id="restoEnvios">
+                    <h1>Envio rápido y seguro</h1>
+                    <ul>
+                        <li><img src="../img/Envios/envios2.jpg"></li>
+                        <li><img src="../img/Envios/envios3.png"></li>
+                    </ul>
                 </div>
-                
+            </div>
+
         </div>
-        <div style="height: 10vh; width: 100%" ></div>
+        <div style="height: 8vh; width: 100%"></div>
+
         <div id="detallesAdiccionalesWrapper">
             <div id="detallesAdCategorias">
                 <span>Detalles del producto</span>
-                <span>Reviews</span>               
+                <span>Reviews</span>
             </div>
             <div style="height:60%; border: solid thin black;"></div>
             <div id="detallesAdContent">
@@ -186,96 +195,105 @@
 
                     </pre>
                 </p>
-            
             </div>
-        
-        
+
         </div>
+        <div id="sugerencias">
+            <div><h1>Sugerencias</h1></div>
+            <ul id="listaSugerencias">
+                <li><img src="../img/externos/3.jpg"></li>
+                <li><img src="../img/externos/6.jpg"></li>
+                <li><img src="../img/externos/7.jpg"></li>                
+            </ul>
+
+        </div>
+    
+    
+    
         <script type="text/javascript">
-            $("document").ready(function(){
-               
-                $("#dCMenos").click(function(){
+            $("document").ready(function() {
+
+                $("#dCMenos").click(function() {
                     var campo = $("#dCShow");
                     var valorCampo = $("#dCShow").val();
-                    if(valorCampo>0){
+                    if (valorCampo > 0) {
                         valorCampo--;
                         campo.val(valorCampo);
                     }
-                        
+
                 });
-                $("#dCMas").click(function(){
+                $("#dCMas").click(function() {
                     var campo = $("#dCShow");
                     var valorCampo = $("#dCShow").val();
                     valorCampo++;
                     campo.val(valorCampo);
                 });
-                
-                
+
+
                 /*Stock en tiendas*/
-                $("#prNdElement").click(function(){
-                   var showInfo = $("#prStockEspecifico");
-                   showInfo.fadeToggle(1000);
-               });
-                    
-                 
-                
-                
+                $("#prNdElement").click(function() {
+                    var showInfo = $("#prStockEspecifico");
+                    showInfo.fadeToggle(1000);
+                });
+
+
+
+
             });
-    
         </script>
     </div>
-    
-    
-    
-    
-    </body>
-    
-    
-    <footer class="pageFoot">
-            <div class="flex_cols">
-                <div class="flex_rows" id="footer_info">
-                    <div class="footer_container">
-                        <div class="head">
-                            Componentes
-                        </div>
-                        <div class="content">
-                            <ul>
-                                <li><a href="">Placas base</a></li>
-                                <li><a href="">Procesadores</a></li>
-                                <li><a href="">Discos duros</a></li>
-                                <li><a href="">Tarjetas gráficas</a></li>
-                                <li><a href="">Memorias RAM</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="footer_container">
-                        <div class="head">
-                            Contacto
-                        </div>
-                        <div class="content">
-                            <ul>
-                                <li><a href="">Teléfono: 999887766</a></li>
-                                <li><a href="">E-mail: example@mail.com</a></li>
-                                <li><a href=""><img src="../img/facebook.png" width="20px"></a></li>
-                                <li><a href=""><img src="../img/twitter.png" width="20px"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="footer_container">
-                        <div class="head">
-                            ¿Dónde estamos ubicados?
-                        </div>
-                        <div class="content">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2982.3770409752533!2d-4.717704684502627!3d41.62598097924306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4712d844c78375%3A0x8532df1684bc7224!2sUniversidad+Europea+Miguel+de+Cervantes+-+UEMC!5e0!3m2!1ses!2ses!4v1547635284329" width="90%" height="80%" frameborder="0" style="border:0" allowfullscreen></iframe>
-                        </div>  
-                    </div>
+
+
+
+
+</body>
+
+
+<footer class="pageFoot">
+    <div class="flex_cols">
+        <div class="flex_rows" id="footer_info">
+            <div class="footer_container">
+                <div class="head">
+                    Componentes
                 </div>
-                <div id="footer_copyright">
-                    <a href="../main/privacy-policy.html" target="_blank">Política de Privacidad</a>
-                    <a href="http://www.uemc.es" target="_blank">Universidad Europea Miguel de Cervantes</a>
-                    <a href="https://creativecommons.org/choose/zero/?lang=es" target="_blank"><img src="../img/CC0.png" alt="cc0" width="15px"></a>
+                <div class="content">
+                    <ul>
+                        <li><a href="">Placas base</a></li>
+                        <li><a href="">Procesadores</a></li>
+                        <li><a href="">Discos duros</a></li>
+                        <li><a href="">Tarjetas gráficas</a></li>
+                        <li><a href="">Memorias RAM</a></li>
+                    </ul>
                 </div>
             </div>
-        </footer>
+            <div class="footer_container">
+                <div class="head">
+                    Contacto
+                </div>
+                <div class="content">
+                    <ul>
+                        <li><a href="">Teléfono: 999887766</a></li>
+                        <li><a href="">E-mail: example@mail.com</a></li>
+                        <li><a href=""><img src="../img/facebook.png" width="20px"></a></li>
+                        <li><a href=""><img src="../img/twitter.png" width="20px"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_container">
+                <div class="head">
+                    ¿Dónde estamos ubicados?
+                </div>
+                <div class="content">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2982.3770409752533!2d-4.717704684502627!3d41.62598097924306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4712d844c78375%3A0x8532df1684bc7224!2sUniversidad+Europea+Miguel+de+Cervantes+-+UEMC!5e0!3m2!1ses!2ses!4v1547635284329" width="90%" height="80%" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        <div id="footer_copyright">
+            <a href="../main/privacy-policy.html" target="_blank">Política de Privacidad</a>
+            <a href="http://www.uemc.es" target="_blank">Universidad Europea Miguel de Cervantes</a>
+            <a href="https://creativecommons.org/choose/zero/?lang=es" target="_blank"><img src="../img/CC0.png" alt="cc0" width="15px"></a>
+        </div>
+    </div>
+</footer>
 
 </html>
