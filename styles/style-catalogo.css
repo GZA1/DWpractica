@@ -427,4 +427,130 @@ input[type=radio]:checked ~ label{
 
 /*------------------------------------------------------*/
 
+.mainProductoWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 40%;
+    width: 65%;
+    display: block;
+    position: relative;
+    background-color: lightgray;
+    min-height: 10vh;
+    max-height: 100%;
+    padding: 10px 10px 10px 10px;
+    
+}
 
+.maxedMini {
+    
+/*    width: 45%;*/
+    left: 0;
+    top: 0;
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.prodContainer {
+    display:inline-block;
+    max-height: 45%;
+    max-width: 45%;
+}
+
+.prodMiniaturas{
+    display: block;
+/*    flex-direction: row;*/
+    
+    
+    list-style: none;
+    
+/*    width: 45%;*/
+    height: 4vh;
+/*    background-color: forestgreen;*/
+    align-content: space-between;
+    
+    text-align: center;
+    
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0 0 0;
+    
+    
+}
+
+
+.maxedMini > img {
+    max-height: 100%;
+    max-width: 100%;
+    
+}
+
+
+.prodMiniaturas > * {
+/*    visibility: hidden;*/
+    max-height: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.prodMiniaturas > *:hover {
+    cursor: pointer;
+    border: solid thin #6600cc;
+}
+
+
+.prodDescriptionWrapper {
+    display: inline-block;
+    vertical-align: top;
+    background-color: white;
+    max-height: 100%;
+    width: 50%;
+    margin-left: 40px;
+/*    margin-right: 0;*/
+}
+
+#desTitulo {
+    display: block;
+    font-family: Segoe UI;
+    font-size: 20px;
+    font-weight: 700;
+}
+#desDesc {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+    color: rgba(102,0,204,0.80);
+    font-weight: 900;
+}
+
+#detallesAdiccionalesWrapper {
+    width: 70%;
+    display: inline-block;
+    height: auto;
+    
+    background-color: white;
+}
+
+#detallesAdCategorias {
+    width: 30%;
+    background-color: green;
+    height: 6vh;
+}
+
+#detallesAdCategorias > span{
+    height: 100%;
+    text-align: center;
+    border: solid thin #000;
+    border-radius: 15px 15px 0 0;
+    line-height: 6vh;
+    padding: 0 2% 0 2%;
+    display: inline-block;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #3399ff;
+}
+#detallesAdContent  > p{
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
