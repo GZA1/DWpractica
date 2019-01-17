@@ -623,6 +623,51 @@ input[type=radio]:checked ~ label{
     border: solid rgba(102,0,204,1);
 }
 
+#prStockWrapper {
+    height: 60%;
+    width: 100%;
+    border-top: solid rgba(102,0,204,1);
+    padding: 10px 10px 10px 10px;
+}
+
+#prStockWrapper > * {
+    
+    display: inline-block;
+/*    height: 100vh;*/
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-weight: bold;
+}
+
+#prNdElement {
+    display: inline-block;
+/*    background-color: rgba(102,0,204,0.80);*/
+    padding: 10px 10px 10px 10px;
+    border: solid rgba(102,0,204,0.80);
+    border-radius: 10px;
+/*    height: 200vh;*/
+}
+#prNdElement:hover {
+    cursor: pointer;
+}
+
+#prStockEspecifico {
+    display: none;
+    max-width: 100%;
+    visibility: visible;
+    border: solid  rgba(102,0,204,0.80);
+/*    max-height: 20%;*/
+/*    height: 20vh;*/
+    position: relative;
+/*    transition: height 1s;*/
+}
+
+
+
+
+
 #detallesAdiccionalesWrapper {
     width: 70%;
     display: inline-block;
