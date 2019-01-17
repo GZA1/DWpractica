@@ -1,0 +1,50 @@
+/*
+Color más claro derivado de #2e2e1f: #e0e0d2
+*/
+
+.cesta_main_container {
+    min-height: 80vh;
+    padding: 0 2.5% 0 2.5%;
+    color: white;
+}
+
+#titulo-cesta {
+    color: white;
+}
+
+.borde-abajo {
+    border-bottom: 1px solid #e0e0d2;
+}
+
+.producto-container {
+    min-height: 100px;
+    min-width: 100px;
+}
+
+.producto-container > div {
+    padding: 0.5% 2.5% 0.5% 2.5%;
+}
+
+.producto-img {
+    height: 25vh;
+    min-height: 100px;
+}
+
+#precio {
+    width: 10%;
+}
+
+#cantidad {
+    margin-left: 20%;
+    width: 10%;
+}
+
+.producto-contenido {
+    font-size: 12px;
+    color: white;
+    text-decoration: none;  
+}
+
+.categoria-componente{
+    
+}
