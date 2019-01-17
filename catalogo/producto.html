@@ -77,12 +77,47 @@
             <div style="border: solid; border-color: #6600cc; border-width: 3px 0; height: 5vh; width: 100%; margin: 10px 0"></div>
             <div id="desCantidadesWrapper">                
                 <span id="desCantidad">Cantidad: </span>
-                <div id="desCantidad">
-                
+                <div id="dCant2">
+                    <a id="dCMenos" onclick="plus(-1)">-</a>
+                    <div id="dCcampo">
+                        <input id="dCShow" min="0" value="1">
+                    </div>
+                    <a id="dCMas" onclick="plus(1)">+</a>
+                    <script>
+                        var campoIndex = 1;
+                        show(campoIndex);
+
+                        function plus(n) {
+                          show(slideIndex += n);
+                        }
+
+                        function currentSlide(n) {
+                          show(slideIndex = n);
+                        }
+
+                        function show(n) {
+                          var i;
+                          var campoMostrar = document.getElementsByClassName("dCShow");
+                          
+                          if (n > campoMostrar.length) {slideIndex = 1}    
+                          if (n < 1) {slideIndex = campoMostrar.length}
+                          for (i = 0; i < campoMostrar.length; i++) {
+                              campoMostrar[i].style.display = "none";  
+                          }
+                          for (i = 0; i < dots.length; i++) {
+                              dots[i].className = dots[i].className.replace(" active", "");
+                          }
+                          campoMostrar[slideIndex-1].style.display = "block";  
+                          dots[slideIndex-1].className += " active";
+                        }
+                    </script>
                 </div>
             
             </div>
-        
+            <div id="botonesCompras">
+                <a>Añadir a la cesta</a>
+                <a>Comprar</a>
+            </div>
         
         </div>
         <div style="height: 10vh; width: 100%" ></div>
@@ -95,64 +130,64 @@
             <div id="detallesAdContent">
                 <p>
                     <pre style="font-family: 'Lato', sans-serif; font-size: 13px">
-MAXTOR EXTERNAL 2.5" 2TB M3 PORTABLE BACKUP HARD DRIVE - BLACK
+        MAXTOR EXTERNAL 2.5" 2TB M3 PORTABLE BACKUP HARD DRIVE - BLACK
 
-HX-M201TCBM
-
-
-En la caja:
+        HX-M201TCBM
 
 
-M3 Portable External Hard Drive
-
-Cable USB
-
-Guía de instalación rápida
-
-Software precargado en el disco
-
-Documentación del usuario en formato electrónico (PDF)
+        En la caja:
 
 
+        M3 Portable External Hard Drive
 
+        Cable USB
 
-Maxtor M3 Portable External Hard Drive
+        Guía de instalación rápida
 
-The Maxtor M3 Portable External Hard Drive delivers handy portable storage. 
-It is easy to take wherever you go, and has ample capacity of up to 4TB. 
-The durable black design stands up to the rigors of daily use.
+        Software precargado en el disco
+
+        Documentación del usuario en formato electrónico (PDF)
 
 
 
 
-Handy portable storage
+        Maxtor M3 Portable External Hard Drive
 
-Durable black design
-
-SafetyKey TM protection for your data
-
-SuperSpeed USB 3.0 (Max): 5.0Gb/s
+        The Maxtor M3 Portable External Hard Drive delivers handy portable storage. 
+        It is easy to take wherever you go, and has ample capacity of up to 4TB. 
+        The durable black design stands up to the rigors of daily use.
 
 
 
-Compatible con:
+
+        Handy portable storage
+
+        Durable black design
+
+        SafetyKey TM protection for your data
+
+        SuperSpeed USB 3.0 (Max): 5.0Gb/s
 
 
-Playstation 4 (as additional external storage for games)
 
-Xbox one (as additional external storage for games)
+        Compatible con:
 
-Windows XP/Vista/7/8.1/10
 
-Apple Time Machine
+        Playstation 4 (as additional external storage for games)
 
-Mac OS X (including High Sierra)
+        Xbox one (as additional external storage for games)
 
-Laptops/Macbooks with USB 2.0 or USB 3.0 Sockets
+        Windows XP/Vista/7/8.1/10
 
-Smart TVs
+        Apple Time Machine
 
-Android TV Boxes
+        Mac OS X (including High Sierra)
+
+        Laptops/Macbooks with USB 2.0 or USB 3.0 Sockets
+
+        Smart TVs
+
+        Android TV Boxes
 
                     </pre>
                 </p>
@@ -170,10 +205,51 @@ Android TV Boxes
     </body>
     
     
-<footer class="pageFoot">
-
-
-
-</footer>
+    <footer class="pageFoot">
+            <div class="flex_cols">
+                <div class="flex_rows" id="footer_info">
+                    <div class="footer_container">
+                        <div class="head">
+                            Componentes
+                        </div>
+                        <div class="content">
+                            <ul>
+                                <li><a href="">Placas base</a></li>
+                                <li><a href="">Procesadores</a></li>
+                                <li><a href="">Discos duros</a></li>
+                                <li><a href="">Tarjetas gráficas</a></li>
+                                <li><a href="">Memorias RAM</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer_container">
+                        <div class="head">
+                            Contacto
+                        </div>
+                        <div class="content">
+                            <ul>
+                                <li><a href="">Teléfono: 999887766</a></li>
+                                <li><a href="">E-mail: example@mail.com</a></li>
+                                <li><a href=""><img src="../img/facebook.png" width="20px"></a></li>
+                                <li><a href=""><img src="../img/twitter.png" width="20px"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer_container">
+                        <div class="head">
+                            ¿Dónde estamos ubicados?
+                        </div>
+                        <div class="content">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2982.3770409752533!2d-4.717704684502627!3d41.62598097924306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4712d844c78375%3A0x8532df1684bc7224!2sUniversidad+Europea+Miguel+de+Cervantes+-+UEMC!5e0!3m2!1ses!2ses!4v1547635284329" width="90%" height="80%" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>  
+                    </div>
+                </div>
+                <div id="footer_copyright">
+                    <a href="../main/privacy-policy.html" target="_blank">Política de Privacidad</a>
+                    <a href="http://www.uemc.es" target="_blank">Universidad Europea Miguel de Cervantes</a>
+                    <a href="https://creativecommons.org/choose/zero/?lang=es" target="_blank"><img src="../img/CC0.png" alt="cc0" width="15px"></a>
+                </div>
+            </div>
+        </footer>
 
 </html>
