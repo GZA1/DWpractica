@@ -503,7 +503,7 @@ input[type=radio]:checked ~ label{
     display: inline-block;
     vertical-align: top;
     background-color: white;
-    max-height: 100%;
+    max-height: 45%;
     max-width: 50%;
     margin-left: 3%;
 /*    margin-right: 0;*/
@@ -530,8 +530,8 @@ input[type=radio]:checked ~ label{
 
 #desCantidadesWrapper {
 
-    height: 10vh;
-    line-height: 10vh;
+    height: 7vh;
+    line-height: 7vh;
     text-align: center;
     border-bottom: solid #6600cc;
 }
@@ -560,6 +560,7 @@ input[type=radio]:checked ~ label{
     border: solid transparent;
     border-radius: 50%;
     background-color: rgba(102,0,204,0.80);
+    color: #000;
     position:relative;
     top: 0.5vh;
 }
@@ -574,7 +575,7 @@ input[type=radio]:checked ~ label{
 #dCcampo {
     display: inline-block; 
     width: 3vw; 
-    height: 3vh; 
+    height: 100%; 
     margin: 0 12px 0 10px;
     line-height: 3vh; 
     text-align-last: center
@@ -583,16 +584,44 @@ input[type=radio]:checked ~ label{
 #dCShow {
     display: inline-block;
     width: 100%; 
-    height: 100%;
+    height: 3vh;
 }
 
 #botonesCompras {
     width: 100%;
-    height: 18.8vh;
-    
+    height: 9vh;
+    position: relative;
+  
 }
 
+#botonesCompras > a {
+    display: inline-block;
+    width: 25%;
+/*    height: 20%;*/
+    max-height: 40%;
+    border: black inset;
+    white-space: pre-line;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+/*    line-height: 50%;*/
+/*    line-height: 12vh;*/
+    background-color: rgba(102,0,204,0.80);
+}
 
+#botonesCompras > a:hover {
+    cursor: pointer;
+}
+
+#botonesCompras a:first-child {
+    background-color: transparent;
+    border: solid rgba(102,0,204,1);
+}
 
 #detallesAdiccionalesWrapper {
     width: 70%;
