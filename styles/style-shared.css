@@ -157,6 +157,12 @@ nav {
     border-color: #3399ff;
     /*padding: 2% 1% 1% 1%;*/
     z-index: 50;
+    transition: background-color 20s ease-out, padding 20s ease-out;
+}
+
+#contenidoMain:hover {
+    background-color: #2e2e1f;
+    padding: 100px 0 100px 0;
 }
 
 .mapa_central {
@@ -301,4 +307,11 @@ ul {
 .footer_container a:hover {
     text-decoration: underline;
     font-weight: 600;
+}
+
+#designed-by {
+    text-align: center;
+    padding: 5% 0 1% 0;
+    font-size: 18px;
+    font-weight: 700;
 }
