@@ -1,15 +1,48 @@
-* {box-sizing:border-box}
+/** {box-sizing: border-box}*/
+body {font-family: 'Lato', sans-serif; margin:0}
+.mySlides {
+    display: none;
+    align-items: center;
+    
+/*    overflow-y: hidden;*/
+    }
+    .mySlides:hover{
+        border: solid 2px rgba(102,0,204);
+        box-shadow: 2px 2px 10px;
+    }
+    .flex_rows {
+        display: flex;
+        flex-direction: row;
+    }
+img {
+    vertical-align: middle;
+    max-height:100%;
+    max-width: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    display: block;
+    position: relative;
+    left: 0;
+    top:0;
+/*    left: 36%;*/
+/*    bottom: 0;*/
+/*    text-align: center;*/
+    }
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
+    border: solid 4px rgba(102,0,204);
+    margin-left: 10%;
+    margin-right: 10%;
+/*    flex-flow: row;*/
+  max-width: 60%;
+/*    background-color: orange;*/
+    height: 250px;
   position: relative;
   margin: auto;
-}
-
-/* Hide the images by default */
-.mySlides {
-  display: none;
+    justify-content: space-between;
+    padding: 0 6%
+/*    text-align: center;*/
 }
 
 /* Next & previous buttons */
@@ -18,41 +51,62 @@
   position: absolute;
   top: 50%;
   width: auto;
-  margin-top: -22px;
   padding: 16px;
-  color: white;
+  margin-top: -22px;
+  color: #2e2e1f;
   font-weight: bold;
   font-size: 18px;
+    border: solid 2px rgba(102,0,204);
+    
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
 }
 
+    .mySlides > img{
+        
+    }
 /* Position the "next button" to the right */
 .next {
   right: 0;
   border-radius: 3px 0 0 3px;
+   border-width: 2px 0 2px 2px; 
 }
-
+    
+.prev{
+    border-width: 2px 2px 2px 0;
+    left: 0;
+}
+    
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
+    color: white;
 }
 
 /* Caption text */
 .text {
-  color: #f2f2f2;
+  color: rgba(102,0,204,1);;
+/*    border: solid rgba(102,0,204);*/
   font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
+  padding: 2px 6px;
+  position: relative;
+    display: block;
+/*  bottom: 8px;*/
+    left: 30px;
+  width: 75%;
   text-align: center;
+    max-height: 100%;
 }
 
+    .text > * {
+        margin-block-start: 0px;
+    margin-block-end: 0px;
+    }
+    
 /* Number text (1/3 etc) */
 .numbertext {
-  color: #f2f2f2;
+  color: #000;
   font-size: 12px;
   padding: 8px 12px;
   position: absolute;
@@ -62,17 +116,19 @@
 /* The dots/bullets/indicators */
 .dot {
   cursor: pointer;
-  height: 15px;
+  height: 3px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
+  background-color: rgba(102,0,204,0.50);
+  border-radius: 0%;
   display: inline-block;
   transition: background-color 0.6s ease;
+    transition: height 1s ease;
 }
 
 .active, .dot:hover {
-  background-color: #717171;
+  background-color: rgba(102,0,204,1);
+    height: 20px;
 }
 
 /* Fading animation */
@@ -92,3 +148,14 @@
   from {opacity: .4} 
   to {opacity: 1}
 }
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+    .imaagen{
+/*        height: 80%;*/
+        height: 18vh;
+        width: 12vw;;
+    }
+ 
