@@ -8,6 +8,8 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../styles/style-shared.css">
         <link rel="stylesheet" href="../styles/style-inicio-sesion.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
         <title>Página principal</title>
     </head>
     <body>
@@ -18,19 +20,80 @@
                 </a>
             </div>
             <div id="contenedor-form">
-                <h1 style="margin-top: 40px;">Crear cuenta</h1>
-                <label>Nombre</label>
-                <input type="text">
-                <label>Dirección de e-mail</label>
-                <input type="email">
-                <label>Contraseña</label>
-                <input type="password">
-                <label>Confirma tu contraseña</label>
-                <input type="password"><br><br>
-                <div id="crear-nueva-cuenta">
-                </div>
-                <input id="boton-nueva-cuenta" type="submit" value="Crear una nueva cuenta">
+                <form id="miFormulario">
+                    <h1 style="margin-top: 40px;">Crear cuenta</h1>
+                    <label id="lNombre">Nombre</label>
+                    <input type="text" id="cNombre">
+                    <label id="lEmail">Dirección de e-mail</label>
+                    <input type="email" id="cEmail">
+                    <label id="lPass">Contraseña</label>
+                    <input type="password" id="cPass">
+                    <label id="lPass2">Confirma tu contraseña</label>
+                    <input type="password" id="cPass2"><br><br>
+                    <div id="crear-nueva-cuenta">
+                        <input id="boton-nueva-cuenta" type="submit" value="Crear una nueva cuenta">
+                    </div>
+                </form>
             </div>
+            <script>
+                    
+                (function($) { 
+                    $('#miFormulario').submit(function() { 
+                        var nombre = $("#cNombre").val(), 
+                            email = $("#cEmail").val(),
+                            contraseña = $("#cPass").val(),
+                            contraseña2 = $("#cPass2").val();
+
+                        var inputVal = [nombre, email, contraseña, contraseña2],
+                            inputMessage = ["nombre", "email", "contraseña", "contraseña2"],
+                            textId = ["#lNombre", "#lEmail", "#lPass", "#lPass2"];
+
+
+                        for(var i=0;i<inputVal.length;i++){
+                            
+                            inputVal[i] = $.trim(inputVal[i]);
+                            if ( inputVal[i] == null || inputVal[i] === "") {
+                                invalidEntry(i);
+                                return false;
+                            }
+                            
+                            if(inputMessage[i]== "email"){
+                                if(!isEmail(inputVal)){
+                                    invalidEntry(i);
+                                    return false;
+                                }
+                            }
+                            console.log("good!");
+                        };
+                        
+                        
+                        if(inputVal[3] != inputVal[4]){
+                                notEqual();
+                            return false;
+                        }
+                        
+                        function invalidEntry(i) {
+                            
+                            $("#error").remove();
+                            $(textId[i]).after("<p id='error' style='font-size: 14px; color: red' > El campo " + inputMessage[i] + " no es válido.</p>");
+                        }
+                        
+                        function notEqual(i){
+                            $(textId[3]).after("<p id='error' style='font-size: 14px; color: red' > Las contraseñas no coinciden.</p>");
+                        }
+                        
+                        function isEmail(email) {
+                          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                          return regex.test(email);
+                        }
+                        
+                        
+                        
+                        return this.some_variable 
+                    });
+                })(jQuery);
+ 
+            </script>
         </div>
         <footer class="pageFoot">
             <div class="flex_cols">
