@@ -696,12 +696,29 @@ input[type=radio]:checked ~ label{
     font-weight: 600;
     background-color: #3399ff;
 }
+#detallesAdCategorias > span:hover{
+    cursor: pointer;
+    
+}
 
 #detallesAdContent  > p{
     
 /*    margin-left: 200px;*/
     margin-block-start: 0px;
     margin-block-end: 0px;
+}
+
+.review {
+    display: block;
+    height: 12vh;
+    width: 100%;
+    border: solid rgba(102,0,204);
+    border-width: 3px 0 3px 0;
+    padding: 15px
+}
+.review > p {
+    display: block;
+    
 }
 
 #infoEnvio {

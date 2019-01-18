@@ -13,8 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    
 
     <title>Catálogo</title>
 
@@ -127,8 +126,8 @@
 
         <div id="detallesAdiccionalesWrapper">
             <div id="detallesAdCategorias">
-                <span>Detalles del producto</span>
-                <span>Reviews</span>
+                <span id="primeraPestaña">Detalles del producto</span>
+                <span id="segundaPestaña">Reviews</span>
             </div>
             <div style="height:60%; border: solid thin black;"></div>
             <div id="detallesAdContent">
@@ -196,7 +195,27 @@
                     </pre>
                 </p>
             </div>
-
+        <div id="lasReviews">
+            <div class="review">
+                    <h3>Este producto es muy bueno</h3>
+                <p>
+                    El productó me encantó, muy util.
+                </p>
+            </div>
+            <div class="review">
+                    <h3>Envio Rápido</h3>
+                <p>
+                    2 dias en llegar, gracias.
+                </p>
+            </div>
+            <div class="review">
+                    <h3>Rapido y en buen estado</h3>
+                <p>
+                    Todo en orden.
+                </p>
+            </div>
+        </div>
+        
         </div>
         <div id="sugerencias">
             <div><h1>Sugerencias</h1></div>
@@ -235,11 +254,36 @@
                     var showInfo = $("#prStockEspecifico");
                     showInfo.fadeToggle(1000);
                 });
-
-
-
-
+                
+//                $("#detallesAdiccionalesWrapper").html(.function() {
+//                    var index = 1;
+//                    var primeraEtiqueta = $("#primeraPestaña");
+//                    var segundaEtiqueta = $("#segundaPestaña");
+//                    var primerParrafo = $("#detallesAdContent").contents();
+//                    var segundoParrafo = $("#lasReviews").contents();
+//                    
+//                    if(index = 1) primerParrafo.show();
+//                    segundaEtiqueta.click(function() {
+//                       primerParrafo.fadeOut();
+//                        segundoParrafo.fadeIn();
+//                    });
+//                    primeraEtiqueta.click(function() {
+//                       primerParrafo.fadeOut();
+//                        segundoParrafo.fadeIn();
+//                    });
+//                    });
+                $("#segundaPestaña").click(function(){
+                    $("#lasReviews").fadeIn();
+                    $("#detallesAdContent").fadeOut();
+                });
+                
+                $("#primeraPestaña").click(function(){
+                    $("#detallesAdContent").fadeIn();
+                    $("#lasReviews").fadeOut();
+                });    
             });
+
+            
         </script>
     </div>
 
