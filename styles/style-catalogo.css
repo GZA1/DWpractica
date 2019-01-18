@@ -16,7 +16,8 @@
     margin-top: 2px;
     margin-bottom: 2%;
     margin-left: 3%;
-    
+    border: ridge rgba(102,0,204);
+    border-width: 0 0 2px 0;
     padding: 1% 2% 1% 2%;
     z-index: 51;
 }
@@ -36,6 +37,7 @@
     
     
 }
+
 .product:hover {
     border: solid thin;
     border-color: #6600cc;
@@ -162,8 +164,12 @@
     font-weight: 700;
     font-size: 18px;
     padding-left: 4vw;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
     margin-bottom: 2vh;
     text-decoration: underline;
+    border: ridge rgba(102,0,204);
+    border-width: 0 0 5px 0;
 }
 
 .filtroItem {
@@ -253,10 +259,12 @@ input[type=radio]:checked ~ label{
 #sideLFTblank {
     position: relative;
 /*    background-color: crimson;*/    
-    width: 160px;
+    width: 20%;
+    
 }
 
 #categoriesWrapper {
+    box-shadow: 2px 2px 6px;
  display: flex;
     flex-direction: row;
     align-items: center;
@@ -280,6 +288,7 @@ input[type=radio]:checked ~ label{
     background-color: white;
     width: 100%;
     padding-right: 25%;
+    padding-left: 2px;
     margin-left: 0px;
     display: block;
     position: relative;
@@ -303,11 +312,12 @@ input[type=radio]:checked ~ label{
     font-family: 'Lato', sans-serif;
     font-weight: 600;
     font-size: 20px;
+    padding-left: 2%;
 }
 
 #catCarousel {
     height: 25vh;
-    background-color: crimson;
+/*    background-color: crimson;*/
     display: block;
     
     
@@ -319,7 +329,10 @@ input[type=radio]:checked ~ label{
     width: 100%;
     position: relative;
     margin-right: 0px;
-    
+    box-shadow: 2px 2px 6px #000;
+    border: solid 2px rgba(102,0,204,0.80);
+    border-width: 0 2px 2px 0;
+    z-index: 60;
 }
 
 #lftCategorias > a {
@@ -371,7 +384,7 @@ input[type=radio]:checked ~ label{
     visibility: visible;
 }
 
-#subSobremesa {
+.subMenu {
     vertical-align: bottom;
     background-color: white;
 /*    opacity: 1;*/
@@ -381,29 +394,31 @@ input[type=radio]:checked ~ label{
     position: absolute;
     height: 40vh;
 /*    width: 30vw;*/
-    left: 15vw;
+    left: 102%;
     top: 1vh;
     z-index: 99;
     display: flex;
     flex-direction: column;
     box-shadow: 1px 3px 12px 3px;
+/*    border-radius: 7px 7px;;*/
     
 }
-#subSobremesa:hover {
+
+.subMenu:hover {
     visibility: visible;
 }
 
 
 
 
-#subSobremesa > a {
+.subMenu > a {
     font-family: 'Lato', sans-serif;
     margin: 0px 0 5px 0;
     width: 12vw;
     padding-left: 10px;
 }
 
-#subSobremesa > a:hover {
+.subMenu > a:hover {
     color: rgba(102,0,204,0.80);
     font-weight: 600;
     cursor: pointer;
@@ -413,7 +428,7 @@ input[type=radio]:checked ~ label{
 
 
 
-#subSobremesa > div {
+.subMenu > div {
     margin: 0 0 6px 0;
     padding: 0 0 0 4px;
 /*    background-color: aqua;*/
@@ -423,6 +438,9 @@ input[type=radio]:checked ~ label{
     display: block;
     height: 3vh;
     line-height: 3vh;
+    border: solid rgba(102,0,204,0.80);
+    border-width: 0 0 2px 0;
+    
 }
 
 /*------------------------------------------------------*/
@@ -503,9 +521,9 @@ input[type=radio]:checked ~ label{
     display: inline-block;
     vertical-align: top;
     background-color: white;
-    max-height: 100%;
-    width: 50%;
-    margin-left: 40px;
+    max-height: 45%;
+    max-width: 50%;
+    margin-left: 3%;
 /*    margin-right: 0;*/
 }
 
@@ -528,6 +546,145 @@ input[type=radio]:checked ~ label{
     margin-block-end: 0px;
 }
 
+#desCantidadesWrapper {
+
+    height: 7vh;
+    line-height: 7vh;
+    text-align: center;
+    border-bottom: solid #6600cc;
+}
+
+#desCantidad {
+    display: inline-block;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+}
+
+#dCant2 {
+    display:inline-block;
+    width: 60%;
+    
+    
+}
+
+#dCMas, #dCMenos {
+    display: inline-block;
+    width: 2vw;
+    height: 3.5vh;
+    text-align: center;
+    line-height: 3.5vh;
+    font-weight: 1000;
+    font-size: 25px;
+    border: solid transparent;
+    border-radius: 50%;
+    background-color: rgba(102,0,204,0.80);
+    color: #000;
+    position:relative;
+    top: 0.5vh;
+}
+
+#dCant2 > * {
+    font-family: 'Lato', sans-serif;
+}
+#dCant2 > a:hover {
+    cursor: pointer;
+}
+
+#dCcampo {
+    display: inline-block; 
+    width: 3vw; 
+    height: 100%; 
+    margin: 0 12px 0 10px;
+    line-height: 3vh; 
+    text-align-last: center
+}
+
+#dCShow {
+    display: inline-block;
+    width: 100%; 
+    height: 3vh;
+}
+
+#botonesCompras {
+    width: 100%;
+    height: 9vh;
+    position: relative;
+  
+}
+
+#botonesCompras > a {
+    display: inline-block;
+    width: 25%;
+/*    height: 20%;*/
+    max-height: 40%;
+    border: black inset;
+    white-space: pre-line;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+/*    line-height: 50%;*/
+/*    line-height: 12vh;*/
+    background-color: rgba(102,0,204,0.80);
+}
+
+#botonesCompras > a:hover {
+    cursor: pointer;
+}
+
+#botonesCompras a:first-child {
+    background-color: transparent;
+    border: solid rgba(102,0,204,1);
+}
+
+#prStockWrapper {
+    height: 60%;
+    max-width: 100%;
+    border-top: solid rgba(102,0,204,1);
+    padding: 10px 10px 10px 10px;
+}
+
+#prStockWrapper > * {
+    
+    display: inline-block;
+/*    height: 100vh;*/
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-weight: bold;
+}
+
+#prNdElement {
+    display: inline-block;
+/*    background-color: rgba(102,0,204,0.80);*/
+    padding: 10px 10px 10px 10px;
+    border: solid rgba(102,0,204,0.80);
+    border-radius: 10px;
+/*    height: 200vh;*/
+}
+#prNdElement:hover {
+    cursor: pointer;
+}
+
+#prStockEspecifico {
+    display: none;
+    max-width: 100%;
+    visibility: visible;
+    border: solid  rgba(102,0,204,0.80);
+    border-radius: 5px;
+    position: relative;
+
+}
+
+
+
+
+
 #detallesAdiccionalesWrapper {
     width: 70%;
     display: inline-block;
@@ -537,16 +694,18 @@ input[type=radio]:checked ~ label{
 }
 
 #detallesAdCategorias {
-    width: 30%;
-    background-color: green;
+    background-color: lightgray;
+    max-width: 100%;
+/*    background-color: green;*/
     height: 6vh;
 }
 
 #detallesAdCategorias > span{
     height: 100%;
     text-align: center;
-    border: solid thin #000;
+    border: solid thin #transparent;
     border-radius: 15px 15px 0 0;
+    box-shadow: 1px 0px 5px #000;
     line-height: 6vh;
     padding: 0 2% 0 2%;
     display: inline-block;
@@ -555,7 +714,120 @@ input[type=radio]:checked ~ label{
     font-weight: 600;
     background-color: #3399ff;
 }
+#detallesAdCategorias > span:hover{
+    cursor: pointer;
+    
+}
+
 #detallesAdContent  > p{
+    
+/*    margin-left: 200px;*/
     margin-block-start: 0px;
     margin-block-end: 0px;
+}
+
+.review {
+    display: block;
+    height: 12vh;
+    width: 100%;
+    border: solid rgba(102,0,204);
+    border-width: 3px 0 3px 0;
+    padding: 15px
+}
+.review > p {
+    display: block;
+    
+}
+
+#infoEnvio {
+    border: solid rgba(102,0,204, 1);
+    border-width: 3px 0 0 0;
+    display: block;
+    max-height: 100%;
+    padding: 20px;
+     
+/*    text-align: center;*/
+}
+
+#mainEnvio {
+    position: relative;
+    display: inline-block;
+/*    width: 40%;*/
+    width: 35%;
+    height: 100%;
+    
+}
+
+#mainEnvio > img{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#restoEnvios {
+    display: inline-block;
+    position: relative;
+    height: 10%;
+    width: 50%;
+    list-style: none;  
+    padding-left: 10%;
+}
+
+#restoEnvios > ul {
+    
+    display: block;
+    height: 60%;
+}
+
+#restoEnvios > h1 {
+    margin-block-start: 0px;
+
+    display: block;
+    font-size: 14px;
+    position: relative;
+    
+}
+
+#restoEnvios > ul > li{
+    display: inline-block;
+    position: relative;
+    max-width: 25%;
+    padding: 2px;
+    
+}
+
+#restoEnvios > ul > li > img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#sugerencias {
+    display: inline-block;
+    max-width: 20%;
+    vertical-align: top;
+    margin-top: 6vh;
+    padding-left: 5%;
+}
+#sugerencias > ul {
+    background-color: white;
+    border: solid rgba(102,0,204);
+}
+#sugerencias > ul > li:hover {
+/*    box-shadow: 2px 2px 6px rgba(102,0,204);*/
+    border: solid rgba(102,0,204);
+/*    border-radius: 6px;*/
+    cursor: pointer;
+}
+
+#sugerencias h1 {
+    text-align: center;
+    border-bottom: solid rgba(102,0,204);
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    background-color: rgba(102,0,204, 0.8);
+    border-radius: 12px 12px 0 0;
+}
+
+#sugerencias img {
+    max-width: 100%;
+    max-height: 100%;
 }
