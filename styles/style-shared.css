@@ -157,10 +157,12 @@ nav {
     border-color: #3399ff;
     /*padding: 2% 1% 1% 1%;*/
     z-index: 50;
-    transition: background-color 20s ease-out, padding 20s ease-out;
+}
+#contenidoMain.transition{
+    transition: background-color 20s ease-out, padding 20s ease-out;   
 }
 
-#contenidoMain:hover {
+#contenidoMain.transition:hover {
     background-color: #2e2e1f;
     padding: 100px 0 100px 0;
 }
