@@ -171,20 +171,20 @@
                     <div id="category">Discos Duros</div>
                     <div class="productRow">
                         <div class="product">
-                            <a href="producto.php"><img src="..//img/externos/1.jpg"></a>
+                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/1.jpg"></a>
                             <p class="proTitulo">Lacie sr-200</p>
                             <p class="proDescripcion">2 TB de almacenamiento, 5200RPM</p>
                             <p class="proPrecio">159.99€</p>
                         </div>
                         <div class="product">
-                            <a href="producto.php"><img src="..//img/externos/2.jpg"></a>
+                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/2.jpg"></a>
                             <p class="proTitulo">Samsung GG-2</p>
                             <p class="proDescripcion">4TB Almacenamiento a 5200RPM</p>
                             <p class="proPrecio">259.99€</p>
                         </div>
                         
                         <div class="product">
-                            <a href="producto.php"><img src="..//img/externos/3.jpg"></a>
+                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/3.jpg"></a>
                             <p class="proTitulo">LG-Predator</p>
                             <p class="proDescripcion">250 GB de almacenamiento ultra rápido para todo lo que necesites</p>
                             <p class="proPrecio">38.99€</p>
@@ -192,19 +192,19 @@
                     </div>
                     <div class="productRow">
                         <div class="product">
-                            <a href="producto.php"><img src="..//img/externos/4.jpg"></a>
+                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/4.jpg"></a>
                             <p class="proTitulo">WD-Sauvage88</p>
                             <p class="proDescripcion">3TB ultrarápido</p>
                             <p class="proPrecio">200€</p>
                         </div>
                         <div class="product">
-                            <a href="producto.php"><img src="..//img/externos/5.jpg"></a>
+                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/5.jpg"></a>
                             <p class="proTitulo">Maxtor 116</p>
                             <p class="proDescripcion">500GB versátil y ágil</p>
                             <p class="proPrecio">459.99€</p>
                         </div>
                         <div class="product">
-                            <a href="producto.php"><img src="..//img/externos/6.jpg"></a>
+                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/6.jpg"></a>
                             <p class="proTitulo">ADATA HardSkin v2</p>
                             <p class="proDescripcion">1 TB Robusto y versátil </p>
                             <p class="proPrecio">38.99€</p>
