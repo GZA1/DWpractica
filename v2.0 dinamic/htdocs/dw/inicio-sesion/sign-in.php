@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../styles/style-shared.css">
         <link rel="stylesheet" href="../styles/style-inicio-sesion.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <title>Página principal</title>
     </head>
     <body>
@@ -18,22 +19,21 @@
                 </a>
             </div>
             <div id="contenedor-form">
-                <h1 style="margin-top: 40px;">Iniciar sesión</h1>
-                <label id="lEmail">Dirección de e-mail</label>
-                <input type="email" id="cEmail">
-                <label id="lPass">Contraseña</label>
-                <input type="password" id="cPass"><br><br>
-                <input id="boton-inic-ses" type="submit" value="Iniciar sesión">
-                <div class="flex_rows">
-                    <input id="recuerdame-checkbox" type="checkbox">
-                    <label>Recuérdame.</label><br><br>
-                </div>
-                <div  class="no-cuenta" >
-                    <a style="cursor: pointer;" href="sign-up.php">¿No tienes cuenta todavía?</a>
-                </div>
-                <div id="crear-nueva-cuenta">
-                </div>
-                
+                <form method="post">
+                    <h1 style="margin-top: 40px;">Iniciar sesión</h1>
+                    <label id="lId">Nombre de usuario o mail</label>
+                    <input type="text" id="id" name="id">
+                    <label id="lPass">Contraseña</label>
+                    <input type="password" id="cPass"><br><br>
+                    <input id="boton-inic-ses" type="submit" value="Iniciar sesión">
+                    <div class="flex_rows">
+                        <input id="recuerdame-checkbox" type="checkbox">
+                        <label>Recuérdame.</label><br><br>
+                    </div>
+                    <div  class="no-cuenta" >
+                        <a style="cursor: pointer;" href="sign-up.php">¿No tienes cuenta todavía?</a>
+                    </div>
+                </form>
             </div>
             <script>
                     
