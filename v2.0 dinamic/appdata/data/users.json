@@ -1,1 +1,3 @@
-[{"id":"00000000374b4d16000000003520a035","username":"err","passwd":"0ddb5877c896f43e8734e10b001e7f1eb92889cd","nombre":"Ejemplo","apell":"Rodriguez Rodriguez","email":"err@hotmail.es"}]
+{
+    "000000004081d42000000000157ddbbb": "{\"id\":\"000000004081d42000000000157ddbbb\",\"username\":\"vitores\",\"passwd\":\"7110eda4d09e062aa5e4a390b0a572ac0d2c0220\",\"nombre\":\"Miguel\",\"apell\":\"V\\u00edtores Vicente\",\"email\":\"vitores@algo.com\"}"
+}

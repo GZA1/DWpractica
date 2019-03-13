@@ -19,17 +19,12 @@ class Usuario{
         $users = [];
         if( !is_dir(dirname(Usuario::$usersPath)) )
             mkdir(dirname(Usuario::$usersPath), 0755);
-        if( !is_file(Usuario::$usersPath) || empty(Usuario::getAllUsers()) ){
-            console_log("Estaba vacío");
-            $users[$this->id] = $this->toJson();
-            console_log($users);
-            file_put_contents( Usuario::$usersPath, $users );
-        }else if( !$this->isUser() ){
+        if( !$this->isUser() ){
             console_log("Add user");
-            $users = Usuario::getAllUsers();
+            console_log($this);
             $users[$this->id] = $this->toJson();
             console_log($users);
-            file_put_contents( Usuario::$usersPath, $users );
+            file_put_contents( Usuario::$usersPath, json_encode($users, JSON_PRETTY_PRINT) );
         }else{
             return false;
         }
@@ -39,31 +34,38 @@ class Usuario{
     public static function getAllUsers(){
         $users = [];
         $data = json_decode(file_get_contents((Usuario::$usersPath), true));
+        console_log('Data: ');
         console_log($data); //El array de datos de todos los usuarios
-        foreach($data as &$d) {
+        foreach($data as &$d ) {
             console_log("d: ");
             console_log($d); //Cada objeto Usuario
             $users[$d->id] = $d;
         }
-        console_log("Res ");
+        console_log('Users: ');
         console_log($users);
         return $users;
     }
 
     private function isUser(){
+        console_log('IsUser: ');
         $users = Usuario::getAllUsers();
+        console_log($users);
+        console_log($users[$this->username]);
         console_log($users[$this->id]);
-        return $users[$this->id];
+        if( isset( $users[$this->username] ) && isset( $users[$this->id] ) )
+            return true;
+        else
+            return false;
     }
 
     public function toJson(){
         return json_encode([
-           'id' => $this->id,
-           'username' => $this->username,
-           'passwd' => $this->passwd,
-           'nombre' => $this->nombre,
-           'apell' => $this->apell,
-           'email' => $this->email
+           "id" => $this->id,
+           "username" => $this->username,
+           "passwd" => $this->passwd,
+           "nombre" => $this->nombre,
+           "apell" => $this->apell,
+           "email" => $this->email
         ]);
     }
 
