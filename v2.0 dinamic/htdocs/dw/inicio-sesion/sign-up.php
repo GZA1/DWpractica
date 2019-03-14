@@ -61,8 +61,6 @@
                             inputMessage = ["nombre", "apellidos", "email", "id", "passwd", "passwd2"],
                             textId = ["#lNombre", "#lApell", "#lEmail", "#lId", "#lPasswd", "#lPasswd2"];
 
-                        //console.log(inputVal);
-
                         for(var i=0;i<inputVal.length;i++){
                             inputVal[i] = $.trim(inputVal[i]);
                             console.log(inputVal[i]);
@@ -170,8 +168,9 @@
             ->setApell($_POST['apell'])
             ->setEmail($_POST['email'])
         ;
+        $u->encryptPasswd();
         if( $u->add() ) {
-            //header('Location: ../main/index.php');
+            header('Location: sign-in.php?usrreg=1');
             exit;
         }
         else {

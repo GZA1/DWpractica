@@ -1,3 +1,10 @@
+<?php
+    require_once('/xampp/appdata/model/Usuario.php');
+    require_once('/xampp/appdata/model/Console.php');
+
+
+    if( $_SERVER['REQUEST_METHOD']=='GET') {
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,9 +29,9 @@
                 <form method="post">
                     <h1 style="margin-top: 40px;">Iniciar sesión</h1>
                     <label id="lId">Nombre de usuario o mail</label>
-                    <input type="text" id="id" name="id">
+                    <input type="text" id="id" name="id" name="id">
                     <label id="lPass">Contraseña</label>
-                    <input type="password" id="cPass"><br><br>
+                    <input type="password" id="passwd" name="passwd"><br><br>
                     <input id="boton-inic-ses" type="submit" value="Iniciar sesión">
                     <div class="flex_rows">
                         <input id="recuerdame-checkbox" type="checkbox">
@@ -36,52 +43,42 @@
                 </form>
             </div>
             <script>
-                    
-                (function($) { 
-                    $('#miFormulario').submit(function() { 
-                        var email = $("#cEmail").val(),
-                            contraseña = $("#cPass").val();
-                            
+                 (function($) {
+                    $('#miFormulario').submit(function() {
+                        $("#error").remove();
+                        var nombre = $("#id").val(),
+                            passwd = $("#passwd").val();
 
-                        var inputVal = [nombre, email, contraseña, contraseña2],
-                            inputMessage = ["email", "contraseña"],
-                            textId = ["#lEmail", "#lPass"];
-
+                        var inputVal = [id, passwd],
+                            inputMessage = ["id", "passwd"],
+                            textId = ["#lId", "#lPasswd"];
 
                         for(var i=0;i<inputVal.length;i++){
-                            
                             inputVal[i] = $.trim(inputVal[i]);
-
+                            console.log(inputVal[i]);
                             if ( inputVal[i] == null || inputVal[i] === "") {
+                                console.log(inputVal[i] + ' incorrecto');
                                 invalidEntry(i);
                                 return false;
                             }
-                            
-                            if(inputMessage[i]== "email"){
-                                if(!isEmail(inputVal)){
-                                    invalidEntry(i);
-                                    return false;
-                                }
-                            }
-                            
-                            console.log("good!");
-                        };
-                        
-                        
+                        }
+                        return true;
                         
                         function invalidEntry(i) {
-                            
-                            $("#error").remove();
+                            console.log(textId[i] + ' incorrecto');
                             $(textId[i]).after("<p id='error' style='font-size: 14px; color: red' > El campo " + inputMessage[i] + " no es válido.</p>");
                         }
-                        
                         function isEmail(email) {
-                          var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                          return regex.test(email);
+                            console.log(email);
+                            var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                            return regex.test(email);
                         }
-                        
-                        return this.some_variable 
                     });
+
+                    $("input[type='text']").change(function() {
+                        $("#error").remove();
+                    });
+
                 })(jQuery);
  
             </script>
@@ -133,4 +130,36 @@
             </div>
         </footer>
     </body>
+    <?php
+        if( isset($_GET['usrreg']) ){
+            if($_GET['usrreg']==1){
+    ?>
+    <script>
+        $('head').before('<div id="usrreg" style="width: 100%; height: 20px; color: #1fc1bc;">Registrado con éxito, proceda a loguearse</div>');
+        setTimeout(function(){ 
+            $('#usrreg').fadeOut('fast');
+            }, 4000
+            );
+    </script>
+    <?php
+            }
+        }
+    ?>
 </html>
+<?php
+}
+    else if( $_SERVER['REQUEST_METHOD']=='POST') {
+        $u = new Usuario();
+        $u  ->setUsername($_POST['id'])
+            ->setPasswd($_POST['passwd'])
+        ;
+        $u->encryptPasswd();
+        if( $u->login() ) {
+            header('Location: ../main/index.php?usrlog=1');
+            exit;
+        }
+        else {
+            echo "Error: Falló la operación";
+        }
+    }
+?>

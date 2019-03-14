@@ -192,4 +192,19 @@
             </div>
         </footer>
     </body>
+    <?php
+        if( isset($_GET['usrlog']) ){
+            if($_GET['usrlog']==1){
+    ?>
+    <script>
+        $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #218422;">Logueado con éxito</div>');
+        setTimeout(function(){ 
+            $('#usrlog').fadeOut('fast');
+            }, 4000
+            );
+    </script>
+    <?php
+            }
+        }
+    ?>
 </html>

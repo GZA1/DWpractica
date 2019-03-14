@@ -19,11 +19,9 @@ class Usuario{
         $users = [];
         if( !is_dir(dirname(Usuario::$usersPath)) )
             mkdir(dirname(Usuario::$usersPath), 0755);
-        if( !$this->isUser() ){
-            console_log("Add user");
-            console_log($this);
+        if( !$this->getUser() || !$this->getUserByMail() ){
+            $users = Usuario::getAllUsers();
             $users[$this->id] = $this->toJson();
-            console_log($users);
             file_put_contents( Usuario::$usersPath, json_encode($users, JSON_PRETTY_PRINT) );
         }else{
             return false;
@@ -32,30 +30,59 @@ class Usuario{
     }
     
     public static function getAllUsers(){
-        $users = [];
-        $data = json_decode(file_get_contents((Usuario::$usersPath), true));
-        console_log('Data: ');
-        console_log($data); //El array de datos de todos los usuarios
-        foreach($data as &$d ) {
-            console_log("d: ");
-            console_log($d); //Cada objeto Usuario
-            $users[$d->id] = $d;
-        }
-        console_log('Users: ');
-        console_log($users);
-        return $users;
+        return (array)json_decode(file_get_contents((Usuario::$usersPath), true));
     }
 
-    private function isUser(){
-        console_log('IsUser: ');
+    public function login(){
+        console_log("login");
+        console_log($this->username);
+        console_log($this->passwd);
+        $u = $this->getUser();
+        if( $u !== null && $u->passwd == $this->passwd ){
+            return true;
+        }else{
+            $this->setEmail($this->username);
+            console_log("Email");
+            console_log($this->email);
+            console_log($u);
+            $u = $this->getUserByMail();
+            console_log($u);
+            if( $u !== null && $u->passwd == $this->passwd ){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function getUser(){
+        console_log('getUser: ');
         $users = Usuario::getAllUsers();
         console_log($users);
-        console_log($users[$this->username]);
-        console_log($users[$this->id]);
-        if( isset( $users[$this->username] ) && isset( $users[$this->id] ) )
-            return true;
-        else
-            return false;
+        foreach($users as &$u){
+            $u = Usuario::fromJson($u);
+            console_log('u: ');
+            console_log($u);
+            if( $u->username == $this->username ){
+                return $u;
+            }
+        }
+        return null;
+    }
+
+    public function getUserByMail(){
+        console_log('getUserByMail: ');
+        $users = Usuario::getAllUsers();
+        console_log($users);
+        foreach($users as &$u){
+            $u = Usuario::fromJson($u);
+            console_log('u: ');
+            console_log($u);
+            if( $u->email == $this->email ){
+                return $u;
+            }
+        }
+        return null;
     }
 
     public function toJson(){
@@ -67,6 +94,21 @@ class Usuario{
            "apell" => $this->apell,
            "email" => $this->email
         ]);
+    }
+
+    public static function fromJson($json){
+        $array = json_decode($json, true);
+        $obj = new Usuario();
+        $obj->setId($array['id'])
+            ->setUsername($array['username'])
+            ->setPasswd($array['passwd'])
+            ->setNombre($array['nombre'])
+            ->setApell($array['apell'])
+            ->setEmail($array['email'])
+        ;
+        console_log($obj);
+        console_log($array);
+        return $obj;
     }
 
     
@@ -119,7 +161,7 @@ class Usuario{
      */ 
     public function setPasswd($passwd)
     {
-        $this->passwd = sha1($passwd); //Hasheamos la contraseña del usuario
+        $this->passwd = $passwd;
 
         return $this;
     }
@@ -180,6 +222,13 @@ class Usuario{
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function encryptPasswd()
+    {
+        $this->passwd = sha1($this->passwd); //Hasheamos la contraseña del usuario
 
         return $this;
     }
