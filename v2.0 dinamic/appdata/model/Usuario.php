@@ -3,35 +3,22 @@
 require_once("Console.php");
 
 class Usuario{
-    public static $usersPath = '/xampp/appdata/data/users.json';
-    private $id;
-    private $username;
-    private $passwd;
-    private $nombre;
-    private $apell;
-    private $email;
+    protected $id;
+    protected $username;
+    protected $passwd;
+    protected $nombre;
+    protected $apell;
+    protected $email;
+    protected $path;
 
     public function __construct(){
         $this->id = spl_object_hash($this);
     }
 
-    public function add(){
-        $users = [];
-        if( !is_dir(dirname(Usuario::$usersPath)) )
-            mkdir(dirname(Usuario::$usersPath), 0755);
-        if( !$this->getUser() || !$this->getUserByMail() ){
-            $users = Usuario::getAllUsers();
-            $users[$this->id] = $this->toJson();
-            file_put_contents( Usuario::$usersPath, json_encode($users, JSON_PRETTY_PRINT) );
-        }else{
-            return false;
-        }
-        return true;
+    public function __construct1($id, $username, $passwd, $nombre, $apell, $email){
+        $this->id = spl_object_hash($this);
     }
-    
-    public static function getAllUsers(){
-        return (array)json_decode(file_get_contents((Usuario::$usersPath), true));
-    }
+
 
     public function login(){
         console_log("login");
@@ -57,10 +44,10 @@ class Usuario{
 
     public function getUser(){
         console_log('getUser: ');
-        $users = Usuario::getAllUsers();
+        $users = $this->getAllUsers();
         console_log($users);
         foreach($users as &$u){
-            $u = Usuario::fromJson($u);
+            $u = $this->fromJson($u);
             console_log('u: ');
             console_log($u);
             if( $u->username == $this->username ){
@@ -72,10 +59,10 @@ class Usuario{
 
     public function getUserByMail(){
         console_log('getUserByMail: ');
-        $users = Usuario::getAllUsers();
+        $users = $this->getAllUsers();
         console_log($users);
         foreach($users as &$u){
-            $u = Usuario::fromJson($u);
+            $u = $this->fromJson($u);
             console_log('u: ');
             console_log($u);
             if( $u->email == $this->email ){
@@ -84,33 +71,6 @@ class Usuario{
         }
         return null;
     }
-
-    public function toJson(){
-        return json_encode([
-           "id" => $this->id,
-           "username" => $this->username,
-           "passwd" => $this->passwd,
-           "nombre" => $this->nombre,
-           "apell" => $this->apell,
-           "email" => $this->email
-        ]);
-    }
-
-    public static function fromJson($json){
-        $array = json_decode($json, true);
-        $obj = new Usuario();
-        $obj->setId($array['id'])
-            ->setUsername($array['username'])
-            ->setPasswd($array['passwd'])
-            ->setNombre($array['nombre'])
-            ->setApell($array['apell'])
-            ->setEmail($array['email'])
-        ;
-        console_log($obj);
-        console_log($array);
-        return $obj;
-    }
-
     
     
 

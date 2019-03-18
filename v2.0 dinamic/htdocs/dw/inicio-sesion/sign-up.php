@@ -1,5 +1,7 @@
 <?php
     require_once('/xampp/appdata/model/Usuario.php');
+    require_once('/xampp/appdata/model/Cliente.php');
+
     require_once('/xampp/appdata/model/Console.php');
 
 
@@ -33,8 +35,10 @@
                     <input type="text" id="nombre" name="nombre">
                     <label id="lApell">Apellidos</label>
                     <input type="text" id="apell" name="apell">
-                    <label id="lEmail">Dirección de e-mail</label>
+                    <label id="lEmail">Correo electrónico</label>
                     <input type="text" id="email" name="email">
+                    <label id="lDir">Dirección</label>
+                    <input type="text" id="dir" name="dir">
                     <label id="lId">Nombre de usuario</label>
                     <input type="text" id="id" name="id">
                     <label id="lPasswd">Contraseña</label>
@@ -53,13 +57,14 @@
                         var nombre = $("#nombre").val(), 
                             apell = $("#apell").val(),
                             email = $("#email").val(),
+                            dir = $("#dir").val(),
                             id = $("#id").val(),
                             passwd = $("#passwd").val(),
                             passwd2 = $("#passwd2").val();
 
-                        var inputVal = [nombre, apell, email, id, passwd, passwd2],
-                            inputMessage = ["nombre", "apellidos", "email", "id", "passwd", "passwd2"],
-                            textId = ["#lNombre", "#lApell", "#lEmail", "#lId", "#lPasswd", "#lPasswd2"];
+                        var inputVal = [nombre, apell, email, dir, id, passwd, passwd2],
+                            inputMessage = ["nombre", "apellidos", "email", "dir", "id", "passwd", "passwd2"],
+                            textId = ["#lNombre", "#lApell", "#lEmail", "lDir", "#lId", "#lPasswd", "#lPasswd2"];
 
                         for(var i=0;i<inputVal.length;i++){
                             inputVal[i] = $.trim(inputVal[i]);
@@ -161,13 +166,17 @@
 <?php
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $u = new Usuario();
+        $u = new Cliente();
+        console_log($_POST);
         $u  ->setUsername($_POST['id'])
             ->setPasswd($_POST['passwd'])
             ->setNombre($_POST['nombre'])
             ->setApell($_POST['apell'])
             ->setEmail($_POST['email'])
+            ->setDireccion($_POST['dir'])
         ;
+        console_log("Cliente nuevo");
+        console_log($u);
         $u->encryptPasswd();
         if( $u->add() ) {
             header('Location: sign-in.php?usrreg=1');
