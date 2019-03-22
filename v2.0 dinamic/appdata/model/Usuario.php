@@ -1,21 +1,23 @@
 <?php
 
 require_once("Console.php");
+require_once("Cliente.php");
 
 class Usuario{
+    public static $UsersPath = '/xampp/appdata/data/users.json';
     protected $id;
     protected $username;
     protected $passwd;
     protected $nombre;
     protected $apell;
     protected $email;
-    protected $path;
+    protected $tipo;
 
     public function __construct(){
         $this->id = spl_object_hash($this);
     }
 
-    public function __construct1($id, $username, $passwd, $nombre, $apell, $email){
+    public function __construct1($id, $username, $passwd, $nombre, $apell, $email, $tipo){
         $this->id = spl_object_hash($this);
     }
 
@@ -70,6 +72,31 @@ class Usuario{
             }
         }
         return null;
+    }
+
+    public function getAllUsers(){
+        return (array)json_decode(file_get_contents((Usuario::$UsersPath), true));
+    }
+
+    public function toJson(){
+        return json_encode([
+            "username" => $this->username,
+            "passwd" => $this->passwd,
+            "email" => $this->email
+         ]);
+    }
+
+    public static function fromJson($json){
+        $array = json_decode($json, true);
+        $obj = new Usuario();
+        $obj->setId(key($array))
+            ->setUsername($array['username'])
+            ->setPasswd($array['passwd'])
+            ->setEmail($array['email'])
+        ;
+        console_log($obj);
+        console_log($array);
+        return $obj;
     }
     
     
@@ -193,13 +220,24 @@ class Usuario{
         return $this;
     }
 
+    /**
+     * Get the value of tipo
+     */ 
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
 
+    /**
+     * Set the value of tipo
+     *
+     * @return  self
+     */ 
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
 
-
-
-
-
-
-    
+        return $this;
+    }
 }
 ?>

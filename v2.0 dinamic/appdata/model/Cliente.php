@@ -3,8 +3,7 @@
     require_once("Console.php");
 
     class Cliente extends Usuario {
-        public static $clientesPath = '/xampp/appdata/data/clientes.json';
-        private $direccion;
+        private $domicilio;
         private $monedero;
         private $cesta;
         private $pedidos;
@@ -12,18 +11,18 @@
         public function __construct()
         {
             parent::__construct();
-            $this->path = Cliente::$clientesPath;
+            $this->tipo = "cliente";
         }
 
 
         public function add(){
             $users = [];
-            if( !is_dir(dirname($this->path)) )
-                mkdir(dirname($this->path), 0755);
+            if( !is_dir(dirname(Usuario::$UsersPath)) )
+                mkdir(dirname(Usuario::$UsersPath), 0755);
             if( !$this->getUser() || !$this->getUserByMail() ){
                 $users = $this->getAllUsers();
                 $users[$this->id] = $this->toJson();
-                file_put_contents( $this->path, json_encode($users, JSON_PRETTY_PRINT) );
+                file_put_contents( Usuario::$UsersPath, json_encode($users, JSON_PRETTY_PRINT) );
             }else{
                 return false;
             }
@@ -31,31 +30,30 @@
         }
 
         public function getAllUsers(){
-            return (array)json_decode(file_get_contents(($this->path), true));
+            return (array)json_decode(file_get_contents((Usuario::$UsersPath), true));
         }
 
         public function toJson(){
             return json_encode([
-                "id" => $this->id,
                 "username" => $this->username,
                 "passwd" => $this->passwd,
                 "nombre" => $this->nombre,
                 "apell" => $this->apell,
                 "email" => $this->email,
-                "direccion" => $this->direccion
+                "domicilio" => $this->domicilio
              ]);
         }
 
         public static function fromJson($json){
             $array = json_decode($json, true);
             $obj = new Cliente();
-            $obj->setId($array['id'])
+            $obj->setId(key($array))
                 ->setUsername($array['username'])
                 ->setPasswd($array['passwd'])
                 ->setNombre($array['nombre'])
                 ->setApell($array['apell'])
                 ->setEmail($array['email'])
-                ->setDireccion($array['direccion'])
+                ->setdomicilio($array['domicilio'])
             ;
             console_log($obj);
             console_log($array);
@@ -65,21 +63,21 @@
         
         
         /**
-         * Get the value of direccion
+         * Get the value of domicilio
          */ 
-        public function getDireccion()
+        public function getDomicilio()
         {
-            return $this->direccion;
+            return $this->domicilio;
         }
     
         /**
-         * Set the value of direccion
+         * Set the value of domicilio
          *
          * @return  self
          */ 
-        public function setDireccion($direccion)
+        public function setDomicilio($domicilio)
         {
-            $this->direccion = $direccion;
+            $this->domicilio = $domicilio;
     
             return $this;
         }

@@ -1,6 +1,5 @@
 <?php
     require_once('/xampp/appdata/model/Usuario.php');
-    require_once('/xampp/appdata/model/Cliente.php');
     require_once('/xampp/appdata/model/Console.php');
 
 
@@ -29,15 +28,11 @@
             <div id="contenedor-form">
                 <form method="post">
                     <h1 style="margin-top: 40px;">Iniciar sesión</h1>
-                    <label id="lId">Nombre de usuario o mail</label>
-                    <input type="text" id="id" name="id" name="id">
+                    <label id="lUser">Nombre de usuario o mail</label>
+                    <input type="text" id="username" name="username" name="username">
                     <label id="lPass">Contraseña</label>
                     <input type="password" id="passwd" name="passwd"><br><br>
                     <input id="boton-inic-ses" type="submit" value="Iniciar sesión">
-                    <div class="flex_rows">
-                        <input id="recuerdame-checkbox" type="checkbox">
-                        <label>Recuérdame.</label><br><br>
-                    </div>
                     <div  class="no-cuenta" >
                         <a style="cursor: pointer;" href="sign-up.php">¿No tienes cuenta todavía?</a>
                     </div>
@@ -47,12 +42,12 @@
                  (function($) {
                     $('#miFormulario').submit(function() {
                         $("#error").remove();
-                        var nombre = $("#id").val(),
+                        var nombre = $("#username").val(),
                             passwd = $("#passwd").val();
 
-                        var inputVal = [id, passwd],
-                            inputMessage = ["id", "passwd"],
-                            textId = ["#lId", "#lPasswd"];
+                        var inputVal = [username, passwd],
+                            inputMessage = ["username", "passwd"],
+                            textId = ["#lUser", "#lPasswd"];
 
                         for(var i=0;i<inputVal.length;i++){
                             inputVal[i] = $.trim(inputVal[i]);
@@ -136,7 +131,7 @@
             if($_GET['usrreg']==1){
     ?>
     <script>
-        $('head').before('<div id="usrreg" style="width: 100%; padding: 10px 10px; margin: 0; color: #000080; background-color: #e0e0d2;">Registrado con éxito, proceda a loguearse</div>');
+        $('head').before('<div id="usrreg" style="width: 100%; height: 20px; color: #0073e6; background-color: #e0e0d2;padding: 10px;">Registrado con éxito, proceda a loguearse</div>');
         setTimeout(function(){ 
             $('#usrreg').fadeOut('fast');
             }, 4000
@@ -150,12 +145,15 @@
 <?php
 }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $u = new Cliente();
-        $u  ->setUsername($_POST['id'])
+        $u = new Usuario();
+        $u  ->setUsername($_POST['username'])
             ->setPasswd($_POST['passwd'])
         ;
         $u->encryptPasswd();
         if( $u->login() ) {
+            session_start();
+            $_SESSION['id'] = $u->getId();
+            $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
             header('Location: ../main/index.php?usrlog=1');
             exit;
         }

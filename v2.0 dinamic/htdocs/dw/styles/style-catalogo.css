@@ -665,7 +665,7 @@ input[type=radio]:checked ~ label{
 #detallesAdCategorias > span{
     height: 100%;
     text-align: center;
-    border: solid thin #transparent;
+    border: solid thin transparent;
     border-radius: 15px 15px 0 0;
     box-shadow: 1px 0px 5px #000;
     line-height: 6vh;

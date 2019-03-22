@@ -1,5 +1,7 @@
 #contenedor-inic {
     background-color: #e0e0d2;
+    height: 100vh;
+    min-height: 800px;
 }
 
 #logo-inic {
@@ -15,21 +17,23 @@
     margin: 0 30% 30px 30%;
 }
 
-#contenedor-form > input,div {
-    margin-bottom: 20px;
-}
-
 input {
-    width: 100%;
-    padding: 5px;
+    width: 95%;
+    padding: 5px 2.5% 5px 2.5%;
+    margin-bottom: 20px;
     border-radius: 6px;
     border: 1px solid #2e2e1f;
+}
+
+label {
+    padding: 0 2.5% 0 2.5%;
 }
 
 #boton-inic-ses {
     background-color: #3399ff;
     color: white;
     cursor: pointer;
+    width: 100%;
 }
 
 #boton-inic-ses:hover{
@@ -41,6 +45,7 @@ input {
     background-color: #400080;
     color: white;
     cursor: pointer;
+    margin-bottom: 0px;
 }
 
 #boton-nueva-cuenta:hover {
@@ -59,8 +64,5 @@ input {
     text-align: center;
     border-bottom: 2px solid #400080;
     padding-bottom: 20px;
-}
-
-#crear-nueva-cuenta {
-    border: 0.5px solid #400080;
+    margin-top: 20px;
 }

@@ -1,3 +1,9 @@
+<?php
+    require_once('/xampp/appdata/model/Console.php');
+
+    session_start();
+    console_log($_SESSION);
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,11 +37,31 @@
                         <input type="search" placeholder="Search">
                     </form>
                 </li>
-                <li>
-                    <a id="img_usuario" href="../inicio-sesion/sign-in.php"><img src="../img/user-icon.png" height="20px"></a>
+                <li style="width: 30px;">
+                    <a href="../inicio-sesion/sign-in.php">
+                        <div class="flex_rows dropdown">
+                            <div style="width=50%; margin-right=50%;">
+                                <img href="../inicio-sesion/sign-in.php" src="../img/user-icon.png" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                    </a>
                 </li>
                 <li>
-                    <a id="img_carrito" href="../cesta_compra/xxxx-cesta.php"><img src="../img/shopping-trolley.png" height="20px"></a>
+                    <a id="img_carrito" href="../cesta_compra/xxxx-cesta.php">
+                        <div class="flex_rows dropdown">
+                            <div style="width=50%; margin-right=50%;">
+                                <img src="../img/shopping-trolley.png" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -197,7 +223,7 @@
             if($_GET['usrlog']==1){
     ?>
     <script>
-        $('head').before('<div id="usrlog" style="width: 100%; padding: 10px 10px; color: #45ff11; background-color: #1e1e15;">Logueado con éxito</div>');
+        $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Logueado con éxito</div>');
         setTimeout(function(){ 
             $('#usrlog').fadeOut('fast');
             }, 4000
