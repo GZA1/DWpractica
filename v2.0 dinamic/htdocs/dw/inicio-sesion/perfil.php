@@ -93,11 +93,11 @@
                 </ul>
             </div>
             <div id="rightSect">
+                <h2 style="margin: 20px 0 12px 10px;">Cambiar contraseña</h1>
                 <div id="perfilConfig">
                     
                     
                         <form method="post" id="cambiarPass">
-                            <h2 style="margin-top: 20px;">Cambiar contraseña</h1>
                             
                             <label  id="lId">Introduzca su contraseña</label>
                             <input type="password" id="oldPasswd" name="oldPasswd">
