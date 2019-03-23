@@ -14,6 +14,7 @@
             $this->tipo = "cliente";
         }
 
+        /*Metodo add, no recibe parámetros*/
 
         public function add(){
             $users = [];
@@ -29,9 +30,12 @@
             return true;
         }
 
+
+
         public function getAllUsers(){
             return (array)json_decode(file_get_contents((Usuario::$UsersPath), true));
         }
+
 
         public function toJson(){
             return json_encode([
@@ -59,26 +63,26 @@
             console_log($array);
             return $obj;
         }
-        
-        
-        
+
+
+
         /**
          * Get the value of domicilio
-         */ 
+         */
         public function getDomicilio()
         {
             return $this->domicilio;
         }
-    
+
         /**
          * Set the value of domicilio
          *
          * @return  self
-         */ 
+         */
         public function setDomicilio($domicilio)
         {
             $this->domicilio = $domicilio;
-    
+
             return $this;
         }
 
