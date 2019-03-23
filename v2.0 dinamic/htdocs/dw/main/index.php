@@ -2,7 +2,6 @@
     require_once('/xampp/appdata/model/Console.php');
 
     session_start();
-    console_log($_SESSION);
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,23 +36,30 @@
                         <input type="search" placeholder="Search">
                     </form>
                 </li>
-                <li style="width: 30px;">
-                    <a href="../inicio-sesion/sign-in.php">
-                        <div class="flex_rows dropdown">
-                            <div style="width=50%; margin-right=50%;">
-                                <img href="../inicio-sesion/sign-in.php" src="../img/user-icon.png" height="20px">
+                <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                                <img href="../usuario/sign-in.php" src="../img/user-icon.png" height="20px">
                             </div>
                             <div class="flex_cols">
                                 <div style="height: 7px; visibility: hidden"></div>
                                 <div class="down-arrow"></div>
                             </div>
                         </div>
-                    </a>
+                        <div class="dropdown-contenido">
+                            <a href="../usuario/sign-in.php">Iniciar Sesión</a>
+                            <a href="../usuario/sign-up.php">Registrarse</a>
+                            <a href="../usuario/perfil-usuario.php">Perfil de Usuario</a>
+                            <a href="">Historial de Pedidos</a>
+                            <a href="../usuario/logout.php">Cerrar Sesión</a>
+                        </div>
+                    </div>
                 </li>
-                <li>
-                    <a id="img_carrito" href="../cesta_compra/xxxx-cesta.php">
-                        <div class="flex_rows dropdown">
-                            <div style="width=50%; margin-right=50%;">
+                <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
                                 <img src="../img/shopping-trolley.png" height="20px">
                             </div>
                             <div class="flex_cols">
@@ -61,7 +67,11 @@
                                 <div class="down-arrow"></div>
                             </div>
                         </div>
-                    </a>
+                        <div class="dropdown-contenido">
+                            <a href="">Cesta</a>
+                            <a href="">Ingresar Saldo</a>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </nav>
@@ -224,6 +234,16 @@
     ?>
     <script>
         $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Logueado con éxito</div>');
+        setTimeout(function(){ 
+            $('#usrlog').fadeOut('fast');
+            }, 4000
+            );
+    </script>
+    <?php
+            }else if($_GET['usrlog']==0){
+    ?>
+    <script>
+        $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #0073e6; background-color: #1e1e15; padding: 10px;">Sesión cerrada</div>');
         setTimeout(function(){ 
             $('#usrlog').fadeOut('fast');
             }, 4000
