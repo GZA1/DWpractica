@@ -68,7 +68,22 @@
                             </div>
                         </div>
                         <div class="dropdown-contenido">
-                            <a href="">Cesta</a>
+                            <a href="../cesta_compra/xxxx-cesta.php">Cesta</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                            <img src="../img/monedero-icon.png" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                        <div class="dropdown-contenido">
                             <a href="">Ingresar Saldo</a>
                         </div>
                     </div>

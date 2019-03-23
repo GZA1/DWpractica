@@ -338,6 +338,8 @@ ul {
 }
 
 .dropdown-contenido{
+    padding-top: 10px;
+    min-width: 100px;
     max-width: 140px;
     display: none;
     position: fixed;
@@ -347,7 +349,13 @@ ul {
 .dropdown-contenido a{
     display: block;
     text-decoration: none;
-    padding: 15px 15px;
+    padding: 20px 5px 20px 5px;
+    color: #1e1e15;
+    background-color: #e0e0d2;
+}
+
+.dropdown-contenido a:hover{
+    background-color: #d5d5c3;
 }
 
 .dropdown:hover .dropdown-contenido{
