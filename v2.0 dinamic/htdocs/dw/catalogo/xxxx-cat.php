@@ -10,9 +10,28 @@
     <link rel="stylesheet" href="../styles/style-shared.css">
     <link rel="stylesheet" href="../styles/style-catalogo.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <title>Catálogo</title>
-    
+    <script>
+      $("document").ready(function() {
+        $(function(){
+          $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 900,
+            values: [ 75, 300 ],
+            slide: function( event, ui ) {
+              $( "#sliderCantidad" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            }
+          });
+          $("#sliderCantidad").val("$" + $( "#slider-range" ).slider("values", 0) +
+          " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+        });
+      });
+    </script>
 </head>
 
 <body>
@@ -47,13 +66,13 @@
                 </li>
             </ul>
         </nav>
-    
-    
+
+
     <!--            Este contiene los divs laterales-->
     <div style="height: 10vh; min-height: 70px; visibility: hidden">
-    
-    
-    
+
+
+
     </div>
     <div id="flex_cols">
         <div class="flex_rows">
@@ -69,11 +88,20 @@
                         <span>&gt;</span>
                         <a>Discos duros</a>
                     </div>
+
                     <div class="filtroItem">
-                        <span>Rango de precio</span>
+                      <span>Rango de precio:</span>
+
+
+                      <p>
+                        <div id="slider-range"></div>
+                        <input type="text" id="sliderCantidad" readonly style="background-color: rgba(46,46,31,0.02); border:0; color: rgba(102,0,204,0.80); font-weight:bold;">
+                      </p>
+
+                      <!--
                         <div id="priceSlider">
                             <input type="range" min="0" max="900" value="900" class="slider" id="miSlider">
-                            <p>0 -<span id="valor"></span> $</p> 
+                            <p>0 -<span id="valor"></span> $</p>
                         </div>
                         <script>
                             var slider = document.getElementById("miSlider");
@@ -84,7 +112,7 @@
                             slider.oninput = function() {
                               output.innerHTML = this.value;
                             }
-                        </script>
+                        </script> -->
                     </div>
                     <div class="filtroItem">
                         <span>Capacidad</span>
@@ -97,9 +125,9 @@
                                 <input type="checkbox" id="b-opt">
                                 <label for="b-opt">2 TB</label>
                             </li>
-                            <li>                                
+                            <li>
                                 <input type="checkbox" id="c-opt">
-                                <label for="c-opt">1 TB</label>                            
+                                <label for="c-opt">1 TB</label>
                             </li>
                             <li>
                                 <input type="checkbox" id="d-opt">
@@ -110,11 +138,11 @@
                                 <label for="e-opt">250 GB</label>
                             </li>
                         </ul>
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
                     </div>
                     <div class="filtroItem">
                         <span>Marcas</span>
@@ -127,9 +155,9 @@
                                 <input type="checkbox" id="b-opt2">
                                 <label for="b-opt2">Samsung</label>
                             </li>
-                            <li>                                
+                            <li>
                                 <input type="checkbox" id="c-opt2">
-                                <label for="c-opt2">SanDisk</label>                            
+                                <label for="c-opt2">SanDisk</label>
                             </li>
                             <li>
                                 <input type="checkbox" id="d-opt2">
@@ -138,9 +166,9 @@
                             <li>
                                 <input type="checkbox" id="e-opt2">
                                 <label for="e-opt2">Toshiba</label>
-                                
+
                             </li>
-                        </ul>                                            
+                        </ul>
                     </div>
                     <div class="filtroItem">
                         <span>Velocidad de rotación</span>
@@ -159,7 +187,7 @@
                             </li>
                         </ul>
                     </div>
-                    
+
                 </div>
 
             </div>
@@ -171,20 +199,20 @@
                     <div id="category">Discos Duros</div>
                     <div class="productRow">
                         <div class="product">
-                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/1.jpg"></a>
+                            <a href="producto.php"><img src="../img/externos/1.jpg"></a>
                             <p class="proTitulo">Lacie sr-200</p>
                             <p class="proDescripcion">2 TB de almacenamiento, 5200RPM</p>
                             <p class="proPrecio">159.99€</p>
                         </div>
                         <div class="product">
-                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/2.jpg"></a>
+                            <a href="producto.php"><img src="../img/externos//2.jpg"></a>
                             <p class="proTitulo">Samsung GG-2</p>
                             <p class="proDescripcion">4TB Almacenamiento a 5200RPM</p>
                             <p class="proPrecio">259.99€</p>
                         </div>
-                        
+
                         <div class="product">
-                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/3.jpg"></a>
+                            <a href="producto.php"><img src="../img/externos/3.jpg"></a>
                             <p class="proTitulo">LG-Predator</p>
                             <p class="proDescripcion">250 GB de almacenamiento ultra rápido para todo lo que necesites</p>
                             <p class="proPrecio">38.99€</p>
@@ -192,19 +220,19 @@
                     </div>
                     <div class="productRow">
                         <div class="product">
-                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/4.jpg"></a>
+                            <a href="producto.php"><img src="../img/externos/4.jpg"></a>
                             <p class="proTitulo">WD-Sauvage88</p>
                             <p class="proDescripcion">3TB ultrarápido</p>
                             <p class="proPrecio">200€</p>
                         </div>
                         <div class="product">
-                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/5.jpg"></a>
+                            <a href="producto.php"><img src="../img/externos/5.jpg"></a>
                             <p class="proTitulo">Maxtor 116</p>
                             <p class="proDescripcion">500GB versátil y ágil</p>
                             <p class="proPrecio">459.99€</p>
                         </div>
                         <div class="product">
-                            <a href="producto.php"><img src="/xampp/htdocs//img/externos/6.jpg"></a>
+                            <a href="producto.php"><img src="../img/externos/6.jpg"></a>
                             <p class="proTitulo">ADATA HardSkin v2</p>
                             <p class="proDescripcion">1 TB Robusto y versátil </p>
                             <p class="proPrecio">38.99€</p>
@@ -297,7 +325,7 @@
                         </div>
                         <div class="content">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2982.3770409752533!2d-4.717704684502627!3d41.62598097924306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4712d844c78375%3A0x8532df1684bc7224!2sUniversidad+Europea+Miguel+de+Cervantes+-+UEMC!5e0!3m2!1ses!2ses!4v1547635284329" width="90%" height="80%" frameborder="0" style="border:0" allowfullscreen></iframe>
-                        </div>  
+                        </div>
                     </div>
                 </div>
                 <div id="footer_copyright">

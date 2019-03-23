@@ -14,7 +14,9 @@
             $this->tipo = "cliente";
         }
 
-        /*Metodo add, no recibe parámetros*/
+        /*Metodo add, no recibe parámetros,
+        comprueba si el usuario que se quiere añadir existe en la BD,si no
+        existe se añade y retorna true, si no retorna false*/
 
         public function add(){
             $users = [];

@@ -9,11 +9,83 @@
         <link rel="stylesheet" href="../styles/style-shared.css">
         <link rel="stylesheet" href="../styles/style-catalogo.css">
         <link rel="stylesheet" href="../styles/Carousel.css">
-        
+
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="Carousel.js"></script>
         <title>Encuéntranos</title>
+
+        <script type="text/javascript">
+            var slideIndex = 3;
+
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+              showSlides(slideIndex += n);
+            }
+
+            function currentSlide(n) {
+              showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+              var i;
+              var slides = document.getElementsByClassName("mySlides");
+
+
+              if (n > slides.length) {slideIndex = 3}
+
+                if (n < 1) {slideIndex = slides.length}
+
+              for (i = 0; i < slides.length; i++) {
+                  slides[i].style.display = "none";
+              }
+
+                if(slideIndex<3) {
+                    slides[slideIndex-1].style.display = "block";
+                    slides[slideIndex-2].style.display = "block";
+                    slides[slideIndex-3].style.display = "block";
+                }
+                slides[slideIndex-1].style.display = "block";
+                slides[slideIndex-2].style.display = "block";
+                slides[slideIndex-3].style.display = "block";
+            }
+
+
+            var slideIndex1 = 3;
+
+            showSlides1(slideIndex1);
+
+            function plusSlides1(n) {
+              showSlides1(slideIndex1 += n);
+            }
+
+
+
+            function showSlides1(n) {
+              var i;
+              var slides1 = document.getElementsByClassName("mySlides1");
+
+
+              if (n > slides1.length) {slideIndex1 = 3}
+
+                if (n < 1) {slideIndex1 = slides1.length}
+
+              for (i = 0; i < slides1.length; i++) {
+                  slides1[i].style.display = "none";
+              }
+
+                if(slideIndex<3) {
+                    slides1[slideIndex1-1].style.display = "block";
+                    slides1[slideIndex1-2].style.display = "block";
+                    slides1[slideIndex1-3].style.display = "block";
+                }
+                slides1[slideIndex1-1].style.display = "block";
+                slides1[slideIndex1-2].style.display = "block";
+                slides1[slideIndex1-3].style.display = "block";
+            }
+
+        </script>
     </head>
     <body>
         <nav>
@@ -51,7 +123,7 @@
                 <div id="sideLFTblank">
                     <div id="lftCategorias">
                         <div id="catTitulo">CATEGORIAS</div>
-                        <a>Ordenadores</a> 
+                        <a>Ordenadores</a>
                             <div class="subMenu" id="subOrdenadores">
                                 <div>Ordenadores</div>
                                 <a href="xxxx-cat.php">Ya construidos</a>
@@ -171,7 +243,7 @@
                                 </div>
                                 <div class="text">
                                     <h6>10% Descuento !</h6>
-                                    <h5>Maxtor 500GB - 12.99€</h5> 
+                                    <h5>Maxtor 500GB - 12.99€</h5>
                                 </div>
                             </div>
 
@@ -181,16 +253,16 @@
                                 </div>
                                 <div class="text">
                                     <h6>50% Descuento !</h6>
-                                    <h5>LG 1TB - 20.99€</h5>  
+                                    <h5>LG 1TB - 20.99€</h5>
                                 </div>
                             </div>
                             <div class="mySlides fade">
                                 <div class="imaagen">
                                     <img src="../img/externos/4.jpg">
-                                </div>        
-                                <div class="text">            
+                                </div>
+                                <div class="text">
                                     <h6>9% Descuento !</h6>
-                                    <h5>Samsung 4TB - 343.99€</h5> 
+                                    <h5>Samsung 4TB - 343.99€</h5>
                                 </div>
                             </div>
                             <div class="mySlides fade">
@@ -199,7 +271,7 @@
                                 </div>
                                 <div class="text">
                                     <h6>7% Descuento !</h6>
-                                    <h5>SeaGate 500GB - 11.99€</h5> 
+                                    <h5>SeaGate 500GB - 11.99€</h5>
                                 </div>
                             </div>
                             <div class="mySlides fade">
@@ -208,9 +280,9 @@
 
                                    <img src="../img/externos/6.jpg">
                                 </div>
-                                <div class="text">            
+                                <div class="text">
                                     <h6>10% Descuento !</h6>
-                                    <h5>Maxtor 3TB - 250.99€</h5> 
+                                    <h5>Maxtor 3TB - 250.99€</h5>
                                 </div>
                             </div>
 
@@ -221,9 +293,9 @@
                         </div>
                         <br>
                     </div>
-                    
-                    
-                    
+
+
+
                     <p >Ofertas Flash</p>
                     <div id="catCarousel">
                         <div class="slideshow-container flex_rows">
@@ -251,7 +323,7 @@
                                 </div>
                                 <div class="text">
                                     <h6>10% Descuento !</h6>
-                                    <h5>Maxtor 500GB - 12.99€</h5> 
+                                    <h5>Maxtor 500GB - 12.99€</h5>
                                 </div>
                             </div>
 
@@ -261,16 +333,16 @@
                                 </div>
                                 <div class="text">
                                     <h6>50% Descuento !</h6>
-                                    <h5>LG 1TB - 20.99€</h5>  
+                                    <h5>LG 1TB - 20.99€</h5>
                                 </div>
                             </div>
                             <div class="mySlides1 fade">
                                 <div class="imaagen">
                                     <img src="../img/ej5.jpg">
-                                </div>        
-                                <div class="text">            
+                                </div>
+                                <div class="text">
                                     <h6>9% Descuento !</h6>
-                                    <h5>Samsung 4TB - 343.99€</h5> 
+                                    <h5>Samsung 4TB - 343.99€</h5>
                                 </div>
                             </div>
                             <div class="mySlides1 fade">
@@ -279,7 +351,7 @@
                                 </div>
                                 <div class="text">
                                     <h6>7% Descuento !</h6>
-                                    <h5>SeaGate 500GB - 11.99€</h5> 
+                                    <h5>SeaGate 500GB - 11.99€</h5>
                                 </div>
                             </div>
                             <div class="mySlides1 fade">
@@ -288,9 +360,9 @@
 
                                    <img src="../img/ej7.jpg">
                                 </div>
-                                <div class="text">            
+                                <div class="text">
                                     <h6>10% Descuento !</h6>
-                                    <h5>Maxtor 3TB - 250.99€</h5> 
+                                    <h5>Maxtor 3TB - 250.99€</h5>
                                 </div>
                             </div>
 
@@ -329,77 +401,7 @@
                     </ul>
                 </aside>
             </div>
-            <script type="text/javascript">
-                var slideIndex = 3;
-    
-                showSlides(slideIndex);
 
-                function plusSlides(n) {
-                  showSlides(slideIndex += n);
-                }
-
-                function currentSlide(n) {
-                  showSlides(slideIndex = n);
-                }
-
-                function showSlides(n) {
-                  var i;
-                  var slides = document.getElementsByClassName("mySlides");
-                  
-
-                  if (n > slides.length) {slideIndex = 3}    
-
-                    if (n < 1) {slideIndex = slides.length}
-
-                  for (i = 0; i < slides.length; i++) {
-                      slides[i].style.display = "none";  
-                  }
-
-                    if(slideIndex<3) {
-                        slides[slideIndex-1].style.display = "block";  
-                        slides[slideIndex-2].style.display = "block"; 
-                        slides[slideIndex-3].style.display = "block";  
-                    }
-                    slides[slideIndex-1].style.display = "block";  
-                    slides[slideIndex-2].style.display = "block";  
-                    slides[slideIndex-3].style.display = "block";  
-                }
-                
-                
-                var slideIndex1 = 3;
-    
-                showSlides1(slideIndex1);
-
-                function plusSlides1(n) {
-                  showSlides1(slideIndex1 += n);
-                }
-
-                
-
-                function showSlides1(n) {
-                  var i;
-                  var slides1 = document.getElementsByClassName("mySlides1");
-                  
-
-                  if (n > slides1.length) {slideIndex1 = 3}    
-
-                    if (n < 1) {slideIndex1 = slides1.length}
-
-                  for (i = 0; i < slides1.length; i++) {
-                      slides1[i].style.display = "none";  
-                  }
-
-                    if(slideIndex<3) {
-                        slides1[slideIndex1-1].style.display = "block";  
-                        slides1[slideIndex1-2].style.display = "block"; 
-                        slides1[slideIndex1-3].style.display = "block";  
-                    }
-                    slides1[slideIndex1-1].style.display = "block";  
-                    slides1[slideIndex1-2].style.display = "block";  
-                    slides1[slideIndex1-3].style.display = "block";  
-                }
-        
-            </script>    
         </div>
     </body>
     <footer class="pageFoot">
@@ -438,7 +440,7 @@
                     </div>
                     <div class="content">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2982.3770409752533!2d-4.717704684502627!3d41.62598097924306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4712d844c78375%3A0x8532df1684bc7224!2sUniversidad+Europea+Miguel+de+Cervantes+-+UEMC!5e0!3m2!1ses!2ses!4v1547635284329" width="90%" height="80%" frameborder="0" style="border:0" allowfullscreen></iframe>
-                    </div>  
+                    </div>
                 </div>
             </div>
             <div id="footer_copyright">
