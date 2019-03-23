@@ -96,8 +96,8 @@
                 <div id="perfilConfig">
                     
                     
-                        <!-- <form method="post" id="cambiarPass">
-                            <h1 style="margin-top: 40px;">Cambiar contraseña</h1>
+                        <form method="post" id="cambiarPass">
+                            <h2 style="margin-top: 20px;">Cambiar contraseña</h1>
                             
                             <label  id="lId">Introduzca su contraseña</label>
                             <input type="password" id="oldPasswd" name="oldPasswd">
@@ -106,9 +106,9 @@
                             <label id="lPasswd2">Confirma tu nueva contraseña</label>
                             <input type="password" id="newPasswd2" name="newPasswd2"><br><br>
                             <div id="crear-nueva-cuenta">
-                                <input id="boton-nueva-cuenta" type="submit" value="Crear una nueva cuenta">
+                                <input id="boton-nueva-pass" type="submit" value="Cambiar contraseña">
                             </div>
-                        </form>                     -->
+                        </form>                    
                     
                 </div>
             </div>
