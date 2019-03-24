@@ -5,7 +5,17 @@
 
     if( $_SERVER['REQUEST_METHOD']=='GET') {
 ?>
-<!DOCTYPE html>
+<?php
+    require_once('/xampp/appdata/model/Console.php');
+    require_once('/xampp/appdata/model/Usuario.php');
+    require_once('/xampp/appdata/model/Saldo.php');
+
+    session_start();
+
+    if(isset($_SESSION['id']))
+        $saldo = new Saldo($_SESSION['id']);
+    if( $_SERVER['REQUEST_METHOD']=='GET') {
+?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -161,6 +171,31 @@
         </footer>
     </body>
 </html>
+<?php
+        if( isset($_GET['saldoadd']) && $_GET['saldoadd']==1  ){
+?>
+        <script>
+            $('head').before('<div id="saldoadd" style="width: 100%; height: 20px; color: #ffb246; background-color: #1e1e15; padding: 10px;">Saldo añadido con éxito</div>');
+            setTimeout(function(){
+                $('#saldoadd').fadeOut('fast');
+                }, 4000
+                );
+        </script>
+<?php
+        }
+    }
+    else if( $_SERVER['REQUEST_METHOD']=='POST') {
+        console_log($saldo->getCantidad());
+        $saldo->aumentarCantidad($_POST['saldo-add']);
+        console_log($saldo->getCantidad());
+        if( $saldo->add() ){
+            header('Location: ../main/index.php?saldoadd=1');
+            exit;
+        }else {
+            echo "Error: Falló la operación";
+        }
+    }
+?>
 <?php
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
