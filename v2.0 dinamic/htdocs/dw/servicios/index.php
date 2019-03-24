@@ -32,7 +32,7 @@
                     </form>
                 </li>
                 <li>
-                    <a id="img_usuario" href="../inicio-sesion/sign-in.php"><img src="../img/user-icon.png" height="20px"></a>
+                    <a id="img_usuario" href="../usuario/sign-in.php"><img src="../img/user-icon.png" height="20px"></a>
                 </li>
                 <li>
                     <a id="img_carrito" href="../cesta_compra/xxxx-cesta.php"><img src="../img/shopping-trolley.png" height="20px"></a>

@@ -14,8 +14,9 @@
         <meta name="robots" content="NoIndex, NoFollow">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../styles/style-shared.css">
-        <link rel="stylesheet" href="../styles/style-inicio-sesion.css">
+        <link rel="stylesheet" href="../styles/style-usuario.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
         <title>Página principal</title>
     </head>
     <body>
@@ -26,28 +27,42 @@
                 </a>
             </div>
             <div id="contenedor-form">
-                <form method="post">
-                    <h1 style="margin-top: 40px;">Iniciar sesión</h1>
-                    <label id="lUser">Nombre de usuario o mail</label>
-                    <input type="text" id="username" name="username" name="username">
-                    <label id="lPass">Contraseña</label>
-                    <input type="password" id="passwd" name="passwd"><br><br>
-                    <input id="boton-inic-ses" type="submit" value="Iniciar sesión">
-                    <div  class="no-cuenta" >
-                        <a style="cursor: pointer;" href="sign-up.php">¿No tienes cuenta todavía?</a>
+                <form method="post" id="miFormulario">
+                    <h1 style="margin-top: 40px;">Crear cuenta</h1>
+                    <label id="lNombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre">
+                    <label id="lApell">Apellidos</label>
+                    <input type="text" id="apell" name="apell">
+                    <label id="lEmail">E-mail</label>
+                    <input type="text" id="email" name="email">
+                    <label id="lDomic">Domicilio</label>
+                    <input type="text" id="domicilio" name="domicilio">
+                    <label id="lId">Nombre de usuario</label>
+                    <input type="text" id="id" name="id">
+                    <label id="lPasswd">Contraseña</label>
+                    <input type="password" id="passwd" name="passwd">
+                    <label id="lPasswd2">Confirma tu contraseña</label>
+                    <input type="password" id="passwd2" name="passwd2"><br><br>
+                    <div id="crear-nueva-cuenta">
+                        <input id="boton-nueva-cuenta" type="submit" value="Crear una nueva cuenta">
                     </div>
                 </form>
             </div>
             <script>
-                 (function($) {
+                (function($) {
                     $('#miFormulario').submit(function() {
                         $("#error").remove();
-                        var nombre = $("#username").val(),
-                            passwd = $("#passwd").val();
+                        var nombre = $("#nombre").val(), 
+                            apell = $("#apell").val(),
+                            email = $("#email").val(),
+                            domicilio = $("#domicilio").val(),
+                            id = $("#id").val(),
+                            passwd = $("#passwd").val(),
+                            passwd2 = $("#passwd2").val();
 
-                        var inputVal = [username, passwd],
-                            inputMessage = ["username", "passwd"],
-                            textId = ["#lUser", "#lPasswd"];
+                        var inputVal = [nombre, apell, email, domicilio, id, passwd, passwd2],
+                            inputMessage = ["nombre", "apellidos", "email", "domicilio", "id", "passwd", "passwd2"],
+                            textId = ["#lNombre", "#lApell", "#lEmail", "lDomic", "#lId", "#lPasswd", "#lPasswd2"];
 
                         for(var i=0;i<inputVal.length;i++){
                             inputVal[i] = $.trim(inputVal[i]);
@@ -58,11 +73,30 @@
                                 return false;
                             }
                         }
+                        if( !isEmail(email) ){
+                            console.log("Email incorrecto");
+                            invalidEmail();
+                            return false;
+                        }else if(passwd != passwd2){
+                            console.log("Contraseñas incorrectas");
+                            notEqual();
+                            return false;
+                        }
+                        console.log("Registro completado");
                         return true;
+                        
                         
                         function invalidEntry(i) {
                             console.log(textId[i] + ' incorrecto');
                             $(textId[i]).after("<p id='error' style='font-size: 14px; color: red' > El campo " + inputMessage[i] + " no es válido.</p>");
+                        }
+
+                        function invalidEmail(){
+                            $("#lEmail").after("<p id='error' style='font-size: 14px; color: red' > Email no válido.</p>");
+                        }
+                        
+                        function notEqual(){
+                            $("#lPasswd").after("<p id='error' style='font-size: 14px; color: red' > Las contraseñas no coiniden.</p>");
                         }
                         function isEmail(email) {
                             console.log(email);
@@ -119,42 +153,28 @@
                     </div>
                 </div>
                 <div id="footer_copyright">
-                    <a href="../main/privacy-policy.php" target="_blank">Política de Privacidad</a>
+                    <a href="../main/privacy-policy.php" target="_blank">Política de Privaidad</a>
                     <a href="http://www.uemc.es" target="_blank">Universidad Europea Miguel de Cervantes</a>
                     <a href="https://creativecommons.org/choose/zero/?lang=es" target="_blank"><img src="../img/CC0.png" alt="cc0" width="15px"></a>
                 </div>
             </div>
         </footer>
     </body>
-    <?php
-        if( isset($_GET['usrreg']) ){
-            if($_GET['usrreg']==1){
-    ?>
-    <script>
-        $('head').before('<div id="usrreg" style="width: 100%; height: 20px; color: #0073e6; background-color: #e0e0d2;padding: 10px;">Registrado con éxito, proceda a loguearse</div>');
-        setTimeout(function(){ 
-            $('#usrreg').fadeOut('fast');
-            }, 4000
-            );
-    </script>
-    <?php
-            }
-        }
-    ?>
 </html>
 <?php
-}
+    }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $u = new Usuario();
-        $u  ->setUsername($_POST['username'])
+        $u = new Cliente();
+        $u  ->setUsername($_POST['id'])
             ->setPasswd($_POST['passwd'])
+            ->setNombre($_POST['nombre'])
+            ->setApell($_POST['apell'])
+            ->setEmail($_POST['email'])
+            ->setdomicilio($_POST['domicilio'])
         ;
         $u->encryptPasswd();
-        if( $u->login() ) {
-            session_start();
-            $_SESSION['id'] = $u->getId();
-            $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-            header('Location: ../main/index.php?usrlog=1');
+        if( $u->add() ) {
+            header('Location: sign-in.php?usrreg=1');
             exit;
         }
         else {

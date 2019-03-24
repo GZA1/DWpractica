@@ -14,7 +14,7 @@
         <meta name="robots" content="NoIndex, NoFollow">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../styles/style-shared.css">
-        <link rel="stylesheet" href="../styles/style-inicio-sesion.css">
+        <link rel="stylesheet" href="../styles/style-usuario.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
         <title>Página principal</title>
