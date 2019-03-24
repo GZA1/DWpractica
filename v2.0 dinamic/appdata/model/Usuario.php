@@ -4,7 +4,7 @@ require_once("Console.php");
 require_once("Cliente.php");
 
 class Usuario{
-    public static $UsersPath = '/xampp/appdata/data/users.json';
+    public static $usersPath = '/xampp/appdata/data/users.json';
     protected $id;
     protected $username;
     protected $passwd;
@@ -13,20 +13,25 @@ class Usuario{
     protected $email;
     protected $tipo;
 
-    /*Constructores de la clase Usuario*/
-
     public function __construct(){
-        $this->id = spl_object_hash($this);
+        $params = func_get_args();
+        $numParams = func_num_args();
+        $funcionContructor = '__construct'.$numParams;
+        if(method_exists($this, $funcionContructor)){
+            call_user_func_array(array($this, $funcionContructor), $params);
+        }else{
+            console_log("No existe");
+        }
     }
 
-    public function __construct1($id, $username, $passwd, $nombre, $apell, $email, $tipo){
-        $this->id = spl_object_hash($this);
+    public function __construct0(){
+        
     }
 
-    /*Metodo login, no recibe parámetros
-    comprueba que los credenciales de la instancia actual son correctos y
-    se encuentran en la base de datos, si el login es correcto se retorna true,
-    si es incorrecto false*/
+    public function __construct1($id){
+        $this->id = $id;
+    }
+
 
     public function login(){
         console_log("login");
@@ -34,6 +39,8 @@ class Usuario{
         console_log($this->passwd);
         $u = $this->getUser();
         if( $u !== null && $u->passwd == $this->passwd ){
+            console_log("Bien");
+            console_log($u->getId());
             return true;
         }else{
             $this->setEmail($this->username);
@@ -50,54 +57,37 @@ class Usuario{
         }
     }
 
-    /*Metodo getUser,
-    No recibe parámetros, utiliza la instancia actual de Usuario y  compara
-    su Username con los almacenados en la base de datos, si encuentra una
-    coincidencia devuelve el obj. Usuario, si no, null*/
-
     public function getUser(){
         console_log('getUser: ');
         $users = $this->getAllUsers();
-        console_log($users);
-        foreach($users as &$u){
+        foreach($users as $k => $u){
             $u = $this->fromJson($u);
-            console_log('u: ');
-            console_log($u);
             if( $u->username == $this->username ){
+                $this->id = $k;
+                $k = $u->id;
                 return $u;
             }
         }
         return null;
     }
-
-    /*Metodo getUserByMail,
-    No recibe parámetros, utiliza la instancia actual de Usuario y  compara
-    su email con los almacenados en la base de datos, si encuentra una
-    coincidencia devuelve el obj. Usuario, si no, null*/
 
     public function getUserByMail(){
         console_log('getUserByMail: ');
         $users = $this->getAllUsers();
-        console_log($users);
-        foreach($users as &$u){
+        foreach($users as $k => $u){
             $u = $this->fromJson($u);
-            console_log('u: ');
-            console_log($u);
             if( $u->email == $this->email ){
+                $this->id = $k;
+                $k = $u->id;
                 return $u;
             }
         }
         return null;
     }
 
-    /*Método getAllUsers retorna el array completo de Usuarios en la base de datos*/
-
     public function getAllUsers(){
-        return (array)json_decode(file_get_contents((Usuario::$UsersPath), true));
+        return (array)json_decode(file_get_contents((Usuario::$usersPath), true));
     }
-
-    /*Funcion toJson, No recibe parámetros, se encarga de codificar la instancia
-    usuario actual al archivo Json*/
 
     public function toJson(){
         return json_encode([
@@ -107,27 +97,38 @@ class Usuario{
          ]);
     }
 
-    /*Método estático fromJson, recibe como parámetro una ruta Json a decodificar
-    devuelve un objecto usuario con los atributos del Json decodificado*/
-
     public static function fromJson($json){
         $array = json_decode($json, true);
         $obj = new Usuario();
-        $obj->setId(key($array))
-            ->setUsername($array['username'])
+        $obj->setUsername($array['username'])
             ->setPasswd($array['passwd'])
+            ->setTipo($array['tipo'])
             ->setEmail($array['email'])
         ;
-        console_log($obj);
-        console_log($array);
         return $obj;
     }
 
+    public function getUsernameById(){
+        foreach($this->getAllUsers() as $k => $u){
+            if($this->id == $k)
+                return json_decode($u, true)['username'];
+        }
+        return null;
+    }
 
+    public function getTipoById(){
+        foreach($this->getAllUsers() as $k => $u){
+            if($this->id == $k)
+                return json_decode($u, true)['tipo'];
+        }
+        return null;
+    }
+    
+    
 
     /**
      * Get the value of id
-     */
+     */ 
     public function getId()
     {
         return $this->id;
@@ -137,7 +138,7 @@ class Usuario{
      * Set the value of id
      *
      * @return  self
-     */
+     */ 
     public function setId($id)
     {
         $this->id = $id;
@@ -147,7 +148,7 @@ class Usuario{
 
     /**
      * Get the value of username
-     */
+     */ 
     public function getUsername()
     {
         return $this->username;
@@ -157,7 +158,7 @@ class Usuario{
      * Set the value of username
      *
      * @return  self
-     */
+     */ 
     public function setUsername($username)
     {
         $this->username = $username;
@@ -169,7 +170,7 @@ class Usuario{
      * Set the value of passwd
      *
      * @return  self
-     */
+     */ 
     public function setPasswd($passwd)
     {
         $this->passwd = $passwd;
@@ -179,7 +180,7 @@ class Usuario{
 
     /**
      * Get the value of nombre
-     */
+     */ 
     public function getNombre()
     {
         return $this->nombre;
@@ -189,7 +190,7 @@ class Usuario{
      * Set the value of nombre
      *
      * @return  self
-     */
+     */ 
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
@@ -199,7 +200,7 @@ class Usuario{
 
     /**
      * Get the value of apell
-     */
+     */ 
     public function getApell()
     {
         return $this->apell;
@@ -209,7 +210,7 @@ class Usuario{
      * Set the value of apell
      *
      * @return  self
-     */
+     */ 
     public function setApell($apell)
     {
         $this->apell = $apell;
@@ -219,7 +220,7 @@ class Usuario{
 
     /**
      * Get the value of email
-     */
+     */ 
     public function getEmail()
     {
         return $this->email;
@@ -229,16 +230,13 @@ class Usuario{
      * Set the value of email
      *
      * @return  self
-     */
+     */ 
     public function setEmail($email)
     {
         $this->email = $email;
 
         return $this;
     }
-
-    /*No recibe parámetros, coge la contraseña de la instancia de usuario actual
-    la hashea en SHA1 y devuelve el objeto Usuario*/
 
     public function encryptPasswd()
     {
@@ -249,7 +247,7 @@ class Usuario{
 
     /**
      * Get the value of tipo
-     */
+     */ 
     public function getTipo()
     {
         return $this->tipo;
@@ -259,7 +257,7 @@ class Usuario{
      * Set the value of tipo
      *
      * @return  self
-     */
+     */ 
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;

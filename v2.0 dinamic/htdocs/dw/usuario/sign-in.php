@@ -26,11 +26,11 @@
                 </a>
             </div>
             <div id="contenedor-form">
-                <form method="post">
+                <form method="post" id="miFormulario">
                     <h1 style="margin-top: 40px;">Iniciar sesión</h1>
                     <label id="lUser">Nombre de usuario o mail</label>
                     <input type="text" id="username" name="username" name="username">
-                    <label id="lPass">Contraseña</label>
+                    <label id="lPasswd">Contraseña</label>
                     <input type="password" id="passwd" name="passwd"><br><br>
                     <input id="boton-inic-ses" type="submit" value="Iniciar sesión">
                     <div  class="no-cuenta" >
@@ -51,9 +51,7 @@
 
                         for(var i=0;i<inputVal.length;i++){
                             inputVal[i] = $.trim(inputVal[i]);
-                            console.log(inputVal[i]);
                             if ( inputVal[i] == null || inputVal[i] === "") {
-                                console.log(inputVal[i] + ' incorrecto');
                                 invalidEntry(i);
                                 return false;
                             }
@@ -167,6 +165,7 @@
             session_start();
             $_SESSION['id'] = $u->getId();
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+            console_log($_SESSION['id']);
             header('Location: ../main/index.php?usrlog=1');
             exit;
         }

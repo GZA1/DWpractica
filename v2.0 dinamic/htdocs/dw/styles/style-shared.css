@@ -348,10 +348,29 @@ ul {
 
 .dropdown-contenido a{
     display: block;
-    text-decoration: none;
     padding: 20px 5px 20px 5px;
+    text-decoration: none;
     color: #1e1e15;
     background-color: #e0e0d2;
+}
+
+.dropdown-contenido div{
+    display: block;
+    padding: 20px 5px 20px 5px;
+    color: #1e1e15;
+    background-color: #80ffff;
+}
+
+.dropdown-contenido label {
+    display: block;
+    padding: 20px 5px 20px 5px;
+}
+
+.dropdown-contenido input{
+    width: 90%;
+    display: block;
+    padding: 10px 5px 10px 5px;
+    margin: 0 5% 0 5%;
 }
 
 .dropdown-contenido a:hover{
@@ -360,4 +379,49 @@ ul {
 
 .dropdown:hover .dropdown-contenido{
     display: block;
+}
+
+a.rojo{
+    background-color: #ff8080 !important;
+}
+
+a.rojo:hover{
+    background-color: #ff6666 !important;
+}
+
+a.verde{
+    background-color: #99ff99 !important;
+}
+
+a.verde:hover{
+    background-color: #5cff5c !important;
+}
+
+div.verde{
+    background-color: #99ff99 !important;
+    cursor: default;
+}
+
+div.verde:hover{
+    background-color: #5cff5c !important;
+}
+
+div.verde:hover{
+    background-color: #5cff5c !important;
+}
+
+a.azul{
+    background-color: #99c2ff !important;
+}
+
+a.azul:hover{
+    background-color: #80b3ff !important;
+}
+input.naranja{
+    background-color: #ffc470 !important;
+    cursor: pointer;
+}
+
+input.naranja:hover{
+    background-color: #ffb246 !important;
 }
