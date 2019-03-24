@@ -1,0 +1,84 @@
+/*
+*Colores
+*Morado: #6600cc
+*Azul: #3399ff
+*Negro: #2e2e1f
+*/
+
+#mainSection {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    /* height: 20vh; */
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+#leftSect {
+    /* display: inline-block; */
+   /* max-width: 35%; */
+   flex-grow: 1;
+   /* background-color: brown; */
+   
+
+}
+
+#userSummary {
+    height: 17vh;
+    border: solid thin white;
+    margin-bottom: 5vh;
+}
+
+/* #opcionesPerfil {
+    position: relative;
+} */
+
+.pestañasPerfil {
+    /* width: 70%; */
+    max-width: 100%;
+    position: relative;
+    margin-left: 25%;
+    text-align: center;
+    /* border: thin solid #6600cc; */
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    padding: 10px 0px 10px 0px;
+    display: block;
+    background-color: rgb(223, 221, 221);
+    
+}
+
+
+#rightSect {
+    margin-left: 1.5%;
+    /* display: inline-block; */
+    flex-grow: 2.5;
+    max-width: 60%;
+    background-color: #e0e0d2;
+    /* height: 60vh; */
+    /* position: relative; */
+}
+
+#perfilConfig {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 50%;
+}
+
+
+#cambiarPass + * {
+    display: block;
+}
+input {
+    display: block;
+    width: 95%;
+}
+
+label {
+    display: block;
+}

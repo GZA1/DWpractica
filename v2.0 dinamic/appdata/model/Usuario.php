@@ -25,7 +25,7 @@ class Usuario{
     }
 
     public function __construct0(){
-        
+
     }
 
     public function __construct1($id){
@@ -123,12 +123,12 @@ class Usuario{
         }
         return null;
     }
-    
-    
+
+
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -138,7 +138,7 @@ class Usuario{
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -148,7 +148,7 @@ class Usuario{
 
     /**
      * Get the value of username
-     */ 
+     */
     public function getUsername()
     {
         return $this->username;
@@ -158,7 +158,7 @@ class Usuario{
      * Set the value of username
      *
      * @return  self
-     */ 
+     */
     public function setUsername($username)
     {
         $this->username = $username;
@@ -170,7 +170,7 @@ class Usuario{
      * Set the value of passwd
      *
      * @return  self
-     */ 
+     */
     public function setPasswd($passwd)
     {
         $this->passwd = $passwd;
@@ -180,7 +180,7 @@ class Usuario{
 
     /**
      * Get the value of nombre
-     */ 
+     */
     public function getNombre()
     {
         return $this->nombre;
@@ -190,7 +190,7 @@ class Usuario{
      * Set the value of nombre
      *
      * @return  self
-     */ 
+     */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
@@ -200,7 +200,7 @@ class Usuario{
 
     /**
      * Get the value of apell
-     */ 
+     */
     public function getApell()
     {
         return $this->apell;
@@ -210,7 +210,7 @@ class Usuario{
      * Set the value of apell
      *
      * @return  self
-     */ 
+     */
     public function setApell($apell)
     {
         $this->apell = $apell;
@@ -220,7 +220,7 @@ class Usuario{
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -230,7 +230,7 @@ class Usuario{
      * Set the value of email
      *
      * @return  self
-     */ 
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -247,7 +247,7 @@ class Usuario{
 
     /**
      * Get the value of tipo
-     */ 
+     */
     public function getTipo()
     {
         return $this->tipo;
@@ -257,7 +257,7 @@ class Usuario{
      * Set the value of tipo
      *
      * @return  self
-     */ 
+     */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
