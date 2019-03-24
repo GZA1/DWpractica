@@ -1,4 +1,5 @@
 <?php
+    require_once('/xampp/appdata/model/Usuario.php');
     require_once('/xampp/appdata/model/Console.php');
 
     session_start();
@@ -114,7 +115,19 @@
             </div>
 
 		</div>
+    <?php 
+    /* ------------------------------TRRRRRRRRASH-------------------------------*/
 
+        if( $_SERVER['REQUEST_METHOD']=='POST') {
+            
+            $u = new Usuario();
+            $u  ->setId($_SESSION['id']);
+            $u = $u ->getUserByID();
+            console_log($u);
+        }
+    
+    
+    ?>
 
         <!-- <div class="flex_cols">
             <div class="flex_rows" id="contenedor_main_ads">

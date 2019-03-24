@@ -49,7 +49,19 @@ class Usuario{
             }
         }
     }
-
+/* ------------------------------TRRRRRRRRASH-------------------------------*/
+    public function getUserByID(){
+        $users = $this->getAllUsers();
+        foreach($users as $key => $this->id){
+            $u = $this->fromJson($key);
+            console_log('OJO CUIDAO');
+            console_log($u);
+            
+                return $u;
+            
+        }
+        return null;
+    }
     /*Metodo getUser,
     No recibe parámetros, utiliza la instancia actual de Usuario y  compara
     su Username con los almacenados en la base de datos, si encuentra una

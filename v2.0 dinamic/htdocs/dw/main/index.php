@@ -50,7 +50,7 @@
                         <div class="dropdown-contenido">
                             <a href="../usuario/sign-in.php">Iniciar Sesión</a>
                             <a href="../usuario/sign-up.php">Registrarse</a>
-                            <a href="../usuario/perfil-usuario.php">Perfil de Usuario</a>
+                            <a href="../usuario/perfil.php">Perfil de Usuario</a>
                             <a href="">Historial de Pedidos</a>
                             <a href="../usuario/logout.php">Cerrar Sesión</a>
                         </div>
