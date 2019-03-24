@@ -324,7 +324,7 @@
         $saldo->aumentarCantidad($_POST['saldo-add']);
         console_log($saldo->getCantidad());
         if( $saldo->add() ){
-            header('Location: ../main/index.php?saldoadd=1');
+            header('Location: ?saldoadd=1');
             exit;
         }else {
             echo "Error: Falló la operación";

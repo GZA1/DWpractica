@@ -18,12 +18,12 @@
 
         public function add(){
             $users = [];
-            if( !is_dir(dirname(Usuario::$UsersPath)) )
-                mkdir(dirname(Usuario::$UsersPath), 0755);
+            if( !is_dir(dirname(Usuario::$usersPath)) )
+                mkdir(dirname(Usuario::$usersPath), 0755);
             if( !$this->getUser() || !$this->getUserByMail() ){
                 $users = Usuario::getAllUsers();
                 $users[$this->id] = $this->toJson();
-                file_put_contents( Usuario::$UsersPath, json_encode($users, JSON_PRETTY_PRINT) );
+                file_put_contents( Usuario::$usersPath, json_encode($users, JSON_PRETTY_PRINT) );
             }else{
                 return false;
             }

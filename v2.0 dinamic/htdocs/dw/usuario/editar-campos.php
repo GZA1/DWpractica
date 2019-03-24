@@ -1,11 +1,4 @@
 <?php
-    require_once('/xampp/appdata/model/Usuario.php');
-    require_once('/xampp/appdata/model/Console.php');
-
-
-    if( $_SERVER['REQUEST_METHOD']=='GET') {
-?>
-<?php
     require_once('/xampp/appdata/model/Console.php');
     require_once('/xampp/appdata/model/Usuario.php');
     require_once('/xampp/appdata/model/Saldo.php');

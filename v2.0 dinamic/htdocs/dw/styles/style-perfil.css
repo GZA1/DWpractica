@@ -4,7 +4,6 @@
 *Azul: #3399ff
 *Negro: #2e2e1f
 */
-
 #mainSection {
     margin-left: auto;
     margin-right: auto;
@@ -48,8 +47,12 @@
     margin-bottom: 0.5%;
     padding: 10px 0px 10px 0px;
     display: block;
-    background-color: rgb(223, 221, 221);
-    
+    background-color: rgb(131, 168, 255);
+}
+
+.pestañasPerfil:hover {
+    cursor: pointer;
+    background-color: rgb(95, 142, 250);
 }
 
 
@@ -59,7 +62,7 @@
     flex-grow: 2.5;
     max-width: 60%;
     background-color: #e0e0d2;
-    height: 60%;
+    height: 50%;
     /* position: relative; */
 }
 
@@ -82,4 +85,17 @@ input {
 
 label {
     display: block;
+}
+
+#boton-nueva-pass {
+    cursor: pointer;
+}
+
+#logo-inic {
+    width: 20%;
+    margin: 0 40% 10vh 40%;
+}
+
+#contenedor-inic {
+    background-color: #e0e0d2;
 }
