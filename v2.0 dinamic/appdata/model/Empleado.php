@@ -15,7 +15,7 @@ class Empleado extends Usuario {
     }
 
 
-    public addEmpleado
+    
 
 }
 
