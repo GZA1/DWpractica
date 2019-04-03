@@ -1,0 +1,24 @@
+Primero creamos el archivo config.php encargado de conectar a la base de datos mediante PDO.
+
+--> You can also pass in several driver options as an array to the fourth parameters. 
+	I recommend passing the parameter which puts PDO into exception mode.
+	You can also set some attributes after PDO construction with the setAttribute method:
+	- $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	
+Manejo de errores:
+PDO::ERRMODE_EXCEPTION throws PDOException. In my opinion this is the mode you should use. It acts very much like or die(mysql_error()); 
+when it isn't caught, but unlike or die() the PDOException can be caught and handled gracefully if you choose to do so. 
+
+Ejemplo: 
+
+<?php
+try {
+	//connect as appropriate as above
+	$db->query('hi'); //invalid query!
+} catch(PDOException $ex) {
+	echo "An Error occured!"; //user friendly message
+	some_logging_function($ex->getMessage());
+}
+
+El usuario usado es: nAdmin y contraseña: 111
+Hay que crearle en workbench y asegurarse de que te deja la contraseña en standard además de darle todos los privilegios
