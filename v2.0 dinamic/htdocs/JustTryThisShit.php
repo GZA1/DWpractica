@@ -1,5 +1,5 @@
 <?php
-require_once("/xampp/appdata/model/model_clientes.php");
+require_once("/xampp/appdata/model/ClientePDO.php");
 
 
 $usuarios = clientes_get_all();
