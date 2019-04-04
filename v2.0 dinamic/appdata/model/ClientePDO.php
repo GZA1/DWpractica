@@ -1,57 +1,68 @@
 <?php
 require_once("config.php");
 require_once("console.php");
+require_once("Usuario.php");
 
 
 
 
-class ClientePDO extends Usuario 
-{
-   private $domicilio;
-   private $saldo;
-   private $cesta;
-   private $pedidos; //- Array de arrays? - Tabla de mySQL? 
+// class ClientePDO extends Usuario 
+// {
+//    private $domicilio;
+//    private $saldo;
+//    private $cesta;
+//    private $pedidos; //- Array de arrays? - Tabla de mySQL? 
    
-   public function __construct()
-   {
-      parent::__construct();
-      $this->id = spl_object_hash($this);
-      $this->domicilio
-      // $this->tipo = "cliente";
-   }
-
+//    public function __construct()
+//    {
+//       parent::__construct();
+//       $this->id = spl_object_hash($this);
+//       $this->domicilio;
+//       // $this->tipo = "cliente";
+//    }
+// }
 
    /**
    * Añade un cliente
    * @return ?
    */
-   function addCliente($clienteId, $username, $passswd, $nombre, $apellidos, $email, $domicilio, 
+   function addCliente($username, $passwd, $nombre, $apellidos, $email, $domicilio, 
    $monedero)
    {
+      try {
 
-      $conn = db();
-
-      $consulta = "insert into cliente (
-                        id, username, passwd, nombre, apellidos, 
-                        email, domicilio, monedero, fechaCreacion, fechaModificacion)
-                     values ( :id, :username, :passwd, :nombre, :apellidos, :email, :domicilio
-                        , :monedero)";
-
-      //MySQL retrieves and displays DATE values in 'YYYY-MM-DD' format. 
-
-      $fechaCreacion = date('Y-m-d');
-      $fechaModificacion = $fechaCreacion;
-      $cesta_id = null;
-
-
-      $stmt = $conn->prepare($SQL);
-      $stmt->bindParam(':id', $tipo);
-      $stmt->bindParam(':username', $username);
-      $stmt->bindParam(':passwd', $passwd);
-      $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR, 20);
-      $stmt->bindParam(':apellidos', $apellidos);
-      $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-      $stmt->bindParam(':domicilio', $domicilio, PDO::PARAM_STR);
+         $conn = db();
+         
+         $consulta = "insert into cliente (
+            id, username, passwd, nombre, apellidos, 
+            email, domicilio, monedero, fechaCreacion, fechaModificacion, Cesta_id)
+            values ( :id, :username, :passwd, :nombre, :apellidos, :email, :domicilio
+            , :monedero, :fechaCreacion, :fechaModificacion, :Cesta_id)";
+            
+            //MySQL retrieves and displays DATE values in 'YYYY-MM-DD' format. 
+            
+            $fechaCreacion = date('Y-m-d');      
+            $cesta_id = null;
+            
+            
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindValue(':id', 111111, PDO::PARAM_INT);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':passwd', $passwd, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':apellidos', $apellidos, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':domicilio', $domicilio, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':monedero', $monedero);
+            $stmt->bindParam(':fechaCreacion', $fechaCreacion);
+            $stmt->bindParam(':fechaModificacion', $fechaCreacion);                    
+            $stmt->bindValue(':Cesta_id', null, PDO::PARAM_INT);            
+            $stmt->execute();
+            echo "Perfecto Gonzalo, eres un genio";
+            
+      }catch(PDOException $e){
+         echo $e->getMessage();
+      }
 
    }
 
@@ -105,5 +116,5 @@ class ClientePDO extends Usuario
       }
             
             
-}
+
 ?>

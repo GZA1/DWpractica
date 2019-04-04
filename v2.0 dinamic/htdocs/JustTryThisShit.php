@@ -1,7 +1,6 @@
 <?php
 require_once("/xampp/appdata/model/ClientePDO.php");
 
-
 $usuarios = clientes_get_all();
 ?>
 
@@ -47,5 +46,32 @@ $usuarios = clientes_get_all();
         </tbody>
     </table>
 
+    <div style="height: 10vh; width: 100%"></div>
+    <form method="POST"  style="display: block">
+
+        <label>Username</label>
+        <input type="text" name="username">
+        <label>Passwd</label>
+        <input type="text" name="passwd">
+        <label>Nombre</label>
+        <input type="text" name="nombre">
+        <label>Apellidos</label>
+        <input type="text" name="apellidos">
+        <label>Email</label>
+        <input type="text" name="email">
+        <label>Domicilio</label>
+        <input type="text" name="domicilio">
+        <label>Monedero</label>
+        <input type="text" name="monedero">
+        
+        <input type="submit" value="NuevoUser">
+    </form>
+    
+    <?php
+        if( $_SERVER['REQUEST_METHOD']=='POST') {
+            addCliente($_POST['username'], $_POST['passwd'], $_POST['nombre'], $_POST['apellidos'], $_POST['email'],
+            $_POST['domicilio'], $_POST['monedero']);
+        }
+    ?>
 </body>
 </html>
