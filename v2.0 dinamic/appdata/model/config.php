@@ -2,7 +2,7 @@
 function db()
 {
     try{
-        $conn = new PDO('mysql:host=localhost;port=3306;dbname=BD_Tienda;charset=utf8', 'nAdmin', '111');
+        $conn = new PDO('mysql:host=localhost;port=3306;dbname=bd_tienda;charset=utf8', 'root', 'root');
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
     }

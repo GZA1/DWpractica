@@ -1,6 +1,5 @@
 <?php
     require_once('/xampp/appdata/model/Usuario.php');
-    require_once('/xampp/appdata/model/Cliente.php');
     require_once('/xampp/appdata/model/Console.php');
 
 
@@ -136,7 +135,7 @@
             if($_GET['usrreg']==1){
     ?>
     <script>
-        $('head').before('<div id="usrreg" style="width: 100%; padding: 10px 10px; margin: 0; color: #000080; background-color: #e0e0d2;">Registrado con éxito, proceda a loguearse</div>');
+        $('head').before('<div id="usrreg" style="width: 100%; height: 20px; color: #0083ff; background-color: #e0e0d2;padding: 10px;;">Registrado con éxito, proceda a loguearse</div>');
         setTimeout(function(){ 
             $('#usrreg').fadeOut('fast');
             }, 4000
@@ -150,7 +149,7 @@
 <?php
 }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $u = new Cliente();
+        $u = new Usuario();
         $u  ->setUsername($_POST['id'])
             ->setPasswd($_POST['passwd'])
         ;

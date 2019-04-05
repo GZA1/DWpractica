@@ -1,6 +1,6 @@
 <?php
 require_once("config.php");
-require_once("console.php");
+require_once("Console.php");
 require_once("Usuario.php");
 
 
@@ -31,34 +31,34 @@ require_once("Usuario.php");
    {
       try {
 
-         $conn = db();
-         
-         $consulta = "insert into cliente (
-            id, username, passwd, nombre, apellidos, 
-            email, domicilio, monedero, fechaCreacion, fechaModificacion, Cesta_id)
-            values ( :id, :username, :passwd, :nombre, :apellidos, :email, :domicilio
-            , :monedero, :fechaCreacion, :fechaModificacion, :Cesta_id)";
+            if( isCliente($username) ){
+                  return false;
+            }
+
+            $conn = db();
             
-            //MySQL retrieves and displays DATE values in 'YYYY-MM-DD' format. 
+            $consulta = "insert into cliente (
+                  username, passwd, nombre, apellidos, 
+                  email, domicilio, monedero, Cesta_id)
+                  values ( :username, :passwd, :nombre, :apellidos, :email, :domicilio
+                  , :monedero, :Cesta_id)";
             
-            $fechaCreacion = date('Y-m-d');      
             $cesta_id = null;
             
-            
             $stmt = $conn->prepare($consulta);
-            $stmt->bindValue(':id', 111111, PDO::PARAM_INT);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR, 45);
             $stmt->bindParam(':passwd', $passwd, PDO::PARAM_STR, 45);
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR, 45);
             $stmt->bindParam(':apellidos', $apellidos, PDO::PARAM_STR, 45);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR, 45);
             $stmt->bindParam(':domicilio', $domicilio, PDO::PARAM_STR, 45);
-            $stmt->bindParam(':monedero', $monedero);
-            $stmt->bindParam(':fechaCreacion', $fechaCreacion);
-            $stmt->bindParam(':fechaModificacion', $fechaCreacion);                    
+            $stmt->bindParam(':monedero', $monedero);                  
             $stmt->bindValue(':Cesta_id', null, PDO::PARAM_INT);            
             $stmt->execute();
-            echo "Perfecto Gonzalo, eres un genio";
+
+            // console_log("Usuario añadido");
+            ?><script>alert("Añadido")</script><?php
+            return true;
             
       }catch(PDOException $e){
          echo $e->getMessage();
@@ -113,6 +113,32 @@ require_once("Usuario.php");
          }
          return $clientes;
          
+      }
+
+      function isCliente($username){
+            $conn = db();
+            console_log("Estamos en cliente");
+            
+            $consulta = "SELECT count(*) as numclientes FROM cliente WHERE usernmae = :username";
+
+            try{
+         
+                  $stmt = $conn->prepare($consulta);
+                  $stmt->bindParam(':username', $username, PDO::PARAM_STR, 45);
+                  $stmt->execute();
+                  
+               }catch(PDOException $ex){
+                  echo "Hubo un error";
+                  console_log($ex->getMessage());
+            }
+
+            if( $stmt->fetch(PDO::FETCH_ASSOC)['numClientes'] == 0 ){
+                  return false;
+            }else{
+                  return true;
+            }
+
+
       }
             
             

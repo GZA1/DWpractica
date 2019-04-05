@@ -5,7 +5,7 @@
 
     session_start();
 
-    // $usuario = new Usuario($_SESSION['id']);
+    $usuario = new Usuario($_SESSION['id']);
 
     if( $_SERVER['REQUEST_METHOD']=='GET') {
 ?>
@@ -34,16 +34,14 @@
             </div>
             <div id="mainSection"> 
                 <div id="leftSect">
-                    <!-- <div id="userSummary"></div> -->
+                    <div id="userSummary"></div>
                     <ul id="opcionesPerfil">
-                        <li class="pestañasPerfil">Cambiar contraseña</li>
-                        <!-- <li class="pestañasPerfil">Monedero</li> -->
+                        <li class="pestañasPerfil">Perfil</li>
+                        <li class="pestañasPerfil">Monedero</li>
                     </ul>
                 </div>
                 <div id="rightSect">
-                    <h2 style="margin: 20px 0 12px 10px; border-bottom: 1px">Cambiar contraseña</h1>
-                    
-                    
+                    <h2 style="margin: 20px 0 12px 10px;">Cambiar contraseña</h1>
                     <div id="perfilConfig">
                         
                         

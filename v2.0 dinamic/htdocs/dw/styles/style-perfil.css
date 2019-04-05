@@ -15,9 +15,6 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-evenly;
-    border: solid thin #6600cc;
-    box-shadow: 1px 1px 2px 2px #6600cc;
-    margin-bottom: 5vh;
 }
 
 #leftSect {
@@ -43,7 +40,7 @@
     /* width: 70%; */
     max-width: 100%;
     position: relative;
-    /* margin-left: 25%; */
+    margin-left: 25%;
     text-align: center;
     /* border: thin solid #6600cc; */
     margin-top: 0.5%;
@@ -51,7 +48,6 @@
     padding: 10px 0px 10px 0px;
     display: block;
     background-color: rgb(131, 168, 255);
-    box-shadow: 0 1px black;
 }
 
 .pestañasPerfil:hover {
@@ -61,8 +57,7 @@
 
 
 #rightSect {
-    /* border: solid #6600cc;  */
-    margin-left: 3.5%;
+    margin-left: 1.5%;
     /* display: inline-block; */
     flex-grow: 2.5;
     max-width: 60%;
@@ -73,7 +68,7 @@
 
 #perfilConfig {
     position: relative;
-    /* margin-left: auto; */
+    margin-left: auto;
     margin-right: auto;
     display: block;
     max-width: 50%;
