@@ -68,7 +68,7 @@
 
         <div class="prodContainer">
             <div class="maxedMini">
-                <img src="/xampp/htdocs//img/externos/5.jpg">
+                <img src="../img/externos/5.jpg">
                 <!--
                 <img src="../img/externos/maxtor/maxtor1.jpg">            
                 <img src="../img/externos/maxtor/maxtor2.jpg">
@@ -77,7 +77,7 @@
             </div>
 
             <div class="prodMiniaturas flex_rows">
-                <img src="/xampp/htdocs//img/externos/5.jpg">
+                <img src="../img/externos/5.jpg">
                 <img src="../img/externos/maxtor/maxtor1.jpg">
                 <img src="../img/externos/maxtor/maxtor2.jpg">
                 <img src="../img/externos/maxtor/maxtor3.jpg">

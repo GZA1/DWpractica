@@ -59,7 +59,9 @@
             return $obj;
         }
         
-        
+        public function getLoggedClient() {
+            parent::getUsernameById();
+        }
         
         /**
          * Get the value of domicilio

@@ -12,6 +12,7 @@ class Usuario{
     protected $apell;
     protected $email;
     protected $tipo;
+    
 
     public function __construct(){
         $params = func_get_args();
@@ -104,6 +105,8 @@ class Usuario{
             ->setPasswd($array['passwd'])
             ->setTipo($array['tipo'])
             ->setEmail($array['email'])
+            ->setNombre($array['nombre'])
+            ->setApell($array['apell'])
         ;
         return $obj;
     }
@@ -122,6 +125,13 @@ class Usuario{
                 return json_decode($u, true)['tipo'];
         }
         return null;
+    }
+
+    //RecuperarElUsuarioLogeado
+    public function getLoggedUser() {
+        $username = $this->getUsernameByID();
+        $this->setUsername($username);
+        return $this->getUser();
     }
 
     public function changePasswd($newPasswd){

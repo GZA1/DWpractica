@@ -6,8 +6,9 @@
     session_start();
 
     $usuario = new Usuario($_SESSION['id']);
-
+    
     if( $_SERVER['REQUEST_METHOD']=='GET') {
+        $FullUser = $usuario->getLoggedUser();
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,11 +21,30 @@
         <link rel="stylesheet" href="../styles/style-shared.css">
         <link rel="stylesheet" href="../styles/style-perfil.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
         <title>Página principal</title>
+        <script type="text/javascript">
+        $("document").ready(function(){
+
+            $("#optChangePass").click(function(){
+                $("#cambiarPassForm").fadeIn();
+                $("#cambiarDataForm").fadeOut();
+            });
+                
+            $("#optChangeData").click(function(){
+                $("#cambiarDataForm").fadeIn();
+                $("#cambiarPassForm").fadeOut();
+            });    
+            
+        });
+        
+        </script>
     </head>
     <body>
 
-        
+
+
         <div class="flex_cols" id="contenedor-inic">
                 <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
             <div id="logo-inic">
@@ -33,28 +53,84 @@
                 </a>
             </div>
             <div id="mainSection"> 
-                <div id="leftSect">
-                    <div id="userSummary"></div>
-                    <ul id="opcionesPerfil">
-                        <li class="pestañasPerfil">Perfil</li>
-                        <li class="pestañasPerfil">Monedero</li>
-                    </ul>
+                <div id="profileTop">
+                    Perfil Usuario
                 </div>
-                <div id="rightSect">
-                    <h2 style="margin: 20px 0 12px 10px;">Cambiar contraseña</h1>
-                    <div id="perfilConfig">
-                        
-                        
-                            <form method="post" id="cambiarPass">
-                                <label id="lPasswd">Introduzca su nueva contraseña</label>
-                                <input type="password" id="newPasswd" name="newPasswd">
-                                <label id="lPasswd2">Confirme su nueva contraseña</label>
-                                <input type="password" id="newPasswd2" name="newPasswd2"><br><br>
-                                <input id="boton-nueva-pass" type="submit" value="Cambiar contraseña">
-                            </form>                    
-                        
+                <div id="perfilConfig">
+
+
+
+                    <div class="profileAttr">
+                        <div class="attrName attr" >Nombre de usuario:</div>
+                        <p class="attr"><?php echo $FullUser->getUsername();?></p>                        
                     </div>
+                    <div class="profileAttr">
+                        <div class="attrName attr">Nombre:</div>
+                        <p class="attr"><?php echo $FullUser->getNombre();?></p>                        
+                    </div>
+                    <div class="profileAttr">
+                        <div class="attrName attr">Apellidos:</div>
+                        <p class="attr"><?php echo $FullUser->getApell();?></p>                        
+                    </div>
+                    <div class="profileAttr">
+                        <div class="attrName attr">Email:</div>
+                        <p class="attr"><?php echo $FullUser->getEmail();?></p>                        
+                    </div>
+                    <div class="profileAttr">
+                        <div class="attrName attr">Domicilio:</div>
+                        <p class="attr">WIP<?php //echo $FullUser->getDomicilio();?></p>                       
+                    </div>
+                    
                 </div>
+                <div id="OPTS_profile">
+                    <a class="concreteOpt" id="optChangePass">Cambiar contraseña</a>
+                    <a class="concreteOpt" id="optChangeData">Modificar datos</a>
+                    
+
+                </div>
+                
+
+                    <!-- Username
+                    <div><?php //echo $FullUser->getUsername();?></div>
+                    <a class="activateFormLink">Cambiar nombre de usuario</a> -->
+                    
+                    
+                    
+                    <div id="cambiarDataForm" class="profileForm">
+                        <h3 style="margin: 0px 0 2vh 0;">Actualizar datos del perfil</h3>
+                        <form method="post" id="cDF">
+
+                            <label>Nombre de usuario</label>
+                            <input type="text" value="<?php echo htmlspecialchars($FullUser->getUsername());?>" name="Username">
+                            <label>Nombre</label>
+                            <input type="text" value="<?php echo htmlspecialchars($FullUser->getNombre());?>" name="Nombre">
+                            <label>Apellidos</label>
+                            <input type="text" value="<?php echo htmlspecialchars($FullUser->getApell());?>" name="Apellidos">
+                            <label>Email</label>
+                            <!-- Hay que meter la comprobacion para emails en formularios!!!!!!!!!!-->
+                            <input type="text" value="<?php echo htmlspecialchars($FullUser->getEmail());?>" name="Email">
+                            <label>Domicilio</label>
+                            <!--VALUE DE DOMICILIO  value="<?php//echo htmlspecialchars($FullUser->getDomicilio());?>" -->
+                            <input type="text" name="Domicilio">
+                            <input class="submitCDF" type="submit" value="Actualizar Perfil">
+                            <input class="submitCDF" type="submit" value="Cancelar">
+                        </form>
+                    </div>
+                    
+                    <!-- Contraseña-->
+                    <div id="cambiarPassForm" class="profileForm">
+                        <h3 style="margin: 0px 0 2vh 0;">Cambiar contraseña</h3>
+                        <form method="post" id="cambiarPass">
+                            <label id="lPasswd">Introduzca su nueva contraseña</label>
+                            <input type="password" id="newPasswd" name="newPasswd">
+                            <label id="lPasswd2">Confirme su nueva contraseña</label>
+                            <input type="password" id="newPasswd2" name="newPasswd2"><br><br>
+                            <input class="submitCDF" type="submit" value="Cambiar contraseña">
+                        </form>
+                    </div>
+
+                
+                
     
             </div>
         </div>
