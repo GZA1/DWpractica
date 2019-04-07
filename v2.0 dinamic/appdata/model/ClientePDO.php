@@ -56,8 +56,6 @@ require_once("Usuario.php");
             $stmt->bindValue(':Cesta_id', null, PDO::PARAM_INT);            
             $stmt->execute();
 
-            // console_log("Usuario añadido");
-            ?><script>alert("Añadido")</script><?php
             return true;
             
       }catch(PDOException $e){
@@ -74,7 +72,7 @@ require_once("Usuario.php");
    *  @return array 
    */
    
-   function clientes_get_all()
+   public static function clientes_get_all()
    {
       $conn = db();
       
@@ -119,8 +117,7 @@ require_once("Usuario.php");
             $conn = db();
             console_log("Estamos en cliente");
             
-            $consulta = "SELECT count(*) as numclientes FROM cliente WHERE usernmae = :username";
-
+            $consulta = "SELECT count(*) as numclientes FROM cliente WHERE username = :username";
             try{
          
                   $stmt = $conn->prepare($consulta);

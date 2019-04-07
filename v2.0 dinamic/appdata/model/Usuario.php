@@ -2,17 +2,14 @@
 
 require_once("Console.php");
 require_once("Cliente.php");
-
+require_once("config.php");
 class Usuario{
-    public static $usersPath = '/xampp/appdata/data/users.json';
     protected $id;
     protected $username;
     protected $passwd;
     protected $nombre;
     protected $apell;
-    protected $email;
     protected $tipo;
-    
 
     public function __construct(){
         $params = func_get_args();
@@ -20,13 +17,10 @@ class Usuario{
         $funcionContructor = '__construct'.$numParams;
         if(method_exists($this, $funcionContructor)){
             call_user_func_array(array($this, $funcionContructor), $params);
-        }else{
-            console_log("No existe");
         }
     }
 
     public function __construct0(){
-        
     }
 
     public function __construct1($id){
@@ -35,97 +29,38 @@ class Usuario{
 
 
     public function login(){
-        console_log("login");
-        console_log($this->username);
-        console_log($this->passwd);
-        $u = $this->getUser();
-        if( $u !== null && $u->passwd == $this->passwd ){
-            console_log("Bien");
-            console_log($u->getId());
-            return true;
+        $conn = db();
+        
+        $consulta = "SELECT id FROM " . $this->tipo . " WHERE username = :username AND passwd = :passwd";
+        $stmt = $conn->prepare($consulta);
+        $stmt->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
+        $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
+        $stmt->execute();
+
+        if( ! $stmt->fetch(PDO::FETCH_ASSOC) ){
+              return false;
         }else{
-            $this->setEmail($this->username);
-            console_log("Email");
-            console_log($this->email);
-            console_log($u);
-            $u = $this->getUserByMail();
-            console_log($u);
-            if( $u !== null && $u->passwd == $this->passwd ){
-                return true;
-            }else{
-                return false;
-            }
+              return true;
         }
     }
 
-    public function getUser(){
-        console_log('getUser: ');
-        $users = $this->getAllUsers();
-        foreach($users as $k => $u){
-            $u = $this->fromJson($u);
-            if( $u->username == $this->username ){
-                $this->id = $k;
-                $k = $u->id;
-                return $u;
-            }
+    public function isUser(){
+        $conn = db();
+        
+        $consulta = "SELECT id FROM " . $this->tipo . " WHERE username = :username";
+        $stmt = $conn->prepare($consulta);
+        $stmt->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
+        $stmt->execute();
+
+        if( ! $stmt->fetch(PDO::FETCH_ASSOC) ){
+              return false;
+        }else{
+              return true;
         }
-        return null;
     }
 
-    public function getUserByMail(){
-        console_log('getUserByMail: ');
-        $users = $this->getAllUsers();
-        foreach($users as $k => $u){
-            $u = $this->fromJson($u);
-            if( $u->email == $this->email ){
-                $this->id = $k;
-                $k = $u->id;
-                return $u;
-            }
-        }
-        return null;
-    }
 
-    public function getAllUsers(){
-        return (array)json_decode(file_get_contents((Usuario::$usersPath), true));
-    }
-
-    public function toJson(){
-        return json_encode([
-            "username" => $this->username,
-            "passwd" => $this->passwd,
-            "email" => $this->email
-         ]);
-    }
-
-    public static function fromJson($json){
-        $array = json_decode($json, true);
-        $obj = new Usuario();
-        $obj->setUsername($array['username'])
-            ->setPasswd($array['passwd'])
-            ->setTipo($array['tipo'])
-            ->setEmail($array['email'])
-            ->setNombre($array['nombre'])
-            ->setApell($array['apell'])
-        ;
-        return $obj;
-    }
-
-    public function getUsernameById(){
-        foreach($this->getAllUsers() as $k => $u){
-            if($this->id == $k)
-                return json_decode($u, true)['username'];
-        }
-        return null;
-    }
-
-    public function getTipoById(){
-        foreach($this->getAllUsers() as $k => $u){
-            if($this->id == $k)
-                return json_decode($u, true)['tipo'];
-        }
-        return null;
-    }
+    
 
     //RecuperarElUsuarioLogeado
     public function getLoggedUser() {

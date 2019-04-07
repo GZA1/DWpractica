@@ -128,7 +128,7 @@
             if($_GET['usrreg']==1){
     ?>
     <script>
-        $('head').before('<div id="usrreg" style="width: 100%; height: 20px; color: #ff2828; background-color: #e0e0d2;padding: 10px;">Registrado con éxito, proceda a loguearse</div>');
+        $('head').before('<div id="usrreg" style="height: 20px; color: #0083ff; background-color: #e0e0d2;padding: 10px;">Registrado con éxito, proceda a loguearse</div>');
         setTimeout(function(){ 
             $('#usrreg').fadeOut('fast');
             }, 4000
@@ -155,7 +155,7 @@
 <?php
 }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $u = new Usuario();
+        $u = new Cliente();
         $u  ->setUsername($_POST['username'])
             ->setPasswd($_POST['passwd'])
         ;

@@ -10,7 +10,7 @@ class Empleado extends Usuario {
 
     public function __construct(){
         parent::_construct();
-        $this ->id = spl_object_hash($this);
+        $this ->id = "EMP:" . spl_object_hash($this);
         $this ->tipo = "empleado";
     }
 
