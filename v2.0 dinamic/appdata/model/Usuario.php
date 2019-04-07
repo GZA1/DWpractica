@@ -4,7 +4,7 @@ require_once("Console.php");
 require_once("Cliente.php");
 require_once("config.php");
 class Usuario{
-    protected $id;
+    protected $id = null;
     protected $username;
     protected $passwd;
     protected $nombre;
@@ -37,9 +37,11 @@ class Usuario{
         $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
         $stmt->execute();
 
-        if( ! $stmt->fetch(PDO::FETCH_ASSOC) ){
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if( ! $row ){
               return false;
         }else{
+            $this->id = $row['id'];
               return true;
         }
     }
@@ -59,8 +61,36 @@ class Usuario{
         }
     }
 
+    public function getTipoById(){
+        $idTipo = substr($this->id, 0, 2);
+        if(strcmp($idTipo, "CLI")){
+            $this->tipo = "cliente";
+        }else if(strcmp($idTipo, "EMP")){
+            $this->tipo = "empleado";
+        }
+        return $this->tipo;
+    }
 
-    
+    public function getUsernameById(){
+        $conn = db();
+        
+        console_log($this->id);
+        $consulta = "SELECT username FROM " . $this->tipo . " WHERE id = :id";
+        $stmt = $conn->prepare($consulta);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        console_log($row);
+        if( ! $row ){
+            return false;
+        }else{
+            return $row['username'];
+        }
+    }
+
+
+
 
     //RecuperarElUsuarioLogeado
     public function getLoggedUser() {

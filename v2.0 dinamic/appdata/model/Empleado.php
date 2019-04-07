@@ -9,13 +9,17 @@ class Empleado extends Usuario {
     private $isAdministrador;
 
     public function __construct(){
-        parent::_construct();
-        $this ->id = "EMP:" . spl_object_hash($this);
+        parent::__construct();
+        if($this->id == null){
+            $this->generateId();
+        }
         $this ->tipo = "empleado";
     }
 
 
-    
+    private function generateId(){
+        $this ->id = "EMP:" . spl_object_hash($this);
+    }
 
 }
 

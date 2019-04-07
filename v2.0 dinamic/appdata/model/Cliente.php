@@ -9,12 +9,13 @@ class Cliente extends Usuario {
     private $saldo;
     private $cesta;
 
-    public function __construct()
-    {
-        $this->id = "CLI:" . spl_object_hash($this);
+    public function __construct(){
+        parent::__construct();
+        if($this->id == null){
+            $this->generateId();
+        }
         $this->tipo = "cliente";
     }
-
 
     public function add(){
         try {
@@ -31,6 +32,9 @@ class Cliente extends Usuario {
                     :domicilio, :Cesta_id)";
             
             $cesta_id = null;
+
+            console_log($this->id);
+            console_log($this->tipo);
             
             $stmt = $conn->prepare($consulta);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
@@ -68,7 +72,6 @@ class Cliente extends Usuario {
             $stmt = $conn->query($consulta);
             
         }catch(PDOException $ex){
-            echo "Hubo un error";
             console_log($ex->getMessage());
         }
 
@@ -90,11 +93,44 @@ class Cliente extends Usuario {
          
     }
 
+
+    private function getDataClienteId(){
+        $conn = db();
+        $consulta = "SELECT * FROM cliente WHERE id = :id";
+        try{
+
+            console_log("id cliente a buscar: ");
+            console_log($this->id);
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $this->username = $row['username'];
+            $this->passwd = $row['passwd'];
+            $this->nombre = $row['nombre'];
+            $this->apell = $row['apellidos'];
+            $this->email = $row['email'];
+            $this->domicilio = $row['domicilio'];
+            $this->saldo = $row['saldo'];
+            $this->cesta = $row['cesta'];
+
+            console_log($row);
+
+        }catch(PDOException $ex){
+            console_log($ex->getMessage());
+        }
+    }
+
     
 
       
 
 
+
+    private function generateId(){
+        $this ->id = "CLI:" . spl_object_hash($this);
+    }
 
 
     
