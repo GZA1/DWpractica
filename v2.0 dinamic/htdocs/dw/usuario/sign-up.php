@@ -37,7 +37,7 @@
                     <label id="lDomic">Domicilio</label>
                     <input type="text" id="domicilio" name="domicilio">
                     <label id="lId">Nombre de usuario</label>
-                    <input type="text" id="id" name="id">
+                    <input type="text" id="username" name="username">
                     <label id="lPasswd">Contraseña</label>
                     <input type="password" id="passwd" name="passwd">
                     <label id="lPasswd2">Confirma tu contraseña</label>
@@ -55,13 +55,13 @@
                             apell = $("#apell").val(),
                             email = $("#email").val(),
                             domicilio = $("#domicilio").val(),
-                            id = $("#id").val(),
+                            id = $("#username").val(),
                             passwd = $("#passwd").val(),
                             passwd2 = $("#passwd2").val();
 
-                        var inputVal = [nombre, apell, email, domicilio, id, passwd, passwd2],
-                            inputMessage = ["nombre", "apellidos", "email", "domicilio", "id", "passwd", "passwd2"],
-                            textId = ["#lNombre", "#lApell", "#lEmail", "lDomic", "#lId", "#lPasswd", "#lPasswd2"];
+                        var inputVal = [nombre, apell, email, domicilio, username, passwd, passwd2],
+                            inputMessage = ["nombre", "apellidos", "email", "domicilio", "username", "passwd", "passwd2"],
+                            textId = ["#lNombre", "#lApell", "#lEmail", "lDomic", "#lUsername", "#lPasswd", "#lPasswd2"];
 
                         for(var i=0;i<inputVal.length;i++){
                             inputVal[i] = $.trim(inputVal[i]);
@@ -161,15 +161,30 @@
     </body>
 </html>
 <?php
+        if( isset($_GET['usrreg']) ){
+            if($_GET['usrreg']==0){
+?>
+    <script>
+        $('head').before('<div id="usrreg" style="height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">Nombre de usuario inválido</div>');
+        setTimeout(function(){ 
+            $('#usrreg').fadeOut('fast');
+            }, 4000
+            );
+    </script>
+<?php
+            }
+        }
+?>
+<?php
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
         $u = new Cliente();
-        $u  ->setUsername($_POST['id'])
+        $u  ->setUsername($_POST['username'])
             ->setPasswd($_POST['passwd'])
             ->setNombre($_POST['nombre'])
             ->setApell($_POST['apell'])
             ->setEmail($_POST['email'])
-            ->setdomicilio($_POST['domicilio'])
+            ->setDomicilio($_POST['domicilio'])
         ;
         $u->encryptPasswd();
         if( $u->add() ) {
@@ -177,7 +192,8 @@
             exit;
         }
         else {
-            echo "Error: Falló la operación";
+            header('Location: ' . $_SERVER['PHP_SELF'] . '?usrreg=0');
+            exit;
         }
     }
 ?>

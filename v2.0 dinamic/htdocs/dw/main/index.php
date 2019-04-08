@@ -61,12 +61,14 @@
                             <a class="azul" href="../usuario/sign-up.php">Registrarse</a>
                             <?php
                                 }else{
+                                    console_log($_SESSION['id']);
                                     $u = new Usuario($_SESSION['id']);
                                     $tipo = $u->getTipoById();
+                                    $username = $u->getUsernameById();
                             ?>
                             <div>
                                 <?php
-                                    echo("Logueado como " . $tipo . ": <b>" . $u->getUsernameById() . "</b>");
+                                    echo("Logueado como " . $tipo . ": <b>" . $username . "</b>");
                                 ?>
                             </div>
                             <a href="../usuario/perfil.php">Perfil de Usuario</a>
