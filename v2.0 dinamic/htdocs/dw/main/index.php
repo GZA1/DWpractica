@@ -1,12 +1,12 @@
 <?php
     require_once('/xampp/appdata/model/Console.php');
     require_once('/xampp/appdata/model/Usuario.php');
-    require_once('/xampp/appdata/model/Saldo.php');
+    //require_once('/xampp/appdata/model/Saldo.php');
 
     session_start();
 
-    if(isset($_SESSION['id']))
-        $saldo = new Saldo($_SESSION['id']);
+    // if(isset($_SESSION['id']))
+    //     $saldo = new Saldo($_SESSION['id']);
     if( $_SERVER['REQUEST_METHOD']=='GET') {
 ?>
 <!DOCTYPE html>
@@ -82,6 +82,9 @@
                 </li>
                 <?php
                     if( isset($u) && $tipo == 'cliente' ){
+                        $c = new Cliente();
+                        $c->setId($u->getId());
+                        $c->getDataClienteId();
                 ?>
                 <li class="dropdown-container">
                     <div class="dropdown">
@@ -113,7 +116,7 @@
                         <div class="dropdown-contenido">
                             <div>
                                 <?php
-                                    echo("Saldo disponible: " . $saldo->getCantidad() . "€");
+                                    echo("Saldo disponible: " . $c->getSaldo() . "€");
                                 ?>
                             </div>
                             <div class="verde">
@@ -155,7 +158,7 @@
                     </li>
                 </ul>
             </div>
-<!--        Este div contiene la parte central -->
+            <!--        Este div contiene la parte central -->
             <div class="mainContainer">
                 <div id="contenidoMain" class="flex_cols transition">
                     <div id="firstThing">
@@ -190,7 +193,7 @@
                     </div>
                 </div>
             </div>
-    <!--        Este div contiene los anuncios -->
+                <!--        Este div contiene los anuncios -->
             <aside class="adsLateral adDerecha">
                 <ul class="lista_ads">
                     <li class="ad_container">
@@ -323,14 +326,17 @@
         }
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        console_log($saldo->getCantidad());
-        $saldo->aumentarCantidad($_POST['saldo-add']);
-        console_log($saldo->getCantidad());
-        if( $saldo->add() ){
+        $cliente = new Cliente($_SESSION['id']);
+        $cliente->getDataClientId();
+
+        console_log($cliente->getSaldo());
+        if($cliente->recargarSaldo($_POST['saldo-add'])){
             header('Location: ?saldoadd=1');
             exit;
         }else {
             echo "Error: Falló la operación";
+            
         }
+        
     }
 ?>

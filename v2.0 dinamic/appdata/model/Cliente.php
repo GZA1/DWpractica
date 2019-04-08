@@ -1,6 +1,7 @@
 <?php
 
 require_once("Console.php");
+require_once("Usuario.php");
 
 
 class Cliente extends Usuario {
@@ -16,6 +17,7 @@ class Cliente extends Usuario {
         }
         $this->tipo = "cliente";
     }
+    
 
     public function add(){
         try {
@@ -43,7 +45,7 @@ class Cliente extends Usuario {
             $stmt->bindParam(':nombre', $this->nombre, PDO::PARAM_STR, 45);
             $stmt->bindParam(':apellidos', $this->apell, PDO::PARAM_STR, 45);
             $stmt->bindParam(':email', $this->email, PDO::PARAM_STR, 45);
-            $stmt->bindParam(':domicilio', $this->domicilio, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':domicilio', $this->domicilio, PDO::PARAM_STR, 45);            
             $stmt->bindValue(':Cesta_id', null, PDO::PARAM_INT);            
             $stmt->execute();
 
@@ -86,6 +88,7 @@ class Cliente extends Usuario {
                 'domicilio' => $row['domicilio'],
                 'fechaCreacion' => $row['fechaCreacion'],
                 'fechaModificacion' => $row['fechaModificacion'],
+                'Saldo' => $row['Saldo'],
                 'Cesta_id' => $row['Cesta_id']
             ];
         }
@@ -94,7 +97,7 @@ class Cliente extends Usuario {
     }
 
 
-    private function getDataClienteId(){
+    public function getDataClienteId(){
         $conn = db();
         $consulta = "SELECT * FROM cliente WHERE id = :id";
         try{
@@ -116,21 +119,72 @@ class Cliente extends Usuario {
             $this->cesta = $row['cesta'];
 
             console_log($row);
+            
 
         }catch(PDOException $ex){
             console_log($ex->getMessage());
         }
     }
+    
+
+    private function generateId(){
+        $this ->id = "CLI:" . spl_object_hash($this);
+    }
+    
+
+
+
+    public function getClientSaldo(){
+        try{
+
+            $conn = db();
+            $consulta = "SELECT Saldo FROM cliente WHERE id=:id";
+            $stmt = $conn->prepare($consulta);
+            
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            
+            $row = $stmt->fetch();
+            console_log($row);
+
+            $saldo = $row['Saldo'];
+            console_log($saldo);
+
+            if($saldo!=null){
+                return $saldo;
+            }
+            
+        }catch(PDOException $ex){
+            console_log($ex->getMessage());
+        }
+    }
+    
+    public function recargarSaldo($cantidad){
+        $this->setSaldo($this->$saldo + $cantidad);
+        try{
+
+            $conn = db();
+            $consulta = "UPDATE clientes SET saldo = :saldo WHERE id = :id";
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':saldo', $this->saldo);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            return true;
+
+
+        }catch(PDOException $ex){
+            console_log($ex->getMessage());
+            return false;
+        }
+    }
+
+
 
     
 
       
 
 
-
-    private function generateId(){
-        $this ->id = "CLI:" . spl_object_hash($this);
-    }
 
 
     

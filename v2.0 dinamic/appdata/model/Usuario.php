@@ -18,6 +18,7 @@ class Usuario{
         if(method_exists($this, $funcionContructor)){
             call_user_func_array(array($this, $funcionContructor), $params);
         }
+        
     }
 
     public function __construct0(){
@@ -29,21 +30,25 @@ class Usuario{
 
 
     public function login(){
-        $conn = db();
-        
-        $consulta = "SELECT id FROM " . $this->tipo . " WHERE username = :username AND passwd = :passwd";
-        $stmt = $conn->prepare($consulta);
-        $stmt->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
-        $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
-        $stmt->execute();
+        try{
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if( ! $row ){
-              return false;
-        }else{
-            $this->id = $row['id'];
-              return true;
-        }
+            $conn = db();
+            
+            //$consulta = "SELECT id FROM " . $this->tipo . " WHERE username = :username AND passwd = :passwd";
+            $consulta = "SELECT id FROM cliente WHERE username = :username AND passwd = :passwd";
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if( ! $row ){
+                return false;
+            }else{
+                $this->id = $row['id'];
+                return true;
+            }
+        }catch(PDOException $ex){console_log($ex.getMessage());}
     }
 
     public function isUser(){
