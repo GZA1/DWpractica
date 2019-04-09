@@ -4,6 +4,8 @@ require_once("Console.php");
 
 
 class Cliente extends Usuario {
+
+     
     protected $email;
     private $domicilio;
     private $saldo;
@@ -137,14 +139,46 @@ class Cliente extends Usuario {
     }
 
     
-
-      
-
-
-
     private function generateId(){
         $this ->id = "CLI:" . spl_object_hash($this);
     }
+
+    public function updatePerfilCliente($username, $name, $surnames, $address)  {
+        
+        if(isset($username) & isset($name) && isset($surnames) && isset($address)){
+
+            try{
+                $dateTime = date("Y-m-d H:i:s"); 
+
+                $conn = db();
+                $consulta = "UPDATE Cliente SET username = :Username, nombre = :Nombre, apellidos = :Apellidos, domicilio = :Domicilio, fechaModificacion = :FechaModificacion WHERE id = :id";
+                $stmt = $conn->prepare($consulta);
+                $stmt->bindParam(':Username', $username, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':Nombre', $name, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':Apellidos', $surnames, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':Domicilio', $address, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':FechaModificacion', $dateTime);
+                $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+                $stmt->execute();
+            }catch(PDOException $ex){cLog($ex->getMessage());}
+         return true;   
+        }else{
+            return false;
+        }
+
+    }
+
+
+
+
+    public function compararPass($pass){
+        if($this->passwd == $pass){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 
     

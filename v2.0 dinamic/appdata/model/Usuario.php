@@ -3,7 +3,10 @@
 require_once("Console.php");
 require_once("Cliente.php");
 require_once("config.php");
-class Usuario{
+
+
+class Usuario { 
+
     protected $id = null;
     protected $username;
     protected $passwd;
@@ -100,19 +103,19 @@ class Usuario{
         $this->setUsername($username);
         return $this->getUser();
     }
-
+    
     public function changePasswd($newPasswd){
         $users = $this->getAllUsers();
         foreach($users as $k => $u){
             if($this->id == $k){
-
+                
                 //Comentado hasta que funcione ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
-
+                
                 /*$uorig = new Usuario();
                 $uorig->setUsername(json_decode($u, true)['username'])
-                    ->setPasswd($newPasswd)
-                    ->setTipo(json_decode($u, true)['tipo'])
-                    ->setEmail(json_decode($u, true)['email'])
+                ->setPasswd($newPasswd)
+                ->setTipo(json_decode($u, true)['tipo'])
+                ->setEmail(json_decode($u, true)['email'])
                 ;
                 $users[$k] = $uorig;
                 file_put_contents( Usuario::$usersPath, json_encode($users, JSON_PRETTY_PRINT) );*/
@@ -124,7 +127,14 @@ class Usuario{
     }
     
     
-
+    
+        public function encryptPasswd()
+        {
+            $this->passwd = sha1($this->passwd); //Hasheamos la contraseña del usuario
+    
+            return $this;
+        }
+    
     /**
      * Get the value of id
      */ 
@@ -176,6 +186,8 @@ class Usuario{
 
         return $this;
     }
+
+
 
     /**
      * Get the value of nombre
@@ -233,13 +245,6 @@ class Usuario{
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function encryptPasswd()
-    {
-        $this->passwd = sha1($this->passwd); //Hasheamos la contraseña del usuario
 
         return $this;
     }

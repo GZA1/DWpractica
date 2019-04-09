@@ -192,6 +192,7 @@ label {
     padding: 1vh 0 1vh 0;
 }
 .submitCDF {
+    display: inline-block;
     cursor: pointer;
     margin-top: 2vh;
     /* padding: 1vh 4vw 1vh 4vw ; */

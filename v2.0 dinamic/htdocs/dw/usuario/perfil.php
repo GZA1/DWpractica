@@ -1,14 +1,25 @@
 <?php
-    require_once('/xampp/appdata/model/Console.php');
+    require_once('/xampp/appdata/model/console.php');
     require_once('/xampp/appdata/model/Usuario.php');
-    require_once('/xampp/appdata/model/Saldo.php');
+    require_once('/xampp/appdata/model/Cliente.php');
+    //require_once('/xampp/appdata/model/Saldo.php');
 
     session_start();
 
-    $usuario = new Usuario($_SESSION['id']);
+    $c = null;
+    if(isset($_SESSION['id'])){
+        $u = new Usuario($_SESSION['id']);
+        $tipo = $u->getTipo();
+        $username = $u->getUsername();
+            if($tipo == "cliente"){
+                $c = new Cliente($_SESSION['id']);
+            }
+    }
+
+    // $usuario = new Usuario($_SESSION['id']);
     
     if( $_SERVER['REQUEST_METHOD']=='GET') {
-        $FullUser = $usuario->getLoggedUser();
+        // $c = $usuario->getLoggedUser();
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,7 +46,10 @@
             $("#optChangeData").click(function(){
                 $("#cambiarDataForm").fadeIn();
                 $("#cambiarPassForm").fadeOut();
-            });    
+            }); 
+            $("#cancelButton").click(function(){
+                $("#cambiarDataForm").fadeOut();
+            });   
             
         });
         
@@ -62,23 +76,23 @@
 
                     <div class="profileAttr">
                         <div class="attrName attr" >Nombre de usuario:</div>
-                        <p class="attr"><?php echo $FullUser->getUsername();?></p>                        
+                        <p class="attr"><?php echo $c->getUsername();?></p>                        
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Nombre:</div>
-                        <p class="attr"><?php echo $FullUser->getNombre();?></p>                        
+                        <p class="attr"><?php echo $c->getNombre();?></p>                        
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Apellidos:</div>
-                        <p class="attr"><?php echo $FullUser->getApell();?></p>                        
+                        <p class="attr"><?php echo $c->getApell();?></p>                        
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Email:</div>
-                        <p class="attr"><?php echo $FullUser->getEmail();?></p>                        
+                        <p class="attr"><?php echo $c->getEmail();?></p>                        
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Domicilio:</div>
-                        <p class="attr">WIP<?php //echo $FullUser->getDomicilio();?></p>                       
+                        <p class="attr"><?php echo $c->getDomicilio();?></p>                       
                     </div>
                     
                 </div>
@@ -91,7 +105,7 @@
                 
 
                     <!-- Username
-                    <div><?php //echo $FullUser->getUsername();?></div>
+                    <div><?php //echo $c->getUsername();?></div>
                     <a class="activateFormLink">Cambiar nombre de usuario</a> -->
                     
                     
@@ -101,23 +115,21 @@
                         <form method="post" id="cDF">
 
                             <label>Nombre de usuario</label>
-                            <input type="text" value="<?php echo htmlspecialchars($FullUser->getUsername());?>" name="Username">
+                            <input type="text" value="<?php echo htmlspecialchars($c->getUsername());?>" name="Username">
                             <label>Nombre</label>
-                            <input type="text" value="<?php echo htmlspecialchars($FullUser->getNombre());?>" name="Nombre">
+                            <input type="text" value="<?php echo htmlspecialchars($c->getNombre());?>" name="Nombre">
                             <label>Apellidos</label>
-                            <input type="text" value="<?php echo htmlspecialchars($FullUser->getApell());?>" name="Apellidos">
-                            <label>Email</label>
-                            <!-- Hay que meter la comprobacion para emails en formularios!!!!!!!!!!-->
-                            <input type="text" value="<?php echo htmlspecialchars($FullUser->getEmail());?>" name="Email">
+                            <input type="text" value="<?php echo htmlspecialchars($c->getApell());?>" name="Apellidos">
                             <label>Domicilio</label>
-                            <!--VALUE DE DOMICILIO  value="<?php//echo htmlspecialchars($FullUser->getDomicilio());?>" -->
-                            <input type="text" name="Domicilio">
-                            <input class="submitCDF" type="submit" value="Actualizar Perfil">
-                            <input class="submitCDF" type="submit" value="Cancelar">
+                            <input type="text" value="<?php echo htmlspecialchars($c->getDomicilio());?>" name="Domicilio" >
+                            <label>Introduzca su contraseña para confirmar</label>
+                            <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
+                            <input class="submitCDF" type="submit" name="submit" id="updateButton" value="Actualizar Perfil">
+                            <input class="submitCDF" id="cancelButton" type="button" value="Cancelar">
                         </form>
                     </div>
                     
-                    <!-- Contraseña-->
+                    <!--                               Contraseña                            -->
                     <div id="cambiarPassForm" class="profileForm">
                         <h3 style="margin: 0px 0 2vh 0;">Cambiar contraseña</h3>
                         <form method="post" id="cambiarPass">
@@ -125,7 +137,7 @@
                             <input type="password" id="newPasswd" name="newPasswd">
                             <label id="lPasswd2">Confirme su nueva contraseña</label>
                             <input type="password" id="newPasswd2" name="newPasswd2"><br><br>
-                            <input class="submitCDF" type="submit" value="Cambiar contraseña">
+                            <input class="submitCDF"  type="submit" name="submit" value="Cambiar contraseña">
                         </form>
                     </div>
 
@@ -227,23 +239,65 @@
         if( isset($_GET['passwdchange']) ){
             if($_GET['passwdchange']==1){
     ?>
-    <script>
-        $('head').before('<div id="passwdchange" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Contraseña cambiada con éxito</div>');
-        setTimeout(function(){
-            $('#passwdchange').fadeOut('fast');
-            }, 4000
-            );
-    </script>
-<?php
+        <script>
+            $('head').before('<div id="passwdchange" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Contraseña cambiada con éxito</div>');
+            setTimeout(function(){
+                $('#passwdchange').fadeOut('fast');
+                }, 4000
+                );
+        </script>
+    <?php
+            }
+        }else if(isset($_GET['updateProfile'])){
+            if($_GET['updateProfile'] == 1){
+    ?>
+        <script type="text/javascript">
+            $('head').before('<div id="updateProfile" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Perfil Actualizado</div>');        
+            setTimeout(function(){
+                $('#updateProfile').fadeOut('fast');
+                }, 4000
+                );        
+        </script>
+                
+                
+                
+    <?php
             }
         }
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuario->changePasswd($_POST['newPasswd']) ){
-            header('Location: ?passwdchange=1');
-            exit;
-        }else {
-            echo "Error: Falló la operación";
+        switch($_POST['submit']){
+            case 'Actualizar Perfil':
+                if($c->compararPass(sha1($_POST['ContraseñaConfirm']))){
+                    if($c->updatePerfilCliente($_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio'])){
+
+                        header('Location: ?updateProfile=1');
+                        exit;
+                    }else{
+                        
+                        echo "Operacion Fallida";
+                    }
+                }else{
+                    echo "Error: Contraseña Erronea";
+                }
+                
+
+
+                
+            
+            break;            
+            
+            
+            case 'Cambiar contraseña':
+                if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuario->changePasswd($_POST['newPasswd']) ){
+                    header('Location: ?passwdchange=1');
+                    exit;
+                }else {
+                    echo "Error: Falló la operación";
+                }
+            
+            break;
+            
         }
     }
 ?>
