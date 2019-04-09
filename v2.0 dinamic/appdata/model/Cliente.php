@@ -11,10 +11,24 @@ class Cliente extends Usuario {
 
     public function __construct(){
         parent::__construct();
+        $params = func_get_args();
+        $numParams = func_num_args();
+        $funcionContructor = '__construct'.$numParams;
+        if(method_exists($this, $funcionContructor)){
+            call_user_func_array(array($this, $funcionContructor), $params);
+        }
+    }
+
+    public function __construct0(){
         if($this->id == null){
             $this->generateId();
         }
         $this->tipo = "cliente";
+    }
+
+    public function __construct1($id){
+        $this->id = $id;
+        $this->getDataClienteId();
     }
 
     public function add(){
@@ -113,7 +127,7 @@ class Cliente extends Usuario {
             $this->email = $row['email'];
             $this->domicilio = $row['domicilio'];
             $this->saldo = $row['saldo'];
-            $this->cesta = $row['cesta'];
+            $this->cesta = $row['Cesta_id'];
 
             console_log($row);
 
@@ -180,7 +194,7 @@ class Cliente extends Usuario {
      */ 
     public function getSaldo()
     {
-        return $this->saldo;
+        return number_format(floatval($this->saldo),2);
     }
 
     /**
@@ -193,6 +207,36 @@ class Cliente extends Usuario {
         $this->saldo = $saldo;
 
         return $this;
+    }
+
+    /**
+     * Add the value of $value to saldo,
+     * which is written in the mysql db
+     */ 
+    public function addSaldo($value)
+    {
+        $this->saldo += $value;
+        return $this->updateSaldo();
+    }
+
+    /**
+     * Update saldo in the mysql db
+     */
+    private function updateSaldo(){
+        try{
+
+            $conn = db();
+            $consulta = "UPDATE cliente SET saldo = :saldo WHERE id = :id";
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':saldo', $this->saldo, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+            $stmt->execute();   
+
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return false;
+        }
+        return true;
     }
 
     /**

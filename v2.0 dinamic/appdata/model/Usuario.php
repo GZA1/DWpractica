@@ -25,6 +25,8 @@ class Usuario{
 
     public function __construct1($id){
         $this->id = $id;
+        $this->tipo = $this->getTipoById();
+        $this->username = $this->getUsernameById();
     }
 
 
@@ -37,12 +39,12 @@ class Usuario{
         $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
         $stmt->execute();
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if( ! $row ){
-              return false;
+        $output = $stmt->fetch(PDO::FETCH_ASSOC);
+        if( ! $output ){
+            return false;
         }else{
-            $this->id = $row['id'];
-              return true;
+            $this->id = $output['id'];
+            return true;
         }
     }
 
@@ -64,11 +66,11 @@ class Usuario{
     public function getTipoById(){
         $idTipo = substr($this->id, 0, 2);
         if(strcmp($idTipo, "CLI")){
-            $this->tipo = "cliente";
+            $tipo = "cliente";
         }else if(strcmp($idTipo, "EMP")){
-            $this->tipo = "empleado";
+            $tipo = "empleado";
         }
-        return $this->tipo;
+        return $tipo;
     }
 
     public function getUsernameById(){
