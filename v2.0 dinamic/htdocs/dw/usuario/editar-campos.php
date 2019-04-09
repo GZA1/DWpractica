@@ -5,8 +5,12 @@
 
     session_start();
 
-    if(isset($_SESSION['id']))
-        $saldo = new Saldo($_SESSION['id']);
+    $c = null;
+    if(isset($_SESSION['id'])){
+        $u = new Usuario($_SESSION['id']);
+        $tipo = $u->getTipo();
+        $username = $u->getUsername();
+    }
     if( $_SERVER['REQUEST_METHOD']=='GET') {
 ?>
 <html>

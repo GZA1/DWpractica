@@ -7,11 +7,12 @@
         <meta name="robots" content="NoIndex, NoFollow">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../styles/style-shared.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <title>Página principal</title>
     </head>
     <body>
         <nav>
-            <a id="logo" href="https://placeholder.com/"><img src="https://via.placeholder.com/60/6600cc/2e2e1f?text=Logo"></a>
+            <img id="logo" src="../img/logo.png" width="60">
             <ul id="lista_nav">
                 <li class="cont_enlace_interno">
                     <a href="../main/index.php">Inicio</a>
@@ -30,12 +31,92 @@
                         <input type="search" placeholder="Search">
                     </form>
                 </li>
-                <li>
-                    <a id="img_usuario" href=""><img src="../img/user-icon.png" height="20px"></a>
+                <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                                <img href="../usuario/sign-in.php" src="../img/user-icon.png" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                        <div class="dropdown-contenido">
+                            <?php
+                                if( !isset($u) ){
+                            ?>
+                            <a class="verde" href="../usuario/sign-in.php">Iniciar Sesión</a>
+                            <a class="azul" href="../usuario/sign-up.php">Registrarse</a>
+                            <?php
+                                }else{
+                            ?>
+                            <div>
+                                <?php
+                                    echo("Logueado como " . $tipo . ": <b>" . $username . "</b>");
+                                ?>
+                            </div>
+                            <a href="../usuario/perfil.php">Perfil de Usuario</a>
+                            <a href="">Historial de Pedidos</a>
+                            <a class="rojo" href="../usuario/logout.php">Cerrar Sesión</a>
+                            <?php
+                                }
+                            ?>
+                        </div>
+                    </div>
                 </li>
-                <li>
-                    <a id="img_carrito" href=""><img src="../img/shopping-trolley.png" height="20px"></a>
+                <?php
+                    if( isset($u) && $tipo == 'cliente' ){
+                        $c = new Cliente($_SESSION['id']);
+                ?>
+                <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                                <img src="../img/shopping-trolley.png" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                        <div class="dropdown-contenido">
+                            <a href="../cesta_compra/xxxx-cesta.php">Cesta</a>
+                        </div>
+                    </div>
                 </li>
+                <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                            <img src="../img/monedero-icon.png" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                        <div class="dropdown-contenido">
+                            <div>
+                                <?php
+                                    echo("Saldo disponible: " . $c->getSaldo() . "€");
+                                ?>
+                            </div>
+                            <div class="verde">
+                                <form method="post">
+                                    <label>Ingresar Saldo</label>
+                                    <input style="width: 80%;" name="saldo-add" type="text">
+                                    <label>IBAN (el que sea)</label>
+                                    <input style="width: 80%;" name="iban" type="text">
+                                    <input style="width: 80%;" class="naranja" type="submit" value="Ingresar">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <?php
+                    }
+                ?>
             </ul>
         </nav>
         <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>

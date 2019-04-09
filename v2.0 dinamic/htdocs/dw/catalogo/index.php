@@ -5,8 +5,12 @@
 
     session_start();
 
-    if(isset($_SESSION['id']))
-        $saldo = new Saldo($_SESSION['id']);
+    $c = null;
+    if(isset($_SESSION['id'])){
+        $u = new Usuario($_SESSION['id']);
+        $tipo = $u->getTipo();
+        $username = $u->getUsername();
+    }
     if( $_SERVER['REQUEST_METHOD']=='GET') {
 ?>
 <html>
@@ -131,18 +135,16 @@
                         </div>
                         <div class="dropdown-contenido">
                             <?php
-                                if( !isset($_SESSION['id']) ){
+                                if( !isset($u) ){
                             ?>
                             <a class="verde" href="../usuario/sign-in.php">Iniciar Sesión</a>
                             <a class="azul" href="../usuario/sign-up.php">Registrarse</a>
                             <?php
                                 }else{
-                                    $u = new Usuario($_SESSION['id']);
-                                    $tipo = $u->getTipoById();
                             ?>
                             <div>
                                 <?php
-                                    echo("Logueado como " . $tipo . ": <b>" . $u->getUsernameById() . "</b>");
+                                    echo("Logueado como " . $tipo . ": <b>" . $username . "</b>");
                                 ?>
                             </div>
                             <a href="../usuario/perfil.php">Perfil de Usuario</a>
@@ -156,6 +158,7 @@
                 </li>
                 <?php
                     if( isset($u) && $tipo == 'cliente' ){
+                        $c = new Cliente($_SESSION['id']);
                 ?>
                 <li class="dropdown-container">
                     <div class="dropdown">
@@ -187,16 +190,16 @@
                         <div class="dropdown-contenido">
                             <div>
                                 <?php
-                                    echo("Saldo disponible: " . $saldo->getCantidad() . "€");
+                                    echo("Saldo disponible: " . $c->getSaldo() . "€");
                                 ?>
                             </div>
                             <div class="verde">
                                 <form method="post">
                                     <label>Ingresar Saldo</label>
-                                    <input name="saldo-add" type="text">
+                                    <input style="width: 80%;" name="saldo-add" type="text">
                                     <label>IBAN (el que sea)</label>
-                                    <input name="iban" type="text">
-                                    <input class="naranja" type="submit" value="Ingresar">
+                                    <input style="width: 80%;" name="iban" type="text">
+                                    <input style="width: 80%;" class="naranja" type="submit" value="Ingresar">
                                 </form>
                             </div>
                         </div>
@@ -542,8 +545,31 @@
         </div>
     </footer>
 </html>
+    <?php
+        if( isset($_GET['usrlog']) ){
+            if($_GET['usrlog']==1){
+    ?>
+    <script>
+        $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Logueado con éxito</div>');
+        setTimeout(function(){
+            $('#usrlog').fadeOut('fast');
+            }, 4000
+            );
+    </script>
+    <?php
+            }else if($_GET['usrlog']==0){
+    ?>
+    <script>
+        $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #0073e6; background-color: #1e1e15; padding: 10px;">Sesión cerrada</div>');
+        setTimeout(function(){
+            $('#usrlog').fadeOut('fast');
+            }, 4000
+            );
+    </script>
 <?php
-        if( isset($_GET['saldoadd']) && $_GET['saldoadd']==1  ){
+            }
+        }else if( isset($_GET['saldoadd'])){
+            if($_GET['saldoadd']==1){
 ?>
         <script>
             $('head').before('<div id="saldoadd" style="width: 100%; height: 20px; color: #ffb246; background-color: #1e1e15; padding: 10px;">Saldo añadido con éxito</div>');
@@ -553,17 +579,29 @@
                 );
         </script>
 <?php
+            }
+            else if($_GET['saldoadd']==0){
+?>
+        <script>
+            $('head').before('<div id="saldoadd" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #1e1e15; padding: 10px;">No se pudo añadir saldo correctamente</div>');
+            setTimeout(function(){
+                $('#saldoadd').fadeOut('fast');
+                }, 4000
+                );
+        </script>
+<?php
+            }
         }
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        console_log($saldo->getCantidad());
-        $saldo->aumentarCantidad($_POST['saldo-add']);
-        console_log($saldo->getCantidad());
-        if( $saldo->add() ){
-            header('Location: ?saldoadd=1');
+        $c = new Cliente($_SESSION['id']);
+        $saldoAdd = $_POST['saldo-add'];
+        if( is_numeric($saldoAdd) && $saldoAdd > 0 && $c->addSaldo($saldoAdd) ){
+            header('Location: ' . $_SERVER['PHP_SELF'] . '?saldoadd=1');
             exit;
-        }else {
-            echo "Error: Falló la operación";
+        }else{
+            header('Location: ' . $_SERVER['PHP_SELF'] . '?saldoadd=0');
+            exit;
         }
     }
 ?>

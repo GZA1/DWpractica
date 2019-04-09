@@ -26,29 +26,27 @@ class Usuario{
 
     public function __construct1($id){
         $this->id = $id;
+        $this->tipo = $this->getTipoById();
+        $this->username = $this->getUsernameById();
     }
 
 
     public function login(){
-        try{
+        $conn = db();
+        
+        $consulta = "SELECT id FROM " . $this->tipo . " WHERE username = :username AND passwd = :passwd";
+        $stmt = $conn->prepare($consulta);
+        $stmt->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
+        $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
+        $stmt->execute();
 
-            $conn = db();
-            
-            //$consulta = "SELECT id FROM " . $this->tipo . " WHERE username = :username AND passwd = :passwd";
-            $consulta = "SELECT id FROM cliente WHERE username = :username AND passwd = :passwd";
-            $stmt = $conn->prepare($consulta);
-            $stmt->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
-            $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
-            $stmt->execute();
-            
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            if( ! $row ){
-                return false;
-            }else{
-                $this->id = $row['id'];
-                return true;
-            }
-        }catch(PDOException $ex){console_log($ex.getMessage());}
+        $output = $stmt->fetch(PDO::FETCH_ASSOC);
+        if( ! $output ){
+            return false;
+        }else{
+            $this->id = $output['id'];
+            return true;
+        }
     }
 
     public function isUser(){
@@ -69,11 +67,11 @@ class Usuario{
     public function getTipoById(){
         $idTipo = substr($this->id, 0, 2);
         if(strcmp($idTipo, "CLI")){
-            $this->tipo = "cliente";
+            $tipo = "cliente";
         }else if(strcmp($idTipo, "EMP")){
-            $this->tipo = "empleado";
+            $tipo = "empleado";
         }
-        return $this->tipo;
+        return $tipo;
     }
 
     public function getUsernameById(){

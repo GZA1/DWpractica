@@ -137,11 +137,11 @@
     <?php
             }
         }
-        else if( isset($_GET['unl']) ){
-            if($_GET['unl']==1){
+        else if( isset($_GET['usrerror']) ){
+            if($_GET['usrerror']==1){
     ?>
     <script>
-        $('head').before('<div id="unl" style="width: 100%; height: 20px; color: #0073e6; background-color: #e0e0d2;padding: 10px;">Debe loguearse primero</div>');
+        $('head').before('<div id="unl" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">Usuario y/o contraseña incorrectos</div>');
         setTimeout(function(){ 
             $('#usrreg').fadeOut('fast');
             }, 4000
@@ -169,7 +169,7 @@
             exit;
         }
         else {
-            echo "Error: Falló la operación";
+            header("Location: " . $_SERVER['PHP_SELF'] . "?usrerror=1");
         }
     }
 ?>
