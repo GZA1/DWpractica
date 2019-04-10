@@ -7,8 +7,20 @@ class Empleado extends Usuario {
     private $active;
     private $cargo;
     private $isAdministrador;
+    private $tienda_id;
+
+
 
     public function __construct(){
+        $params = func_get_args();
+        $numParams = func_num_args();
+        $funcionContructor = '__construct'.$numParams;
+        if(method_exists($this, $funcionContructor)){
+            call_user_func_array(array($this, $funcionContructor), $params);
+        }
+    }
+
+    public function __construct0(){
         parent::__construct();
         if($this->id == null){
             $this->generateId();
@@ -42,14 +54,16 @@ class Empleado extends Usuario {
             $this->nombre = $row['nombre'];
             $this->apell = $row['apellidos'];
             $this->photoPath = $row['photoPath'];
-            $this->active = $row['active'];
+            $this->active = $row['activo'];
             $this->cargo = $row['cargo'];
             $this->isAdministrador = $row['isAdministrador'];
+            $this->tienda_id = $row['Tienda_id'];
+
 
             console_log($row);
 
         }catch(PDOException $ex){
-            console_log($ex->getMessage());
+            cLog($ex->getMessage());
         }
     }
 
@@ -73,7 +87,7 @@ class Empleado extends Usuario {
                 return true;
                 //--TODO
 
-            }catch(PDOException $ex){cLog($ex->getMessage();)}
+            }catch(PDOException $ex){cLog($ex->getMessage());}
         }else{
             return false;
         }

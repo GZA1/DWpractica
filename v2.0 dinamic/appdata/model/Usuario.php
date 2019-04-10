@@ -12,6 +12,7 @@ class Usuario {
     protected $passwd;
     protected $nombre;
     protected $apell;
+    protected $email;
     protected $tipo;
 
     public function __construct(){
@@ -32,19 +33,51 @@ class Usuario {
         $this->username = $this->getUsernameById();
     }
 
+    
 
     public function login(){
-        $conn = db();
         
-        $consulta = "SELECT id FROM " . $this->tipo . " WHERE username = :username AND passwd = :passwd";
-        $stmt = $conn->prepare($consulta);
-        $stmt->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
-        $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
-        $stmt->execute();
-
-        $output = $stmt->fetch(PDO::FETCH_ASSOC);
+        try{
+            
+            $conn = db();
+            
+            if(strpos($this->username, '@') !== FALSE){
+                
+                $consulta = "SELECT id FROM Cliente WHERE email = :username AND passwd = :passwd";
+                
+            }else {
+                
+                $consulta = "SELECT id FROM Cliente WHERE username = :username AND passwd = :passwd";
+    
+            }
+            
+            
+            
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            
+            $output = $stmt->fetch(PDO::FETCH_ASSOC);
+        }catch(PDOException $ex){cLog($ex.getMessage());}
         if( ! $output ){
-            return false;
+            try{
+                $consulta = str_replace("Cliente","Empleado", $consulta);
+                //cLog($consulta);
+                $stmt2 = $conn->prepare($consulta);
+                $stmt2->bindParam(':username', $this->username, PDO::PARAM_STR, 45);
+                $stmt2->bindParam(':passwd', $this->passwd, PDO::PARAM_STR, 45);
+                $stmt2->execute();
+                $output2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+            }catch(PDOException $ex){cLog($ex.getMessage());}
+                
+            if(! $output2){
+
+                return false;
+            }else{
+                $this->id = $output2['id'];
+                return true;
+            }
         }else{
             $this->id = $output['id'];
             return true;
@@ -67,10 +100,11 @@ class Usuario {
     }
 
     public function getTipoById(){
-        $idTipo = substr($this->id, 0, 2);
-        if(strcmp($idTipo, "CLI")){
+        // cLog($this->id);
+        $idTipo = substr($this->id, 0, 3);
+        if(strcmp($idTipo, "CLI") == 0){
             $tipo = "cliente";
-        }else if(strcmp($idTipo, "EMP")){
+        }else if(strcmp($idTipo, "EMP") == 0){
             $tipo = "empleado";
         }
         return $tipo;
@@ -93,6 +127,8 @@ class Usuario {
             return $row['username'];
         }
     }
+
+    
 
 
 
@@ -136,12 +172,15 @@ class Usuario {
     }
     
     
-        public function encryptPasswd()
-        {
-            $this->passwd = sha1($this->passwd); //Hasheamos la contraseña del usuario
+    public function encryptPasswd()
+    {
+        $this->passwd = sha1($this->passwd); //Hasheamos la contraseña del usuario
+
+        return $this;
+    }
+
+
     
-            return $this;
-        }
     
     /**
      * Get the value of id

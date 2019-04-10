@@ -8,8 +8,7 @@
     session_start();
 
     $c = null;
-    $e = null;
-    $a = null;
+   
     if(isset($_SESSION['id'])){
         $u = new Usuario($_SESSION['id']);
         $tipo = $u->getTipo();
@@ -17,10 +16,9 @@
             if($tipo == "cliente"){
                 $c = new Cliente($_SESSION['id']);
             }else if($tipo == "empleado"){
-                $e = new Empleado($_SESSION['id']);
-                if($e->isAdministrador){
-                    $a = $e;
-                    $e = null;
+                $c = new Empleado($_SESSION['id']);
+                if($c->getisAdministrador()){
+                    
                 }
             }
     }
@@ -103,6 +101,10 @@
                         <div class="attrName attr">Apellidos:</div>
                         <p class="attr"><?php echo $c->getApell();?></p>
                     </div>
+                    <?php
+                    if($tipo == "cliente"){
+                    ?>
+
                     <div class="profileAttr">
                         <div class="attrName attr">Email:</div>
                         <p class="attr"><?php echo $c->getEmail();?></p>
@@ -111,6 +113,10 @@
                         <div class="attrName attr">Domicilio:</div>
                         <p class="attr"><?php echo $c->getDomicilio();?></p>
                     </div>
+                    
+                    <?php
+                    }
+                    ?>
 
                 </div>
                 <div id="OPTS_profile">
@@ -119,7 +125,7 @@
 
                     <!--   Botones de Empleado o Administrador -->
                     <?php
-                        if(isset($a)){
+                        if($c->getTipo() == "empleado" && $c->isAdministrador()){
                     ?>
                         <a class="concreteOpt" id="optAddEMP">Registrar Empleado</a>
                     <?php
@@ -165,7 +171,7 @@
             </div>
         </div>
         <?php
-        if(isset($e)){
+        if($c->getTipo() == "empleado"){
         ?>
         <!--    Menu de Empleado     -->
             
@@ -176,7 +182,7 @@
         }
         ?>
         <?php
-        if(isset($a)){
+        if($c->getTipo() == "empleado" && $c->isAdministrador){
         ?>
         <!--    Menu de Administrador   -->
         <div id="registrarEmpleadoForm" class="profileForm">
@@ -284,7 +290,6 @@
         </script>      
     <?php
             }
-        }
         }else if(isset($_GET['newEmp'])){
             if($_GET['newEmp'] == 1){
     ?>

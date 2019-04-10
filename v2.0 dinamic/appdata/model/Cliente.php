@@ -6,7 +6,7 @@ require_once("Console.php");
 class Cliente extends Usuario {
 
      
-    protected $email;
+   
     private $domicilio;
     private $saldo;
     private $cesta;

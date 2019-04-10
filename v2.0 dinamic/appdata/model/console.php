@@ -11,7 +11,7 @@
 
     function cLog($var){
         $myFile = fopen(__DIR__ . '/../log/LogPruebas.txt', "a") or die("Unable to open file");
-        $wString = date("Y-m-d H:i:s") . " " . $var;
+        $wString = date("Y-m-d H:i:s") . " " . $var."\n";
         fwrite($myFile, $wString);
         fclose($myFile);
 

@@ -156,16 +156,19 @@
 <?php
 }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $u = new Cliente();
+        $u = new Usuario();
         $u  ->setUsername($_POST['username'])
             ->setPasswd($_POST['passwd'])
         ;
+
+
         $u->encryptPasswd();
         if( $u->login() ) {
             session_start();
             $_SESSION['id'] = $u->getId();
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
             console_log($_SESSION['id']);
+            cLog($_SESSION['id']);
             header('Location: ../main/index.php?usrlog=1');
             exit;
         }
