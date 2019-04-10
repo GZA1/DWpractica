@@ -126,6 +126,14 @@ class Usuario {
         return false;
     }
     
+
+    public function compararPass($pass){
+        if($this->passwd == $pass){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
     
         public function encryptPasswd()

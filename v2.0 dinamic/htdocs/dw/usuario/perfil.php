@@ -2,17 +2,26 @@
     require_once('/xampp/appdata/model/console.php');
     require_once('/xampp/appdata/model/Usuario.php');
     require_once('/xampp/appdata/model/Cliente.php');
+    require_once('/xampp/appdata/model/Empleado.php');
     //require_once('/xampp/appdata/model/Saldo.php');
 
     session_start();
 
     $c = null;
+    $e = null;
+    $a = null;
     if(isset($_SESSION['id'])){
         $u = new Usuario($_SESSION['id']);
         $tipo = $u->getTipo();
         $username = $u->getUsername();
             if($tipo == "cliente"){
                 $c = new Cliente($_SESSION['id']);
+            }else if($tipo == "empleado"){
+                $e = new Empleado($_SESSION['id']);
+                if($e->isAdministrador){
+                    $a = $e;
+                    $e = null;
+                }
             }
     }
 
@@ -47,8 +56,16 @@
                 $("#cambiarDataForm").fadeIn();
                 $("#cambiarPassForm").fadeOut();
             }); 
+            $("#optAddEMP").click(function(){
+                $("#cambiarDataForm").fadeOut();
+                $("#cambiarPassForm").fadeOut();
+                $("#registrarEmpleadoForm").fadeIn();
+            }); 
             $("#cancelButton").click(function(){
                 $("#cambiarDataForm").fadeOut();
+            });   
+            $("#cancelButtonREMP").click(function(){
+                $("#registrarEmpleadoForm").fadeOut();
             });   
             
         });
@@ -60,13 +77,13 @@
 
 
         <div class="flex_cols" id="contenedor-inic">
-                <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+            <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
             <div id="logo-inic">
                 <a href="../main/index.php">
                     <img src="../img/logo_horizontal.png" width="100%">
                 </a>
             </div>
-            <div id="mainSection"> 
+            <div id="mainSection">
                 <div id="profileTop">
                     Perfil Usuario
                 </div>
@@ -75,117 +92,124 @@
 
 
                     <div class="profileAttr">
-                        <div class="attrName attr" >Nombre de usuario:</div>
-                        <p class="attr"><?php echo $c->getUsername();?></p>                        
+                        <div class="attrName attr">Nombre de usuario:</div>
+                        <p class="attr"><?php echo $c->getUsername();?></p>
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Nombre:</div>
-                        <p class="attr"><?php echo $c->getNombre();?></p>                        
+                        <p class="attr"><?php echo $c->getNombre();?></p>
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Apellidos:</div>
-                        <p class="attr"><?php echo $c->getApell();?></p>                        
+                        <p class="attr"><?php echo $c->getApell();?></p>
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Email:</div>
-                        <p class="attr"><?php echo $c->getEmail();?></p>                        
+                        <p class="attr"><?php echo $c->getEmail();?></p>
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Domicilio:</div>
-                        <p class="attr"><?php echo $c->getDomicilio();?></p>                       
+                        <p class="attr"><?php echo $c->getDomicilio();?></p>
                     </div>
-                    
+
                 </div>
                 <div id="OPTS_profile">
                     <a class="concreteOpt" id="optChangePass">Cambiar contraseña</a>
                     <a class="concreteOpt" id="optChangeData">Modificar datos</a>
-                    
+
+                    <!--   Botones de Empleado o Administrador -->
+                    <?php
+                        if(isset($a)){
+                    ?>
+                        <a class="concreteOpt" id="optAddEMP">Registrar Empleado</a>
+                    <?php
+                    }
+                    ?>
+
 
                 </div>
-                
 
-                    <!-- Username
-                    <div><?php //echo $c->getUsername();?></div>
-                    <a class="activateFormLink">Cambiar nombre de usuario</a> -->
-                    
-                    
-                    
-                    <div id="cambiarDataForm" class="profileForm">
-                        <h3 style="margin: 0px 0 2vh 0;">Actualizar datos del perfil</h3>
-                        <form method="post" id="cDF">
 
-                            <label>Nombre de usuario</label>
-                            <input type="text" value="<?php echo htmlspecialchars($c->getUsername());?>" name="Username">
-                            <label>Nombre</label>
-                            <input type="text" value="<?php echo htmlspecialchars($c->getNombre());?>" name="Nombre">
-                            <label>Apellidos</label>
-                            <input type="text" value="<?php echo htmlspecialchars($c->getApell());?>" name="Apellidos">
-                            <label>Domicilio</label>
-                            <input type="text" value="<?php echo htmlspecialchars($c->getDomicilio());?>" name="Domicilio" >
-                            <label>Introduzca su contraseña para confirmar</label>
-                            <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
-                            <input class="submitCDF" type="submit" name="submit" id="updateButton" value="Actualizar Perfil">
-                            <input class="submitCDF" id="cancelButton" type="button" value="Cancelar">
-                        </form>
-                    </div>
-                    
-                    <!--                               Contraseña                            -->
-                    <div id="cambiarPassForm" class="profileForm">
-                        <h3 style="margin: 0px 0 2vh 0;">Cambiar contraseña</h3>
-                        <form method="post" id="cambiarPass">
-                            <label id="lPasswd">Introduzca su nueva contraseña</label>
-                            <input type="password" id="newPasswd" name="newPasswd">
-                            <label id="lPasswd2">Confirme su nueva contraseña</label>
-                            <input type="password" id="newPasswd2" name="newPasswd2"><br><br>
-                            <input class="submitCDF"  type="submit" name="submit" value="Cambiar contraseña">
-                        </form>
-                    </div>
 
-                
-                
-    
+                <div id="cambiarDataForm" class="profileForm">
+                    <h3 style="margin: 0px 0 2vh 0;">Actualizar datos del perfil</h3>
+                    <form method="post" id="cDF">
+
+                        <label>Nombre de usuario</label>
+                        <input type="text" value="<?php echo htmlspecialchars($c->getUsername());?>" name="Username">
+                        <label>Nombre</label>
+                        <input type="text" value="<?php echo htmlspecialchars($c->getNombre());?>" name="Nombre">
+                        <label>Apellidos</label>
+                        <input type="text" value="<?php echo htmlspecialchars($c->getApell());?>" name="Apellidos">
+                        <label>Domicilio</label>
+                        <input type="text" value="<?php echo htmlspecialchars($c->getDomicilio());?>" name="Domicilio">
+                        <label>Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton"
+                            value="Actualizar Perfil">
+                        <input class="submitCDF" id="cancelButton" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+                <!--                               Contraseña                            -->
+                <div id="cambiarPassForm" class="profileForm">
+                    <h3 style="margin: 0px 0 2vh 0;">Cambiar contraseña</h3>
+                    <form method="post" id="cambiarPass">
+                        <label id="lPasswd">Introduzca su nueva contraseña</label>
+                        <input type="password" id="newPasswd" name="newPasswd">
+                        <label id="lPasswd2">Confirme su nueva contraseña</label>
+                        <input type="password" id="newPasswd2" name="newPasswd2"><br><br>
+                        <input class="submitCDF" type="submit" name="optsSubmit" value="Cambiar contraseña">
+                    </form>
+                </div>
             </div>
         </div>
+        <?php
+        if(isset($e)){
+        ?>
+        <!--    Menu de Empleado     -->
+            
+        
+        
+        
+        <?php
+        }
+        ?>
+        <?php
+        if(isset($a)){
+        ?>
+        <!--    Menu de Administrador   -->
+        <div id="registrarEmpleadoForm" class="profileForm">
+        <h3 style="margin: 0px 0 2vh 0;">Registrar Empleado</h3>
+        <form method="post" id="rEMP">
+
+            <label>Nombre de usuario</label>
+            <input type="text" name="Username">
+            <label>Contraseña</label>
+            <input type="text" name="Passwd">
+            <label>Nombre</label>
+            <input type="text" name="Nombre">
+            <label>Apellidos</label>
+            <input type="text" name="Apellidos">
+            <label>Ruta de foto de perfil</label>
+            <input type="text" name="PhotoPath">
+            <label>Cargo</label>
+            <input type="text" name="Cargo">
+            <label>Introduzca su contraseña para confirmar</label>
+            <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
+            <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Añadir Empleado">
+            <input class="submitCDF" id="cancelButtonREMP" type="button" value="Cancelar">
+        </form>
+        
+        
+        
+        <?php
+        }
+        ?>
+        
 
 
-        <!-- <div class="flex_cols">
-            <div class="flex_rows" id="contenedor_main_ads">
-            <div id="sideContainer">
 
-            </div>
-
-            <div class="mainContainer">
-                <div id="contenidoMain" class="flex_cols transition">
-
-
-                </div>
-            </div>
-          </div>
-        </div> -->
-        <script type="text/javascript">
-            $("document").ready(function() {
-
-                $("#c1").click(function(){
-                   $("#secondThing").fadeOut();
-                    $("#firstThing").fadeIn();
-                    $("#thirdThing").fadeOut();
-                });
-
-                $("#c2").click(function(){
-                   $("#secondThing").fadeIn();
-                    $("#firstThing").fadeOut();
-                    $("#thirdThing").fadeOut();
-                });
-
-                $("#c3").click(function(){
-                   $("#secondThing").fadeOut();
-                    $("#firstThing").fadeOut();
-                    $("#thirdThing").fadeIn();
-                });
-
-            });
-
-        </script>
         </div>
         <footer class="pageFoot">
             <div class="flex_cols">
@@ -257,47 +281,67 @@
                 $('#updateProfile').fadeOut('fast');
                 }, 4000
                 );        
-        </script>
-                
-                
-                
+        </script>      
+    <?php
+            }
+        }
+        }else if(isset($_GET['newEmp'])){
+            if($_GET['newEmp'] == 1){
+    ?>
+        <script type="text/javascript">
+            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Empleado Registrado</div>');        
+            setTimeout(function(){
+                $('#newEmp').fadeOut('fast');
+                }, 4000
+                );        
+        </script>      
     <?php
             }
         }
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        switch($_POST['submit']){
+        switch($_POST['optsSubmit']){
+            
             case 'Actualizar Perfil':
                 if($c->compararPass(sha1($_POST['ContraseñaConfirm']))){
                     if($c->updatePerfilCliente($_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio'])){
-
                         header('Location: ?updateProfile=1');
                         exit;
-                    }else{
-                        
+                    }else{                        
                         echo "Operacion Fallida";
                     }
                 }else{
                     echo "Error: Contraseña Erronea";
                 }
-                
-
-
-                
-            
             break;            
-            
-            
+               
             case 'Cambiar contraseña':
                 if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuario->changePasswd($_POST['newPasswd']) ){
                     header('Location: ?passwdchange=1');
                     exit;
                 }else {
                     echo "Error: Falló la operación";
+                }            
+            break;            
+            case 'Añadir Empleado':
+            if($a->compararPass(sha1($_POST['ContraseñaConfirm']))){
+                $newEmpleado = new Empleado();
+                $newEmpleado ->setUsername($_POST['Username'])
+                             ->setPasswd($_POST['Passwd']) 
+                             ->setNombre($_POST['Nombre']) 
+                             ->setApell($_POST['Apellidos']) 
+                             ->setApell($_POST['PhotoPath']) 
+                             ->setApell($_POST['Cargo']);
+                if($a->registrarEmpleado($newEmpleado)){
+                    header('Location: ?newEmp=1');
+                    exit;
+                }else{
+                    echo "Operacion Fallida";
                 }
-            
-            break;
-            
+            }else{
+                echo "Contraseña Incorrecta";
+            }    
+            break;            
         }
     }
 ?>

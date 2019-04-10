@@ -171,13 +171,7 @@ class Cliente extends Usuario {
 
 
 
-    public function compararPass($pass){
-        if($this->passwd == $pass){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    
 
 
 

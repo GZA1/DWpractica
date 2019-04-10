@@ -14,16 +14,9 @@ show variables;
 set sql_safe_updates = 0;
 
 
-INSERT into Cliente(id, username, passwd, nombre, apellidos, email, domicilio, saldo, Cesta_id) 
-VALUES('CLI:estoesunuuid', 'papu', '123412341234123', 'Pepe', 'Hernandez Machado', 'papu@hotmail.com', 'Calle falsa 123', '240', NULL);
+/*Hacer inserts de clientes desde el sign up*/
 
-
-INSERT into Cliente(id, username, passwd, nombre, apellidos, email, domicilio, saldo, Cesta_id) 
-VALUES('CLI:estoesunuuid2', 'Vito', 'adsasfsasfasfdf', 'Migue', 'Vito itoV', 'itoV@hotmail.com', 'Calle falsa 321', '666', NULL);
-
-INSERT into Cliente(id, username, passwd, nombre, apellidos, email, domicilio, saldo, Cesta_id) 
-VALUES('CLI:estoesunuuid3', 'Jaime', 'ubvue7764n', 'Pepe', 'Hernandez Machado', 'Jaime@hotmail.com', 'Calle falsa 13', '240', NULL);
-
+INSERT INTO Empleado (id, username, passwd, nombre, apellidos, photopath, cargo, isAdministrador) VALUES ('EMP:000000005022630e0000000012d81fbf', 'burns', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Señor', 'Señor Burns', './/img/externos/1.jpg', 'ventas', '1');
 
 
 
