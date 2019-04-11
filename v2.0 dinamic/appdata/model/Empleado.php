@@ -31,6 +31,7 @@ class Empleado extends Usuario {
     public function __construct1($id){
         $this->id = $id;
         $this->getEmpleadoByID();
+        $this ->tipo = "empleado";
     }
     
     private function generateId(){
@@ -53,6 +54,7 @@ class Empleado extends Usuario {
             $this->passwd = $row['passwd'];
             $this->nombre = $row['nombre'];
             $this->apell = $row['apellidos'];
+            $this->email = $row['email'];
             $this->photoPath = $row['photoPath'];
             $this->active = $row['activo'];
             $this->cargo = $row['cargo'];
@@ -73,14 +75,15 @@ class Empleado extends Usuario {
             try{
 
                 $conn = db();
-                $consulta = "INSERT INTO Empleado (id, username, passwd, nombre, apellidos, photopath, cargo) 
-                                VALUES (:id, :username, :passwd, :nombre, :apellidos, :photopath, :cargo)";
+                $consulta = "INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo) 
+                                VALUES (:id, :username, :passwd, :nombre, :apellidos, :email, :photopath, :cargo)";
                 $stmt = $conn->prepare($consulta);
                 $stmt->bindParam(':id', $empleado->id, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':username', $empleado->username ,PDO::PARAM_STR, 45 );
                 $stmt->bindParam(':passwd', $empleado->passwd , PDO::PARAM_STR, 45);
                 $stmt->bindParam(':nombre', $empleado->nombre ,  PDO::PARAM_STR, 45);
                 $stmt->bindParam(':apellidos', $empleado->apellidos, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':email', $empleado->apellidos, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':photopath', $empleado->photopath, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':cargo', $empleado->cargo, PDO::PARAM_STR, 45);
                 $stmt->execute();

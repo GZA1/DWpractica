@@ -17,9 +17,7 @@
                 $c = new Cliente($_SESSION['id']);
             }else if($tipo == "empleado"){
                 $c = new Empleado($_SESSION['id']);
-                if($c->getisAdministrador()){
-                    
-                }
+                
             }
     }
 
@@ -55,9 +53,9 @@
                 $("#cambiarPassForm").fadeOut();
             }); 
             $("#optAddEMP").click(function(){
+                $("#registrarEmpleadoForm").fadeIn();
                 $("#cambiarDataForm").fadeOut();
                 $("#cambiarPassForm").fadeOut();
-                $("#registrarEmpleadoForm").fadeIn();
             }); 
             $("#cancelButton").click(function(){
                 $("#cambiarDataForm").fadeOut();
@@ -101,19 +99,19 @@
                         <div class="attrName attr">Apellidos:</div>
                         <p class="attr"><?php echo $c->getApell();?></p>
                     </div>
-                    <?php
-                    if($tipo == "cliente"){
-                    ?>
 
                     <div class="profileAttr">
                         <div class="attrName attr">Email:</div>
                         <p class="attr"><?php echo $c->getEmail();?></p>
                     </div>
+                    <?php
+                    if($tipo == "cliente"){
+                    ?>
                     <div class="profileAttr">
                         <div class="attrName attr">Domicilio:</div>
                         <p class="attr"><?php echo $c->getDomicilio();?></p>
                     </div>
-                    
+
                     <?php
                     }
                     ?>
@@ -125,11 +123,13 @@
 
                     <!--   Botones de Empleado o Administrador -->
                     <?php
-                        if($c->getTipo() == "empleado" && $c->isAdministrador()){
+                        // cLog($c->getisAdministrador());
+                        // cLog($c->getTipo());
+                        if($c->getTipo() == "empleado" && $c->getisAdministrador()){
                     ?>
-                        <a class="concreteOpt" id="optAddEMP">Registrar Empleado</a>
+                    <a class="concreteOpt" id="optAddEMP" style="display: inline-block;">Registrar Empleado</a>
                     <?php
-                    }
+                        }
                     ?>
 
 
@@ -147,76 +147,68 @@
                         <input type="text" value="<?php echo htmlspecialchars($c->getNombre());?>" name="Nombre">
                         <label>Apellidos</label>
                         <input type="text" value="<?php echo htmlspecialchars($c->getApell());?>" name="Apellidos">
+                        <?php
+                        if($c->getTipo() == "cliente"){
+                            ?>
                         <label>Domicilio</label>
                         <input type="text" value="<?php echo htmlspecialchars($c->getDomicilio());?>" name="Domicilio">
+                        <?php
+                        }
+                        ?>
                         <label>Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton"
-                            value="Actualizar Perfil">
+                        <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Actualizar Perfil">
                         <input class="submitCDF" id="cancelButton" type="button" value="Cancelar">
                     </form>
                 </div>
 
-                <!--                               Contraseña                            -->
+                
                 <div id="cambiarPassForm" class="profileForm">
                     <h3 style="margin: 0px 0 2vh 0;">Cambiar contraseña</h3>
                     <form method="post" id="cambiarPass">
                         <label id="lPasswd">Introduzca su nueva contraseña</label>
                         <input type="password" id="newPasswd" name="newPasswd">
                         <label id="lPasswd2">Confirme su nueva contraseña</label>
-                        <input type="password" id="newPasswd2" name="newPasswd2"><br><br>
+                        <input type="password" id="newPasswd2" name="newPasswd2"><br>
                         <input class="submitCDF" type="submit" name="optsSubmit" value="Cambiar contraseña">
                     </form>
                 </div>
+
+                <div id="registrarEmpleadoForm" class="profileForm">
+                    <h3 style="margin: 0px 0 2vh 0;">Registrar Empleado</h3>
+                    <form method="post" id="rEMP">
+
+                        <label>Nombre de usuario</label>
+                        <input type="text" name="Username">
+                        <label>Contraseña</label>
+                        <input type="text" name="Passwd">
+                        <label>Nombre</label>
+                        <input type="text" name="Nombre">
+                        <label>Apellidos</label>
+                        <input type="text" name="Apellidos">
+                        <label>Email</label>
+                        <input type="text" name="Email">
+                        <label>Ruta de foto de perfil</label>
+                        <input type="text" name="PhotoPath">
+                        <label>Cargo</label>
+                        <input type="text" name="Cargo">
+                        <label>Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton"
+                            value="Añadir Empleado">
+                        <input class="submitCDF" id="cancelButtonREMP" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+
+
+
             </div>
         </div>
-        <?php
-        if($c->getTipo() == "empleado"){
-        ?>
-        <!--    Menu de Empleado     -->
-            
         
         
         
-        <?php
-        }
-        ?>
-        <?php
-        if($c->getTipo() == "empleado" && $c->isAdministrador){
-        ?>
-        <!--    Menu de Administrador   -->
-        <div id="registrarEmpleadoForm" class="profileForm">
-        <h3 style="margin: 0px 0 2vh 0;">Registrar Empleado</h3>
-        <form method="post" id="rEMP">
-
-            <label>Nombre de usuario</label>
-            <input type="text" name="Username">
-            <label>Contraseña</label>
-            <input type="text" name="Passwd">
-            <label>Nombre</label>
-            <input type="text" name="Nombre">
-            <label>Apellidos</label>
-            <input type="text" name="Apellidos">
-            <label>Ruta de foto de perfil</label>
-            <input type="text" name="PhotoPath">
-            <label>Cargo</label>
-            <input type="text" name="Cargo">
-            <label>Introduzca su contraseña para confirmar</label>
-            <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
-            <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Añadir Empleado">
-            <input class="submitCDF" id="cancelButtonREMP" type="button" value="Cancelar">
-        </form>
-        
-        
-        
-        <?php
-        }
-        ?>
-        
-
-
-
-        </div>
+    </body>
         <footer class="pageFoot">
             <div class="flex_cols">
                 <div class="flex_rows" id="footer_info">
@@ -252,18 +244,20 @@
                             ¿Dónde estamos ubicados?
                         </div>
                         <div class="content">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2982.3770409752533!2d-4.717704684502627!3d41.62598097924306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4712d844c78375%3A0x8532df1684bc7224!2sUniversidad+Europea+Miguel+de+Cervantes+-+UEMC!5e0!3m2!1ses!2ses!4v1547635284329" width="90%" height="80%" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2982.3770409752533!2d-4.717704684502627!3d41.62598097924306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4712d844c78375%3A0x8532df1684bc7224!2sUniversidad+Europea+Miguel+de+Cervantes+-+UEMC!5e0!3m2!1ses!2ses!4v1547635284329"
+                                width="90%" height="80%" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
                 <div id="footer_copyright">
                     <a href="../main/privacy-policy.php" target="_blank">Política de Privacidad</a>
                     <a href="http://www.uemc.es" target="_blank">Universidad Europea Miguel de Cervantes</a>
-                    <a href="https://creativecommons.org/choose/zero/?lang=es" target="_blank"><img src="../img/CC0.png" alt="cc0" width="15px"></a>
+                    <a href="https://creativecommons.org/choose/zero/?lang=es" target="_blank"><img src="../img/CC0.png"
+                            alt="cc0" width="15px"></a>
                 </div>
             </div>
         </footer>
-    </body>
 </html>
     <?php
         if( isset($_GET['passwdchange']) ){
@@ -335,6 +329,7 @@
                              ->setPasswd($_POST['Passwd']) 
                              ->setNombre($_POST['Nombre']) 
                              ->setApell($_POST['Apellidos']) 
+                             ->setApell($_POST['Email']) 
                              ->setApell($_POST['PhotoPath']) 
                              ->setApell($_POST['Cargo']);
                 if($a->registrarEmpleado($newEmpleado)){

@@ -31,6 +31,7 @@ class Cliente extends Usuario {
     public function __construct1($id){
         $this->id = $id;
         $this->getDataClienteId();
+        $this->tipo = "cliente";
     }
 
     public function add(){

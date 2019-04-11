@@ -191,6 +191,19 @@ label {
 #cDF>input {
     padding: 1vh 0 1vh 0;
 }
+
+#rEMP {
+    width: 60%;
+}
+#rEMP>label {
+    margin-top: 2vh;
+
+}
+
+#rEMP>input {
+    padding: 1vh 0 1vh 0;
+}
+
 .submitCDF {
     display: inline-block;
     cursor: pointer;
