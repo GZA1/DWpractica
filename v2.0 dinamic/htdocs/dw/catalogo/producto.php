@@ -33,35 +33,7 @@
 </head>
 
 <body>
-     <nav>
-        <img id="logo" src="../img/logo.png" width="60">
-
-        <ul id="lista_nav">
-            <li class="cont_enlace_interno">
-                <a href="../main/index.php">Inicio</a>
-            </li>
-            <li class="cont_enlace_interno">
-                <a href="../catalogo/index.php">Catálogo</a>
-            </li>
-            <li class="cont_enlace_interno">
-                <a href="../servicios/index.php">Servicios</a>
-            </li>
-            <li class="cont_enlace_interno">
-                <a href="../encuentranos/index.php">Encuéntranos</a>
-            </li>
-            <li>
-                <form>
-                    <input type="search" placeholder="Search">
-                </form>
-            </li>
-            <li>
-                    <a id="img_usuario" href="../usuario/sign-in.php"><img src="../img/user-icon.png" height="20px"></a>
-            </li>
-            <li>
-                <a id="img_carrito" href="../cesta_compra/xxxx-cesta.php"><img src="../img/shopping-trolley.png" height="20px"></a>
-            </li>
-        </ul>
-    </nav>
+    <?php require_once('../nav/nav.php'); ?>
 
 
     <!--            Este contiene los divs laterales-->
