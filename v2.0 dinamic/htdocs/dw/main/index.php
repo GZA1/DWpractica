@@ -188,7 +188,7 @@
             if($_GET['usrlog']==1){
     ?>
     <script>
-        $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Logueado con éxito</div>');
+        $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #5cff5c; background-color: #1e1e15; padding: 10px;">Logueado con éxito</div>');
         setTimeout(function(){
             $('#usrlog').fadeOut('fast');
             }, 4000

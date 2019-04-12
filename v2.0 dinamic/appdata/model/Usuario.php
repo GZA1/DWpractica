@@ -120,7 +120,6 @@ class Usuario {
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        console_log($row);
         if( ! $row ){
             return false;
         }else{
@@ -140,34 +139,53 @@ class Usuario {
         return $this->getUser();
     }
     
+
+
     public function changePasswd($newPasswd){
-        $users = $this->getAllUsers();
-        foreach($users as $k => $u){
-            if($this->id == $k){
-                
-                //Comentado hasta que funcione ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
-                
-                /*$uorig = new Usuario();
-                $uorig->setUsername(json_decode($u, true)['username'])
-                ->setPasswd($newPasswd)
-                ->setTipo(json_decode($u, true)['tipo'])
-                ->setEmail(json_decode($u, true)['email'])
-                ;
-                $users[$k] = $uorig;
-                file_put_contents( Usuario::$usersPath, json_encode($users, JSON_PRETTY_PRINT) );*/
-                
-                return true;
-            }
+        try{
+            $conn = db();
+            
+            $consulta = "UPDATE " . $this->tipo . " SET passwd = :passwd WHERE id = :id";
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':passwd', sha1($newPasswd), PDO::PARAM_STR, 45);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+            $stmt->execute();
+
+            return true;
+        }catch(PDOException $ex){
+            cLog($ex.getMessage());
+            return false;
         }
-        return false;
     }
     
 
     public function compararPass($pass){
+        if( ! isset($this->passwd) ){
+            $this->passwd = $this->getPasswdFromDB();
+            console_log($pass);
+            console_log($this->passwd);
+        }
         if($this->passwd == $pass){
+            console_log("true");
             return true;
         }else{
+            console_log("false");
             return false;
+        }
+    }
+
+    private function getPasswdFromDB(){
+        try{
+            $conn = db();
+        
+            $consulta = "SELECT passwd FROM " . $this->tipo . " WHERE id = :id";
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+            $stmt->execute();
+    
+            return $stmt->fetch(PDO::FETCH_ASSOC)['passwd'];
+        }catch(PDOException $ex){
+            cLog($ex.getMessage());
         }
     }
     

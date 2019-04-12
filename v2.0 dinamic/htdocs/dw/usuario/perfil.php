@@ -166,6 +166,8 @@
                 <div id="cambiarPassForm" class="profileForm">
                     <h3 style="margin: 0px 0 2vh 0;">Cambiar contraseña</h3>
                     <form method="post" id="cambiarPass">
+                        <label id="lPasswd">Introduzca su antigua contraseña</label>
+                        <input type="password" id="oldPasswd" name="oldPasswd">
                         <label id="lPasswd">Introduzca su nueva contraseña</label>
                         <input type="password" id="newPasswd" name="newPasswd">
                         <label id="lPasswd2">Confirme su nueva contraseña</label>
@@ -260,23 +262,11 @@
         </footer>
 </html>
     <?php
-        if( isset($_GET['passwdchange']) ){
-            if($_GET['passwdchange']==1){
-    ?>
-        <script>
-            $('head').before('<div id="passwdchange" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Contraseña cambiada con éxito</div>');
-            setTimeout(function(){
-                $('#passwdchange').fadeOut('fast');
-                }, 4000
-                );
-        </script>
-    <?php
-            }
-        }else if(isset($_GET['updateProfile'])){
+        if(isset($_GET['updateProfile'])){
             if($_GET['updateProfile'] == 1){
     ?>
         <script type="text/javascript">
-            $('head').before('<div id="updateProfile" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Perfil Actualizado</div>');        
+            $('head').before('<div id="updateProfile" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Perfil Actualizado</div>');        
             setTimeout(function(){
                 $('#updateProfile').fadeOut('fast');
                 }, 4000
@@ -288,9 +278,31 @@
             if($_GET['newEmp'] == 1){
     ?>
         <script type="text/javascript">
-            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #56ed2d; background-color: #1e1e15; padding: 10px;">Empleado Registrado</div>');        
+            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Empleado Registrado</div>');        
             setTimeout(function(){
                 $('#newEmp').fadeOut('fast');
+                }, 4000
+                );        
+        </script>      
+    <?php
+            }
+        }else if(isset($_GET['passwdchange'])){
+            if($_GET['passwdchange'] == 0){
+    ?>
+        <script type="text/javascript">
+            $('head').before('<div id="passwdchange" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">No se pudo cambiar la contraseña</div>');        
+            setTimeout(function(){
+                $('#passwdchange').fadeOut('fast');
+                }, 4000
+                );        
+        </script>      
+    <?php
+            } else if($_GET['passwdchange'] == 1){
+    ?>
+        <script type="text/javascript">
+            $('head').before('<div id="passwdchange" style="width: 100%; height: 20px; color: #5cff5c; background-color: #e0e0d2; padding: 10px;">Contraseña modificada con éxito</div>');        
+            setTimeout(function(){
+                $('#passwdchange').fadeOut('fast');
                 }, 4000
                 );        
         </script>      
@@ -315,15 +327,18 @@
             break;            
                
             case 'Cambiar contraseña':
-                if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuario->changePasswd($_POST['newPasswd']) ){
+                console_log($_POST['oldPasswd']);
+                console_log($_POST['newPasswd']);
+                if( $u->compararPass(sha1($_POST['oldPasswd'])) && $_POST['newPasswd'] == $_POST['newPasswd2'] && $u->changePasswd($_POST['newPasswd']) ){
                     header('Location: ?passwdchange=1');
                     exit;
                 }else {
-                    echo "Error: Falló la operación";
+                    header('Location: ?passwdchange=0');
+                    exit;
                 }            
             break;            
             case 'Añadir Empleado':
-            if($a->compararPass(sha1($_POST['ContraseñaConfirm']))){
+            if($c->compararPass(sha1($_POST['ContraseñaConfirm']))){
                 $newEmpleado = new Empleado();
                 $newEmpleado ->setUsername($_POST['Username'])
                              ->setPasswd($_POST['Passwd']) 
