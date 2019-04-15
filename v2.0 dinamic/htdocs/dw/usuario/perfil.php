@@ -3,7 +3,7 @@
     require_once('/xampp/appdata/model/Usuario.php');
     require_once('/xampp/appdata/model/Cliente.php');
     require_once('/xampp/appdata/model/Empleado.php');
-    //require_once('/xampp/appdata/model/Saldo.php');
+    
 
     session_start();
 
@@ -17,7 +17,9 @@
                 $u = new Cliente($_SESSION['id']);
             }else if($tipo == "empleado"){
                 $u = new Empleado($_SESSION['id']);
-                
+                if( $u->getIsAdministrador() ){
+                    $u = new Admin($_SESSION['id']);
+                }
             }
     }
 
@@ -188,7 +190,7 @@
                         <label>Email</label>
                         <input type="text" name="Email">
                         <label>Ruta de foto de perfil</label>
-                        <input type="text" name="PhotoPath">
+                        <input type="text" placeholder="Opcional" name="PhotoPath">
                         <label>Cargo</label>
                         <input type="text" name="Cargo">
                         <label>Introduzca su contraseña para confirmar</label>
@@ -321,26 +323,27 @@
                 }        
             break;            
             case 'Añadir Empleado':
-            if($u->compararPass(sha1($_POST['ContraseñaConfirm']))){
-                $newEmpleado = new Empleado();
-                $newEmpleado ->setUsername($_POST['Username'])
-                             ->setPasswd($_POST['Passwd']) 
-                             ->setNombre($_POST['Nombre']) 
-                             ->setApell($_POST['Apellidos']) 
-                             ->setApell($_POST['Email']) 
-                             ->setApell($_POST['PhotoPath']) 
-                             ->setApell($_POST['Cargo']);
-                if($a->registrarEmpleado($newEmpleado)){
-                    header('Location: ?newEmp=1');
-                    exit;
+                if( $u->compararPass(sha1($_POST['ContraseñaConfirm'])) ){
+                    $newEmpleado = new Empleado();
+                    $newEmpleado ->setUsername($_POST['Username'])
+                                ->setPasswd($_POST['Passwd']) 
+                                ->setNombre($_POST['Nombre']) 
+                                ->setApell($_POST['Apellidos']) 
+                                ->setEmail($_POST['Email']) 
+                                ->setPhotoPath($_POST['PhotoPath']) 
+                                ->setCargo($_POST['Cargo']);
+                    $newEmpleado->encryptPasswd();
+                    if( $u->registrarEmpleado($newEmpleado) ){
+                        header('Location: ?newEmp=1');
+                        exit;
+                    }else{
+                        header('Location: ?opfallida=1');
+                        exit;
+                    }
                 }else{
-                    header('Location: ?opfallida=1');
+                    header('Location: ?confirmpasswd=0');
                     exit;
-                }
-            }else{
-                header('Location: ?confirmpasswd=0');
-                exit;
-            }    
+                }    
             break;            
         }
     }

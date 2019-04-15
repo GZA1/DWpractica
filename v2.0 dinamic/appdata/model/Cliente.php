@@ -13,24 +13,14 @@ class Cliente extends Usuario {
 
     public function __construct(){
         parent::__construct();
-        $params = func_get_args();
-        $numParams = func_num_args();
-        $funcionContructor = '__construct'.$numParams;
-        if(method_exists($this, $funcionContructor)){
-            call_user_func_array(array($this, $funcionContructor), $params);
-        }
-    }
-
-    public function __construct0(){
-        if($this->id == null){
+        $numArgs = func_num_args();
+        $args = func_get_args();
+        if( $numArgs==0 ){
             $this->generateId();
+        }else if( $numArgs==1 ){
+            $this->id = $args[0];
+            $this->getDataClienteId();
         }
-        $this->tipo = "cliente";
-    }
-
-    public function __construct1($id){
-        $this->id = $id;
-        $this->getDataClienteId();
         $this->tipo = "cliente";
     }
 
