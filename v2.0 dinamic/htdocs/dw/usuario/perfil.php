@@ -7,16 +7,16 @@
 
     session_start();
 
-    $c = null;
+    $u = null;
    
     if(isset($_SESSION['id'])){
         $u = new Usuario($_SESSION['id']);
         $tipo = $u->getTipo();
         $username = $u->getUsername();
             if($tipo == "cliente"){
-                $c = new Cliente($_SESSION['id']);
+                $u = new Cliente($_SESSION['id']);
             }else if($tipo == "empleado"){
-                $c = new Empleado($_SESSION['id']);
+                $u = new Empleado($_SESSION['id']);
                 
             }
     }
@@ -24,7 +24,7 @@
     // $usuario = new Usuario($_SESSION['id']);
     
     if( $_SERVER['REQUEST_METHOD']=='GET') {
-        // $c = $usuario->getLoggedUser();
+        // $u = $usuario->getLoggedUser();
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,25 +44,21 @@
         $("document").ready(function(){
 
             $("#optChangePass").click(function(){
+                $(".profileForm").fadeOut();
                 $("#cambiarPassForm").fadeIn();
-                $("#cambiarDataForm").fadeOut();
             });
                 
             $("#optChangeData").click(function(){
+                $(".profileForm").fadeOut();
                 $("#cambiarDataForm").fadeIn();
-                $("#cambiarPassForm").fadeOut();
             }); 
             $("#optAddEMP").click(function(){
+                $(".profileForm").fadeOut();
                 $("#registrarEmpleadoForm").fadeIn();
-                $("#cambiarDataForm").fadeOut();
-                $("#cambiarPassForm").fadeOut();
             }); 
-            $("#cancelButton").click(function(){
-                $("#cambiarDataForm").fadeOut();
-            });   
-            $("#cancelButtonREMP").click(function(){
-                $("#registrarEmpleadoForm").fadeOut();
-            });   
+            $(".cancel").click(function(){
+                $(".profileForm").fadeOut();
+            }); 
             
         });
         
@@ -89,27 +85,27 @@
 
                     <div class="profileAttr">
                         <div class="attrName attr">Nombre de usuario:</div>
-                        <p class="attr"><?php echo $c->getUsername();?></p>
+                        <p class="attr"><?php echo $u->getUsername();?></p>
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Nombre:</div>
-                        <p class="attr"><?php echo $c->getNombre();?></p>
+                        <p class="attr"><?php echo $u->getNombre();?></p>
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Apellidos:</div>
-                        <p class="attr"><?php echo $c->getApell();?></p>
+                        <p class="attr"><?php echo $u->getApell();?></p>
                     </div>
 
                     <div class="profileAttr">
                         <div class="attrName attr">Email:</div>
-                        <p class="attr"><?php echo $c->getEmail();?></p>
+                        <p class="attr"><?php echo $u->getEmail();?></p>
                     </div>
                     <?php
                     if($tipo == "cliente"){
                     ?>
                     <div class="profileAttr">
                         <div class="attrName attr">Domicilio:</div>
-                        <p class="attr"><?php echo $c->getDomicilio();?></p>
+                        <p class="attr"><?php echo $u->getDomicilio();?></p>
                     </div>
 
                     <?php
@@ -123,9 +119,9 @@
 
                     <!--   Botones de Empleado o Administrador -->
                     <?php
-                        // cLog($c->getisAdministrador());
-                        // cLog($c->getTipo());
-                        if($c->getTipo() == "empleado" && $c->getisAdministrador()){
+                        // cLog($u->getisAdministrador());
+                        // cLog($u->getTipo());
+                        if($u->getTipo() == "empleado" && $u->getisAdministrador()){
                     ?>
                     <a class="concreteOpt" id="optAddEMP" style="display: inline-block;">Registrar Empleado</a>
                     <?php
@@ -142,23 +138,23 @@
                     <form method="post" id="cDF">
 
                         <label>Nombre de usuario</label>
-                        <input type="text" value="<?php echo htmlspecialchars($c->getUsername());?>" name="Username">
+                        <input type="text" value="<?php echo htmlspecialchars($u->getUsername());?>" name="Username">
                         <label>Nombre</label>
-                        <input type="text" value="<?php echo htmlspecialchars($c->getNombre());?>" name="Nombre">
+                        <input type="text" value="<?php echo htmlspecialchars($u->getNombre());?>" name="Nombre">
                         <label>Apellidos</label>
-                        <input type="text" value="<?php echo htmlspecialchars($c->getApell());?>" name="Apellidos">
+                        <input type="text" value="<?php echo htmlspecialchars($u->getApell());?>" name="Apellidos">
                         <?php
-                        if($c->getTipo() == "cliente"){
+                        if($u->getTipo() == "cliente"){
                             ?>
                         <label>Domicilio</label>
-                        <input type="text" value="<?php echo htmlspecialchars($c->getDomicilio());?>" name="Domicilio">
+                        <input type="text" value="<?php echo htmlspecialchars($u->getDomicilio());?>" name="Domicilio">
                         <?php
                         }
                         ?>
                         <label>Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
                         <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Actualizar Perfil">
-                        <input class="submitCDF" id="cancelButton" type="button" value="Cancelar">
+                        <input class="submitCDF cancel" id="cancelButton" type="button" value="Cancelar">
                     </form>
                 </div>
 
@@ -173,6 +169,7 @@
                         <label id="lPasswd2">Confirme su nueva contraseña</label>
                         <input type="password" id="newPasswd2" name="newPasswd2"><br>
                         <input class="submitCDF" type="submit" name="optsSubmit" value="Cambiar contraseña">
+                        <input class="submitCDF cancel" id="cancelButtonPasswd" type="button" value="Cancelar">
                     </form>
                 </div>
 
@@ -198,7 +195,7 @@
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
                         <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton"
                             value="Añadir Empleado">
-                        <input class="submitCDF" id="cancelButtonREMP" type="button" value="Cancelar">
+                        <input class="submitCDF cancel" id="cancelButtonREMP" type="button" value="Cancelar">
                     </form>
                 </div>
 
@@ -266,7 +263,7 @@
             if($_GET['updateProfile'] == 1){
     ?>
         <script type="text/javascript">
-            $('head').before('<div id="updateProfile" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Perfil Actualizado</div>');        
+            $('head').before('<div id="updateProfile" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #e0e0d2; padding: 10px;">Perfil Actualizado</div>');        
             setTimeout(function(){
                 $('#updateProfile').fadeOut('fast');
                 }, 4000
@@ -278,7 +275,7 @@
             if($_GET['newEmp'] == 1){
     ?>
         <script type="text/javascript">
-            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Empleado Registrado</div>');        
+            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #e0e0d2; padding: 10px;">Empleado Registrado</div>');        
             setTimeout(function(){
                 $('#newEmp').fadeOut('fast');
                 }, 4000
@@ -300,12 +297,36 @@
             } else if($_GET['passwdchange'] == 1){
     ?>
         <script type="text/javascript">
-            $('head').before('<div id="passwdchange" style="width: 100%; height: 20px; color: #5cff5c; background-color: #e0e0d2; padding: 10px;">Contraseña modificada con éxito</div>');        
+            $('head').before('<div id="passwdchange" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #e0e0d2; padding: 10px;">Contraseña modificada con éxito</div>');        
             setTimeout(function(){
                 $('#passwdchange').fadeOut('fast');
                 }, 4000
                 );        
         </script>      
+    <?php
+            }
+        }else if(isset($_GET['confirmpasswd'])){
+            if($_GET['confirmpasswd'] == 0){
+    ?>
+        <script type="text/javascript">
+            $('head').before('<div id="confirmpasswd" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Contraseña de confirmación incorrecta</div>');        
+            setTimeout(function(){
+                $('#confirmpasswd').fadeOut('fast');
+                }, 4000
+                );        
+        </script>  
+    <?php
+            }
+        }else if(isset($_GET['opfallida'])){
+            if($_GET['opfallida'] == 1){
+    ?>
+        <script type="text/javascript">
+            $('head').before('<div id="opfallida" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Operación fallida</div>');        
+            setTimeout(function(){
+                $('#opfallida').fadeOut('fast');
+                }, 4000
+                );        
+        </script>  
     <?php
             }
         }
@@ -314,31 +335,41 @@
         switch($_POST['optsSubmit']){
             
             case 'Actualizar Perfil':
-                if($c->compararPass(sha1($_POST['ContraseñaConfirm']))){
-                    if($c->updatePerfilCliente($_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio'])){
+                if($u->compararPass(sha1($_POST['ContraseñaConfirm']))){
+                    if( $tipo == "cliente"  && $u->updatePerfilCliente($_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
+                        header('Location: ?updateProfile=1');
+                        exit;
+                    }else if( $tipo == "empleado"  && $u->updatePerfilEmpleado($_POST['Username'], $_POST['Nombre'], $_POST['Apellidos']) ){
                         header('Location: ?updateProfile=1');
                         exit;
                     }else{                        
-                        echo "Operacion Fallida";
+                        header('Location: ?opfallida=1');
+                        exit;
                     }
                 }else{
-                    echo "Error: Contraseña Erronea";
+                    header('Location: ?confirmpasswd=0');
+                    exit;
                 }
             break;            
                
             case 'Cambiar contraseña':
                 console_log($_POST['oldPasswd']);
                 console_log($_POST['newPasswd']);
-                if( $u->compararPass(sha1($_POST['oldPasswd'])) && $_POST['newPasswd'] == $_POST['newPasswd2'] && $u->changePasswd($_POST['newPasswd']) ){
-                    header('Location: ?passwdchange=1');
+                if( $u->compararPass(sha1($_POST['oldPasswd'])) ){
+                    if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $u->changePasswd($_POST['newPasswd']) ){
+                        header('Location: ?passwdchange=1');
+                        exit;
+                    }else {
+                        header('Location: ?passwdchange=0');
+                        exit;
+                    }
+                }else{
+                    header('Location: ?confirmpasswd=0');
                     exit;
-                }else {
-                    header('Location: ?passwdchange=0');
-                    exit;
-                }            
+                }        
             break;            
             case 'Añadir Empleado':
-            if($c->compararPass(sha1($_POST['ContraseñaConfirm']))){
+            if($u->compararPass(sha1($_POST['ContraseñaConfirm']))){
                 $newEmpleado = new Empleado();
                 $newEmpleado ->setUsername($_POST['Username'])
                              ->setPasswd($_POST['Passwd']) 
@@ -351,10 +382,12 @@
                     header('Location: ?newEmp=1');
                     exit;
                 }else{
-                    echo "Operacion Fallida";
+                    header('Location: ?opfallida=1');
+                    exit;
                 }
             }else{
-                echo "Contraseña Incorrecta";
+                header('Location: ?confirmpasswd=0');
+                exit;
             }    
             break;            
         }

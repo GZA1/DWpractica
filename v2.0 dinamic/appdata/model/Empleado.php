@@ -69,6 +69,25 @@ class Empleado extends Usuario {
         }
     }
 
+    public function updatePerfilEmpleado($username, $name, $surnames)  {
+        if(isset($username) & isset($name) && isset($surnames)){
+            try{
+                $conn = db();
+                $consulta = "UPDATE Empleado SET username = :Username, nombre = :Nombre, apellidos = :Apellidos WHERE id = :id";
+                $stmt = $conn->prepare($consulta);
+                $stmt->bindParam(':Username', $username, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':Nombre', $name, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':Apellidos', $surnames, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+                $stmt->execute();
+            }catch(PDOException $ex){cLog($ex->getMessage());}
+         return true;   
+        }else{
+            return false;
+        }
+
+    }
+
     public function registrarEmpleado($empleado){
         if($this->isAdministrador){
             

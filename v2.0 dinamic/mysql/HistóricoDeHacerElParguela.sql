@@ -1,6 +1,9 @@
 SELECT * 
 FROM Cliente;
 
+SELECT * 	
+FROM Empleado;
+
 
 use BD_Tienda;
 

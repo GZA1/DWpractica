@@ -145,20 +145,15 @@ class Cliente extends Usuario {
     }
 
     public function updatePerfilCliente($username, $name, $surnames, $address)  {
-        
         if(isset($username) & isset($name) && isset($surnames) && isset($address)){
-
             try{
-                $dateTime = date("Y-m-d H:i:s"); 
-
                 $conn = db();
-                $consulta = "UPDATE Cliente SET username = :Username, nombre = :Nombre, apellidos = :Apellidos, domicilio = :Domicilio, fechaModificacion = :FechaModificacion WHERE id = :id";
+                $consulta = "UPDATE Cliente SET username = :Username, nombre = :Nombre, apellidos = :Apellidos, domicilio = :Domicilio WHERE id = :id";
                 $stmt = $conn->prepare($consulta);
                 $stmt->bindParam(':Username', $username, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':Nombre', $name, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':Apellidos', $surnames, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':Domicilio', $address, PDO::PARAM_STR, 45);
-                $stmt->bindParam(':FechaModificacion', $dateTime);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
                 $stmt->execute();
             }catch(PDOException $ex){cLog($ex->getMessage());}

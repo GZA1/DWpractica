@@ -165,6 +165,7 @@ label {
 .concreteOpt:hover {
     cursor: pointer;
     background-color: #3399ff;
+    color: white;
 
 }
 
@@ -178,18 +179,15 @@ label {
     /* border-bottom: 1px; */
     margin-top: 2vh;
 }
-
-
+.profileForm>form input{
+    padding: 1vh 4px 1vh 4px;
+}
 #cDF {
     width: 60%;
 }
 #cDF>label {
     margin-top: 2vh;
 
-}
-
-#cDF>input {
-    padding: 1vh 0 1vh 0;
 }
 
 #rEMP {
@@ -200,10 +198,6 @@ label {
 
 }
 
-#rEMP>input {
-    padding: 1vh 0 1vh 0;
-}
-
 .submitCDF {
     display: inline-block;
     cursor: pointer;
@@ -211,11 +205,13 @@ label {
     /* padding: 1vh 4vw 1vh 4vw ; */
     width: 40%;
 }
+.submitCDF:hover {
+    background-color: #424547;
+    color: #CAC6BC;
+    font-weight: bold
+}
 #cambiarPass {
     width: 60%;
-}
-#cambiarPass>input{
-    padding: 1vh 0 1vh 0;
 }
 #cambiarPass>label {
     margin-top: 2vh;
