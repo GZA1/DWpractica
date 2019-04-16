@@ -1,0 +1,19 @@
+/*
+*Colores
+*Morado: #6600cc
+*Azul: #3399ff
+*Negro: #2e2e1f
+*/
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+#logo-inic {
+    width: 20%;
+    margin: 0 40% 10vh 40%;
+}
+
+#contenedor-inic {
+    background-color: #e0e0d2;
+}

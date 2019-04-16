@@ -20,6 +20,7 @@
         <meta name="keywords" content="hardware components">
         <meta name="robots" content="NoIndex, NoFollow">
         <meta name="viewport" content="width=device-width">
+        <link rel="icon" href="/dw/img/logo.png" type="image/png">
         <link rel="stylesheet" href="../styles/style-shared.css">
         <link rel="stylesheet" href="../styles/style-servicios.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

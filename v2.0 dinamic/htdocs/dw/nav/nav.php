@@ -56,7 +56,17 @@
                             echo(" " . $tipoPerfil);
                         ?>
                     </a>
-                    <a href="">Historial de Pedidos</a>
+                    <?php
+                        if( $tipoLogueado=="cliente" ){
+                    ?>
+                    <a href="../usuario/historial_pedidos.php">Historial de Pedidos</a>
+                    <?php
+                        }else if( $tipoLogueado=="admin" ){
+                    ?>
+                    <a href="">Gestión de Catálogo</a>
+                    <?php
+                        }
+                    ?>
                     <a class="rojo" href="../usuario/logout.php">Cerrar Sesión</a>
                     <?php
                         }

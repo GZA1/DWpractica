@@ -120,7 +120,6 @@ class Cliente extends Usuario {
             $this->email = $row['email'];
             $this->domicilio = $row['domicilio'];
             $this->saldo = $row['saldo'];
-            $this->cesta = $row['Cesta_id'];
 
             console_log($row);
 
@@ -152,6 +151,30 @@ class Cliente extends Usuario {
             return false;
         }
 
+    }
+
+    public function getPedidos(){
+        $conn = db();
+        $consulta = "SELECT *  FROM Pedido p, Cesta c WHERE Cliente_id = :id AND Cesta_id = c.id";
+        try{
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+                $pedidos[] = [
+                    'id' => $row['id'],
+                    'estado' => $row['estado'],
+                    'fechaCreacion' => $row['fechaCreacion'],
+                    'Cesta_id' => $row['Cesta_id'],
+                    'costeTotal' => $row['costeTotal'],
+                    'Cliente_id' => $row['Cliente_id']
+                ];
+            }
+            return $pedidos;
+
+        }catch(PDOException $ex){
+            console_log($ex->getMessage());
+        }
     }
 
 
