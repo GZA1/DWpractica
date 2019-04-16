@@ -30,30 +30,37 @@
     </head>
     <body>
         <div class="flex_cols" id="contenedor-inic">
-            <div style="height: 10vh; min-height: 200px; visibility: hidden"></div>
+            <div style="height: 10vh; min-height: 100px; visibility: hidden"></div>
             <div id="logo-inic">
                 <a href="../main/index.php">
                     <img src="../img/logo_horizontal.png" width="100%">
                 </a>
             </div>
-            <div style="height: 10vh; min-height: 150px; visibility: hidden"></div>
-            <div>Pedidos del cliente <?php echo($username) ?></div>
-            <ol>
-        <?php 
-            foreach($listaPedidos as $p) { 
-        ?>
-            <div class="flex_rows">
-            <?php
-                foreach($p as $key => $value) {
-            ?>
-                <div><?php echo($key . "=>" . $value . " | "); ?></div>
-            <?php
+            <div style="height: 10vh; min-height: 50px; visibility: hidden"></div>
+            <div id="mainContainer">
+                <div id="titulo">Pedidos del cliente <?php echo($username) ?></div>
+                <ol reversed>
+                <?php 
+                foreach($listaPedidos as $p) { 
+                ?>
+                    <li class="flex_rows">
+                        <div class="pedido-img">
+                            <a href=""><img src="<?php /*echo($p['photoPath']);*/ ?>" height="100%"></a>
+                        </div>
+                        <div class="flex_cols pedido-container">
+                            <div href="" class="nombre-pedido">NombrePedido<?php /*echo($p['nombrePedido']);*/ ?></div>
+                            <div class="estado"><?php echo($p['estado']); ?></div>
+                            <div class="costeTotal"><?php echo($p['costeTotal']); ?></div>
+                            <div class="fechaCreac"><?php echo($p['fechaCreacion']); ?></div>
+                        </div>
+                        <div class="id-pedido"><?php echo($p['id']); ?></div>
+                    </li>
+                <?php
                 }
-            ?>
+                ?>
+                </ol>
             </div>
-        <?php
-            }
-        ?>
+            <div style="height: 10vh; min-height: 50px; visibility: hidden"></div>
         </div>
     </body>
         <?php require_once("../footer/footer.php"); ?>
