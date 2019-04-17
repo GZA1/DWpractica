@@ -176,40 +176,13 @@
                     </form>
                 </div>
 
-                <div id="registrarEmpleadoForm" class="profileForm">
-                    <h3 style="margin: 0px 0 2vh 0;">Registrar Empleado</h3>
-                    <form method="post" id="rEMP">
-
-                        <label>Nombre de usuario</label>
-                        <input type="text" name="Username">
-                        <label>Contraseña</label>
-                        <input type="text" name="Passwd">
-                        <label>Nombre</label>
-                        <input type="text" name="Nombre">
-                        <label>Apellidos</label>
-                        <input type="text" name="Apellidos">
-                        <label>Email</label>
-                        <input type="text" name="Email">
-                        <label>Ruta de foto de perfil</label>
-                        <input type="text" name="PhotoPath">
-                        <label>Cargo</label>
-                        <input type="text" name="Cargo">
-                        <label>Introduzca su contraseña para confirmar</label>
-                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton"
-                            value="Añadir Empleado">
-                        <input class="submitCDF" id="cancelButtonREMP" type="button" value="Cancelar">
-                    </form>
-                </div>
+               
 
 
 
 
             </div>
         </div>
-        
-        
-        
     </body>
         <footer class="pageFoot">
             <div class="flex_cols">
@@ -272,18 +245,7 @@
                 }, 4000
                 );        
         </script>      
-    <?php
-            }
-        }else if(isset($_GET['newEmp'])){
-            if($_GET['newEmp'] == 1){
-    ?>
-        <script type="text/javascript">
-            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Empleado Registrado</div>');        
-            setTimeout(function(){
-                $('#newEmp').fadeOut('fast');
-                }, 4000
-                );        
-        </script>      
+        
     <?php
             }
         }else if(isset($_GET['passwdchange'])){
@@ -337,26 +299,7 @@
                     exit;
                 }            
             break;            
-            case 'Añadir Empleado':
-            if($c->compararPass(sha1($_POST['ContraseñaConfirm']))){
-                $newEmpleado = new Empleado();
-                $newEmpleado ->setUsername($_POST['Username'])
-                             ->setPasswd($_POST['Passwd']) 
-                             ->setNombre($_POST['Nombre']) 
-                             ->setApell($_POST['Apellidos']) 
-                             ->setApell($_POST['Email']) 
-                             ->setApell($_POST['PhotoPath']) 
-                             ->setApell($_POST['Cargo']);
-                if($a->registrarEmpleado($newEmpleado)){
-                    header('Location: ?newEmp=1');
-                    exit;
-                }else{
-                    echo "Operacion Fallida";
-                }
-            }else{
-                echo "Contraseña Incorrecta";
-            }    
-            break;            
+                        
         }
     }
 ?>

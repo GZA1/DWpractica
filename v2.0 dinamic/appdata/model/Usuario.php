@@ -2,6 +2,7 @@
 
 require_once("Console.php");
 require_once("Cliente.php");
+require_once("Empleado.php");
 require_once("config.php");
 
 

@@ -102,6 +102,24 @@
             </div>
         </li>
         <?php
+            }else if(isset($u) && $tipo == "empleado" ){
+                $e = new Empleado($_SESSION['id']);
+        ?>
+            
+            <li class="dropdown-container">
+                <div class="dropdown">
+                    <div class="dropdown-actuador flex_rows">
+                        <div>
+                        <!-- Introducir el enlace Admin-->
+                            <a href="../usuario/cfg.php"><img src="../img/gear.png" height="20px"></a>
+                        </div>
+                        <div class="flex_cols">
+                            <div style="height: 7px; visibility: hidden"></div>                            
+                        </div> 
+                    </div>                    
+                </div>
+            </li>
+        <?php
             }
         ?>
     </ul>
