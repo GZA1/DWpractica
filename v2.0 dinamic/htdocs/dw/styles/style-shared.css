@@ -15,7 +15,7 @@ body{
     z-index: 99;
 }
 
-nav {
+#mainNav {
     background-color: #1e1e15;
     position: fixed;
     width: 100%;

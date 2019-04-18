@@ -43,12 +43,12 @@
     $("document").ready(function(){
         $("#optAddEMP").click(function(){
             $("#registrarEmpleadoForm").fadeIn();
-            // $("#cambiarDataForm").fadeOut();
-            // $("#cambiarPassForm").fadeOut();
+            // $("#añadirTienda").fadeOut();
+            
         });         
         $("#cancelButtonREMP").click(function(){
             $("#registrarEmpleadoForm").fadeOut();
-        });   
+        });  
 
     });
     
@@ -103,7 +103,7 @@
                              ->setApell($_POST['Email']) 
                              ->setApell($_POST['PhotoPath']) 
                              ->setApell($_POST['Cargo']);
-                if($a->registrarEmpleado($newEmpleado)){
+                if($c->registrarEmpleado($newEmpleado)){
                     header('Location: ?newEmp=1');
                     exit;
                 }else{

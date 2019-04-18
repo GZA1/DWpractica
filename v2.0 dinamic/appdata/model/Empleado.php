@@ -12,6 +12,7 @@ class Empleado extends Usuario {
 
 
     public function __construct(){
+        parent::__construct();
         $params = func_get_args();
         $numParams = func_num_args();
         $funcionContructor = '__construct'.$numParams;
@@ -21,7 +22,7 @@ class Empleado extends Usuario {
     }
 
     public function __construct0(){
-        parent::__construct();
+        
         if($this->id == null){
             $this->generateId();
         }

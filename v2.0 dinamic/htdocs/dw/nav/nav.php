@@ -1,4 +1,4 @@
-<nav>
+<nav id="mainNav">
     <img id="logo" src="../img/logo.png" width="60">
     <ul id="lista_nav">
         <li class="cont_enlace_interno">
