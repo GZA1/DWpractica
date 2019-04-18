@@ -1,37 +1,27 @@
 <?php 
 require_once("Console.php");
 require_once("Cliente.php");
+require_once("Admin.php");
 
 class Empleado extends Usuario {
-    private $photoPath;
-    private $active;
-    private $cargo;
-    private $isAdministrador;
-    private $tienda_id;
+    protected $photoPath;
+    protected $active;
+    protected $cargo;
+    protected $isAdministrador;
+    protected $tienda_id;
 
 
 
     public function __construct(){
         parent::__construct();
-        $params = func_get_args();
-        $numParams = func_num_args();
-        $funcionContructor = '__construct'.$numParams;
-        if(method_exists($this, $funcionContructor)){
-            call_user_func_array(array($this, $funcionContructor), $params);
-        }
-    }
-
-    public function __construct0(){
-        
-        if($this->id == null){
+        $numArgs = func_num_args();
+        $args = func_get_args();
+        if( $numArgs==0 ){
             $this->generateId();
+        }else if( $numArgs==1 ){
+            $this->id = $args[0];
+            $this->getEmpleadoByID();
         }
-        $this ->tipo = "empleado";
-    }
-
-    public function __construct1($id){
-        $this->id = $id;
-        $this->getEmpleadoByID();
         $this ->tipo = "empleado";
     }
     
@@ -70,31 +60,23 @@ class Empleado extends Usuario {
         }
     }
 
-    public function registrarEmpleado($empleado){
-        if($this->isAdministrador){
-            
+    public function updatePerfilEmpleado($username, $name, $surnames)  {
+        if(isset($username) & isset($name) && isset($surnames)){
             try{
-
                 $conn = db();
-                $consulta = "INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo) 
-                                VALUES (:id, :username, :passwd, :nombre, :apellidos, :email, :photopath, :cargo)";
+                $consulta = "UPDATE Empleado SET username = :Username, nombre = :Nombre, apellidos = :Apellidos WHERE id = :id";
                 $stmt = $conn->prepare($consulta);
-                $stmt->bindParam(':id', $empleado->id, PDO::PARAM_STR, 45);
-                $stmt->bindParam(':username', $empleado->username ,PDO::PARAM_STR, 45 );
-                $stmt->bindParam(':passwd', $empleado->passwd , PDO::PARAM_STR, 45);
-                $stmt->bindParam(':nombre', $empleado->nombre ,  PDO::PARAM_STR, 45);
-                $stmt->bindParam(':apellidos', $empleado->apellidos, PDO::PARAM_STR, 45);
-                $stmt->bindParam(':email', $empleado->apellidos, PDO::PARAM_STR, 45);
-                $stmt->bindParam(':photopath', $empleado->photopath, PDO::PARAM_STR, 45);
-                $stmt->bindParam(':cargo', $empleado->cargo, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':Username', $username, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':Nombre', $name, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':Apellidos', $surnames, PDO::PARAM_STR, 45);
+                $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
                 $stmt->execute();
-                return true;
-                //--TODO
-
             }catch(PDOException $ex){cLog($ex->getMessage());}
+         return true;   
         }else{
             return false;
         }
+
     }
 
     

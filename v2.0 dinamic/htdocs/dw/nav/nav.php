@@ -40,11 +40,33 @@
                     ?>
                     <div>
                         <?php
-                            echo("Logueado como " . $tipo . ": <b>" . $username . "</b>");
+                            $tipoLogueado = $tipo;
+                            if($tipo=="empleado"){
+                                $e = new Empleado($_SESSION['id']);
+                                if( $e->getIsAdministrador() ){
+                                    $tipoLogueado = "admin";
+                                }
+                            }
+                            echo("Logueado como " . $tipoLogueado . ": <b>" . $username . "</b>");
                         ?>
                     </div>
-                    <a href="../usuario/perfil.php">Perfil de Usuario</a>
-                    <a href="">Historial de Pedidos</a>
+                    <a href="../usuario/perfil.php">Perfil de
+                        <?php
+                            $tipoPerfil = $tipoLogueado;
+                            echo(" " . $tipoPerfil);
+                        ?>
+                    </a>
+                    <?php
+                        if( $tipoLogueado=="cliente" ){
+                    ?>
+                    <a href="../usuario/historial_pedidos.php">Historial de Pedidos</a>
+                    <?php
+                        }else if( $tipoLogueado=="admin" ){
+                    ?>
+                    <a href="">Gestión de Catálogo</a>
+                    <?php
+                        }
+                    ?>
                     <a class="rojo" href="../usuario/logout.php">Cerrar Sesión</a>
                     <?php
                         }

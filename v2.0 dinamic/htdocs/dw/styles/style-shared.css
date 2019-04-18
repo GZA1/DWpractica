@@ -425,3 +425,9 @@ input.naranja{
 input.naranja:hover{
     background-color: #ffb246 !important;
 }
+
+#map {
+    width: 90%;
+    height: 80%;
+    border: 0;
+}

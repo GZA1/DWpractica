@@ -13,24 +13,14 @@ class Cliente extends Usuario {
 
     public function __construct(){
         parent::__construct();
-        $params = func_get_args();
-        $numParams = func_num_args();
-        $funcionContructor = '__construct'.$numParams;
-        if(method_exists($this, $funcionContructor)){
-            call_user_func_array(array($this, $funcionContructor), $params);
-        }
-    }
-
-    public function __construct0(){
-        if($this->id == null){
+        $numArgs = func_num_args();
+        $args = func_get_args();
+        if( $numArgs==0 ){
             $this->generateId();
+        }else if( $numArgs==1 ){
+            $this->id = $args[0];
+            $this->getDataClienteId();
         }
-        $this->tipo = "cliente";
-    }
-
-    public function __construct1($id){
-        $this->id = $id;
-        $this->getDataClienteId();
         $this->tipo = "cliente";
     }
 
@@ -130,7 +120,6 @@ class Cliente extends Usuario {
             $this->email = $row['email'];
             $this->domicilio = $row['domicilio'];
             $this->saldo = $row['saldo'];
-            $this->cesta = $row['Cesta_id'];
 
             console_log($row);
 
@@ -145,20 +134,15 @@ class Cliente extends Usuario {
     }
 
     public function updatePerfilCliente($username, $name, $surnames, $address)  {
-        
         if(isset($username) & isset($name) && isset($surnames) && isset($address)){
-
             try{
-                $dateTime = date("Y-m-d H:i:s"); 
-
                 $conn = db();
-                $consulta = "UPDATE Cliente SET username = :Username, nombre = :Nombre, apellidos = :Apellidos, domicilio = :Domicilio, fechaModificacion = :FechaModificacion WHERE id = :id";
+                $consulta = "UPDATE Cliente SET username = :Username, nombre = :Nombre, apellidos = :Apellidos, domicilio = :Domicilio WHERE id = :id";
                 $stmt = $conn->prepare($consulta);
                 $stmt->bindParam(':Username', $username, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':Nombre', $name, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':Apellidos', $surnames, PDO::PARAM_STR, 45);
                 $stmt->bindParam(':Domicilio', $address, PDO::PARAM_STR, 45);
-                $stmt->bindParam(':FechaModificacion', $dateTime);
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
                 $stmt->execute();
             }catch(PDOException $ex){cLog($ex->getMessage());}
@@ -167,6 +151,30 @@ class Cliente extends Usuario {
             return false;
         }
 
+    }
+
+    public function getPedidos(){
+        $conn = db();
+        $consulta = "SELECT *  FROM Pedido p, Cesta c WHERE Cliente_id = :id AND Cesta_id = c.id";
+        try{
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+                $pedidos[] = [
+                    'id' => $row['id'],
+                    'estado' => $row['estado'],
+                    'fechaCreacion' => $row['fechaCreacion'],
+                    'Cesta_id' => $row['Cesta_id'],
+                    'costeTotal' => $row['costeTotal'],
+                    'Cliente_id' => $row['Cliente_id']
+                ];
+            }
+            return $pedidos;
+
+        }catch(PDOException $ex){
+            console_log($ex->getMessage());
+        }
     }
 
 
