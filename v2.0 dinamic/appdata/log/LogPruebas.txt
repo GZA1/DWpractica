@@ -6,3 +6,35 @@
 2019-04-22 12:42:51 HastaAquiLlegamos
 2019-04-22 12:42:51 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio) 
                             VALUES ('SHP:000000006' at line 1
+2019-04-22 12:51:57 HastaAquiLlegamos
+2019-04-22 12:51:57 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cp' in 'field list'
+2019-04-22 13:01:24 EMP:000000005022630e0000000012d81fbf
+2019-04-22 13:01:24 empleado
+2019-04-22 13:01:42 EMP:000000005022630e0000000012d81fbf
+2019-04-22 13:01:42 empleado
+2019-04-22 13:03:36 EMP:000000005022630e0000000012d81fbf
+2019-04-22 13:03:36 EMP:000000005022630e0000000012d81fbf
+2019-04-22 13:03:36 empleado
+2019-04-22 13:03:58 HastaAquiLlegamos
+2019-04-22 13:03:58 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio) 
+                            VALUES ('SHP:000000004' at line 1
+2019-04-22 13:04:35 HastaAquiLlegamos
+2019-04-22 13:04:35 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'longitud' in 'field list'
+2019-04-22 13:05:26 HastaAquiLlegamos
+2019-04-22 13:05:26 SQLSTATE[42S22]: Column not found: 1054 Unknown column '´long´' in 'field list'
+2019-04-22 13:07:47 HastaAquiLlegamos
+2019-04-22 13:07:47 SQLSTATE[HY000]: General error: 1366 Incorrect integer value: 'SHP:00000000557be68f000000003efa7d91' for column 'id' at row 1
+2019-04-22 13:16:17 HastaAquiLlegamos
+2019-04-22 13:16:17 SQLSTATE[01000]: Warning: 1265 Data truncated for column 'latitud' at row 1
+2019-04-23 00:50:08 EMP:000000005022630e0000000012d81fbf
+2019-04-23 00:50:08 empleado
+2019-04-23 00:50:31 HastaAquiLlegamos
+2019-04-23 00:50:31 SQLSTATE[01000]: Warning: 1265 Data truncated for column 'latitud' at row 1
+2019-04-23 01:10:50 HastaAquiLlegamos
+2019-04-23 01:10:50 
+2019-04-23 01:10:50 SQLSTATE[01000]: Warning: 1265 Data truncated for column 'latitud' at row 1
+2019-04-23 01:16:50 HastaAquiLlegamos
+2019-04-23 01:16:50 
+2019-04-23 01:16:50 SQLSTATE[01000]: Warning: 1265 Data truncated for column 'latitud' at row 1
+2019-04-23 01:18:18 HastaAquiLlegamos
+2019-04-23 01:18:18 3032

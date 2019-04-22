@@ -33,7 +33,7 @@ class Admin extends Empleado {
     }
     public function añadirTienda($tienda){
         
-        $elId = $tienda->getId();
+        
         $elNombre =  $tienda->getNombre();
         $elDireccion = $tienda->getDireccion();
         $elEmail = $tienda->getEmail();
@@ -42,19 +42,21 @@ class Admin extends Empleado {
         $elLongitud = $tienda->getLongitud();
         $elProvincia = $tienda->getProvincia();
         $elMuniicipio = $tienda->getMunicipio(); 
+        
+        cLog($elLatitud);
+        
         try{
 
             $conn = db();
-            $consulta = "INSERT INTO Tienda (id, nombre, direccion, email, cp, lat, long, provincia, municipio) 
-                            VALUES (:id, :nombre, :direccion, :email, :cp, :lat, :long, :provincia, :municipio)";
+            $consulta = "INSERT INTO Tienda (nombre, direccion, email, cp, latitud, longitud, provincia, municipio) 
+                            VALUES (:nombre, :direccion, :email, :cp, :latitud, :longitud, :provincia, :municipio)";
             $stmt = $conn->prepare($consulta);
-            $stmt->bindParam(':id', $elId, PDO::PARAM_STR, 45);
             $stmt->bindParam(':nombre', $elNombre, PDO::PARAM_STR, 45 );
             $stmt->bindParam(':direccion', $elDireccion, PDO::PARAM_STR, 45);
             $stmt->bindParam(':email',   $elEmail,  PDO::PARAM_STR, 45);
             $stmt->bindParam(':cp', $elCP, PDO::PARAM_INT);
-            $stmt->bindParam(':lat', $elLatitud);
-            $stmt->bindParam(':long', $elLongitud);
+            $stmt->bindParam(':latitud', $elLatitud, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':longitud', $elLongitud, PDO::PARAM_STR, 45);
             $stmt->bindParam(':provincia', $elProvincia, PDO::PARAM_STR, 45);
             $stmt->bindParam(':municipio', $elMuniicipio, PDO::PARAM_STR, 45);
             $stmt->execute();

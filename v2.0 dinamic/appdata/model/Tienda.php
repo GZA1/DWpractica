@@ -15,18 +15,14 @@ class Tienda{
         
         $numArgs = func_num_args();
         $args = func_get_args();
-        if( $numArgs==0 ){
-            $this->generateId();
-        }else if( $numArgs==1 ){
+        if( $numArgs==1 ){
             $this->id = $args[0];
             $this->getTiendaByID();
         }
         
     }
 
-    private function generateId(){
-        $this ->id = "SHP:" . spl_object_hash($this);
-    }
+    
     
     public function getTiendaByID(){
         $conn = db();

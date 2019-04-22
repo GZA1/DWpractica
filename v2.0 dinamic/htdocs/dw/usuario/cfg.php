@@ -136,6 +136,7 @@
     }
 
     }else if( $_SERVER['REQUEST_METHOD']=='POST') {
+        
         switch($_POST['optsSubmit']){
             case 'Añadir Empleado':
                 if( $u->compararPass(sha1($_POST['ContraseñaConfirm'])) ){
