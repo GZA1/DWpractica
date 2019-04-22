@@ -3,6 +3,8 @@
     require_once('/xampp/appdata/model/Usuario.php');
     require_once('/xampp/appdata/model/Cliente.php');
     require_once('/xampp/appdata/model/Empleado.php');
+    require_once('/xampp/appdata/model/Admin.php');
+    require_once('/xampp/appdata/model/Tienda.php');
     //require_once('/xampp/appdata/model/Saldo.php');
 
     session_start();
@@ -14,10 +16,12 @@
         $tipo = $u->getTipo();
         $username = $u->getUsername();
             if($tipo == "cliente"){
-                $c = new Cliente($_SESSION['id']);
+                $u = new Cliente($_SESSION['id']);
             }else if($tipo == "empleado"){
-                $c = new Empleado($_SESSION['id']);
-                
+                $u = new Empleado($_SESSION['id']);
+                if( $u->getIsAdministrador() ){
+                    $u = new Admin($_SESSION['id']);
+                }
             }
     }
 
@@ -42,12 +46,15 @@
     <script type="text/javascript">
     $("document").ready(function(){
         $("#optAddEMP").click(function(){
-            $("#registrarEmpleadoForm").fadeIn();
-            // $("#añadirTienda").fadeOut();
-            
+            $("#registrarEmpleadoForm").fadeIn('fast');
+            $("#añadirTiendaForm").fadeOut('fast');   
+        });         
+        $("#optAddSHOP").click(function(){
+            $("#registrarEmpleadoForm").fadeOut('fast');
+            $("#añadirTiendaForm").fadeIn('fast');
         });         
         $("#cancelButtonREMP").click(function(){
-            $("#registrarEmpleadoForm").fadeOut();
+            $("#registrarEmpleadoForm").fadeOut('fast');
         });  
 
     });
@@ -65,7 +72,7 @@
         </div>
         <!-- Configuracion de administrador -->
         <?php            
-            if($c->getTipo() == "empleado" && $c->getisAdministrador()){
+            if($u->getTipo() == "empleado" && $u->getisAdministrador()){
         
              require_once("cfgAdmin.php");
         
@@ -90,29 +97,96 @@
         </script>  
 <?php            
             }
+        }else if(isset($_GET['newShop'])){
+            if($_GET['newShop'] == 1){
+        ?>
+            <script type="text/javascript">
+                $('head').before('<div id="newShop" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Tienda añadida</div>');        
+                setTimeout(function(){
+                    $('#newShop').fadeOut('fast');
+                    }, 4000
+                    );        
+            </script>
+<?php 
+            }
+        }else if(isset($_GET['opfallida'])){
+            if($_GET['opfallida'] == 1){
+        ?>
+            <script type="text/javascript">
+                $('head').before('<div id="opfallida" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Operación fallida</div>');        
+                setTimeout(function(){
+                    $('#opfallida').fadeOut('fast');
+                    }, 4000
+                    );        
+            </script>
+<?php 
+            }
+        }else if(isset($_GET['confirmpasswd'])){
+            if($_GET['confirmpasswd'] == 0){
+    ?>
+        <script type="text/javascript">
+            $('head').before('<div id="confirmpasswd" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Contraseña de confirmación incorrecta</div>');        
+            setTimeout(function(){
+                $('#confirmpasswd').fadeOut('fast');
+                }, 4000
+                );        
+        </script>  
+    <?php
         }
+    }
+
     }else if( $_SERVER['REQUEST_METHOD']=='POST') {
         switch($_POST['optsSubmit']){
             case 'Añadir Empleado':
-            if($c->compararPass(sha1($_POST['ContraseñaConfirm']))){
-                $newEmpleado = new Empleado();
-                $newEmpleado ->setUsername($_POST['Username'])
-                             ->setPasswd($_POST['Passwd']) 
-                             ->setNombre($_POST['Nombre']) 
-                             ->setApell($_POST['Apellidos']) 
-                             ->setApell($_POST['Email']) 
-                             ->setApell($_POST['PhotoPath']) 
-                             ->setApell($_POST['Cargo']);
-                if($c->registrarEmpleado($newEmpleado)){
-                    header('Location: ?newEmp=1');
-                    exit;
+                if( $u->compararPass(sha1($_POST['ContraseñaConfirm'])) ){
+                    $newEmpleado = new Empleado();
+                    $newEmpleado ->setUsername($_POST['Username'])
+                                ->setPasswd($_POST['Passwd']) 
+                                ->setNombre($_POST['Nombre']) 
+                                ->setApell($_POST['Apellidos']) 
+                                ->setEmail($_POST['Email']) 
+                                ->setPhotoPath($_POST['PhotoPath']) 
+                                ->setCargo($_POST['Cargo']);
+                    $newEmpleado->encryptPasswd();
+                    if( $u->registrarEmpleado($newEmpleado) ){
+                        header('Location: ?newEmp=1');
+                        exit;
+                    }else{
+                        header('Location: ?opfallida=1');
+                        exit;
+                    }
                 }else{
-                    echo "Operacion Fallida";
-                }
-            }else{
-                echo "Contraseña Incorrecta";
-            }    
+                    header('Location: ?confirmpasswd=0');
+                    exit;
+                }    
             break;
+            
+            case 'Añadir Tienda':
+                if( $u->compararPass(sha1($_POST['ContraseñaConfirm']))){
+                    $newTienda = new Tienda();
+                    $newTienda ->setNombre($_POST['NombreTienda'])
+                                ->setDireccion($_POST['Direccion']) 
+                                ->setEmail($_POST['Email']) 
+                                ->setCp($_POST['CodigoPostal']) 
+                                ->setLatitud($_POST['Latitud']) 
+                                ->setLongitud($_POST['Longitud']) 
+                                ->setProvincia($_POST['Provincia'])
+                                ->setMunicipio($_POST['Municipio']);
+
+                        cLog("HastaAquiLlegamos");
+                    if( $u->añadirTienda($newTienda) ){
+                        header('Location: ?newShop=1');
+                        exit;
+                    }else{
+                        header('Location: ?opfallida=1');
+                        exit;
+                    }
+                }else{
+                    header('Location: ?confirmpasswd=0');
+                    exit;
+                }
+            break;
+            }
         }
-    }
+    
 ?>

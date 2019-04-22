@@ -1,0 +1,8 @@
+2019-04-22 11:34:09 HastaAquiLlegamos
+2019-04-22 11:50:44 HastaAquiLlegamos
+2019-04-22 11:52:31 HastaAquiLlegamos
+2019-04-22 12:00:04 HastaAquiLlegamos
+2019-04-22 12:03:29 HastaAquiLlegamos
+2019-04-22 12:42:51 HastaAquiLlegamos
+2019-04-22 12:42:51 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio) 
+                            VALUES ('SHP:000000006' at line 1

@@ -119,19 +119,6 @@
                 <div id="OPTS_profile">
                     <a class="concreteOpt" id="optChangePass">Cambiar contraseña</a>
                     <a class="concreteOpt" id="optChangeData">Modificar datos</a>
-
-                    <!--   Botones de Empleado o Administrador -->
-                    <?php
-                        // cLog($u->getisAdministrador());
-                        // cLog($u->getTipo());
-                        if($u->getTipo() == "empleado" && $u->getisAdministrador()){
-                    ?>
-                    <a class="concreteOpt" id="optAddEMP" style="display: inline-block;">Registrar Empleado</a>
-                    <?php
-                        }
-                    ?>
-
-
                 </div>
 
 
@@ -175,36 +162,6 @@
                         <input class="submitCDF cancel" id="cancelButtonPasswd" type="button" value="Cancelar">
                     </form>
                 </div>
-
-                <div id="registrarEmpleadoForm" class="profileForm">
-                    <h3 style="margin: 0px 0 2vh 0;">Registrar Empleado</h3>
-                    <form method="post" id="rEMP">
-
-                        <label>Nombre de usuario</label>
-                        <input type="text" name="Username">
-                        <label>Contraseña</label>
-                        <input type="text" name="Passwd">
-                        <label>Nombre</label>
-                        <input type="text" name="Nombre">
-                        <label>Apellidos</label>
-                        <input type="text" name="Apellidos">
-                        <label>Email</label>
-                        <input type="text" name="Email">
-                        <label>Ruta de foto de perfil</label>
-                        <input type="text" placeholder="Opcional" name="PhotoPath">
-                        <label>Cargo</label>
-                        <input type="text" name="Cargo">
-                        <label>Introduzca su contraseña para confirmar</label>
-                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton"
-                            value="Añadir Empleado">
-                        <input class="submitCDF cancel" id="cancelButtonREMP" type="button" value="Cancelar">
-                    </form>
-                </div>
-
-
-
-
             </div>
         </div>
     </body>
@@ -218,18 +175,6 @@
             $('head').before('<div id="updateProfile" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #e0e0d2; padding: 10px;">Perfil Actualizado</div>');        
             setTimeout(function(){
                 $('#updateProfile').fadeOut('fast');
-                }, 4000
-                );        
-        </script>      
-    <?php
-            }
-        }else if(isset($_GET['newEmp'])){
-            if($_GET['newEmp'] == 1){
-    ?>
-        <script type="text/javascript">
-            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #e0e0d2; padding: 10px;">Empleado Registrado</div>');        
-            setTimeout(function(){
-                $('#newEmp').fadeOut('fast');
                 }, 4000
                 );        
         </script>      
@@ -320,29 +265,7 @@
                     exit;
                 }        
             break;            
-            case 'Añadir Empleado':
-                if( $u->compararPass(sha1($_POST['ContraseñaConfirm'])) ){
-                    $newEmpleado = new Empleado();
-                    $newEmpleado ->setUsername($_POST['Username'])
-                                ->setPasswd($_POST['Passwd']) 
-                                ->setNombre($_POST['Nombre']) 
-                                ->setApell($_POST['Apellidos']) 
-                                ->setEmail($_POST['Email']) 
-                                ->setPhotoPath($_POST['PhotoPath']) 
-                                ->setCargo($_POST['Cargo']);
-                    $newEmpleado->encryptPasswd();
-                    if( $u->registrarEmpleado($newEmpleado) ){
-                        header('Location: ?newEmp=1');
-                        exit;
-                    }else{
-                        header('Location: ?opfallida=1');
-                        exit;
-                    }
-                }else{
-                    header('Location: ?confirmpasswd=0');
-                    exit;
-                }    
-            break;            
+                        
         }
     }
 ?>

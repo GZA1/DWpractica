@@ -8,8 +8,44 @@
 #dashboard {
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 4%;
     width: 60%;
     
+}
+.not-active {
+    display: none;
+}
+
+
+#botSect {
+    border: solid thin #3399ff;
+}
+
+.configForm {
+    padding: 2vh 0 0 3vw;    
+    /* border-top: 5px solid #3399ff;     */
+    /* border-bottom: 1px; */
+    margin-top: 2vh;
+}
+
+.configForm>form input{
+    padding: 1vh 4px 1vh 4px;
+}
+
+
+#rEMP {
+    width: 60%;
+}
+#rEMP>label {
+    margin-top: 2vh;
+
+}
+#aSHOP {
+    width: 60%;
+}
+#aSHOP>label {
+    margin-top: 2vh;
+
 }
 
 #topSect {

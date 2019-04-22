@@ -172,13 +172,12 @@ label {
 
 .profileForm {
     display: none;
-    padding: 2vh 0 0 3vw;
-    
-    border-top: 5px solid #3399ff;
-    
+    padding: 2vh 0 0 3vw;    
+    border-top: 5px solid #3399ff;    
     /* border-bottom: 1px; */
     margin-top: 2vh;
 }
+
 .profileForm>form input{
     padding: 1vh 4px 1vh 4px;
 }
@@ -190,13 +189,6 @@ label {
 
 }
 
-#rEMP {
-    width: 60%;
-}
-#rEMP>label {
-    margin-top: 2vh;
-
-}
 
 .submitCDF {
     display: inline-block;

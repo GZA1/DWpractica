@@ -31,6 +31,39 @@ class Admin extends Empleado {
             return false;
         }
     }
-    
+    public function añadirTienda($tienda){
+        
+        $elId = $tienda->getId();
+        $elNombre =  $tienda->getNombre();
+        $elDireccion = $tienda->getDireccion();
+        $elEmail = $tienda->getEmail();
+        $elCP = $tienda->getCp();
+        $elLatitud =  $tienda->getLatitud();
+        $elLongitud = $tienda->getLongitud();
+        $elProvincia = $tienda->getProvincia();
+        $elMuniicipio = $tienda->getMunicipio(); 
+        try{
+
+            $conn = db();
+            $consulta = "INSERT INTO Tienda (id, nombre, direccion, email, cp, lat, long, provincia, municipio) 
+                            VALUES (:id, :nombre, :direccion, :email, :cp, :lat, :long, :provincia, :municipio)";
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':id', $elId, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':nombre', $elNombre, PDO::PARAM_STR, 45 );
+            $stmt->bindParam(':direccion', $elDireccion, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':email',   $elEmail,  PDO::PARAM_STR, 45);
+            $stmt->bindParam(':cp', $elCP, PDO::PARAM_INT);
+            $stmt->bindParam(':lat', $elLatitud);
+            $stmt->bindParam(':long', $elLongitud);
+            $stmt->bindParam(':provincia', $elProvincia, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':municipio', $elMuniicipio, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            return true;
+
+        }catch(PDOException $ex){
+            cLog($ex->getMessage());
+            return false;
+        }
+    }
 
 }
