@@ -34,9 +34,9 @@ class Cliente extends Usuario {
             
             $consulta = "insert into cliente (
                     id, username, passwd, nombre, apellidos, 
-                    email, domicilio, Cesta_id)
+                    email, domicilio)
                     values ( :id, :username, :passwd, :nombre, :apellidos, :email,
-                    :domicilio, :Cesta_id)";
+                    :domicilio)";
             
             $cesta_id = null;
 
@@ -50,8 +50,7 @@ class Cliente extends Usuario {
             $stmt->bindParam(':nombre', $this->nombre, PDO::PARAM_STR, 45);
             $stmt->bindParam(':apellidos', $this->apell, PDO::PARAM_STR, 45);
             $stmt->bindParam(':email', $this->email, PDO::PARAM_STR, 45);
-            $stmt->bindParam(':domicilio', $this->domicilio, PDO::PARAM_STR, 45);
-            $stmt->bindValue(':Cesta_id', null, PDO::PARAM_INT);            
+            $stmt->bindParam(':domicilio', $this->domicilio, PDO::PARAM_STR, 45);        
             $stmt->execute();
 
             return true;
