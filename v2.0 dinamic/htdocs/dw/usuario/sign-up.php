@@ -100,7 +100,7 @@
                         }
                         function isEmail(email) {
                             console.log(email);
-                            var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
                             return regex.test(email);
                         }
                     });
@@ -121,7 +121,7 @@
             if($_GET['usrreg']==0){
 ?>
     <script>
-        $('head').before('<div id="usrreg" style="height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">Nombre de usuario inválido</div>');
+        $('head').before('<div id="usrreg" style="height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">Nombre de usuario o email inválido</div>');
         setTimeout(function(){ 
             $('#usrreg').fadeOut('fast');
             }, 4000
@@ -135,6 +135,8 @@
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
         $u = new Cliente();
+        console_log("Id cliente: ");
+        console_log($u->getId());
         $u  ->setUsername($_POST['username'])
             ->setPasswd($_POST['passwd'])
             ->setNombre($_POST['nombre'])
@@ -143,6 +145,8 @@
             ->setDomicilio($_POST['domicilio'])
         ;
         $u->encryptPasswd();
+        console_log("Cliente a añadir: ");
+        console_log($u);
         if( $u->add() ) {
             header('Location: sign-in.php?usrreg=1');
             exit;

@@ -167,12 +167,9 @@
                     $newTienda = new Tienda();
                     $newTienda ->setNombre($_POST['NombreTienda'])
                                 ->setDireccion($_POST['Direccion']) 
-                                ->setEmail($_POST['Email']) 
-                                ->setCp($_POST['CodigoPostal']) 
-                                ->setLatitud($_POST['Latitud']) 
-                                ->setLongitud($_POST['Longitud']) 
-                                ->setProvincia($_POST['Provincia'])
-                                ->setMunicipio($_POST['Municipio']);
+                                ->setEmail($_POST['EmailTienda']) 
+                                ->setCp($_POST['CodigoPostal'])
+                                ;
 
                         cLog("HastaAquiLlegamos");
                     if( $u->añadirTienda($newTienda) ){

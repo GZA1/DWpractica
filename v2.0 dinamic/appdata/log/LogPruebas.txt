@@ -38,3 +38,130 @@
 2019-04-23 01:16:50 SQLSTATE[01000]: Warning: 1265 Data truncated for column 'latitud' at row 1
 2019-04-23 01:18:18 HastaAquiLlegamos
 2019-04-23 01:18:18 3032
+2019-04-24 09:19:59 EMP:000000005022630e0000000012d81fbf
+2019-04-24 09:20:00 EMP:000000005022630e0000000012d81fbf
+2019-04-24 09:20:00 empleado
+2019-04-24 09:23:05 EMP:000000005022630e0000000012d81fbf
+2019-04-24 09:23:05 empleado
+2019-04-24 09:23:33 EMP:000000005022630e0000000012d81fbf
+2019-04-24 09:23:33 EMP:000000005022630e0000000012d81fbf
+2019-04-24 09:23:33 empleado
+2019-04-24 09:23:54 EMP:000000005022630e0000000012d81fbf
+2019-04-24 09:23:54 empleado
+2019-04-24 09:25:50 EMP:000000005022630e0000000012d81fbf
+2019-04-24 09:25:50 empleado
+2019-04-24 09:51:06 CLI:0000000003b83c55000000004d687392
+2019-04-24 09:51:06 CLI:0000000003b83c55000000004d687392
+2019-04-24 09:51:06 cliente
+2019-04-24 09:51:56 CLI:0000000021b90c76000000005222d96a
+2019-04-24 09:51:56 CLI:0000000021b90c76000000005222d96a
+2019-04-24 09:51:56 cliente
+2019-04-24 09:52:03 CLI:0000000021b90c76000000005222d96a
+2019-04-24 09:52:03 cliente
+2019-04-24 09:52:03 CLI:0000000021b90c76000000005222d96a
+2019-04-24 09:52:03 cliente
+2019-04-24 10:31:01 EMP:000000005022630e0000000012d81fbf
+2019-04-24 10:31:01 EMP:000000005022630e0000000012d81fbf
+2019-04-24 10:31:01 empleado
+2019-04-24 10:43:40 EMP:000000005022630e0000000012d81fbf
+2019-04-24 10:43:40 empleado
+2019-04-24 10:44:58 EMP:000000005022630e0000000012d81fbf
+2019-04-24 10:44:59 EMP:000000005022630e0000000012d81fbf
+2019-04-24 10:44:59 empleado
+2019-04-24 10:45:45 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 10:48:21 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 10:48:45 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 10:52:10 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 10:55:23 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 11:03:21 HastaAquiLlegamos
+2019-04-24 11:03:21 
+2019-04-24 11:03:21 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'latitud' in 'field list'
+2019-04-24 11:04:08 HastaAquiLlegamos
+2019-04-24 11:04:08 
+2019-04-24 11:04:08 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'latitud' in 'field list'
+2019-04-24 11:09:47 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:09:47 empleado
+2019-04-24 11:21:55 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:21:55 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:21:55 empleado
+2019-04-24 11:22:21 HastaAquiLlegamos
+2019-04-24 11:22:21 
+2019-04-24 11:22:21 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio) 
+                            VALUES ('Tienda', 'Cal' at line 1
+2019-04-24 11:26:23 HastaAquiLlegamos
+2019-04-24 11:26:23 
+2019-04-24 11:26:23 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio) 
+                            VALUES ('Tienda', 'Cal' at line 1
+2019-04-24 11:26:30 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:26:30 empleado
+2019-04-24 11:27:20 HastaAquiLlegamos
+2019-04-24 11:27:20 
+2019-04-24 11:27:20 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio) 
+                            VALUES ('Tienda', 'Cal' at line 1
+2019-04-24 11:29:42 HastaAquiLlegamos
+2019-04-24 11:29:42 
+2019-04-24 11:29:42 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio) 
+                            VALUES ('Tienda', 'Cal' at line 1
+2019-04-24 11:31:04 HastaAquiLlegamos
+2019-04-24 11:31:04 Calle Mayor 1
+2019-04-24 11:31:04 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio) 
+                            VALUES ('Tienda', 'Cal' at line 1
+2019-04-24 11:35:50 HastaAquiLlegamos
+2019-04-24 11:35:50 Calle Mayor 1
+2019-04-24 11:35:51 SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+2019-04-24 11:43:00 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:43:00 empleado
+2019-04-24 11:43:18 CLI:000000004029530e0000000014d11trs
+2019-04-24 11:43:18 CLI:000000004029530e0000000014d11trs
+2019-04-24 11:43:18 cliente
+2019-04-24 11:43:24 CLI:000000004029530e0000000014d11trs
+2019-04-24 11:43:24 cliente
+2019-04-24 11:45:34 CLI:000000004029530e0000000014d11trs
+2019-04-24 11:45:34 cliente
+2019-04-24 11:45:45 CLI:000000004029530e0000000014d11trs
+2019-04-24 11:45:45 CLI:000000004029530e0000000014d11trs
+2019-04-24 11:45:45 cliente
+2019-04-24 11:45:48 CLI:000000004029530e0000000014d11trs
+2019-04-24 11:45:48 cliente
+2019-04-24 11:45:48 CLI:000000004029530e0000000014d11trs
+2019-04-24 11:45:48 cliente
+2019-04-24 11:46:01 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:46:02 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:46:02 empleado
+2019-04-24 11:46:12 HastaAquiLlegamos
+2019-04-24 11:46:12 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio)
+                            VALUES ('Tienda', 'Call' at line 1
+2019-04-24 11:52:31 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:52:31 empleado
+2019-04-24 11:52:47 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 11:54:11 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:54:11 empleado
+2019-04-24 11:54:17 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:54:17 empleado
+2019-04-24 11:54:33 HastaAquiLlegamos
+2019-04-24 11:54:33 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio)
+                            VALUES ('Tienda', 'Call' at line 1
+2019-04-24 11:56:19 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 11:56:20 EMP:000000005022630e0000000012d81fbf
+2019-04-24 11:56:20 empleado
+2019-04-24 12:10:13 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 12:13:11 EMP:000000005022630e0000000012d81fbf
+2019-04-24 12:13:11 empleado
+2019-04-24 12:22:11 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 12:23:03 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 12:36:43 SQLSTATE[HY000]: General error: 1364 Field 'Tienda_id' doesn't have a default value
+2019-04-24 12:37:13 EMP:000000005022630e0000000012d81fbf
+2019-04-24 12:37:13 empleado
+2019-04-24 12:39:04 EMP:000000005022630e0000000012d81fbf
+2019-04-24 12:39:04 empleado
+2019-04-24 12:46:08 HastaAquiLlegamos
+2019-04-24 12:46:08 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio)
+                            VALUES ('Tienda', 'Call' at line 1
+2019-04-24 12:49:30 HastaAquiLlegamos
+2019-04-24 12:49:30 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio)
+                            VALUES ('Tienda', 'Call' at line 1
+2019-04-24 12:49:52 HastaAquiLlegamos
+2019-04-24 12:49:52 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'long, provincia, municipio)
+                            VALUES ('Tienda', 'Call' at line 1
+2019-04-24 12:49:55 EMP:000000005022630e0000000012d81fbf
+2019-04-24 12:49:55 empleado
