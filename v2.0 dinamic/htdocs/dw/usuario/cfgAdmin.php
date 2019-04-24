@@ -51,16 +51,24 @@
     
             <form method="post" id="aSHOP">
                 
-                <label id="lNombreTienda">Nombre tienda</label>
-                <input type="text" id="nombreTienda" name="NombreTienda">
-                <label id="lDireccion">Direccion</label>
-                <input type="text" id="direccion" name="Direccion">
-                <label id="lEmailTienda">Email</label>
-                <input type="text" id="emailTienda" name="EmailTienda">
-                <label id="lCp">Código Postal</label>
-                <input type="text" id="cp" name="CodigoPostal">
-                <label id="lPasswdConfTienda">Introduzca su contraseña para confirmar</label>
-                <input type="password" placeholder="Contraseña" id="passwdConfTienda" name="ContraseñaConfirm">
+                <label>Nombre tienda</label>
+                <input type="text" name="NombreTienda">
+                <label>Direccion</label>
+                <input type="text" name="Direccion">
+                <label>Email</label>
+                <input type="text" name="Email">
+                <label>Código Postal</label>
+                <input type="text" name="CodigoPostal">
+                <label>Latitud</label>
+                <input type="text" placeholder="Opcional" name="Latitud">
+                <label>Longitud</label>
+                <input type="text" placeholder="Opcional" name="Longitud">
+                <label>Provincia</label>
+                <input type="text" name="Provincia">
+                <label>Municipio</label>
+                <input type="text" name="Municipio">
+                <label>Introduzca su contraseña para confirmar</label>
+                <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
                 <input class="submitCDF" type="submit" name="optsSubmit" id="addButtonaSHOP"
                 value="Añadir Tienda">
                 <input class="submitCDF cancel" id="cancelButtonaSHOP" type="button" value="Cancelar">
@@ -97,5 +105,5 @@
 
         </div>
     </div>
+
 </div>
-<script src="./checkcfgAdmin.js"></script>

@@ -29,8 +29,8 @@
             <div id="contenedor-form">
                 <form method="post" id="miFormulario">
                     <h1 style="margin-top: 40px;">Iniciar sesión</h1>
-                    <label id="lLogin">Nombre de usuario o email</label>
-                    <input type="text" id="login" name="login" name="login">
+                    <label id="lUser">Nombre de usuario o mail</label>
+                    <input type="text" id="username" name="username" name="username">
                     <label id="lPasswd">Contraseña</label>
                     <input type="password" id="passwd" name="passwd"><br><br>
                     <input id="boton-inic-ses" type="submit" value="Iniciar sesión">
@@ -43,12 +43,12 @@
                  (function($) {
                     $('#miFormulario').submit(function() {
                         $("#error").remove();
-                        var nombre = $("#login").val(),
+                        var nombre = $("#username").val(),
                             passwd = $("#passwd").val();
 
-                        var inputVal = [login, passwd],
-                            inputMessage = ["username o email", "contraseña"],
-                            textId = ["#lLogin", "#lPasswd"];
+                        var inputVal = [username, passwd],
+                            inputMessage = ["username", "passwd"],
+                            textId = ["#lUser", "#lPasswd"];
 
                         for(var i=0;i<inputVal.length;i++){
                             inputVal[i] = $.trim(inputVal[i]);
@@ -62,6 +62,11 @@
                         function invalidEntry(i) {
                             console.log(textId[i] + ' incorrecto');
                             $(textId[i]).after("<p id='error' style='font-size: 14px; color: red' > El campo " + inputMessage[i] + " no es válido.</p>");
+                        }
+                        function isEmail(email) {
+                            console.log(email);
+                            var regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                            return regex.test(email);
                         }
                     });
 
@@ -108,8 +113,11 @@
 }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
         $u = new Usuario();
-        $u  ->setUsername($_POST['login'])
-            ->setPasswd($_POST['passwd']);
+        $u  ->setUsername($_POST['username'])
+            ->setPasswd($_POST['passwd'])
+        ;
+
+
         $u->encryptPasswd();
         if( $u->login() ) {
             session_start();

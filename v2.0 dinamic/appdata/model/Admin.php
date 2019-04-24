@@ -42,11 +42,13 @@ class Admin extends Empleado {
         $elLatitud =  $tienda->getLatitud();
         $elLongitud = $tienda->getLongitud();
         $elProvincia = $tienda->getProvincia();
-        $elMunicipio = $tienda->getMunicipio(); 
+        $elMuniicipio = $tienda->getMunicipio(); 
+        
+        cLog($elLatitud);
         
         try{
             $conn = db();
-            $consulta = "INSERT INTO Tienda (nombre, direccion, email, cp, lat, long, provincia, municipio)
+            $consulta = "INSERT INTO Tienda (nombre, direccion, email, cp, latitud, longitud, provincia, municipio) 
                             VALUES (:nombre, :direccion, :email, :cp, :latitud, :longitud, :provincia, :municipio)";
             $stmt = $conn->prepare($consulta);
             $stmt->bindParam(':nombre', $elNombre, PDO::PARAM_STR, 45 );
@@ -56,7 +58,7 @@ class Admin extends Empleado {
             $stmt->bindParam(':latitud', $elLatitud, PDO::PARAM_STR, 45);
             $stmt->bindParam(':longitud', $elLongitud, PDO::PARAM_STR, 45);
             $stmt->bindParam(':provincia', $elProvincia, PDO::PARAM_STR, 45);
-            $stmt->bindParam(':municipio', $elMunicipio, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':municipio', $elMuniicipio, PDO::PARAM_STR, 45);
             $stmt->execute();
             return true;
 
