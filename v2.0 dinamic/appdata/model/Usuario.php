@@ -42,14 +42,14 @@ class Usuario {
             
             $conn = db();
             
-            if(strpos($this->username, '@') !== FALSE){
-                
+            if( preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $this->username) ){
+
                 $consulta = "SELECT id FROM Cliente WHERE email = :username AND passwd = :passwd";
-                
+
             }else {
-                
+
                 $consulta = "SELECT id FROM Cliente WHERE username = :username AND passwd = :passwd";
-    
+                
             }
             
             
