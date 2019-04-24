@@ -18,7 +18,7 @@
                 <label>Nombre de usuario</label>
                 <input type="text" name="Username">
                 <label>Contraseña</label>
-                <input type="text" name="Passwd">
+                <input type="password" name="Passwd">
                 <label>Nombre</label>
                 <input type="text" name="Nombre">
                 <label>Apellidos</label>
@@ -39,7 +39,7 @@
                     ?>        
                 </select>                    
                 <label>Introduzca su contraseña para confirmar</label>
-                <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
+                <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="passwdConfirm">
                 <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton"
                 value="Añadir Empleado">
                 <input class="submitCDF cancel" id="cancelButtonREMP" type="button" value="Cancelar">

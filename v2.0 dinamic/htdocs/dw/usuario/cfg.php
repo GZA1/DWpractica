@@ -205,9 +205,7 @@
                     $newTienda ->setNombre($_POST['NombreTienda'])
                                 ->setDireccion($_POST['Direccion']) 
                                 ->setEmail($_POST['Email']) 
-                                ->setCp($_POST['CodigoPostal'])  
-                                ->setProvincia($_POST['Provincia'])
-                                ->setMunicipio($_POST['Municipio']);
+                                ->setCp($_POST['CodigoPostal']);
 
                     if($_POST['Latitud'] == ""){
                         $newTienda->setLatitud(null);

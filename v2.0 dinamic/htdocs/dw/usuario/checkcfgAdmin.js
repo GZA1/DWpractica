@@ -4,12 +4,12 @@
     $('#rEMP').submit(function() {
         console.log("vamos a comprobar los campos de este empleado");
         $("#error").remove();
-        var username = $("#username").val(), 
-            passwd = $("#passwd").val(),
-            nombre = $("#nombre").val(),
-            apell = $("#apell").val(),
-            email = $("#email").val(),
-            cargo = $("#cargo").val(),
+        var username = $("#Username").val(), 
+            passwd = $("#Passwd").val(),
+            nombre = $("#Nombre").val(),
+            apell = $("#Apell").val(),
+            email = $("#Email").val(),
+            cargo = $("#Cargo").val(),
             passwdConfirm = $("#passwdConfirm").val();
 
         var inputVal = [username, passwd, nombre, apell, email, cargo, passwdConfirm],
@@ -51,9 +51,9 @@
     $('#aSHOP').submit(function() {
         console.log("vamos a comprobar los campos de esta tienda");
         $("#error").remove();
-        var nombreTienda = $("#nombreTienda").val(), 
-            direccion = $("#direccion").val(),
-            emailTienda = $("#emailTienda").val(),
+        var nombreTienda = $("#NombreTienda").val(), 
+            direccion = $("#Direccion").val(),
+            emailTienda = $("#EmailTienda").val(),
             cp = $("#cp").val(),
             passwdConfTienda = $("#passwdConfTienda").val();
 
