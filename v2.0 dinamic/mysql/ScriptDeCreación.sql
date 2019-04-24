@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cliente` (
   `fechaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -48,7 +49,8 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Tienda` (
   `provincia` VARCHAR(45) NULL,
   `municipio` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -73,6 +75,7 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Empleado` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   INDEX `fk_Empleado_Tienda1_idx` (`Tienda_id` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   CONSTRAINT `fk_Empleado_Tienda1`
     FOREIGN KEY (`Tienda_id`)
     REFERENCES `BD_Tienda`.`Tienda` (`id`)
@@ -181,7 +184,28 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Pedido` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+/*Esto lo guardo aquí de backup por si modificamos el script de creación. Almacén central*/
+
 INSERT INTO Tienda (nombre, direccion, email, cp) VALUES ('Almacén Central', 'Avenida del Almacén Central 1', 'almcentral@empresa.com', 28038); /*Está en Madrid el almacén central*/
+
+/*Hacer inserts de clientes desde el sign up*/
+
+INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo, isAdministrador, Tienda_id) 
+VALUES ('EMP:000000005022630e0000000012d81fbf', 'burns', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Señor', 'Señor Burns', 'holahola@gmail.com', './/img/externos/1.jpg', 'encargado', 1, 1);
+
+/*INSERTS EMPLEADOS*/
+
+/*Insertamos aquí un cliente con cestas y, por lo tanto, pedidos asociados que, al no haber lógica de productos todavía, son solo de prueba*/
+
+insert into cliente (id, username, passwd, nombre, apellidos, email, domicilio) 
+values ('CLI:000000004029530e0000000014d11trs', 'cli1', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Cliente', 'Numero Uno', 'cli1@gmail.com', 'Calle Mayor 15');
+insert into cesta (costeTotal, Cliente_id) values (25, 'CLI:000000004029530e0000000014d11trs'), (12, 'CLI:000000004029530e0000000014d11trs');
+insert into pedido (estado, Cesta_id) values ('procesando', 1), ('completado', 2);
+
+
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
