@@ -84,8 +84,8 @@ class Empleado extends Usuario {
         $conn = db();
         try{
             $consulta="SELECT COUNT(*) FROM Empleado WHERE id=:id";
-            $stmt = $conn->cprepare($consulta);
-            $stmt-bindParam(':id', $id, PDO::PARAM_STR, 45);
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':id', $id, PDO::PARAM_STR, 45);
             $stmt->execute();
             $row = $stmt->fetch();
         }catch(PDOException $ex){

@@ -12,8 +12,8 @@ class Admin extends Empleado {
         
         try{
             $conn = db();
-            $consulta = "INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo) 
-                            VALUES (:id, :username, :passwd, :nombre, :apellidos, :email, :photopath, :cargo)";
+            $consulta = "INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo, tienda_id) 
+                            VALUES (:id, :username, :passwd, :nombre, :apellidos, :email, :photopath, :cargo, :tienda_id)";
             $stmt = $conn->prepare($consulta);
             $stmt->bindParam(':id', $empleado->id, PDO::PARAM_STR, 45);
             $stmt->bindParam(':username', $empleado->username ,PDO::PARAM_STR, 45 );
@@ -87,17 +87,17 @@ class Admin extends Empleado {
         try{
             $conn = db();
             $consulta = "SELECT id FROM Tienda";
-            $stmt = $conn->prepare($consulta);                    
-            $stmt->execute();
-            $array = $stmt->fetch();
-            cLog(count($array));
-            foreach($array as $a){
-                cLog($a);
+            $stmt = $conn->query($consulta);
+            if (!$stmt) {
+                cLog("Query failed: ".$mysqli->error);
+                exit;
+            }                    
+            while( $fila = $stmt->fetch()){
+                $array[] = $fila; 
             }
         }catch(PDOException $ex){
             cLog($ex->getMessage());            
-        }
-            
+        }            
             return $array;
     }
 

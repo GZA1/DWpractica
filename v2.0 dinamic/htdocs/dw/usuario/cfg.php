@@ -114,7 +114,7 @@
             if($_GET['newShop'] == 1){
 ?>
             <script type="text/javascript">
-                $('head').before('<div id="newShop" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Tienda añadida</div>');        
+                $('head').before('<div id="newShop" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Tienda añadida</div>');        
                 setTimeout(function(){
                     $('#newShop').fadeOut('fast');
                     }, 4000
@@ -150,7 +150,7 @@
         if($_GET['empDEL'] == 1){
 ?>
         <script type="text/javascript">
-            $('head').before('<div id="empDeleted" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Empleado dado de baja con éxito</div>');        
+            $('head').before('<div id="empDeleted" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Empleado dado de baja con éxito</div>');        
             setTimeout(function(){
                 $('#empDeleted').fadeOut('fast');
                 }, 4000
@@ -184,7 +184,7 @@
                                 ->setEmail($_POST['Email']) 
                                 ->setPhotoPath($_POST['PhotoPath']) 
                                 ->setCargo($_POST['Cargo'])
-                                ->setTienda_id($_POST['shop_id']);
+                                ->setTienda_id($_POST['tienda_id']);
                     $newEmpleado->encryptPasswd();
                     if( $u->registrarEmpleado($newEmpleado) ){
                         header('Location: ?newEmp=1');
@@ -237,7 +237,7 @@
             case 'Baja Empleado':
                 if($u->doIDexist($_POST['IDbajaEmpleado'])){
                     $emp = new Empleado($_POST['IDbajaEmpleado']);
-                    $u->bajaEmpleado($u);                    
+                    $u->bajaEmpleado($emp);                    
                     header('Location: ?empDEL=1');
 
                 }else{

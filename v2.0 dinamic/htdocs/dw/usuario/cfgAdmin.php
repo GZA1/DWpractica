@@ -30,11 +30,11 @@
                 <label>Cargo</label>
                 <input type="text" name="Cargo">
                 <label>ID de la tienda a la que pertenece</label>
-                <select name="tienda_id" form="carform">
+                <select name="tienda_id" form="rEMP">
                     <?php
                     $tiendas = $u->getAllTiendasID();                    
-                    for($i = 0; $i < count($tiendas); $i++){
-                        echo "<option value=".$tiendas[$i].">".$tiendas[$i]."</option>";
+                    foreach($tiendas as $a){
+                        echo "<option value=".$a['id'].">".$a['id']."</option>";
                     }
                     ?>        
                 </select>                    
