@@ -22,7 +22,7 @@ body{
     height: 60px;
     left: 0;
     max-height: 60px;
-    overflow: hidden;
+    overflow: visible;
     padding-bottom: 1vh;
     z-index: 99;
 }

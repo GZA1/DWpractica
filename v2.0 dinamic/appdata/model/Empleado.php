@@ -54,9 +54,9 @@ class Empleado extends Usuario {
 
 
             console_log($row);
-
+            
         }catch(PDOException $ex){
-            cLog($ex->getMessage());
+            cLog($ex->getMessage());            
         }
     }
 
@@ -79,7 +79,25 @@ class Empleado extends Usuario {
 
     }
 
-    
+    public function doIDexist($id){
+        
+        $conn = db();
+        try{
+            $consulta="SELECT COUNT(*) FROM Empleado WHERE id=:id";
+            $stmt = $conn->cprepare($consulta);
+            $stmt-bindParam(':id', $id, PDO::PARAM_STR, 45);
+            $stmt->execute();
+            $row = $stmt->fetch();
+        }catch(PDOException $ex){
+            cLog($ex);
+        }
+        if($row[0] > 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 
 
 
@@ -159,6 +177,26 @@ class Empleado extends Usuario {
     public function setIsAdministrador($isAdministrador)
     {
         $this->isAdministrador = $isAdministrador;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of tienda_id
+     */ 
+    public function getTienda_id()
+    {
+        return $this->tienda_id;
+    }
+
+    /**
+     * Set the value of tienda_id
+     *
+     * @return  self
+     */ 
+    public function setTienda_id($tienda_id)
+    {
+        $this->tienda_id = $tienda_id;
 
         return $this;
     }

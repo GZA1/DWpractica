@@ -22,27 +22,28 @@
 }
 
 .configForm {
-    padding: 2vh 0 0 3vw;    
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    /* padding: 2vh 0 0 3vw;     */
     /* border-top: 5px solid #3399ff;     */
     /* border-bottom: 1px; */
-    margin-top: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 3vh;
 }
 
 .configForm>form input{
     padding: 1vh 4px 1vh 4px;
+    
 }
 
 
-#rEMP {
-    width: 60%;
-}
+
 #rEMP>label {
     margin-top: 2vh;
 
 }
-#aSHOP {
-    width: 60%;
-}
+
 #aSHOP>label {
     margin-top: 2vh;
 

@@ -9,8 +9,8 @@ class Admin extends Empleado {
     }
 
     public function registrarEmpleado($empleado){
+        
         try{
-
             $conn = db();
             $consulta = "INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo) 
                             VALUES (:id, :username, :passwd, :nombre, :apellidos, :email, :photopath, :cargo)";
@@ -23,6 +23,7 @@ class Admin extends Empleado {
             $stmt->bindParam(':email', $empleado->email, PDO::PARAM_STR, 45);
             $stmt->bindParam(':photopath', $empleado->photoPath, PDO::PARAM_STR, 45);
             $stmt->bindParam(':cargo', $empleado->cargo, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':tienda_id', $empleado->tienda_id, PDO::PARAM_STR, 45);
             $stmt->execute();
             return true;
 
@@ -31,8 +32,8 @@ class Admin extends Empleado {
             return false;
         }
     }
-    public function añadirTienda($tienda){
-        
+
+    public function añadirTienda($tienda){        
         
         $elNombre =  $tienda->getNombre();
         $elDireccion = $tienda->getDireccion();
@@ -46,7 +47,6 @@ class Admin extends Empleado {
         cLog($elLatitud);
         
         try{
-
             $conn = db();
             $consulta = "INSERT INTO Tienda (nombre, direccion, email, cp, latitud, longitud, provincia, municipio) 
                             VALUES (:nombre, :direccion, :email, :cp, :latitud, :longitud, :provincia, :municipio)";
@@ -66,6 +66,39 @@ class Admin extends Empleado {
             cLog($ex->getMessage());
             return false;
         }
+    }
+
+    public function bajaEmpleado($empleado){ 
+
+        $id = $empleado->getId();        
+        try{
+            $conn = db();
+            $consulta = "UPDATE Empleado SET activo = 0 WHERE id = :id";
+            $stmt = $conn->prepare($consulta);
+            $stmt->bindParam(':id', $id, PDO::PARAM_STR, 45 );            
+            $stmt->execute();
+        }catch(PDOException $ex){
+            cLog($ex->getMessage());
+            return false;
+        }
+    }
+
+    public function getAllTiendasID(){
+        try{
+            $conn = db();
+            $consulta = "SELECT id FROM Tienda";
+            $stmt = $conn->prepare($consulta);                    
+            $stmt->execute();
+            $array = $stmt->fetch();
+            cLog(count($array));
+            foreach($array as $a){
+                cLog($a);
+            }
+        }catch(PDOException $ex){
+            cLog($ex->getMessage());            
+        }
+            
+            return $array;
     }
 
 }

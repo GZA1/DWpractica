@@ -10,8 +10,8 @@
         $u = new Usuario($_SESSION['id']);
         $tipo = $u->getTipo();
         $username = $u->getUsername();
-        cLog($u->getId());
-        cLog($tipo);
+        //cLog($u->getId());
+        //cLog($tipo);
     }
     if( $_SERVER['REQUEST_METHOD']=='GET') {
 ?>

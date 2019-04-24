@@ -47,14 +47,27 @@
     $("document").ready(function(){
         $("#optAddEMP").click(function(){
             $("#registrarEmpleadoForm").fadeIn('fast');
-            $("#añadirTiendaForm").fadeOut('fast');   
+            $("#añadirTiendaForm").fadeOut('fast'); 
+            $("#bajaEMPForm").fadeOut('fast');  
         });         
         $("#optAddSHOP").click(function(){
             $("#registrarEmpleadoForm").fadeOut('fast');
             $("#añadirTiendaForm").fadeIn('fast');
+            $("#bajaEMPForm").fadeOut('fast');
+        });         
+        $("#optBajaEMP").click(function(){
+            $("#registrarEmpleadoForm").fadeOut('fast');
+            $("#añadirTiendaForm").fadeOut('fast');
+            $("#bajaEMPForm").fadeIn('fast');
         });         
         $("#cancelButtonREMP").click(function(){
             $("#registrarEmpleadoForm").fadeOut('fast');
+        });
+        $("#cancelButtonaSHOP").click(function(){            
+            $("#añadirTiendaForm").fadeOut('fast');            
+        });
+        $("#cancelButtonbajaEMP").click(function(){
+            $("#bajaEMPForm").fadeOut('fast');
         });  
 
     });
@@ -99,7 +112,7 @@
             }
         }else if(isset($_GET['newShop'])){
             if($_GET['newShop'] == 1){
-        ?>
+?>
             <script type="text/javascript">
                 $('head').before('<div id="newShop" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Tienda añadida</div>');        
                 setTimeout(function(){
@@ -111,7 +124,7 @@
             }
         }else if(isset($_GET['opfallida'])){
             if($_GET['opfallida'] == 1){
-        ?>
+?>
             <script type="text/javascript">
                 $('head').before('<div id="opfallida" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Operación fallida</div>');        
                 setTimeout(function(){
@@ -123,7 +136,7 @@
             }
         }else if(isset($_GET['confirmpasswd'])){
             if($_GET['confirmpasswd'] == 0){
-    ?>
+?>
         <script type="text/javascript">
             $('head').before('<div id="confirmpasswd" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Contraseña de confirmación incorrecta</div>');        
             setTimeout(function(){
@@ -131,13 +144,36 @@
                 }, 4000
                 );        
         </script>  
-    <?php
+<?php
+        }
+    }else if(isset($_GET['empDEL'])){
+        if($_GET['empDEL'] == 1){
+?>
+        <script type="text/javascript">
+            $('head').before('<div id="empDeleted" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Empleado dado de baja con éxito</div>');        
+            setTimeout(function(){
+                $('#empDeleted').fadeOut('fast');
+                }, 4000
+                );        
+        </script>  
+<?php
+        }else{
+?>
+            <script type="text/javascript">
+                $('head').before('<div id="empNoExist" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Empleado no encontrado</div>');        
+                setTimeout(function(){
+                    $('#empNoExist').fadeOut('fast');
+                    }, 4000
+                    );        
+            </script>  
+<?php
         }
     }
 
     }else if( $_SERVER['REQUEST_METHOD']=='POST') {
         
         switch($_POST['optsSubmit']){
+
             case 'Añadir Empleado':
                 if( $u->compararPass(sha1($_POST['ContraseñaConfirm'])) ){
                     $newEmpleado = new Empleado();
@@ -147,7 +183,8 @@
                                 ->setApell($_POST['Apellidos']) 
                                 ->setEmail($_POST['Email']) 
                                 ->setPhotoPath($_POST['PhotoPath']) 
-                                ->setCargo($_POST['Cargo']);
+                                ->setCargo($_POST['Cargo'])
+                                ->setTienda_id($_POST['shop_id']);
                     $newEmpleado->encryptPasswd();
                     if( $u->registrarEmpleado($newEmpleado) ){
                         header('Location: ?newEmp=1');
@@ -168,13 +205,22 @@
                     $newTienda ->setNombre($_POST['NombreTienda'])
                                 ->setDireccion($_POST['Direccion']) 
                                 ->setEmail($_POST['Email']) 
-                                ->setCp($_POST['CodigoPostal']) 
-                                ->setLatitud($_POST['Latitud']) 
-                                ->setLongitud($_POST['Longitud']) 
+                                ->setCp($_POST['CodigoPostal'])  
                                 ->setProvincia($_POST['Provincia'])
                                 ->setMunicipio($_POST['Municipio']);
 
-                        cLog("HastaAquiLlegamos");
+                    if($_POST['Latitud'] == ""){
+                        $newTienda->setLatitud(null);
+                    }else{
+                        $newTienda->setLatitud($_POST['Latitud']) ;
+                    }
+                    if($_POST['Longitud'] == ""){
+                        $newTienda->setLongitud(null);    
+                    }else{
+                        $newTienda->setLongitud($_POST['Longitud']);
+                    }
+
+                        
                     if( $u->añadirTienda($newTienda) ){
                         header('Location: ?newShop=1');
                         exit;
@@ -186,6 +232,18 @@
                     header('Location: ?confirmpasswd=0');
                     exit;
                 }
+            break;
+
+            case 'Baja Empleado':
+                if($u->doIDexist($_POST['IDbajaEmpleado'])){
+                    $emp = new Empleado($_POST['IDbajaEmpleado']);
+                    $u->bajaEmpleado($u);                    
+                    header('Location: ?empDEL=1');
+
+                }else{
+                    header('Location: ?empDEL=0');
+                }
+            
             break;
             }
         }
