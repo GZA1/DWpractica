@@ -16,19 +16,19 @@
             <form method="post" id="rEMP">
                 
                 <label>Nombre de usuario</label>
-                <input type="text" name="Username">
+                <input type="text" id="username" name="Username">
                 <label>Contraseña</label>
-                <input type="password" name="Passwd">
+                <input type="password" id="passwd" name="Passwd">
                 <label>Nombre</label>
-                <input type="text" name="Nombre">
+                <input type="text" id="nombre" name="Nombre">
                 <label>Apellidos</label>
-                <input type="text" name="Apellidos">
+                <input type="text" id="apell" name="Apellidos">
                 <label>Email</label>
-                <input type="text" name="Email">
+                <input type="text" id="email" name="Email">
                 <label>Ruta de foto de perfil</label>
-                <input type="text" placeholder="Opcional" name="PhotoPath">
+                <input type="text" placeholder="Opcional" id="photopath" name="PhotoPath">
                 <label>Cargo</label>
-                <input type="text" name="Cargo">
+                <input type="text" id="cargo" name="Cargo">
                 <label>ID de la tienda a la que pertenece</label>
                 <select name="tienda_id" form="rEMP">
                     <?php
@@ -59,6 +59,15 @@
                 <input type="text" id="emailTienda" name="EmailTienda">
                 <label id="lCp">Código Postal</label>
                 <input type="text" id="cp" name="CodigoPostal">
+                <label id="lMunic">Municipio</label>
+                <select name="tienda_id" form="rEMP">
+                    <?php
+                    /*$tiendas = $u->getMunicipios();                    
+                    foreach($tiendas as $a){
+                        echo "<option value=".$a['id'].">".$a['id']."</option>";
+                    }*/
+                    ?>        
+                </select>
                 <label id="lPasswdConfTienda">Introduzca su contraseña para confirmar</label>
                 <input type="password" placeholder="Contraseña" id="passwdConfTienda" name="ContraseñaConfirm">
                 <input class="submitCDF" type="submit" name="optsSubmit" id="addButtonaSHOP"

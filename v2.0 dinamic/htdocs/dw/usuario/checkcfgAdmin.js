@@ -4,12 +4,12 @@
     $('#rEMP').submit(function() {
         console.log("vamos a comprobar los campos de este empleado");
         $("#error").remove();
-        var username = $("#Username").val(), 
-            passwd = $("#Passwd").val(),
-            nombre = $("#Nombre").val(),
-            apell = $("#Apell").val(),
-            email = $("#Email").val(),
-            cargo = $("#Cargo").val(),
+        var username = $("#username").val(), 
+            passwd = $("#passwd").val(),
+            nombre = $("#nombre").val(),
+            apell = $("#apell").val(),
+            email = $("#email").val(),
+            cargo = $("#cargo").val(),
             passwdConfirm = $("#passwdConfirm").val();
 
         var inputVal = [username, passwd, nombre, apell, email, cargo, passwdConfirm],
@@ -55,11 +55,12 @@
             direccion = $("#Direccion").val(),
             emailTienda = $("#EmailTienda").val(),
             cp = $("#cp").val(),
+            munic = $("#munic").val(),
             passwdConfTienda = $("#passwdConfTienda").val();
 
-        var inputVal = [nombreTienda, direccion, emailTienda, cp, passwdConfTienda],
-            inputMessage = ["nombre tienda", "direccion", "email", "código postal", "contraseña de confirmación"],
-            textId = ["#lNombreTienda", "#lDireccion", "#lEmailTienda", "#lCp", "#lPasswdConfTienda"];
+        var inputVal = [nombreTienda, direccion, emailTienda, cp, munic, passwdConfTienda],
+            inputMessage = ["nombre tienda", "direccion", "email", "código postal", "municipio", "contraseña de confirmación"],
+            textId = ["#lNombreTienda", "#lDireccion", "#lEmailTienda", "#lCp", "#lMunic", "#lPasswdConfTienda"];
 
         for(var i=0;i<inputVal.length;i++){
             inputVal[i] = $.trim(inputVal[i]);
