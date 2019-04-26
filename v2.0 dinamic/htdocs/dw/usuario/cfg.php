@@ -76,7 +76,7 @@
     </script>
 </head>
 <body>
-    <div id="contenedor-inic" class=flex_cols>
+    <div id="contenedor-inic" class="flex_cols heightmax">
         <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
         <div id="logo-inic">
             <a href="../main/index.php">
@@ -102,7 +102,7 @@
            if($_GET['newEmp'] == 1){
     ?>
         <script type="text/javascript">
-            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Empleado Registrado</div>');        
+            $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Empleado Registrado</div>');        
             setTimeout(function(){
                 $('#newEmp').fadeOut('fast');
                 }, 4000
@@ -114,7 +114,7 @@
             if($_GET['newShop'] == 1){
 ?>
             <script type="text/javascript">
-                $('head').before('<div id="newShop" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Tienda añadida</div>');        
+                $('head').before('<div id="newShop" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Tienda añadida</div>');        
                 setTimeout(function(){
                     $('#newShop').fadeOut('fast');
                     }, 4000
@@ -150,7 +150,7 @@
         if($_GET['empDEL'] == 1){
 ?>
         <script type="text/javascript">
-            $('head').before('<div id="empDeleted" style="width: 100%; height: 20px; color: #56ed2d; background-color: #e0e0d2; padding: 10px;">Empleado dado de baja con éxito</div>');        
+            $('head').before('<div id="empDeleted" style="width: 100%; height: 20px; color: #3ca51f; background-color: #e0e0d2; padding: 10px;">Empleado dado de baja con éxito</div>');        
             setTimeout(function(){
                 $('#empDeleted').fadeOut('fast');
                 }, 4000
@@ -171,7 +171,8 @@
     }
 
     }else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        
+        console_log('POST');
+        console_log($_POST['optsSubmit']);
         switch($_POST['optsSubmit']){
 
             case 'Añadir Empleado':
@@ -205,18 +206,8 @@
                     $newTienda ->setNombre($_POST['NombreTienda'])
                                 ->setDireccion($_POST['Direccion']) 
                                 ->setEmail($_POST['Email']) 
-                                ->setCp($_POST['CodigoPostal']);
-
-                    if($_POST['Latitud'] == ""){
-                        $newTienda->setLatitud(null);
-                    }else{
-                        $newTienda->setLatitud($_POST['Latitud']) ;
-                    }
-                    if($_POST['Longitud'] == ""){
-                        $newTienda->setLongitud(null);    
-                    }else{
-                        $newTienda->setLongitud($_POST['Longitud']);
-                    }
+                                ->setCp($_POST['CodigoPostal'])
+                                ->setMunicipio($_POST['Municipio']);
 
                         
                     if( $u->añadirTienda($newTienda) ){
@@ -233,8 +224,8 @@
             break;
 
             case 'Baja Empleado':
-                if($u->doIDexist($_POST['IDbajaEmpleado'])){
-                    $emp = new Empleado($_POST['IDbajaEmpleado']);
+                if($u->doIDexist($_POST['idBajaEmpleado'])){
+                    $emp = new Empleado($_POST['idBajaEmpleado']);
                     $u->bajaEmpleado($emp);                    
                     header('Location: ?empDEL=1');
 

@@ -84,6 +84,7 @@ class Admin extends Empleado {
     public function getAllTiendasID(){
         try{
             $conn = db();
+            $array = [];
             $consulta = "SELECT id FROM Tienda";
             $stmt = $conn->query($consulta);
             if (!$stmt) {
@@ -97,6 +98,28 @@ class Admin extends Empleado {
             cLog($ex->getMessage());            
         }            
             return $array;
+    }
+
+    public function getAllEmpleados(){
+        try{
+            $conn = db();
+            $empleados = [];
+            $consulta = "SELECT id, username FROM Empleado ORDER BY username";
+            $stmt = $conn->query($consulta);
+            if (!$stmt) {
+                cLog("Query failed: ".$mysqli->error);
+                exit;
+            }                    
+            while( $fila = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $empleados[] = [
+                    'id' => $fila['id'],
+                    'username' => $fila['username']
+                ]; 
+            }
+        }catch(PDOException $ex){
+            cLog($ex->getMessage());            
+        }            
+            return $empleados;
     }
 
 }
