@@ -54,16 +54,15 @@
                     <input type="text" id="nombreTienda" name="NombreTienda">
                     <label id="lDireccion">Direccion</label>
                     <input type="text" id="direccion" name="Direccion">
-                    <label id="lEmailTienda">Email</label>
-                    <input type="text" id="emailTienda" name="EmailTienda">
                     <label id="lCp">Código Postal</label>
                     <input type="text" id="cp" name="CodigoPostal">
                     <label id="lMunic">Municipio</label>
                     <input type="text" id="munic" name="Municipio">
+                    <label id="lEmailTienda">Email</label>
+                    <input type="text" id="emailTienda" name="EmailTienda">
                     <label id="lPasswdConfTienda">Introduzca su contraseña para confirmar</label>
                     <input type="password" placeholder="Contraseña" id="passwdConfTienda" name="ContraseñaConfirm">
-                    <input class="submitCDF" type="submit" name="optsSubmit" id="addButtonaSHOP"
-                    value="Añadir Tienda">
+                    <input class="submitCDF" type="submit" name="optsSubmit" id="addButtonaSHOP" value="Añadir Tienda">
                     <input class="submitCDF cancel" id="cancelButtonaSHOP" type="button" value="Cancelar">
                 </form>
             </div>

@@ -5,11 +5,13 @@
     require_once('/xampp/appdata/model/Empleado.php');
     require_once('/xampp/appdata/model/Admin.php');
     require_once('/xampp/appdata/model/Tienda.php');
+    require_once('/xampp/appdata/model/Ubicacion.php');
     //require_once('/xampp/appdata/model/Saldo.php');
 
     session_start();
 
     $c = null;
+    $ubicacion = null;
    
     if(isset($_SESSION['id'])){
         $u = new Usuario($_SESSION['id']);
@@ -49,17 +51,20 @@
             $("#registrarEmpleadoForm").fadeIn('fast');
             $("#añadirTiendaForm").fadeOut('fast'); 
             $("#bajaEMPForm").fadeOut('fast');  
+            $("#municForm").fadeOut('fast');  
         });         
         $("#optAddSHOP").click(function(){
             $("#registrarEmpleadoForm").fadeOut('fast');
             $("#añadirTiendaForm").fadeIn('fast');
             $("#bajaEMPForm").fadeOut('fast');
+            $("#municForm").fadeOut('fast');
         });         
         $("#optBajaEMP").click(function(){
             $("#registrarEmpleadoForm").fadeOut('fast');
             $("#añadirTiendaForm").fadeOut('fast');
             $("#bajaEMPForm").fadeIn('fast');
-        });         
+            $("#municForm").fadeIn('fast');
+        });
         $("#cancelButtonREMP").click(function(){
             $("#registrarEmpleadoForm").fadeOut('fast');
         });
@@ -86,8 +91,8 @@
         <!-- Configuracion de administrador -->
         <?php            
             if($u->getTipo() == "empleado" && $u->getisAdministrador()){
-        
-             require_once("cfgAdmin.php");
+
+                require_once("cfgAdmin.php");
         
             }else {
                 require_once("cfgEmpleado.php");
@@ -173,68 +178,73 @@
     }else if( $_SERVER['REQUEST_METHOD']=='POST') {
         console_log('POST');
         console_log($_POST['optsSubmit']);
-        switch($_POST['optsSubmit']){
-
-            case 'Añadir Empleado':
-                if( $u->compararPass(sha1($_POST['ContraseñaConfirm'])) ){
-                    $newEmpleado = new Empleado();
-                    $newEmpleado ->setUsername($_POST['Username'])
-                                ->setPasswd($_POST['Passwd']) 
-                                ->setNombre($_POST['Nombre']) 
-                                ->setApell($_POST['Apellidos']) 
-                                ->setEmail($_POST['Email']) 
-                                ->setPhotoPath($_POST['PhotoPath']) 
-                                ->setCargo($_POST['Cargo'])
-                                ->setTienda_id($_POST['tienda_id']);
-                    $newEmpleado->encryptPasswd();
-                    if( $u->registrarEmpleado($newEmpleado) ){
-                        header('Location: ?newEmp=1');
-                        exit;
+        if(isset($_POST['optsSubmit'])){
+            switch($_POST['optsSubmit']){
+                case 'Añadir Empleado':
+                    if( $u->compararPass(sha1($_POST['ContraseñaConfirm'])) ){
+                        $newEmpleado = new Empleado();
+                        $newEmpleado ->setUsername($_POST['Username'])
+                                    ->setPasswd($_POST['Passwd']) 
+                                    ->setNombre($_POST['Nombre']) 
+                                    ->setApell($_POST['Apellidos']) 
+                                    ->setEmail($_POST['Email']) 
+                                    ->setPhotoPath($_POST['PhotoPath']) 
+                                    ->setCargo($_POST['Cargo'])
+                                    ->setTienda_id($_POST['tienda_id']);
+                        $newEmpleado->encryptPasswd();
+                        if( $u->registrarEmpleado($newEmpleado) ){
+                            header('Location: ?newEmp=1');
+                            exit;
+                        }else{
+                            header('Location: ?opfallida=1');
+                            exit;
+                        }
                     }else{
-                        header('Location: ?opfallida=1');
+                        header('Location: ?confirmpasswd=0');
+                        exit;
+                    }    
+                break;
+
+                case 'Baja Empleado':
+                    if($u->doIDexist($_POST['idBajaEmpleado'])){
+                        $emp = new Empleado($_POST['idBajaEmpleado']);
+                        $u->bajaEmpleado($emp);                    
+                        header('Location: ?empDEL=1');
+
+                    }else{
+                        header('Location: ?empDEL=0');
+                    }
+                
+                break;
+
+                case 'Añadir Tienda':
+                    console_log("Add tienda");
+                    console_log($_POST);
+                    if( $u->compararPass(sha1($_POST['ContraseñaConfirm']))){
+                        console_log($_POST['CodigoPostal']);
+                        console_log($_POST['Municipio']);
+                        $ubicacion = new Ubicacion();
+                        $ubicacion  ->setCp($_POST['CodigoPostal'])
+                                    ->setMunicipio($_POST['Municipio']);
+                        $newTienda = new Tienda();
+                        $newTienda  ->setNombre($_POST['NombreTienda'])
+                                    ->setDireccion($_POST['Direccion']) 
+                                    ->setEmail($_POST['EmailTienda'])
+                                    ->setIdUbicacion($ubicacion->searchIdByCpMunic());
+                        if( $u->añadirTienda($newTienda) ){
+                            /*header('Location: ?newShop=1');
+                            exit;*/
+                        }else{
+                            header('Location: ?opfallida=1');
+                            exit;
+                        }
+                    }else{
+                        header('Location: ?confirmpasswd=0');
                         exit;
                     }
-                }else{
-                    header('Location: ?confirmpasswd=0');
-                    exit;
-                }    
-            break;
-            
-            case 'Añadir Tienda':
-                if( $u->compararPass(sha1($_POST['ContraseñaConfirm']))){
-                    $newTienda = new Tienda();
-                    $newTienda ->setNombre($_POST['NombreTienda'])
-                                ->setDireccion($_POST['Direccion']) 
-                                ->setEmail($_POST['Email']) 
-                                ->setCp($_POST['CodigoPostal'])
-                                ->setMunicipio($_POST['Municipio']);
-
-                        
-                    if( $u->añadirTienda($newTienda) ){
-                        header('Location: ?newShop=1');
-                        exit;
-                    }else{
-                        header('Location: ?opfallida=1');
-                        exit;
-                    }
-                }else{
-                    header('Location: ?confirmpasswd=0');
-                    exit;
-                }
-            break;
-
-            case 'Baja Empleado':
-                if($u->doIDexist($_POST['idBajaEmpleado'])){
-                    $emp = new Empleado($_POST['idBajaEmpleado']);
-                    $u->bajaEmpleado($emp);                    
-                    header('Location: ?empDEL=1');
-
-                }else{
-                    header('Location: ?empDEL=0');
-                }
-            
-            break;
+                break;
             }
         }
+    }
     
 ?>
