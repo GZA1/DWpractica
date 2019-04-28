@@ -1,8 +1,0 @@
-
-2019-04-28 19:32:03 Array
-2019-04-28 19:32:03 SQLSTATE[HY000]: General error: 1366 Incorrect integer value: 'Array' for column 'Tienda_id' at row 1
-2019-04-28 19:37:31 Array
-2019-04-28 19:37:31 SQLSTATE[HY000]: General error: 1366 Incorrect integer value: 'Array' for column 'Tienda_id' at row 1
-2019-04-28 19:51:45 SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '<br />
-<b>Notice</b>:  Array to string conversion in <b>D:\xampp\htdocs\dw\usuario\cfgAdmin.php</b> on line <b>37</b><br />
-Ar' for column 'Tienda_id' at row 1
