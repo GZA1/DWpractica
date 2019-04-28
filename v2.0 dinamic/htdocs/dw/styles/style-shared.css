@@ -431,3 +431,7 @@ input.naranja:hover{
     height: 80%;
     border: 0;
 }
+
+.heightmax {
+    min-height: 100vh;
+}
