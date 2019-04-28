@@ -24,7 +24,7 @@ INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion) VALUES ('Al
 /*Hacer inserts de clientes desde el sign up*/
 
 INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo, isAdministrador, Tienda_id) 
-VALUES ('EMP:000000005022630e0000000012d81fbf', 'burns', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Señor', 'Señor Burns', 'holahola@gmail.com', './/img/externos/1.jpg', 'encargado', 1, 1);
+VALUES ('EMP:000000005022630e0000000012d81fbf', 'admin', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Juan Carlos', 'Perez Monsetti', 'JCPM@gmail.com', './/img/externos/1.jpg', 'encargado', 1, 1);
 
 /*INSERTS EMPLEADOS*/
 
