@@ -39,12 +39,7 @@
 
 
 
-#rEMP>label {
-    margin-top: 2vh;
-
-}
-
-#aSHOP>label {
+form>label {
     margin-top: 2vh;
 
 }
@@ -88,6 +83,7 @@
     margin: 0 5px 0 0;
     font-size: 15px;
     font-weight: 600;
+    color: white;
     
 }
 .adminOpt:hover {

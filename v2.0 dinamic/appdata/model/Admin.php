@@ -38,25 +38,17 @@ class Admin extends Empleado {
         $elNombre =  $tienda->getNombre();
         $elDireccion = $tienda->getDireccion();
         $elEmail = $tienda->getEmail();
-        $elCP = $tienda->getCp();
-        $elLatitud =  $tienda->getLatitud();
-        $elLongitud = $tienda->getLongitud();
-        $elProvincia = $tienda->getProvincia();
-        $elMunicipio = $tienda->getMunicipio(); 
-        
+        $elIdUbicacion = $tienda->getIdUbicacion();
+
         try{
             $conn = db();
-            $consulta = "INSERT INTO Tienda (nombre, direccion, email, cp, lat, long, provincia, municipio)
-                            VALUES (:nombre, :direccion, :email, :cp, :latitud, :longitud, :provincia, :municipio)";
+            $consulta = "INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion)
+                            VALUES (:nombre, :direccion, :email, :idUbicacion)";
             $stmt = $conn->prepare($consulta);
             $stmt->bindParam(':nombre', $elNombre, PDO::PARAM_STR, 45 );
             $stmt->bindParam(':direccion', $elDireccion, PDO::PARAM_STR, 45);
             $stmt->bindParam(':email',   $elEmail,  PDO::PARAM_STR, 45);
-            $stmt->bindParam(':cp', $elCP, PDO::PARAM_INT);
-            $stmt->bindParam(':latitud', $elLatitud, PDO::PARAM_STR, 45);
-            $stmt->bindParam(':longitud', $elLongitud, PDO::PARAM_STR, 45);
-            $stmt->bindParam(':provincia', $elProvincia, PDO::PARAM_STR, 45);
-            $stmt->bindParam(':municipio', $elMunicipio, PDO::PARAM_STR, 45);
+            $stmt->bindParam(':idUbicacion', $elIdUbicacion, PDO::PARAM_INT);
             $stmt->execute();
             return true;
 
@@ -84,6 +76,7 @@ class Admin extends Empleado {
     public function getAllTiendasID(){
         try{
             $conn = db();
+            $array = [];
             $consulta = "SELECT id FROM Tienda";
             $stmt = $conn->query($consulta);
             if (!$stmt) {
@@ -97,6 +90,28 @@ class Admin extends Empleado {
             cLog($ex->getMessage());            
         }            
             return $array;
+    }
+
+    public function getAllEmpleados(){
+        try{
+            $conn = db();
+            $empleados = [];
+            $consulta = "SELECT id, username FROM Empleado ORDER BY username";
+            $stmt = $conn->query($consulta);
+            if (!$stmt) {
+                cLog("Query failed: ".$mysqli->error);
+                exit;
+            }                    
+            while( $fila = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $empleados[] = [
+                    'id' => $fila['id'],
+                    'username' => $fila['username']
+                ]; 
+            }
+        }catch(PDOException $ex){
+            cLog($ex->getMessage());            
+        }            
+            return $empleados;
     }
 
 }

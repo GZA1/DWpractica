@@ -5,11 +5,7 @@ class Tienda{
     private $nombre;
     private $direccion;
     private $email;
-    private $cp;
-    private $latitud;
-    private $longitud;
-    private $provincia;
-    private $municipio;
+    private $idUbicacion;
 
     public function __construct(){
         
@@ -38,11 +34,7 @@ class Tienda{
             $this->nombre = $row['nombre'];
             $this->direccion = $row['direccion'];
             $this->email = $row['email'];
-            $this->cp = $row['cp'];
-            $this->latitud = $row['lat'];
-            $this->longitud = $row['long'];
-            $this->provincia = $row['provincia'];
-            $this->municipio = $row['municipio'];
+            $this->idUbicacion = $row['idUbicacion'];
 
             console_log($row);
 
@@ -135,101 +127,21 @@ class Tienda{
     }
 
     /**
-     * Get the value of cp
+     * Get the value of idUbicacion
      */ 
-    public function getCp()
+    public function getIdUbicacion()
     {
-        return $this->cp;
+        return $this->idUbicacion;
     }
 
     /**
-     * Set the value of cp
+     * Set the value of idUbicacion
      *
      * @return  self
      */ 
-    public function setCp($cp)
+    public function setIdUbicacion($idUbicacion)
     {
-        $this->cp = $cp;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of latitud
-     */ 
-    public function getLatitud()
-    {
-        return $this->latitud;
-    }
-
-    /**
-     * Set the value of latitud
-     *
-     * @return  self
-     */ 
-    public function setLatitud($latitud)
-    {
-        $this->latitud = $latitud;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of longitud
-     */ 
-    public function getLongitud()
-    {
-        return $this->longitud;
-    }
-
-    /**
-     * Set the value of longitud
-     *
-     * @return  self
-     */ 
-    public function setLongitud($longitud)
-    {
-        $this->longitud = $longitud;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of provincia
-     */ 
-    public function getProvincia()
-    {
-        return $this->provincia;
-    }
-
-    /**
-     * Set the value of provincia
-     *
-     * @return  self
-     */ 
-    public function setProvincia($provincia)
-    {
-        $this->provincia = $provincia;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of municipio
-     */ 
-    public function getMunicipio()
-    {
-        return $this->municipio;
-    }
-
-    /**
-     * Set the value of municipio
-     *
-     * @return  self
-     */ 
-    public function setMunicipio($municipio)
-    {
-        $this->municipio = $municipio;
+        $this->idUbicacion = $idUbicacion;
 
         return $this;
     }
