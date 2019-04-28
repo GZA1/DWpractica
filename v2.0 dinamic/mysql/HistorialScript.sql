@@ -17,17 +17,19 @@ show variables;
 set sql_safe_updates = 0;
 
 
-/*Esto lo guardo aquí de backup por si modificamos el script de creación. Almacén central*/
+/*Almacen central*/
 
 INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion) VALUES ('Almacén Central', 'Avenida del Almacén Central 1', 'almcentral@empresa.com', 32836); /*Está en Madrid el almacén central*/
 
-/*Hacer inserts de clientes desde el sign up*/
+/*Usuario Administrador*/
+
 
 INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo, isAdministrador, Tienda_id) 
 VALUES ('EMP:000000005022630e0000000012d81fbf', 'burns', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Señor', 'Señor Burns', 'holahola@gmail.com', './/img/externos/1.jpg', 'encargado', 1, 1);
 
-/*INSERTS EMPLEADOS*/
+/*Hacer inserts de clientes desde el sign up*/
 
+/*Pruebas histoprial de pedidos etc...*/
 /*Insertamos aquí un cliente con cestas y, por lo tanto, pedidos asociados que, al no haber lógica de productos todavía, son solo de prueba*/
 
 insert into cliente (id, username, passwd, nombre, apellidos, email, domicilio, Ubicacion_idUbicacion) 
