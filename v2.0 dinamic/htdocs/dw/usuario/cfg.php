@@ -191,6 +191,7 @@
                                     ->setPhotoPath($_POST['PhotoPath']) 
                                     ->setCargo($_POST['Cargo'])
                                     ->setTienda_id($_POST['tienda_id']);
+                                    
                         $newEmpleado->encryptPasswd();
                         if( $u->registrarEmpleado($newEmpleado) ){
                             header('Location: ?newEmp=1');
@@ -232,8 +233,8 @@
                                     ->setEmail($_POST['EmailTienda'])
                                     ->setIdUbicacion($ubicacion->searchIdByCpMunic());
                         if( $u->añadirTienda($newTienda) ){
-                            /*header('Location: ?newShop=1');
-                            exit;*/
+                            header('Location: ?newShop=1');
+                            exit;
                         }else{
                             header('Location: ?opfallida=1');
                             exit;

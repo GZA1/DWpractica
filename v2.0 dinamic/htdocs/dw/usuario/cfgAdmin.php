@@ -33,8 +33,9 @@
                     <select id="tiendaId" name="tienda_id" form="rEMP">
                         <?php
                         $tiendas = $u->getAllTiendasID();                    
-                        foreach($tiendas as $a){
-                            echo "<option value=".$a.">"."Tienda ".$a['id']."</option>";
+                        foreach($tiendas as $a){ ?>
+                            <option value="<?php echo $a['id'] ?>">Tienda <?php echo $a['id'] ?></option>";
+                        <?php 
                         }
                         ?>        
                     </select>
