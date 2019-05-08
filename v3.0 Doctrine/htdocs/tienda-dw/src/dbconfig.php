@@ -5,7 +5,8 @@
    que habra que incluir en todos los scripts de nuestro 
    proyecto que vayan a hacer uso de la BD */
    
-require_once "vendor/autoload.php";
+require_once "../vendor/autoload.php";
+
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
@@ -22,11 +23,12 @@ function GetEntityManager()
         'password' => 'root',
         'dbname'   => 'bd_tienda',
         'host'     => 'localhost',
-        'port'     => 3307
+        'port'     => 3306
     );
     
     $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
     // obtaining the entity manager
     $em = EntityManager::create($dbParams, $config);
     return $em;
+}
 ?>
