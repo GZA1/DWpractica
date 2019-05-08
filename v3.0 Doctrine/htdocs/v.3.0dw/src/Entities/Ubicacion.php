@@ -43,16 +43,33 @@ class Ubicación
      */
     private $longitud;
 
-/** 
-     * @ManyToOne(targetEntity="Usuario", inversedBy="carritos") 
-     * @JoinColumn(name="usuarios_id", referencedColumnName="id")
+    /** 
+     * Una ubicacion es d
+     * @OneToMany(targetEntity="Cliente", mappedBy="ubicacion") 
      */
-
+    private $clientes;
+    /** 
+     * Una ubicacion es d
+     * @OneToMany(targetEntity="Tienda", mappedBy="ubicacion") 
+     */
+    private $tiendas;
 
      public function __construct()
      {
-         
+        $this->tiendas = new \Doctrine\Common\Collections\ArrayCollection();  
+        $this->clientes = new \Doctrine\Common\Collections\ArrayCollection();  
      }
+
+
+
+
+
+
+
+
+
+
+
 
 
 /** GETTERS & SETTERS */
@@ -194,6 +211,46 @@ class Ubicación
     public function setLongitud($longitud)
     {
         $this->longitud = $longitud;
+
+        return $this;
+    }
+
+    /**
+     * Get una ubicacion es d
+     */ 
+    public function getClientes()
+    {
+        return $this->clientes;
+    }
+
+    /**
+     * Set una ubicacion es d
+     *
+     * @return  self
+     */ 
+    public function setClientes($clientes)
+    {
+        $this->clientes = $clientes;
+
+        return $this;
+    }
+
+    /**
+     * Get una ubicacion es d
+     */ 
+    public function getTiendas()
+    {
+        return $this->tiendas;
+    }
+
+    /**
+     * Set una ubicacion es d
+     *
+     * @return  self
+     */ 
+    public function setTiendas($tiendas)
+    {
+        $this->tiendas = $tiendas;
 
         return $this;
     }

@@ -2,7 +2,7 @@
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
 // replace with file to your own project bootstrap
-require_once 'bootstrap.php';
+require_once 'dbconfig.php';
 
 // replace with mechanism to retrieve EntityManager in your app
 $entityManager = GetEntityManager();
