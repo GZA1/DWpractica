@@ -22,7 +22,7 @@ class Cesta
     /**
     * Un cliente tiene una cesta
     * @OneToOne(targetEntity="Cliente", inversedBy="cesta")
-    * @JoinColumn(name="cliente_id", referencedColumnName="id")
+    * @JoinColumn(name="Cliente_id", referencedColumnName="id")
     */
     private $cliente;
 
@@ -34,8 +34,7 @@ class Cesta
 
     /**
     * Una cesta es de un pedido
-    * @OneToOne(targetEntity="Pedido", inversedBy="cesta")
-    * @JoinColumn(name="pedido_id", referencedColumnName="id")
+    * @OneToOne(targetEntity="Pedido", mappedBy="cesta")
     */
     private $pedido;
 
