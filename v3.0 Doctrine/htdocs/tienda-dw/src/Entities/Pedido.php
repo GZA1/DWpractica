@@ -8,16 +8,16 @@ namespace Entities;
  class Pedido
  {
     /**
-     * @Id
-     * @Column(type="integer", nullable=false)
+     * @Id @GeneratedValue
+     * @Column(name="id", type="integer", nullable=false)
      */
     private $id;
     /**
-     * @Column(length=45, nullable=false)
+     * @Column(name="estado",length=45, nullable=false)
      */
     private $estado;
     /**
-     * @Column(type="datetime", nullable=false)
+     * @Column(name="fechaCreacion",type="datetime", nullable=false)
      */
     private $fechaCreacion;
 

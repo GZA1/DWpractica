@@ -9,8 +9,8 @@
     $em = GetEntityManager();
 
     
-    echo "hola";
     $clientes = $em->getRepository("Entities\\Cliente")->findAll();
+    echo "hola";
     
     $ubicaciones = $em->getRepository("Entities\\Ubicacion")->findAll();
     

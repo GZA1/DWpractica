@@ -1,9 +1,10 @@
 <?php
     require_once 'dbconfig.php';
 
+    // use Entities\Tienda;
     use Entities\Categoria;
     use Entities\Producto;
-    use Entities\Ubicacion;
+    // use Entities\Ubicacion;
     use Entities\Cliente;
 
     $em = GetEntityManager();
@@ -11,15 +12,26 @@
 
 
     
-    $clientes = $em->getRepository("Entities\\Cliente")->findAll();
-    $ubicaciones = $em->getRepository("Entities\\Ubicacion")->findAll();
-    $categorias = $em->getRepository("Entities\\Categoria")->findAll();
+    //$ubicaciones = $em->getRepository("Entities\\Ubicacion")->findAll();
+    $productos = $em->getRepository("Entities\\Producto")->findAll();
+
+    // $categorias = $em->getRepository("Entities\\Categoria")->findAll();
+    echo "hola1";
+    
+    // try{
+
+    //     $DQL = "select c from Entities\\Cliente c where c.username = 'cli1'";
+    //     $query = $em->createQuery($DQL);
+    //     $clienteEspecial = $query->getResult();
+    // }catch(Exception $e){echo $e;}
+
     
 ?>
 <html>
 
 <body>
     <table>
+    
         <tr>
             <td>Id</td>
             <td>Nombre</td>
@@ -42,6 +54,26 @@
             <td>Domicilio</td>
         </tr>
         <?php foreach($clientes as $c) : ?>
+        <tr>
+            <td><?php echo $c->getId(); ?></td>
+            <td><?php echo $c->getUsername(); ?></td>
+            <td><?php echo $c->getNombre(); ?></td>
+            <td><?php echo $c->getApellidos(); ?></td>
+            <td><?php echo $c->getEmail(); ?></td>
+            <td><?php echo $c->getDomicilio(); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Username</td>
+            <td>Nombre</td>
+            <td>Apellidos</td>
+            <td>Email</td>
+            <td>Domicilio</td>
+        </tr>
+        <?php foreach($clienteEspecial as $c) : ?>
         <tr>
             <td><?php echo $c->getId(); ?></td>
             <td><?php echo $c->getUsername(); ?></td>
