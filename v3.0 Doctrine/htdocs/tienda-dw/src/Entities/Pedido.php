@@ -24,7 +24,7 @@ namespace Entities;
     /**
     * Un pedido es de una cesta
     * @OneToOne(targetEntity="Cesta", inversedBy="pedido")
-    * @JoinColumn(name="cesta_id", referencedColumnName="id")
+    * @JoinColumn(name="Cesta_id", referencedColumnName="id")
     */
     private $cesta;
 

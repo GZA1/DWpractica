@@ -53,14 +53,13 @@ class Cliente
     /** 
      * Un cliente tienen una ubicacion
      * @ManyToOne(targetEntity="Ubicacion", inversedBy="clientes") 
-     * @JoinColumn(name="ubicacion_id", referencedColumnName="id")
+     * @JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
      */
     private $ubicacion;
     
     /**
      * Una cesta tiene un cliente
-     * @OneToOne(targetEntity="Cesta", inversedBy="cliente")
-     * @JoinColumn(name="cesta_id", referencedColumnName="id")
+     * @OneToOne(targetEntity="Cesta", mappedBy="cliente")
      */
     private $cesta;
 

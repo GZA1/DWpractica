@@ -27,7 +27,7 @@ class Tienda
     /** 
      * Uno o varios clientes tienen una ubicacion
      * @ManyToOne(targetEntity="Ubicacion", inversedBy="tiendas") 
-     * @JoinColumn(name="ubicacion_id", referencedColumnName="id")
+     * @JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
      */
     private $ubicacion;
 
@@ -39,7 +39,7 @@ class Tienda
 
     /** 
      * Una tienda tiene muchas unidades
-     * @OneToMany(targetEntity="Unidades", mappedBy="tienda")
+     * @OneToMany(targetEntity="Unidad", mappedBy="tienda")
      */
     private $unidades;
 

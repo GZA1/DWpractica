@@ -2,9 +2,17 @@
     require_once 'dbconfig.php';
 
     use Entities\Categoria;
-
+    use Entities\Producto;
+    use Entities\Ubicacion;
+    use Entities\Cliente;
+    
     $em = GetEntityManager();
 
+    
+    echo "hola";
+    $clientes = $em->getRepository("Entities\\Cliente")->findAll();
+    
+    $ubicaciones = $em->getRepository("Entities\\Ubicacion")->findAll();
     
     /* Caso 1. Obtener collecion objetos */
     /* select * from catalogo_categorias */
@@ -13,20 +21,19 @@
     /* Caso 2. Obtener un objeto concreto por su Id */
     /* select * from catalogo_categorias where id = 'NNN' */
     $categoriaRAM = $em->getRepository("Entities\\Categoria")->find(2);  
-    
     /* Caso 3. Obtener collecion objetos en base a una condicion */
     /* select * from catalogo_productos where precio = 'NNN */
-    $productos = $em->getRepository("Entities\\Producto")->findBy(['precio'=>40.5]);    
+    //$productos = $em->getRepository("Entities\\Producto")->findBy(['precio'=>40.5]);    
     
     /* Caso 4. Obtener un unico objeto en base a una condicion */
     /* select * from catalogo_productos where precio = 'NNN */
-    $producto = $em->getRepository("Entities\\Producto")->findOneBy(['precio'=>90.5]);    
+    //$producto = $em->getRepository("Entities\\Producto")->findOneBy(['precio'=>90.5]);    
     
     /* Caso 5. Obtener una coleccion de objetos usando DQL */ 
 
-    $DQL = "select p from Entities\\Producto p where p.precio > 50";
-    $query = $em->createQuery($DQL);
-    $productosGT50 = $query->getResult();
+    //$DQL = "select p from Entities\\Producto p where p.precio > 50";
+    //$query = $em->createQuery($DQL);
+   // $productosGT50 = $query->getResult();
 
     // o esta manera
     // $productosGT50 = $em->getRepository("Entities\\Producto")->findProductosPrecioGT50()
@@ -74,24 +81,68 @@
     <table>
         <tr>
             <td>Id</td>
+            <td>Username</td>
             <td>Nombre</td>
-            <td>Precio</td>
+            <td>Apellidos</td>
+            <td>Email</td>
+            <td>Domicilio</td>
         </tr>
-        <?php foreach($productosGT50 as $p) : ?>
+        <?php foreach($clientes as $c) : ?>
         <tr>
-            <td><?php echo $p->getId(); ?></td>
-            <td><?php echo $p->getNombre(); ?></td>
-            <td><?php echo $p->getPrecio(); ?></td>
+            <td><?php echo $c->getId(); ?></td>
+            <td><?php echo $c->getUsername(); ?></td>
+            <td><?php echo $c->getNombre(); ?></td>
+            <td><?php echo $c->getApellidos(); ?></td>
+            <td><?php echo $c->getEmail(); ?></td>
+            <td><?php echo $c->getDomicilio(); ?></td>
         </tr>
         <?php endforeach; ?>
     </table>
-    <p>
+
+
+
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>cp</td>
+            <td>Municipio</td>
+            <td>Provincia</td>
+            <td>Comunidad Autonoma</td>
+            <td>latitud</td>
+            <td>longitud</td>
+        </tr>
+        <?php foreach($ubicaciones as $u) : ?>
+        <tr>
+            <td><?php echo $u->getCp(); ?></td>
+            <td><?php echo $u->getMunicipio(); ?></td>
+            <td><?php echo $u->getProvincia(); ?></td>
+            <td><?php echo $u->getComunidadAutonoma(); ?></td>
+            <td><?php echo $u->getLatitud(); ?></td>
+            <td><?php echo $u->getLongitud(); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    <!-- <table>
+        <tr>
+            <td>Id</td>
+            <td>Nombre</td>
+            <td>Precio</td>
+        </tr>
+        <?php //foreach($productosGT50 as $p) : ?>
+        <tr>
+            <td><?php //echo $p->getId(); ?></td>
+            <td><?php //echo $p->getNombre(); ?></td>
+            <td><?php //echo $p->getPrecio(); ?></td>
+        </tr>
+        <?php //endforeach; ?>
+    </table> -->
+    <!-- <p>
         Producto de precio 90.5:<br />
-        Id: <?php echo $producto->getId() ?><br>
-        Nombre: <?php echo $producto->getNombre() ?><br>
-        Precio: <?php echo $producto->getPrecio() ?><br>
-        Fecha Creacion: <?php echo $producto->getFechaCreacion()->format('d/m/Y H:i:s') ?><br>
-        Fecha Modificacion: <?php echo $producto->getFechaModificacion()->format('d/m/Y H:i:s') ?>
+        Id: <?php //echo $producto->getId() ?><br>
+        Nombre: <?php //echo $producto->getNombre() ?><br>
+        Precio: <?php //echo $producto->getPrecio() ?><br>
+        Fecha Creacion: <?php //echo $producto->getFechaCreacion()->format('d/m/Y H:i:s') ?><br>
+        Fecha Modificacion: <?php //echo $producto->getFechaModificacion()->format('d/m/Y H:i:s') ?>
     </p>
     <table>
         <tr>
@@ -99,14 +150,14 @@
             <td>Nombre</td>
             <td>Precio</td>
         </tr>
-        <?php foreach($productosRAM as $p) : ?>
+        <?php //foreach($productosRAM as $p) : ?>
         <tr>
-            <td><?php echo $p->getId(); ?></td>
-            <td><?php echo $p->getNombre(); ?></td>
-            <td><?php echo $p->getPrecio(); ?></td>
+            <td><?php //echo $p->getId(); ?></td>
+            <td><?php //echo $p->getNombre(); ?></td>
+            <td><?php //echo $p->getPrecio(); ?></td>
         </tr>
-        <?php endforeach; ?>
-    </table>
+        <?php //endforeach; ?>
+    </table> -->
 </body>
 
 </html>

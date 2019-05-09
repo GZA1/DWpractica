@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManager;
 
 function GetEntityManager()
 {
-    $paths = array("src/Entities","src/Repository");
+    $paths = array(__DIR__."/src/Entities", __DIR__."/src/Repository");
     $isDevMode = false;
     
     // the connection configuration
@@ -25,10 +25,10 @@ function GetEntityManager()
         'host'     => 'localhost',
         'port'     => 3306
     );
-    
     $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
     // obtaining the entity manager
     $em = EntityManager::create($dbParams, $config);
     return $em;
+    echo "hola2";
 }
 ?>

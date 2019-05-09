@@ -5,7 +5,7 @@ namespace Entities;
 /** 
  * @Entity
  */
-class Ubicación 
+class Ubicacion 
 {
         
     /**
@@ -45,12 +45,12 @@ class Ubicación
 
     /** 
      * Una ubicacion es d
-     * @OneToMany(targetEntity="Cliente", mappedBy="ubicacion") 
+     * @OneToMany(targetEntity="Cliente", mappedBy="Ubicacion") 
      */
     private $clientes;
     /** 
      * Una ubicacion es d
-     * @OneToMany(targetEntity="Tienda", mappedBy="ubicacion") 
+     * @OneToMany(targetEntity="Tienda", mappedBy="Ubicacion") 
      */
     private $tiendas;
 
