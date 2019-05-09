@@ -44,14 +44,14 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cliente` (
   `saldo` DOUBLE NOT NULL DEFAULT 0.00,
   `fechaCreacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Ubicacion_idUbicacion` INT NULL,
+  `Ubicacion_idUbicacion1` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  INDEX `fk_Cliente_Ubicacion1_idx` (`Ubicacion_idUbicacion` ASC) VISIBLE,
-  CONSTRAINT `fk_Cliente_Ubicacion1`
-    FOREIGN KEY (`Ubicacion_idUbicacion`)
+  INDEX `fk_Cliente_Ubicacion2_idx` (`Ubicacion_idUbicacion1` ASC) VISIBLE,
+  CONSTRAINT `fk_Cliente_Ubicacion2`
+    FOREIGN KEY (`Ubicacion_idUbicacion1`)
     REFERENCES `BD_Tienda`.`Ubicacion` (`idUbicacion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Tienda` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  INDEX `fk_Tienda_Ubicacion1_idx` (`Ubicacion_idUbicacion` ASC) VISIBLE,
-  CONSTRAINT `fk_Tienda_Ubicacion1`
+  INDEX `fk_Tienda_Ubicacion2_idx` (`Ubicacion_idUbicacion` ASC) VISIBLE,
+  CONSTRAINT `fk_Tienda_Ubicacion2`
     FOREIGN KEY (`Ubicacion_idUbicacion`)
     REFERENCES `BD_Tienda`.`Ubicacion` (`idUbicacion`)
     ON DELETE NO ACTION
@@ -38101,7 +38101,7 @@ VALUES ('EMP:000000005022630e0000000012d81fbf', 'burns', '7110eda4d09e062aa5e4a3
 
 /*Insertamos aquí un cliente con cestas y, por lo tanto, pedidos asociados que, al no haber lógica de productos todavía, son solo de prueba*/
 
-insert into cliente (id, username, passwd, nombre, apellidos, email, domicilio, Ubicacion_idUbicacion) 
+insert into cliente (id, username, passwd, nombre, apellidos, email, domicilio, Ubicacion_idUbicacion1) 
 values ('CLI:000000004029530e0000000014d11trs', 'cli1', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Cliente', 'Numero Uno', 'cli1@gmail.com', 'Calle Mayor 15', 16238);#cli1 es de Cuéllar
 insert into cesta (costeTotal, Cliente_id) values (25, 'CLI:000000004029530e0000000014d11trs'), (12, 'CLI:000000004029530e0000000014d11trs');
 insert into pedido (estado, Cesta_id) values ('procesando', 1), ('completado', 2);
