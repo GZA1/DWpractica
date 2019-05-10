@@ -14,6 +14,7 @@
     
     //$ubicaciones = $em->getRepository("Entities\\Ubicacion")->findAll();
     $productos = $em->getRepository("Entities\\Producto")->findAll();
+    // $clientes = $em->getRepository("Entities\\Cliente")->findAll();
 
      $categorias = $em->getRepository("Entities\\Categoria")->findAll();
     echo "hola1";
