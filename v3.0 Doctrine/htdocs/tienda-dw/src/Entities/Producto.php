@@ -6,24 +6,24 @@ namespace Entities;
 class Producto 
 {
     /**
-     * @Id
-     * @Column(type="integer", nullable=false)
+     * @Id @GeneratedValue
+     * @Column(name="id", type="integer", nullable=false)
      */
     private $id;
     /**
-     * @Column(length=45, nullable=false)
+     * @Column(name="nombre", length=45, nullable=false)
      */
     private $nombre;
     /**
-     * @Column(length=45, nullable=false)
+     * @Column(name="marca", length=45, nullable=false)
      */
     private $marca;
     /**
-     * @Column(length=45, nullable=false)
+     * @Column(name="modelo", length=45, nullable=false)
      */
     private $modelo;
     /**
-     * @Column(type="float", nullable=false)
+     * @Column(name="precio", type="float", nullable=false)
      */
     private $precio;
 
@@ -36,6 +36,7 @@ class Producto
     /**
      * Un producto es de una categoria
      * @ManyToOne(targetEntity="Categoria", inversedBy="productos")
+     * @JoinColumn(name="Categoria_id", referencedColumnName="id")
      */
     private $categoria;
 
@@ -105,6 +106,26 @@ class Producto
     public function setMarca($marca)
     {
         $this->marca = $marca;
+
+        return $this;
+    }
+
+        /**
+     * Get the value of modelo
+     */ 
+    public function getModelo()
+    {
+        return $this->modelo;
+    }
+
+    /**
+     * Set the value of modelo
+     *
+     * @return  self
+     */ 
+    public function setModelo($modelo)
+    {
+        $this->modelo = $modelo;
 
         return $this;
     }

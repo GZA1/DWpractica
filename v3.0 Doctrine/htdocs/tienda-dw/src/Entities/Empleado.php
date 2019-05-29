@@ -7,52 +7,52 @@ namespace Entities;
 class Empleado
 {
     /** 
-     * @Id
-     * @Column(length=45, nullable=false) 
+     * @Id @GeneratedValue
+     * @Column(name="id",length=45, nullable=false) 
     */
     private $id;
     /** 
-     * @Column(length=45, nullable=false)
+     * @Column(name="username",length=45, nullable=false)
     */
     private $username;
     /** 
-     * @Column(length=45, nullable=false)
+     * @Column(name="passwd",length=45, nullable=false)
     */
     private $passwd;
     /** 
-     * @Column(length=45, nullable=false)
+     * @Column(name="nombre",length=45, nullable=false) 
     */
     private $nombre;
     /** 
-     * @Column(length=45, nullable=false) 
+     * @Column(name="apellidos",length=45, nullable=false) 
     */
     private $apellidos;
     /** 
-     * @Column(length=45, nullable=false) 
+     * @Column(name="email",length=45, nullable=false)
     */
     private $email;
     /** 
-     * @Column(length=45, nullable=true)
-    */
+     * @Column(name="photoPath",length=45, nullable=true)
+     */
     private $photoPath;
     /** 
-     * @Column(type="boolean", nullable=false)
+     * @Column(name="activo",type="boolean", nullable=false)
      */
     private $activo;
     /** 
-     * @Column(length=45, nullable=false)
+     * @Column(name="cargo",length=45, nullable=false)
      */
     private $cargo;
     /**
-     *  @Column(type="boolean", nullable=false)
+     *  @Column(name="isAdministrador",type="boolean", nullable=false)
      */
     private $isAdministrador;
     /** 
-     * @Column(type="datetime", nullable=false)
+     * @Column(name="fechaCreacion",type="datetime", nullable=false)
      */
     private $fechaCreacion;
     /** 
-     * @Column(type="datetime", nullable=false)
+     * @Column(name="fechaModificacion",type="datetime", nullable=false)
      */
     private $fechaModificacion;
     
@@ -60,7 +60,7 @@ class Empleado
     /** 
      * Un empleado trabaja en una tienda
      * @ManyToOne(targetEntity="Tienda", inversedBy="empleados") 
-     * @JoinColumn(name="tienda_id", referencedColumnName="id")
+     * @JoinColumn(name="Tienda_id", referencedColumnName="id")
      */
     private $tienda;
 
@@ -175,26 +175,6 @@ class Empleado
     public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of email
-     */ 
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */ 
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
         return $this;
     }
