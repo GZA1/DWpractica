@@ -5,9 +5,15 @@
 
     $em = GetEntityManager();
 
+
+    $clientes = $em->getRepository("Entities\\Cliente")->findAll();
+    echo "hola";
+
+    $ubicaciones = $em->getRepository("Entities\\Ubicacion")->findAll();
+
     /* Caso 1. Obtener collecion objetos */
     /* select * from catalogo_categorias */
-    $ubicaciones = $em->getRepository("Entity\\Ubicacion")->findAll(); 
+    $ubicaciones = $em->getRepository("Entity\\Ubicacion")->findAll();
 ?>
 
 <html>
