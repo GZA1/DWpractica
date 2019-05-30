@@ -9,13 +9,13 @@ namespace Entities;
 class Cesta
 {
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id",type="integer", nullable=false)
+     * @Id
+     * @Column(type="integer", nullable=false)
      */
     private $id;
 
     /**
-     * @Column(name="costeTotal",type="float", nullable=false)
+     * @Column(type="float", nullable=false)
      */
     private $costeTotal;
 

@@ -9,48 +9,48 @@ class Ubicacion
 {
         
     /**
-     * @Id @GeneratedValue
-     * @Column(name="idUbicacion", type="integer", nullable=false)
+     * @Id
+     * @Column(type="integer", nullable=false)
      */
     private $idUbicacion;
         
     /**
-     * @Column(name="cp", type="integer", nullable=false)
+     * @Column(type="integer", nullable=false)
      */
     private $cp;
         
     /**
-     * @Column(name="municipio", length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $municipio;
         
     /**
-     * @Column(name="provincia", length=45, nullable=true)
+     * @Column(length=45, nullable=true)
      */
     private $provincia;
         
     /**
-     * @Column(name="comunidadAutonoma", length=45, nullable=true)
+     * @Column(length=45, nullable=true)
      */
     private $comunidadAutonoma;
         
     /**
-     * @Column(name="latitud", type="float", nullable=true)
+     * @Column(type="float", nullable=true)
      */
     private $latitud;
     /**
-     * @Column(name="longitud", type="float", nullable=true)
+     * @Column(type="float", nullable=true)
      */
     private $longitud;
 
     /** 
      * Una ubicacion es d
-     * @OneToMany(targetEntity="Cliente", mappedBy="ubicacion") 
+     * @OneToMany(targetEntity="Cliente", mappedBy="Ubicacion") 
      */
     private $clientes;
     /** 
      * Una ubicacion es d
-     * @OneToMany(targetEntity="Tienda", mappedBy="ubicacion") 
+     * @OneToMany(targetEntity="Tienda", mappedBy="Ubicacion") 
      */
     private $tiendas;
 

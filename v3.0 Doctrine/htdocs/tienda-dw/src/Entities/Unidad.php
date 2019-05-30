@@ -8,12 +8,12 @@ namespace Entities;
 class Unidad
 {
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id", type="integer", nullable=false)
+     * @Id
+     * @Column(type="integer", nullable=false)
      */
     private $id;
     /**
-     * @Column(name="vendido", type="boolean", nullable=false)
+     * @Column(type="boolean", nullable=false)
      */
     private $vendido;
 
@@ -21,21 +21,21 @@ class Unidad
     /**
     * Una unidad pertenece a una cesta
     * @ManyToOne(targetEntity="Cesta", inversedBy="unidades")
-    * @JoinColumn(name="Cesta_id", referencedColumnName="id")
+    * @JoinColumn(name="cesta_id", referencedColumnName="id")
     */
     private $cesta;
 
     /**
     * Una unidad pertenece a una tienda
     * @ManyToOne(targetEntity="Tienda", inversedBy="unidades")
-    * @JoinColumn(name="Tienda_id", referencedColumnName="id")
+    * @JoinColumn(name="tienda_id", referencedColumnName="id")
     */
     private $tienda;
 
     /**
     * Una unidad es de un producto
     * @ManyToOne(targetEntity="Producto", inversedBy="unidades")
-    * @JoinColumn(name="Producto_id", referencedColumnName="id")
+    * @JoinColumn(name="producto_id", referencedColumnName="id")
     */
     private $producto;
 

@@ -7,46 +7,46 @@ class Cliente
 {
 
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id",length=45, nullable=false)
+     * @Id
+     * @Column(length=45, nullable=false)
      */
     private $id;
     
     /**
-     * @Column(name="username",length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $username;
     /**
      * 
-     * @Column(name="passwd",length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $passwd;
     /**
-     * @Column(name="nombre",length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $nombre;
     /**
-     * @Column(name="apellidos",length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $apellidos;
     /**
-     * @Column(name="email",length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $email;
     /**
-     * @Column(name="domicilio",length=45, nullable=true)
+     * @Column(length=45, nullable=true)
      */
     private $domicilio;
     /**
-     * @Column(name="saldo",type="float", nullable=false)
+     * @Column(type="float", nullable=false)
      */
     private $saldo;
     /**
-     * @Column(name="fechaCreacion",type="datetime", nullable=false)
+     * @Column(type="datetime", nullable=false)
      */
     private $fechaCreacion;
     /**
-     * @Column(name="fechaModificacion",type="datetime", nullable=false)
+     * @Column(type="datetime", nullable=false)
      */
     private $fechaModificacion;
 

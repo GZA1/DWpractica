@@ -1,37 +1,31 @@
 <?php
 
 namespace Entities;
-
-/**
- *  @Entity 
-*/
+/** @Entity */
 class Tienda 
 {
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id", type="integer", nullable=false)
+     * @Id
+     * @Column(type="integer", nullable=false)
      */
     private $id;
-
     /**
-     * @Column(name="nombre", length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $nombre;
-
     /**
-     * @Column(name="direccion", length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $direccion;
-
     
     /**
-     * @Column(name="email", length=45, nullable=false)
+     * @Column(length=45, nullable=false)
      */
     private $email;
 
 
     /** 
-     * una tienda tiene una ubicacion
+     * Uno o varios clientes tienen una ubicacion
      * @ManyToOne(targetEntity="Ubicacion", inversedBy="tiendas") 
      * @JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
      */

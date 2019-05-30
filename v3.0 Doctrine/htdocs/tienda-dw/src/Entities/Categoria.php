@@ -8,13 +8,13 @@ namespace Entities;
  class Categoria
  {
      /**
-      * @Id @GeneratedValue
-      * @Column(name="id", type="integer", nullable=false)
+      * @Id
+      * @Column(type="integer", nullable=false)
       */
       private $id;
 
       /**
-       * @Column(name="nombre",length=45, nullable=false)
+       * @Column(length=45, nullable=false)
        */
       private $nombre;
 
