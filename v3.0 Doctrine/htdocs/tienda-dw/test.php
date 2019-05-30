@@ -1,23 +1,37 @@
 <?php
     require_once("dbconfig.php");
+    require_once('/xampp/appdata/model/console.php');
 
     use Entity\Ubicacion;
 
     $em = GetEntityManager();
 
-
-    $clientes = $em->getRepository("Entities\\Cliente")->findAll();
     echo "hola";
-
-    $ubicaciones = $em->getRepository("Entities\\Ubicacion")->findAll();
-
-    /* Caso 1. Obtener collecion objetos */
-    /* select * from catalogo_categorias */
-    $ubicaciones = $em->getRepository("Entity\\Ubicacion")->findAll();
 ?>
 
 <html>
 <body>
+<h3 style="color: red">
+<?php
+    if( $_SERVER['REQUEST_METHOD']=='GET' && $_GET['errnotfound']==1 ) {
+        echo("No se encontró el código postal indicado");
+    }
+?>
+</h3>
+<form method="post" id="formTest">
+    <label>Código Postal</label>
+    <input type="text" id="cp" name="cp">
+</form>
+<?php
+    if( $_SERVER['REQUEST_METHOD']=='POST') {
+        try{
+            $ubicaciones = $em->getRepository("Entity\\Ubicacion")->findUbicacionesPorCp($_POST['cp']);
+            console_log($ubicaciones);
+            if( empty($ubicaciones) ){
+                header("Location: " . $_SERVER['PHP_SELF'] . "?errnotfound=1");
+            }
+        } catch(Exception $e){echo $e;}
+?>
 <table>
     <tr>
         <td>IdUbicacion</td>
@@ -40,5 +54,8 @@
     </tr>
     <?php endforeach; ?>
 </table>
+<?php
+    }
+?>
 </body>
 </html>

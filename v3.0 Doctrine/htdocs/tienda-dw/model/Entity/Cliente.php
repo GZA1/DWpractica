@@ -1,8 +1,11 @@
 <?php
 
-namespace Entities;
+namespace Entity;
 
-/** @Entity */
+/**
+ * @Entity(repositoryClass="Repository\ClienteRepository")
+ */
+
 class Cliente 
 {
 

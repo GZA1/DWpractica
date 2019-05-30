@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManager;
 
 function GetEntityManager()
 {
-    $paths = array(__DIR__."/src/Entities", __DIR__."/src/Repository");
+    $paths = array("/model/Entity", "/model/Repository");
     $isDevMode = false;
 
     // the connection configuration
