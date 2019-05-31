@@ -44,14 +44,14 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cliente` (
   `saldo` DOUBLE NOT NULL DEFAULT 0.00,
   `fechaCreacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Ubicacion_idUbicacion1` INT NOT NULL,
+  `Ubicacion_idUbicacion` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  INDEX `fk_Cliente_Ubicacion2_idx` (`Ubicacion_idUbicacion1` ASC) VISIBLE,
+  INDEX `fk_Cliente_Ubicacion2_idx` (`Ubicacion_idUbicacion` ASC) VISIBLE,
   CONSTRAINT `fk_Cliente_Ubicacion2`
-    FOREIGN KEY (`Ubicacion_idUbicacion1`)
+    FOREIGN KEY (`Ubicacion_idUbicacion`)
     REFERENCES `BD_Tienda`.`Ubicacion` (`idUbicacion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -213,6 +213,7 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
 
@@ -38101,7 +38102,23 @@ VALUES ('EMP:000000005022630e0000000012d81fbf', 'burns', '7110eda4d09e062aa5e4a3
 
 /*Insertamos aquí un cliente con cestas y, por lo tanto, pedidos asociados que, al no haber lógica de productos todavía, son solo de prueba*/
 
-insert into cliente (id, username, passwd, nombre, apellidos, email, domicilio, Ubicacion_idUbicacion1) 
+insert into cliente (id, username, passwd, nombre, apellidos, email, domicilio, Ubicacion_idUbicacion) 
 values ('CLI:000000004029530e0000000014d11trs', 'cli1', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Cliente', 'Numero Uno', 'cli1@gmail.com', 'Calle Mayor 15', 16238);#cli1 es de Cuéllar
 insert into cesta (costeTotal, Cliente_id) values (25, 'CLI:000000004029530e0000000014d11trs'), (12, 'CLI:000000004029530e0000000014d11trs');
 insert into pedido (estado, Cesta_id) values ('procesando', 1), ('completado', 2);
+
+insert into categoria(nombre) values("CPU");
+
+
+insert into categoria(nombre) values("RAM");
+
+insert into categoria(nombre) values("GPU");
+
+insert into categoria(nombre) values("DiscosDuros");
+
+insert into Producto(nombre, marca, modelo, precio, categoria_id) values("Sandy Bridge", "Intel", "i7-2600k-2.9GHz", 123.99, 1);
+insert into Producto(nombre, marca, modelo, precio, categoria_id) values("Kaby Lake", "Intel", "i7-7700-3.3GHz", 348.99, 1);
+insert into Producto(nombre, marca, modelo, precio, categoria_id) values("Haswell", "Intel", "i5-4250H-2.3GHz", 191.99, 1);
+insert into Producto(nombre, marca, modelo, precio, categoria_id) values("Vengance", "Corsair", "16GB-2400-CL14", 223.99, 2);
+insert into Producto(nombre, marca, modelo, precio, categoria_id) values("FastSlim", "Kingston", "SODIMM-8GB-1600-CL15", 114.99, 2);
+insert into Producto(nombre, marca, modelo, precio, categoria_id) values("WR", "Corsair", "4GB-3200-CL16", 162.99, 2);

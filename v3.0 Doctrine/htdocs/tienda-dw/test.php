@@ -20,7 +20,7 @@
 </h3>
 <form method="post" id="formTest">
     <label>Código Postal</label>
-    <input type="text" id="cp" name="cp">
+    <input type="number" id="cp" name="cp">
 </form>
 <?php
     if( $_SERVER['REQUEST_METHOD']=='POST') {

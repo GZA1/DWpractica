@@ -4,6 +4,9 @@ SELECT * FROM Ubicacion;
 select * from tienda;
 select * from cesta;
 select * from pedido;
+select * from categoria;
+select * from producto;
+select * from unidad;
 
 use BD_Tienda;
 
