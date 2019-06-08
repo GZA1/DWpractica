@@ -8,6 +8,10 @@ use Doctrine\ORM\EntityRepository;
 class PedidoRepository extends EntityRepository
 {
     
+    
+
+
+
 }
 
 ?>

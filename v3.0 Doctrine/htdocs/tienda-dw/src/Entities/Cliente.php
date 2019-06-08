@@ -63,7 +63,10 @@ class Cliente
      */
     private $cesta;
 
-
+    
+    private function generateId(){
+        $this ->id = "CLI:" . spl_object_hash($this);
+    }
     
 
     public function __construct()
@@ -313,5 +316,8 @@ class Cliente
 
         return $this;
     }
+
+
+    
 }
 ?>
