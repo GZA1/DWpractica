@@ -4,8 +4,8 @@
     },
 	"autoload": {
         "psr-4": {
-            "Entities\\": "src/Entities",
-            "Repository\\": "src/Repository"
+            "Entity\\": "model/Entity",
+            "Repository\\": "model/Repository"
         }
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
-namespace Entities;
+namespace Entity;
 
-/** 
- * @Entity
+/**
+ * @Entity(repositoryClass="Repository\UbicacionRepository")
  */
+
 class Ubicacion 
 {
         

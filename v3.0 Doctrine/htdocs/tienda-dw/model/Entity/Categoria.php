@@ -1,8 +1,8 @@
 <?php
 
-namespace Entities;
+namespace Entity;
 /**
- * @Entity
+ * @Entity(repositoryClass="Repository\CategoriaRepository")
  */
 
  class Categoria

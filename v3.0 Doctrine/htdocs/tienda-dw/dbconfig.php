@@ -1,10 +1,10 @@
 <?php
 // dbconfig.php
 
-/* Fichero de configuracion de la base de datos 
-   que habra que incluir en todos los scripts de nuestro 
+/* Fichero de configuracion de la base de datos
+   que habra que incluir en todos los scripts de nuestro
    proyecto que vayan a hacer uso de la BD */
-   
+
 require_once 'vendor/autoload.php';
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
@@ -12,9 +12,9 @@ use Doctrine\ORM\EntityManager;
 
 function GetEntityManager()
 {
-    $paths = array(__DIR__."/src/Entities", __DIR__."/src/Repository");
+    $paths = array("/model/Entity", "/model/Repository");
     $isDevMode = false;
-    
+
     // the connection configuration
     $dbParams = array(
         'driver'   => 'pdo_mysql',
