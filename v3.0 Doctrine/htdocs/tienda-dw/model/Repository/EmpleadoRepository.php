@@ -7,46 +7,47 @@ use Doctrine\ORM\EntityRepository;
 
 class EmpleadoRepository extends EntityRepository
 {
-    public function findProductosPrecioGT50()
-    {
-        $DQL = "select p from Entities\\Producto p where p.precio > 50";
-        $query = $this->$em->createQuery($DQL);
-        $productosGT50 = $query->getResult();  
-        return $productosGT50;        
-    }
     
-    public function getEmpleadoByID($username, $passwd, $nombre, $apell, $email, $photoPath, $active, $cargo, $isAdministrador, $tienda_id){
+    
+    // public function getEmpleadoByID($username, $passwd, $nombre, $apell, $email, $photoPath, $active, $cargo, $isAdministrador, $tienda_id){
         
-        $DQL = "select * from Entities\\Empleado where id = :id";
-        $query = -> $this ->createQuery($DQL);
-        $query->setParameters('id' => 'Bob');
-        $emp = $query->$em->getResult();
+    //     $DQL = "select * from Entities\\Empleado where id = :id";
+    //     //$query = -> $this ->createQuery($DQL);
+    //     /**OYE ESTO NO ESTÁ HECHO JEJ */
+    //     $query->setParameters('id', 'Bob');
+    //     $emp = $query->$em->getResult();
+    // }
+
+    public function getEmpleadoByID($id){
+            $resultado = $this->findBy(['id'=>$id]);
+            return $resultado;        
     }
+
 
     /* No se si funciona, probar*/
     public function updatePerfilEmpleado($id, $username, $name, $surnames){
-        if(isset($username), isset($name), isset($surnames)){
-        $DQL = "update Entities\\Empleado set  username = :Username, nombre = :Nombre, apellidos = :Apellidos where id = :id";
-        $query = $this->$em->createQuery($DQL);
-        $query->setParameters(  
-                                'id' => $id,
-                                'Username'=> $username,
-                                'Nombre' => $nombre,
-                                'Apellidos' => $surnames                           
-                            );           
+        if(isset($username) && isset($name) && isset($surnames)){
+            $user = $this->findBy(['id'=>$id]);
+            $user->setUsername($username)
+                 ->setNombre($name)
+                 ->setApellidos($surnames)
+                 ->setDomicilio($address);
+            $em->persist($user);
+            $em->flush();
+            
             return true;
+
         }else{
+
             return false;
         }
     }
 
     public function doIDexist($id){
-        $DQL = "select count(*) from Entities\\Empleado where id = :ID";
-        $query = $this->$em->createQuery($DQL);
-        $query->setParameters('ID' => $id);
-        $resultado = $query->getResult();
-        if($resultado > 0){
+        $resultado = $this->findBy(['id'=>$id]);
+        if(sizeof($resultado) > 0){
             return true;
+
         }else{
             return false;
         }
