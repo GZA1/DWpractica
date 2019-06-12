@@ -6,33 +6,13 @@ namespace Entity;
  * @Entity(repositoryClass="Repository\EmpleadoRepository")
  */
 
-class Empleado
+class Empleado extends Usuario
 {
     /** 
-     * @Id @GeneratedValue
-     * @Column(name="id",length=45, nullable=false) 
+     * @Id
+     * @Column(name="id",length=45, nullable=false, unique=true) 
     */
     private $id;
-    /** 
-     * @Column(name="username",length=45, nullable=false)
-    */
-    private $username;
-    /** 
-     * @Column(name="passwd",length=45, nullable=false)
-    */
-    private $passwd;
-    /** 
-     * @Column(name="nombre",length=45, nullable=false) 
-    */
-    private $nombre;
-    /** 
-     * @Column(name="apellidos",length=45, nullable=false) 
-    */
-    private $apellidos;
-    /** 
-     * @Column(name="email",length=45, nullable=false)
-    */
-    private $email;
     /** 
      * @Column(name="photoPath",length=45, nullable=true)
      */
@@ -50,16 +30,6 @@ class Empleado
      */
     private $isAdministrador;
     /** 
-     * @Column(name="fechaCreacion",type="datetime", nullable=false)
-     */
-    private $fechaCreacion;
-    /** 
-     * @Column(name="fechaModificacion",type="datetime", nullable=false)
-     */
-    private $fechaModificacion;
-    
-
-    /** 
      * Un empleado trabaja en una tienda
      * @ManyToOne(targetEntity="Tienda", inversedBy="empleados") 
      * @JoinColumn(name="Tienda_id", referencedColumnName="id")
@@ -69,9 +39,7 @@ class Empleado
 
 
 
-    public function __construct()
-    {
-        
+    public function __construct(){
     }
 
 
@@ -97,106 +65,6 @@ class Empleado
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of username
-     */ 
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set the value of username
-     *
-     * @return  self
-     */ 
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Set the value of passwd
-     *
-     * @return  self
-     */ 
-    public function setPasswd($passwd)
-    {
-        $this->passwd = $passwd;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of passwd
-     */ 
-    public function getPasswd()
-    {
-        return $this->passwd;
-    }
-
-    /**
-     * Get the value of nombre
-     */ 
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    /**
-     * Set the value of nombre
-     *
-     * @return  self
-     */ 
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of apellidos
-     */ 
-    public function getApellidos()
-    {
-        return $this->apellidos;
-    }
-
-    /**
-     * Set the value of apellidos
-     *
-     * @return  self
-     */ 
-    public function setApellidos($apellidos)
-    {
-        $this->apellidos = $apellidos;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of email
-     */ 
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */ 
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -283,46 +151,6 @@ class Empleado
     }
 
     /**
-     * Get the value of fechaCreacion
-     */ 
-    public function getFechaCreacion()
-    {
-        return $this->fechaCreacion;
-    }
-
-    /**
-     * Set the value of fechaCreacion
-     *
-     * @return  self
-     */ 
-    public function setFechaCreacion($fechaCreacion)
-    {
-        $this->fechaCreacion = $fechaCreacion;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of fechaModificacion
-     */ 
-    public function getFechaModificacion()
-    {
-        return $this->fechaModificacion;
-    }
-
-    /**
-     * Set the value of fechaModificacion
-     *
-     * @return  self
-     */ 
-    public function setFechaModificacion($fechaModificacion)
-    {
-        $this->fechaModificacion = $fechaModificacion;
-
-        return $this;
-    }
-
-    /**
      * Get un empleado trabaja en una tienda
      */ 
     public function getTienda()
@@ -341,5 +169,17 @@ class Empleado
 
         return $this;
     }
+
+
+    /*MAIN METHODS*/
+
+    private function generateId(){
+            
+    }
+
+
+
+
+
 }
 ?>

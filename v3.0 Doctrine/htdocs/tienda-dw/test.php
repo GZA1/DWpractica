@@ -13,7 +13,7 @@
 <body>
 <h3 style="color: red">
 <?php
-    if( $_SERVER['REQUEST_METHOD']=='GET' && $_GET['errnotfound']==1 ) {
+    if( $_SERVER['REQUEST_METHOD']=='GET' && isset($_GET['errnotfound']) && $_GET['errnotfound']==1 ) {
         echo("No se encontró el código postal indicado");
     }
 ?>

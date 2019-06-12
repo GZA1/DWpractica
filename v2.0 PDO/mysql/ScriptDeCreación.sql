@@ -31,30 +31,47 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `BD_Tienda`.`Cliente`
+-- Table `BD_Tienda`.`Usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cliente` (
-  `id` VARCHAR(45) NOT NULL,
+CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Usuario` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `passwd` VARCHAR(45) NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `apellidos` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `domicilio` VARCHAR(45) NULL,
-  `saldo` DOUBLE NOT NULL DEFAULT 0.00,
+  `tipo` VARCHAR(12) NOT NULL,
   `fechaCreacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Ubicacion_idUbicacion` INT NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `BD_Tienda`.`Cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cliente` (
+  `id` VARCHAR(45) NOT NULL,
+  `domicilio` VARCHAR(45) NULL,
+  `saldo` DOUBLE NOT NULL DEFAULT 0.00,
+  `Ubicacion_idUbicacion` INT NULL,
+  `Usuario_idUsuario` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   INDEX `fk_Cliente_Ubicacion2_idx` (`Ubicacion_idUbicacion` ASC) VISIBLE,
+  INDEX `fk_Cliente_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Cliente_Ubicacion2`
     FOREIGN KEY (`Ubicacion_idUbicacion`)
     REFERENCES `BD_Tienda`.`Ubicacion` (`idUbicacion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Cliente_Usuario1`
+    FOREIGN KEY (`Usuario_idUsuario`)
+    REFERENCES `BD_Tienda`.`Usuario` (`idUsuario`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -66,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Tienda` (
   `nombre` VARCHAR(45) NOT NULL,
   `direccion` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `Ubicacion_idUbicacion` INT NOT NULL,
+  `Ubicacion_idUbicacion` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
@@ -74,8 +91,8 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Tienda` (
   CONSTRAINT `fk_Tienda_Ubicacion2`
     FOREIGN KEY (`Ubicacion_idUbicacion`)
     REFERENCES `BD_Tienda`.`Ubicacion` (`idUbicacion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -84,28 +101,26 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Empleado` (
   `id` VARCHAR(45) NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `passwd` VARCHAR(45) NOT NULL,
-  `nombre` VARCHAR(45) NOT NULL,
-  `apellidos` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
   `photoPath` VARCHAR(45) NULL,
   `activo` TINYINT(1) NOT NULL DEFAULT 1,
   `cargo` VARCHAR(45) NOT NULL,
   `isAdministrador` TINYINT(1) NOT NULL DEFAULT 0,
-  `fechaCreacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaModificacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Tienda_id` INT NOT NULL,
+  `Tienda_id` INT NULL,
+  `Usuario_idUsuario` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   INDEX `fk_Empleado_Tienda1_idx` (`Tienda_id` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  INDEX `fk_Empleado_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Empleado_Tienda1`
     FOREIGN KEY (`Tienda_id`)
     REFERENCES `BD_Tienda`.`Tienda` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Empleado_Usuario1`
+    FOREIGN KEY (`Usuario_idUsuario`)
+    REFERENCES `BD_Tienda`.`Usuario` (`idUsuario`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -136,8 +151,8 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Producto` (
   CONSTRAINT `fk_Producto_Categoria1`
     FOREIGN KEY (`Categoria_id`)
     REFERENCES `BD_Tienda`.`Categoria` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -154,8 +169,8 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cesta` (
   CONSTRAINT `fk_Cesta_Cliente1`
     FOREIGN KEY (`Cliente_id`)
     REFERENCES `BD_Tienda`.`Cliente` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -165,7 +180,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Unidad` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `vendido` TINYINT(1) NOT NULL DEFAULT 0,
-  `Cesta_id` INT NOT NULL,
+  `Cesta_id` INT NULL,
   `Producto_id` INT NOT NULL,
   `Tienda_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -176,19 +191,46 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Unidad` (
   CONSTRAINT `fk_Unidad_Cesta1`
     FOREIGN KEY (`Cesta_id`)
     REFERENCES `BD_Tienda`.`Cesta` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Unidad_Producto1`
     FOREIGN KEY (`Producto_id`)
     REFERENCES `BD_Tienda`.`Producto` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Unidad_Tienda1`
     FOREIGN KEY (`Tienda_id`)
     REFERENCES `BD_Tienda`.`Tienda` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `BD_Tienda`.`Pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Pedido` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `estado` VARCHAR(45) NOT NULL,
+  `fechaCreacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Cesta_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `fk_Pedido_Cesta1_idx` (`Cesta_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Pedido_Cesta1`
+    FOREIGN KEY (`Cesta_id`)
+    REFERENCES `BD_Tienda`.`Cesta` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
 
 
 -- -----------------------------------------------------
@@ -213,6 +255,8 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
 
 
 
@@ -38093,17 +38137,22 @@ VALUES
 
 INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion) VALUES ('Almacén Central', 'Avenida del Almacén Central 1', 'almcentral@empresa.com', 32836); /*Está en Madrid el almacén central*/
 
+/*Usuarios*/
+insert into Usuario (username, passwd, nombre, apellidos, email, tipo) values
+	('admin', 	'7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Juan Carlos', 	'Perez Monsetti', 	'JCPM@gmail.com', 'empleado'),
+    ('cli1', 	'7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Cliente', 		'Numero Uno', 		'cli1@gmail.com', 'cliente'	);
+
+/*Usuario Administrador*/
+INSERT INTO Empleado (id, photopath, cargo, isAdministrador, Tienda_id, Usuario_idUsuario) 
+VALUES ('EMP:000000005022630e0000000012d81fbf', './/img/externos/1.jpg', 'encargado', 1, 1, 1);
+
 /*Hacer inserts de clientes desde el sign up*/
 
-INSERT INTO Empleado (id, username, passwd, nombre, apellidos, email, photopath, cargo, isAdministrador, Tienda_id) 
-VALUES ('EMP:000000005022630e0000000012d81fbf', 'burns', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Señor', 'Señor Burns', 'holahola@gmail.com', './/img/externos/1.jpg', 'encargado', 1, 1);
-
-/*INSERTS EMPLEADOS*/
-
+/*Pruebas histoprial de pedidos etc...*/
 /*Insertamos aquí un cliente con cestas y, por lo tanto, pedidos asociados que, al no haber lógica de productos todavía, son solo de prueba*/
 
-insert into cliente (id, username, passwd, nombre, apellidos, email, domicilio, Ubicacion_idUbicacion) 
-values ('CLI:000000004029530e0000000014d11trs', 'cli1', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Cliente', 'Numero Uno', 'cli1@gmail.com', 'Calle Mayor 15', 16238);#cli1 es de Cuéllar
+insert into cliente (id, domicilio, Ubicacion_idUbicacion, Usuario_idUsuario) 
+values ('CLI:000000004029530e0000000014d11trs', 'Calle Mayor 15', 16238, 2); #cli1 es de Cuéllar
 insert into cesta (costeTotal, Cliente_id) values (25, 'CLI:000000004029530e0000000014d11trs'), (12, 'CLI:000000004029530e0000000014d11trs');
 insert into pedido (estado, Cesta_id) values ('procesando', 1), ('completado', 2);
 
@@ -38116,9 +38165,10 @@ insert into categoria(nombre) values("GPU");
 
 insert into categoria(nombre) values("DiscosDuros");
 
-insert into Producto(nombre, marca, modelo, precio, categoria_id) values("Sandy Bridge", "Intel", "i7-2600k-2.9GHz", 123.99, 1);
-insert into Producto(nombre, marca, modelo, precio, categoria_id) values("Kaby Lake", "Intel", "i7-7700-3.3GHz", 348.99, 1);
-insert into Producto(nombre, marca, modelo, precio, categoria_id) values("Haswell", "Intel", "i5-4250H-2.3GHz", 191.99, 1);
-insert into Producto(nombre, marca, modelo, precio, categoria_id) values("Vengance", "Corsair", "16GB-2400-CL14", 223.99, 2);
-insert into Producto(nombre, marca, modelo, precio, categoria_id) values("FastSlim", "Kingston", "SODIMM-8GB-1600-CL15", 114.99, 2);
-insert into Producto(nombre, marca, modelo, precio, categoria_id) values("WR", "Corsair", "4GB-3200-CL16", 162.99, 2);
+insert into Producto(nombre, marca, modelo, precio, categoria_id) values
+	("Sandy Bridge", 	"Intel", 	"i7-2600k-2.9GHz", 		123.99, 1),
+	("Kaby Lake", 		"Intel", 	"i7-7700-3.3GHz", 		348.99, 1),
+	("Haswell", 		"Intel", 	"i5-4250H-2.3GHz", 		191.99, 1),
+	("Vengance", 		"Corsair", 	"16GB-2400-CL14", 		223.99, 2),
+	("FastSlim", 		"Kingston", "SODIMM-8GB-1600-CL15", 114.99, 2),
+	("WR", 				"Corsair", 	"4GB-3200-CL16", 		162.99, 2);
