@@ -36,7 +36,10 @@ class Cliente extends Usuario
      */
     private $cesta;
 
-
+    
+    private function generateId(){
+        $this ->id = "CLI:" . spl_object_hash($this);
+    }
     
 
     public function __construct(){

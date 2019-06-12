@@ -43,7 +43,9 @@ class Empleado extends Usuario
     }
 
 
-
+    private function generateId(){
+        $this ->id = "EMP:" . spl_object_hash($this);
+    }
     
     /** GETTERS & SETTERS */
 
