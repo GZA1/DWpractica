@@ -111,12 +111,14 @@
 }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
         $u = new Usuario();
+        $usuarioRep = $em->getRepository("Entity\\Usuario");
         $u  ->setUsername($_POST['login'])
             ->setPasswd($_POST['passwd']);
+        console_log("hola");
         $u->encryptPasswd();
-        if( $u->login() ) {
+        if( $usuarioRep->login($u) ) {
             session_start();
-            $_SESSION['id'] = $em->getRepository("Entity\\Usuario")->findId();
+            $_SESSION['id'] = $usuarioRep->findId($u);
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
             console_log($_SESSION['id']);
             cLog($_SESSION['id']);

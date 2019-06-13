@@ -3,6 +3,7 @@
 
 
     require_once 'dbconfig.php';
+    require_once '/xampp/appdata/model/console.php';
 
     use Entity\Tienda;
     use Entity\Categoria;
@@ -16,6 +17,6 @@
 
     $var = $em->getRepository("Entity\\Cliente")->doIDexist("CLI:000000004029530e0000000014d11trs");
     
-    //echo('console.log(' . json_encode($var) . ');');
+    console_log('¿CLI:000000004029530e0000000014d11trs es Cliente?: ' . json_encode($var));
 
 ?>
