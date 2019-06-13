@@ -4,8 +4,9 @@ namespace Repository;
 
 
 use Doctrine\ORM\EntityRepository;
+use Repository\UsuarioRepository;
 
-class EmpleadoRepository extends EntityRepository
+class EmpleadoRepository extends EntityRepository, UsuarioRepository
 {
     
     

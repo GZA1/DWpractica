@@ -23,34 +23,32 @@ class Cliente extends Usuario
      */
     private $saldo;
 
-    /** 
+    /**
      * Un cliente tienen una ubicacion
-     * @ManyToOne(targetEntity="Ubicacion", inversedBy="clientes") 
+     * @ManyToOne(targetEntity="Ubicacion", inversedBy="clientes")
      * @JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
      */
     private $ubicacion;
-    
+
     /**
      * Una cesta tiene un cliente
      * @OneToOne(targetEntity="Cesta", mappedBy="cliente")
      */
     private $cesta;
 
-    
-    private function generateId(){
-        $this ->id = "CLI:" . spl_object_hash($this);
-    }
-    
+
+
+
 
     public function __construct(){
     }
- 
+
     /** GETTERS & SETTERS */
 
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -60,7 +58,7 @@ class Cliente extends Usuario
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -69,7 +67,7 @@ class Cliente extends Usuario
     }
     /**
      * Get the value of domicilio
-     */ 
+     */
     public function getDomicilio()
     {
         return $this->domicilio;
@@ -79,7 +77,7 @@ class Cliente extends Usuario
      * Set the value of domicilio
      *
      * @return  self
-     */ 
+     */
     public function setDomicilio($domicilio)
     {
         $this->domicilio = $domicilio;
@@ -89,7 +87,7 @@ class Cliente extends Usuario
 
     /**
      * Get the value of saldo
-     */ 
+     */
     public function getSaldo()
     {
         return $this->saldo;
@@ -99,7 +97,7 @@ class Cliente extends Usuario
      * Set the value of saldo
      *
      * @return  self
-     */ 
+     */
     public function setSaldo($saldo)
     {
         $this->saldo = $saldo;
@@ -109,7 +107,7 @@ class Cliente extends Usuario
 
     /**
      * Get un cliente tienen una ubicacion
-     */ 
+     */
     public function getUbicacion()
     {
         return $this->ubicacion;
@@ -119,7 +117,7 @@ class Cliente extends Usuario
      * Set un cliente tienen una ubicacion
      *
      * @return  self
-     */ 
+     */
     public function setUbicacion($ubicacion)
     {
         $this->ubicacion = $ubicacion;
@@ -129,7 +127,7 @@ class Cliente extends Usuario
 
     /**
      * Get una cesta tiene un cliente
-     */ 
+     */
     public function getCesta()
     {
         return $this->cesta;
@@ -139,13 +137,21 @@ class Cliente extends Usuario
      * Set una cesta tiene un cliente
      *
      * @return  self
-     */ 
+     */
     public function setCesta($cesta)
     {
         $this->cesta = $cesta;
 
         return $this;
     }
+
+
+    /*MAIN METHODS*/
+
+    private function generateId(){
+        $this ->id = "CLI:" . spl_object_hash($this);
+    }
+
 
 
 
