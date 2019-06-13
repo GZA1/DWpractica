@@ -148,14 +148,6 @@ class Cliente extends Usuario
     }
 
 
-    /*MAIN METHODS*/
-
-    private function generateId(){
-
-    }
-
-
-
 
 }
 ?>
