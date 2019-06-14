@@ -3,10 +3,10 @@
 namespace Entity;
 
 /**
- * Entity(repositoryClass="Repository\UsuarioRepository")
+ * @Entity(repositoryClass="Repository\UsuarioRepository")
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="tipo", type="string")
- * @DiscriminatorMap({"cliente" = "Cliente", "empleado" = "Empleado"})
+ * @DiscriminatorMap({"usuario" = "Usuario", "cliente" = "Cliente", "empleado" = "Empleado"})
  */
 
 class Usuario
@@ -14,41 +14,38 @@ class Usuario
     /** 
      * @Id
      * @Column(name="idUsuario",type="integer", nullable=false)
-     * @GeneratedValue
+     * @GeneratedValue(strategy="NONE")
     */
-    private $idUsuario;
+    protected $idUsuario;
     /** 
      * @Column(name="username",length=45, nullable=false, unique=true)
     */
-    private $username;
+    protected $username;
     /** 
      * @Column(name="passwd",length=45, nullable=false)
     */
-    private $passwd;
+    protected $passwd;
     /** 
      * @Column(name="nombre",length=45, nullable=false) 
     */
-    private $nombre;
+    protected $nombre;
     /** 
      * @Column(name="apellidos",length=45, nullable=false) 
     */
-    private $apellidos;
+    protected $apellidos;
     /** 
      * @Column(name="email",length=45, nullable=false, unique=true)
     */
-    private $email;
-    /** 
-     * @Column(name="tipo",length=12, nullable=false)
-    */
-    private $tipo;
+    protected $email;
+
     /** 
      * @Column(name="fechaCreacion",type="datetime", nullable=false)
      */
-    private $fechaCreacion;
+    protected $fechaCreacion;
     /** 
      * @Column(name="fechaModificacion",type="datetime", nullable=false)
      */
-    private $fechaModificacion;
+    protected $fechaModificacion;
 
 
 

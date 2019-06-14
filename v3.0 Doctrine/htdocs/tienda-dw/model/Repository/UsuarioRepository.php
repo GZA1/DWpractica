@@ -6,12 +6,23 @@ namespace Repository;
 use Doctrine\ORM\EntityRepository;
 
 class UsuarioRepository extends EntityRepository{
+    
     public function login($usuario){
-        $DQL = "select u from Entity\\Ubicacion u".
-                "where u.username = ".$usuario->getUsername().
-                "and u.passwd = ".$usuario->getPasswd();
-        $query = $this->$em->createQuery($DQL);
-        $ubic = $query->getResult();  
+        $em  = getEntityManager();   
+        $qb = $em->createQueryBuilder();
+        $qb->select('u')
+            ->from('Entity\\Usuario', 'u')
+            ->where('u.username = :usr', 'u.passwd = :psw')
+            ->setParameter('usr', $usuario->getIdUsuario())
+            ->setParameter('psw', $usuario->getPasswd());
+
+        // $DQL = "select u from Entity\\Usuario u where u.username = :usr and u.passwd = :psw";
+        // $query = $em->createQuery($DQL);
+        // $query->setParameters(array(
+        //                                 'usr' => $usuario->getIdUsuario(),
+        //                                 'psw' => $usuario->getPasswd()
+        //                             ));      
+        $ubic = $qb->getQuery()->getResult();  
         return $ubic;   
     }
 

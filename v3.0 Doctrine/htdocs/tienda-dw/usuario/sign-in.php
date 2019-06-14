@@ -114,8 +114,8 @@
         $usuarioRep = $em->getRepository("Entity\\Usuario");
         $u  ->setUsername($_POST['login'])
             ->setPasswd($_POST['passwd']);
-        console_log("hola");
         $u->encryptPasswd();
+        console_log("hola");
         if( $usuarioRep->login($u) ) {
             session_start();
             $_SESSION['id'] = $usuarioRep->findId($u);

@@ -6,8 +6,7 @@ namespace Repository;
 use Doctrine\ORM\EntityRepository;
 use Repository\UsuarioRepository;
 
-class EmpleadoRepository extends EntityRepository, UsuarioRepository
-{
+class EmpleadoRepository extends EntityRepository{
     
     
     // public function getEmpleadoByID($username, $passwd, $nombre, $apell, $email, $photoPath, $active, $cargo, $isAdministrador, $tienda_id){
