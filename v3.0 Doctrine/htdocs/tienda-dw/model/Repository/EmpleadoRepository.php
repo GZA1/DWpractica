@@ -2,9 +2,9 @@
 
 namespace Repository;
 
-
 use Doctrine\ORM\EntityRepository;
-use Repository\UsuarioRepository;
+
+require_once '/xampp/appdata/model/console.php';
 
 class EmpleadoRepository extends EntityRepository{
     
@@ -21,6 +21,10 @@ class EmpleadoRepository extends EntityRepository{
     public function getEmpleadoByID($id){
             $resultado = $this->findBy(['id'=>$id]);
             return $resultado;        
+    }
+
+    public function findID($usuario){
+        return $this->findOneBy(array("Usuario_idUsuario" => $usuario->getIdUsuario()));
     }
 
 

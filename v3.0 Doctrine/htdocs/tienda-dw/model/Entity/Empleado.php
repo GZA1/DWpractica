@@ -3,6 +3,7 @@
 namespace Entity;
 
 /**
+ * @Table("empleado")
  * @Entity(repositoryClass="Repository\EmpleadoRepository")
  */
 
@@ -29,12 +30,21 @@ class Empleado extends Usuario
      *  @Column(name="isAdministrador",type="boolean", nullable=false)
      */
     private $isAdministrador;
+    
+    /*                      F O R E I G N   K E Y S                               */
+
     /** 
      * Un empleado trabaja en una tienda
      * @ManyToOne(targetEntity="Tienda", inversedBy="empleados") 
      * @JoinColumn(name="Tienda_id", referencedColumnName="id")
      */
     private $tienda;
+    /**
+     * Un cliente tiene un usuario asociado
+     * @OneToOne(targetEntity="Usuario")
+     * @JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
+     */
+    private $idUsuario;
 
 
 

@@ -3,6 +3,7 @@
 namespace Entity;
 
 /**
+ * @Table("cliente")
  * @Entity(repositoryClass="Repository\ClienteRepository")
  */
 
@@ -25,18 +26,26 @@ class Cliente extends Usuario
      */
     private $saldo;
 
+    /*                      F O R E I G N   K E Y S                               */
+
     /**
      * Un cliente tienen una ubicacion
-     * @ManyToOne(targetEntity="Ubicacion", inversedBy="clientes")
+     * @ManyToOne(targetEntity="Ubicacion")
      * @JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
      */
     private $ubicacion;
-
     /**
      * Una cesta tiene un cliente
      * @OneToOne(targetEntity="Cesta", mappedBy="cliente")
      */
     private $cesta;
+    /**
+     * Un cliente tiene un usuario asociado
+     * @OneToOne(targetEntity="Usuario")
+     * @JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
+     */
+    private $idUsuario;
+
 
 
 

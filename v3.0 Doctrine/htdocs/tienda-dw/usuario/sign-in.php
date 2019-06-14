@@ -120,16 +120,16 @@
         $u->setPasswd($_POST['passwd']);
         $u->encryptPasswd();
         console_log("hola");
-        if( ! is_null($u = $usuarioRep->login($u)->getIdUsuario()) ) {
+        if( ! is_null($u = $usuarioRep->login($u)) ) {
             session_start();
-
             console_log((array)$u);
-
-            $uEjemplo = $usuarioRep->find($arrayU['idUsuario']);
-            console_log($uEjemplo);
-
-            console_log($usuarioRep->find($u));
-            $_SESSION['id'] = $usuarioRep->findId($u);
+            $tipo = $u->getTipo();
+            if($tipo == "cliente"){
+                $usuarioRep = $em->getRepository("Entity\\Cliente");
+            }else if($tipo == "empleado"){
+                $usuarioRep = $em->getRepository("Entity\\Empleado");
+            }
+            $_SESSION['id'] = $usuarioRep->findID($u);
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
             console_log($_SESSION['id']);
             cLog("IdUsuario logueado: " . $_SESSION['id']);

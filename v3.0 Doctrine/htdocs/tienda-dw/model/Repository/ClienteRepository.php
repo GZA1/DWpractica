@@ -4,12 +4,18 @@ namespace Repository;
 
 use Doctrine\ORM\EntityRepository;
 
+require_once '/xampp/appdata/model/console.php';
 
 class ClienteRepository extends EntityRepository
 {
     
     public function add($cliente) {
         
+    }
+
+    public function findID($usuario){
+        console_log($usuario->getIdUsuario());
+        return $this->findOneBy(array("Usuario_idUsuario" => $usuario->getIdUsuario()));
     }
     
     /** 
