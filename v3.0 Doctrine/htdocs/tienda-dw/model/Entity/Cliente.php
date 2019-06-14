@@ -7,7 +7,7 @@ namespace Entity;
  * @Entity(repositoryClass="Repository\ClienteRepository")
  */
 
-class Cliente extends Usuario
+class Cliente
 {
 
 
@@ -26,7 +26,8 @@ class Cliente extends Usuario
      */
     private $saldo;
 
-    /*                      F O R E I G N   K E Y S                               */
+    /*                      F O R E I G N   K E Y S
+    */
 
     /**
      * Un cliente tienen una ubicacion
@@ -152,6 +153,26 @@ class Cliente extends Usuario
     public function setCesta($cesta)
     {
         $this->cesta = $cesta;
+
+        return $this;
+    }
+
+    /**
+     * Get un idUsuario tiene un cliente
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * Set un idUsuario tiene un cliente
+     *
+     * @return  self
+     */
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
 
         return $this;
     }

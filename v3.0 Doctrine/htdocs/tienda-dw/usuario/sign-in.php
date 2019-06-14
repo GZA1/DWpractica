@@ -119,7 +119,6 @@
         }
         $u->setPasswd($_POST['passwd']);
         $u->encryptPasswd();
-        console_log("hola");
         if( ! is_null($u = $usuarioRep->login($u)) ) {
             session_start();
             console_log((array)$u);

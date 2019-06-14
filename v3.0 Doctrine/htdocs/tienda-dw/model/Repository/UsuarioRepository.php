@@ -9,8 +9,9 @@ require_once '/xampp/appdata/model/console.php';
 class UsuarioRepository extends EntityRepository{
     
     public function login($usuario){
-        $em  = getEntityManager();
-        $qb = $em->createQueryBuilder();
+        //$em  = getEntityManager();
+        //$qb = $em->createQueryBuilder();
+        $qb = $this->_em->createQueryBuilder();
         if( ! is_null($usuario->getUsername()) ){
             $qb ->select('u')
                 ->from('Entity\\Usuario', 'u')
@@ -35,8 +36,9 @@ class UsuarioRepository extends EntityRepository{
 
     //POsiblemente la vamos a eliminar
     public function findId($usuario){
-        $em  = getEntityManager();
-        $qb = $em->createQueryBuilder();
+        //$em  = getEntityManager();
+        //$qb = $em->createQueryBuilder();
+        $qb = $this->_em->createQueryBuilder();
         if( ! is_null($usuario->getIdUsuario()) ){
             $qb ->select('u.id')
                 ->where('u.Usuario_idUsuario = :idUsr')

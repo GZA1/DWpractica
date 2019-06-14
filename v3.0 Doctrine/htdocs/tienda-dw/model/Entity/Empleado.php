@@ -7,7 +7,7 @@ namespace Entity;
  * @Entity(repositoryClass="Repository\EmpleadoRepository")
  */
 
-class Empleado extends Usuario
+class Empleado
 {
     /** 
      * @Id
@@ -31,7 +31,8 @@ class Empleado extends Usuario
      */
     private $isAdministrador;
     
-    /*                      F O R E I G N   K E Y S                               */
+    /*                      F O R E I G N   K E Y S
+    */
 
     /** 
      * Un empleado trabaja en una tienda
@@ -176,6 +177,27 @@ class Empleado extends Usuario
     public function setTienda($tienda)
     {
         $this->tienda = $tienda;
+
+        return $this;
+    }
+
+    
+    /**
+     * Get un idUsuario tiene un cliente
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * Set un idUsuario tiene un cliente
+     *
+     * @return  self
+     */
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
 
         return $this;
     }

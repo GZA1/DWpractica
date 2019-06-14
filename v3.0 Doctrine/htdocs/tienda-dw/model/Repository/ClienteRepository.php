@@ -14,8 +14,7 @@ class ClienteRepository extends EntityRepository
     }
 
     public function findID($usuario){
-        console_log($usuario->getIdUsuario());
-        return $this->findOneBy(array("Usuario_idUsuario" => $usuario->getIdUsuario()));
+        return $this->findOneBy(array("idUsuario" => $usuario->getIdUsuario()))->getId();
     }
     
     /** 
