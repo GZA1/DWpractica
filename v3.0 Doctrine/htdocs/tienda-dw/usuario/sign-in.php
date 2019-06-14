@@ -112,17 +112,28 @@
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
         $u = new Usuario();
         $usuarioRep = $em->getRepository("Entity\\Usuario");
-        $u  ->setUsername($_POST['login'])
-            ->setPasswd($_POST['passwd']);
+        if( preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $_POST['login']) ){
+            $u->setEmail($_POST['login']);
+        } else{
+            $u->setUsername($_POST['login']);
+        }
+        $u->setPasswd($_POST['passwd']);
         $u->encryptPasswd();
         console_log("hola");
-        if( $usuarioRep->login($u) ) {
+        if( ! is_null($u = $usuarioRep->login($u)->getIdUsuario()) ) {
             session_start();
+
+            console_log((array)$u);
+
+            $uEjemplo = $usuarioRep->find($arrayU['idUsuario']);
+            console_log($uEjemplo);
+
+            console_log($usuarioRep->find($u));
             $_SESSION['id'] = $usuarioRep->findId($u);
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
             console_log($_SESSION['id']);
-            cLog($_SESSION['id']);
-            header('Location: ../main/index.php?usrlog=1');
+            cLog("IdUsuario logueado: " . $_SESSION['id']);
+            //header('Location: ../main/index.php?usrlog=1');
             exit;
         }
         else {

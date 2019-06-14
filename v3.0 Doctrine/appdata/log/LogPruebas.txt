@@ -6,3 +6,10 @@
 2019-04-28 19:51:45 SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '<br />
 <b>Notice</b>:  Array to string conversion in <b>D:\xampp\htdocs\dw\usuario\cfgAdmin.php</b> on line <b>37</b><br />
 Ar' for column 'Tienda_id' at row 1
+2019-06-14 15:12:21 Array
+2019-06-14 17:17:17 Array
+2019-06-14 17:19:34 Array
+2019-06-14 17:20:06 2
+2019-06-14 17:20:30 2
+2019-06-14 17:20:43 2
+2019-06-14 17:20:54 2

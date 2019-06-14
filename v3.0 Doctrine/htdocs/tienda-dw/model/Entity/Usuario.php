@@ -38,6 +38,8 @@ class Usuario
     */
     protected $email;
 
+    protected $tipo;
+
     /** 
      * @Column(name="fechaCreacion",type="datetime", nullable=false)
      */
@@ -192,6 +194,26 @@ class Usuario
     public function getFechaModificacion()
     {
         return $this->fechaModificacion;
+    }
+
+    /**
+     * Get the value of tipo
+     */ 
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set the value of tipo
+     *
+     * @return  self
+     */ 
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
     }
 
 

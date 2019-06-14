@@ -2,41 +2,59 @@
 
 namespace Repository;
 
-
 use Doctrine\ORM\EntityRepository;
+
+require_once '/xampp/appdata/model/console.php';
 
 class UsuarioRepository extends EntityRepository{
     
     public function login($usuario){
-        $em  = getEntityManager();   
+        $em  = getEntityManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('u')
-            ->from('Entity\\Usuario', 'u')
-            ->where('u.username = :usr', 'u.passwd = :psw')
-            ->setParameter('usr', $usuario->getIdUsuario())
-            ->setParameter('psw', $usuario->getPasswd());
-
-        // $DQL = "select u from Entity\\Usuario u where u.username = :usr and u.passwd = :psw";
-        // $query = $em->createQuery($DQL);
-        // $query->setParameters(array(
-        //                                 'usr' => $usuario->getIdUsuario(),
-        //                                 'psw' => $usuario->getPasswd()
-        //                             ));      
-        $ubic = $qb->getQuery()->getResult();  
-        return $ubic;   
-    }
-
-    public function findId($usuario){
         if( ! is_null($usuario->getUsername()) ){
-            $DQL = "select id from Entity\\Usuario u where u.username = ".$usuario->getUsername();
-        } else if( ! is_null($usuario->getUsername()) ){
-            $DQL = "select id from Entity\\Usuario u where u.email = ".$usuario->getEmail();
+            $qb ->select('u')
+                ->from('Entity\\Usuario', 'u')
+                ->where('u.username = :usr', 'u.passwd = :psw')
+                ->setParameter('usr', $usuario->getUsername())
+                ->setParameter('psw', $usuario->getPasswd());
+            console_log($usuario->getUsername());
+        } else if( ! is_null($usuario->getEmail()) ){
+            $qb ->select('u')
+                ->from('Entity\\Usuario', 'u')
+                ->where('u.email = :email', 'u.passwd = :psw')
+                ->setParameter('email', $usuario->getEmail())
+                ->setParameter('psw', $usuario->getPasswd());
+            console_log($usuario->getEmail());
         } else{
             return false;
         }
-        $query = $this->$em->createQuery($DQL);
-        $id = $query->getResult();
-        return $id;   
+        console_log($usuario->getPasswd());
+        $res = $qb->getQuery()->getSingleResult();
+        console_log($res);
+        //$usuario->setIdUsuario($res['idUsuario']);
+        //console_log((array)$usuario);
+        return $res;
+    }
+
+    //POsiblemente la vamos a eliminar
+    public function findId($usuario){
+        $em  = getEntityManager();
+        $qb = $em->createQueryBuilder();
+        if( ! is_null($usuario->getIdUsuario()) ){
+            $qb ->select('u.id')
+                ->where('u.Usuario_idUsuario = :idUsr')
+                ->setParameter('idUsr', $usuario->getIdUsuario());
+            $tipo = $usuario->getTipo();
+            if($tipo == "cliente"){
+                $qb->from('Entity\\Cliente', 'u');
+            }else if($tipo == "empleado"){
+                $qb->from('Entity\\Empleado', 'u');
+            }
+        } else{
+            $this->finId($usuario->setIdUsuario($this->login($usuario)));//:D   -·__·-
+        }
+        $res = $qb->getQuery()->getSingleResult();
+        return $res;
     }
 }
 
