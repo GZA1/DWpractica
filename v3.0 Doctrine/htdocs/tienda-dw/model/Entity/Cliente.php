@@ -9,9 +9,11 @@ namespace Entity;
 class Cliente extends Usuario
 {
 
+
     /**
      * @Id
      * @Column(name="id",length=45, nullable=false, unique=true)
+     * @GeneratedColumn(strategy="NONE")
      */
     private $id;
     /**
