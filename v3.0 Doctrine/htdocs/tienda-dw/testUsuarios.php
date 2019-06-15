@@ -26,10 +26,10 @@
             $u->encryptPasswd();
             if( $em->getRepository("Entity\\Usuario")->login($u) ) {
                 session_start();
-                $_SESSION['id'] = $em->getRepository("Entity\\Usuario")->findId($u);
+                $_SESSION['user'] = $em->getRepository("Entity\\Usuario")->findId($u);
                 $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-                console_log($_SESSION['id']);
-                cLog($_SESSION['id']);
+                console_log($_SESSION['user']);
+                cLog($_SESSION['user']);
                 header('Location: ../main/index.php?usrlog=1');
                 exit;
             }

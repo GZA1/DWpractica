@@ -2,12 +2,18 @@
     require_once("../dbconfig.php");   
     require_once('/xampp/appdata/model/Console.php');
     
+    use Entity\Usuario;
+    use Entity\Cliente;
+    use Entity\Empleado;
+
+    $em = GetEntityManager();
+    $usuarioRep = $em->getRepository("Entity\\Usuario");
 
     session_start();
 
     $c = null;
-    if(isset($_SESSION['id'])){
-        $u = new Usuario($_SESSION['id']);
+    if(isset($_SESSION['user'])){
+        $u = $_SESSION['user'];
         $tipo = $u->getTipo();
         $username = $u->getUsername();
     }
@@ -186,9 +192,13 @@
         }
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $c = new Cliente($_SESSION['id']);
+        $clienteRep = $em->getRepository("Entity\\Cliente");
+        $c = $clienteRep->findByUser($_SESSION['user']);
         $saldoAdd = $_POST['saldo-add'];
-        if( is_numeric($saldoAdd) && $saldoAdd > 0 && $c->addSaldo($saldoAdd) ){
+        if( is_numeric($saldoAdd) && $saldoAdd > 0 ){
+            $c->addSaldo($saldoAdd);
+            $em->persist($c);
+            $em->flush();
             header('Location: ' . $_SERVER['PHP_SELF'] . '?saldoadd=1');
             exit;
         }else{

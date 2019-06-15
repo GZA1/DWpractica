@@ -1,6 +1,10 @@
 <?php
     require_once('/xampp/appdata/model/Console.php');
-    require_once("../dbconfig.php");   
+    require_once("../dbconfig.php");
+
+    use Entity\Usuario;
+
+    $em = GetEntityManager();
     
 
     if( $_SERVER['REQUEST_METHOD']=='GET') {
@@ -134,7 +138,7 @@
 <?php
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $u = new Cliente();
+        $u = new Usuario();
         console_log("Id cliente: ");
         console_log($u->getId());
         $u  ->setUsername($_POST['username'])

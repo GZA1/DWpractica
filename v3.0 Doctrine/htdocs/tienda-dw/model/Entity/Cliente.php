@@ -22,7 +22,7 @@ class Cliente
      */
     private $domicilio;
     /**
-     * @Column(name="saldo",type="float", nullable=false)
+     * @Column(name="saldo",length=20, nullable=false)
      */
     private $saldo;
 
@@ -113,6 +113,18 @@ class Cliente
     public function setSaldo($saldo)
     {
         $this->saldo = $saldo;
+
+        return $this;
+    }
+
+    /**
+     * Add the value of saldo
+     *
+     * @return  self
+     */
+    public function addSaldo($saldo)
+    {
+        $this->saldo += $saldo;
 
         return $this;
     }

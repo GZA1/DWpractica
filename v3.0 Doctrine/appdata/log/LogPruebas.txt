@@ -20,3 +20,8 @@ Ar' for column 'Tienda_id' at row 1
 2019-06-15 00:57:21 IdUsuario logueado: C
 2019-06-15 00:57:54 IdUsuario logueado: C
 2019-06-15 01:00:16 IdUsuario logueado: CLI:000000004029530e0000000014d11trs
+2019-06-15 01:13:43 IdUsuario logueado: CLI:000000004029530e0000000014d11trs
+2019-06-15 01:18:07 IdUsuario logueado: 1
+2019-06-15 01:43:02 IdUsuario logueado: 2
+2019-06-15 01:57:40 IdUsuario logueado: 2
+2019-06-15 01:58:10 IdUsuario logueado: 2

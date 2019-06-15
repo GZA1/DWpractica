@@ -6,8 +6,8 @@
     session_start();
 
     $c = null;
-    if(isset($_SESSION['id'])){
-        $u = new Usuario($_SESSION['id']);
+    if(isset($_SESSION['user'])){
+        $u = new Usuario($_SESSION['user']);
         $tipo = $u->getTipo();
         $username = $u->getUsername();
     }
@@ -443,7 +443,7 @@
         }
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        $c = new Cliente($_SESSION['id']);
+        $c = new Cliente($_SESSION['user']);
         $saldoAdd = $_POST['saldo-add'];
         if( is_numeric($saldoAdd) && $saldoAdd > 0 && $c->addSaldo($saldoAdd) ){
             header('Location: ' . $_SERVER['PHP_SELF'] . '?saldoadd=1');

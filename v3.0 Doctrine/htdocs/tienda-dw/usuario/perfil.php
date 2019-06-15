@@ -9,21 +9,21 @@
 
     $u = null;
    
-    if(isset($_SESSION['id'])){
-        $u = new Usuario($_SESSION['id']);
+    if(isset($_SESSION['user'])){
+        $u = new Usuario($_SESSION['user']);
         $tipo = $u->getTipo();
         $username = $u->getUsername();
             if($tipo == "cliente"){
-                $u = new Cliente($_SESSION['id']);
+                $u = new Cliente($_SESSION['user']);
             }else if($tipo == "empleado"){
-                $u = new Empleado($_SESSION['id']);
+                $u = new Empleado($_SESSION['user']);
                 if( $u->getIsAdministrador() ){
-                    $u = new Admin($_SESSION['id']);
+                    $u = new Admin($_SESSION['user']);
                 }
             }
     }
 
-    // $usuario = new Usuario($_SESSION['id']);
+    // $usuario = new Usuario($_SESSION['user']);
     
     if( $_SERVER['REQUEST_METHOD']=='GET') {
         // $u = $usuario->getLoggedUser();

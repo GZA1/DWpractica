@@ -42,7 +42,7 @@
                         <?php
                             $tipoLogueado = $tipo;
                             if($tipo=="empleado"){
-                                $e = new Empleado($_SESSION['id']);
+                                $e = new Empleado($_SESSION['user']);
                                 if( $e->getIsAdministrador() ){
                                     $tipoLogueado = "admin";
                                 }
@@ -76,7 +76,7 @@
         </li>
         <?php
             if( isset($u) && $tipo == 'cliente' ){
-                $c = new Cliente($_SESSION['id']);
+                $c = new Cliente($_SESSION['user']);
         ?>
         <li class="dropdown-container">
             <div class="dropdown">
@@ -125,7 +125,7 @@
         </li>
         <?php
             }else if(isset($u) && $tipo == "empleado" ){
-                $e = new Empleado($_SESSION['id']);
+                $e = new Empleado($_SESSION['user']);
         ?>
             
             <li class="dropdown-container">

@@ -13,8 +13,12 @@ class ClienteRepository extends EntityRepository
         
     }
 
-    public function findID($usuario){
-        return $this->findOneBy(array("idUsuario" => $usuario->getIdUsuario()))->getId();
+    public function findByUser($usuario){
+        return $this->findOneBy(array("idUsuario" => $usuario->getIdUsuario()));
+    }
+
+    public function addSaldo($saldo){
+
     }
     
     /** 

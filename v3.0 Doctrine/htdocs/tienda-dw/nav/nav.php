@@ -42,7 +42,8 @@
                         <?php
                             $tipoLogueado = $tipo;
                             if($tipo=="empleado"){
-                                $e = new Empleado($_SESSION['id']);
+                                $empRep = $em->getRepository("Entity\\Empleado");
+                                $e = $empRep->findByUser($_SESSION['user']);
                                 if( $e->getIsAdministrador() ){
                                     $tipoLogueado = "admin";
                                 }
@@ -76,7 +77,8 @@
         </li>
         <?php
             if( isset($u) && $tipo == 'cliente' ){
-                $c = new Cliente($_SESSION['id']);
+                $clienteRep = $em->getRepository("Entity\\Cliente");
+                $c = $clienteRep->findByUser($_SESSION['user']);
         ?>
         <li class="dropdown-container">
             <div class="dropdown">
@@ -125,7 +127,8 @@
         </li>
         <?php
             }else if(isset($u) && $tipo == "empleado" ){
-                $e = new Empleado($_SESSION['id']);
+                $empRep = $em->getRepository("Entity\\Empleado");
+                $e = $empRep->findByUser($_SESSION['user']);
         ?>
             
             <li class="dropdown-container">

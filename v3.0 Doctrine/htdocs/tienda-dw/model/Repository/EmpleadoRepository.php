@@ -23,7 +23,7 @@ class EmpleadoRepository extends EntityRepository{
             return $resultado;        
     }
 
-    public function findID($usuario){
+    public function findByUser($usuario){
         return $this->findOneBy(array("Usuario_idUsuario" => $usuario->getIdUsuario()));
     }
 

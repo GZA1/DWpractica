@@ -68,7 +68,7 @@
                 </li>
                 <?php
                     if( isset($u) && $tipo == 'cliente' ){
-                        $c = new Cliente($_SESSION['id']);
+                        $c = new Cliente($_SESSION['user']);
                 ?>
                 <li class="dropdown-container">
                     <div class="dropdown">

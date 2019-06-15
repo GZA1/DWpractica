@@ -121,18 +121,10 @@
         $u->encryptPasswd();
         if( ! is_null($u = $usuarioRep->login($u)) ) {
             session_start();
-            console_log((array)$u);
-            $tipo = $u->getTipo();
-            if($tipo == "cliente"){
-                $usuarioRep = $em->getRepository("Entity\\Cliente");
-            }else if($tipo == "empleado"){
-                $usuarioRep = $em->getRepository("Entity\\Empleado");
-            }
-            $_SESSION['id'] = $usuarioRep->findID($u);
+            $_SESSION['user'] = $u;
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-            console_log($_SESSION['id']);
-            cLog("IdUsuario logueado: " . $_SESSION['id']);
-            //header('Location: ../main/index.php?usrlog=1');
+            cLog("IdUsuario logueado: " . $_SESSION['user']->getIdUsuario());
+            header('Location: ../main/index.php?usrlog=1');
             exit;
         }
         else {

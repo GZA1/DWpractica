@@ -6,8 +6,8 @@
 
     $c = null;
    
-    if(isset($_SESSION['id'])){
-        $c = new Cliente($_SESSION['id']);
+    if(isset($_SESSION['user'])){
+        $c = new Cliente($_SESSION['user']);
         $tipo = $c->getTipo();
         $username = $c->getUsername();
         $listaPedidos = $c->getPedidos();
