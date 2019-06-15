@@ -72,6 +72,21 @@ class UsuarioRepository extends EntityRepository{
         }
     }
 
+    public function changePasswd($usuario, $newPasswd){
+        if(isset($usuario) && isset($newPasswd) ){
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->update('Entity\\Usuario', 'u')
+                ->set('u.passwd', ':passwd')
+                ->where('u.idUsuario = :usr')
+                ->setParameter('passwd', sha1($newPasswd))
+                ->setParameter('usr', $usuario);
+            $res = $qb->getQuery()->getResult();
+            return $res;
+        } else{
+            return false;
+        }
+    }
+
 
 }
 
