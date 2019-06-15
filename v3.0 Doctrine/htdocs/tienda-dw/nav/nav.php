@@ -78,7 +78,9 @@
         <?php
             if( isset($u) && $tipo == 'cliente' ){
                 $clienteRep = $em->getRepository("Entity\\Cliente");
+                console_log((array)$_SESSION['user']);
                 $c = $clienteRep->findByUser($_SESSION['user']);
+                console_log((array)$c);
         ?>
         <li class="dropdown-container">
             <div class="dropdown">

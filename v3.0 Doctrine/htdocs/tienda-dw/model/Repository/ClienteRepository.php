@@ -8,13 +8,9 @@ require_once '/xampp/appdata/model/console.php';
 
 class ClienteRepository extends EntityRepository
 {
-    
-    public function add($cliente) {
-        
-    }
 
     public function findByUser($usuario){
-        return $this->findOneBy(array("idUsuario" => $usuario->getIdUsuario()));
+        return $this->findOneBy(array("usuario" => $usuario));
     }
 
     public function addSaldo($saldo){

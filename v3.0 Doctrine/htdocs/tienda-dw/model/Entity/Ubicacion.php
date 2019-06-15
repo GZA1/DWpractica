@@ -3,6 +3,7 @@
 namespace Entity;
 
 /**
+ * @Table("ubicacion")
  * @Entity(repositoryClass="Repository\UbicacionRepository")
  */
 
@@ -43,12 +44,6 @@ class Ubicacion
      * @Column(name="longitud", type="float", nullable=true)
      */
     private $longitud;
-
-    /** 
-     * Una ubicacion es d
-     * @OneToMany(targetEntity="Cliente", mappedBy="ubicacion") 
-     */
-    private $clientes;
     /** 
      * Una ubicacion es d
      * @OneToMany(targetEntity="Tienda", mappedBy="ubicacion") 
@@ -255,6 +250,7 @@ class Ubicacion
 
         return $this;
     }
+
 }
     
 ?>

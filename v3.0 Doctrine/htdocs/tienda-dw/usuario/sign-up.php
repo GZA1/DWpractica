@@ -3,12 +3,33 @@
     require_once("../dbconfig.php");
 
     use Entity\Usuario;
+    use Entity\Cliente;
+    use Entity\Ubicacion;
 
     $em = GetEntityManager();
     
 
     if( $_SERVER['REQUEST_METHOD']=='GET') {
-?>
+        // error_reporting(E_ALL ^ E_NOTICE);
+        // $geo = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['HTTP_CLIENT_IP']));
+        // console_log($geo);
+
+        // $usuarioRep = $em->getRepository("Entity\\Usuario");
+        // $ubicRep = $em->getRepository("Entity\\Ubicacion");
+        // console_log((array)$ubicRep->findByMunic($geo['geoplugin_city']));
+        // //console_log($ubicRep->findIdByMunic('Valladolid'));
+        // //console_log($ubicRep->findIdByMunic('Cuéllar'));
+        // console_log((array)$usuarioRep->findByUsername('cli1'));
+
+        // $c = new Cliente();
+        // $c  ->setDomicilio('calle')
+        //     ->setUsuario($usuarioRep->findByUsername('cli1'))
+        //     ->setUbicacion($ubicRep->findByMunic($geo['geoplugin_city']));
+
+        // console_log((array)$c);
+        // $em->persist($c);
+        // $em->flush();
+        ?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -139,25 +160,44 @@
     }
     else if( $_SERVER['REQUEST_METHOD']=='POST') {
         $u = new Usuario();
-        console_log("Id cliente: ");
-        console_log($u->getId());
+        $c = new Cliente();
+        $usuarioRep = $em->getRepository("Entity\\Usuario");
+        $clienteRep = $em->getRepository("Entity\\Cliente");
+        $ubicRep = $em->getRepository("Entity\\Ubicacion");
+
+        error_reporting(E_ALL ^ E_NOTICE);
+        $geo = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['HTTP_CLIENT_IP']));
+        //console_log($geo);
+        $munic = $geo['geoplugin_city'];
+
+        
         $u  ->setUsername($_POST['username'])
             ->setPasswd($_POST['passwd'])
+            ->encryptPasswd()
             ->setNombre($_POST['nombre'])
-            ->setApell($_POST['apell'])
+            ->setApellidos($_POST['apell'])
             ->setEmail($_POST['email'])
-            ->setDomicilio($_POST['domicilio'])
-        ;
-        $u->encryptPasswd();
-        console_log("Cliente a añadir: ");
-        console_log($u);
-        if( $u->add() ) {
-            header('Location: sign-in.php?usrreg=1');
-            exit;
+            ->setTipo('cliente')
+            ;
+            
+            if( $usuarioRep->existsUsername($u->getUsername()) ||
+            $usuarioRep->existsUsername($u->getEmail())     ){
+                header('Location: ' . $_SERVER['PHP_SELF'] . '?usrreg=0');
+                exit;
+            }
+            
+        $em->persist($u);
+        $em->flush();
+
+        $c  ->setDomicilio($_POST['domicilio'])
+            ->setUsuario($usuarioRep->findByUsername($u->getUsername()))
+            ->setUbicacion($ubicRep->findByMunic($munic));
+
+        console_log((array)$c);
+        $em->persist($c);
+        $em->flush();
+
+        header('Location: sign-in.php?usrreg=1');
+        exit;
         }
-        else {
-            header('Location: ' . $_SERVER['PHP_SELF'] . '?usrreg=0');
-            exit;
-        }
-    }
 ?>

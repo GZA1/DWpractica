@@ -2,6 +2,7 @@
 
 namespace Entity;
 
+
 /**
  * @Table("cliente")
  * @Entity(repositoryClass="Repository\ClienteRepository")
@@ -31,7 +32,7 @@ class Cliente
 
     /**
      * Un cliente tienen una ubicacion
-     * @ManyToOne(targetEntity="Ubicacion")
+     * @OneToOne(targetEntity="Ubicacion")
      * @JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
      */
     private $ubicacion;
@@ -45,7 +46,7 @@ class Cliente
      * @OneToOne(targetEntity="Usuario")
      * @JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      */
-    private $idUsuario;
+    private $usuario;
 
 
 
@@ -53,6 +54,8 @@ class Cliente
 
 
     public function __construct(){
+        $this->generateId();
+        $this->saldo = 0;
     }
 
     /** GETTERS & SETTERS */
@@ -102,7 +105,7 @@ class Cliente
      */
     public function getSaldo()
     {
-        return $this->saldo;
+        return number_format(floatval($this->saldo),2);
     }
 
     /**
@@ -170,21 +173,21 @@ class Cliente
     }
 
     /**
-     * Get un idUsuario tiene un cliente
+     * Get un usuario tiene un cliente
      */
-    public function getIdUsuario()
+    public function getUsuario()
     {
-        return $this->idUsuario;
+        return $this->usuario;
     }
 
     /**
-     * Set un idUsuario tiene un cliente
+     * Set un usuario tiene un cliente
      *
      * @return  self
      */
-    public function setIdUsuario($idUsuario)
+    public function setUsuario($usuario)
     {
-        $this->idUsuario = $idUsuario;
+        $this->usuario = $usuario;
 
         return $this;
     }

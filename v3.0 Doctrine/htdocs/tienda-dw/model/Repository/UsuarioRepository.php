@@ -9,8 +9,6 @@ require_once '/xampp/appdata/model/console.php';
 class UsuarioRepository extends EntityRepository{
     
     public function login($usuario){
-        //$em  = getEntityManager();
-        //$qb = $em->createQueryBuilder();
         $qb = $this->_em->createQueryBuilder();
         if( ! is_null($usuario->getUsername()) ){
             $qb ->select('u')
@@ -34,27 +32,47 @@ class UsuarioRepository extends EntityRepository{
         return $res;
     }
 
-    //POsiblemente la vamos a eliminar
-    public function findId($usuario){
-        //$em  = getEntityManager();
-        //$qb = $em->createQueryBuilder();
+    
+    public function findByUsername($username){
         $qb = $this->_em->createQueryBuilder();
-        if( ! is_null($usuario->getIdUsuario()) ){
-            $qb ->select('u.id')
-                ->where('u.Usuario_idUsuario = :idUsr')
-                ->setParameter('idUsr', $usuario->getIdUsuario());
-            $tipo = $usuario->getTipo();
-            if($tipo == "cliente"){
-                $qb->from('Entity\\Cliente', 'u');
-            }else if($tipo == "empleado"){
-                $qb->from('Entity\\Empleado', 'u');
-            }
-        } else{
-            $this->finId($usuario->setIdUsuario($this->login($usuario)));//:D   -·__·-
-        }
+        $qb ->select('u')
+            ->from('Entity\\Usuario', 'u')
+            ->where('u.username = :usr')
+            ->setParameter('usr', $username);
         $res = $qb->getQuery()->getSingleResult();
         return $res;
     }
+
+
+    public function existsUsername($username){
+        $qb = $this->_em->createQueryBuilder();
+        $qb ->select('count(u.idUsuario)')
+            ->from('Entity\\Usuario', 'u')
+            ->where('u.username = :usr')
+            ->setParameter('usr', $username);
+        $res = $qb->getQuery()->getSingleScalarResult();
+        if( $res == 0 ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    public function existsEmail($email){
+        $qb = $this->_em->createQueryBuilder();
+        $qb ->select('count(u.idUsuario)')
+            ->from('Entity\\Usuario', 'u')
+            ->where('u.email = :email')
+            ->setParameter('email', $email);
+        $res = $qb->getQuery()->getSingleScalarResult();
+        if( $res == 0 ){
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+
 }
 
 ?>

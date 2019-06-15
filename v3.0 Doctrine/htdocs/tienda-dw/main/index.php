@@ -10,6 +10,8 @@
     $usuarioRep = $em->getRepository("Entity\\Usuario");
 
     session_start();
+    console_log($_SESSION);
+
 
     $c = null;
     if(isset($_SESSION['user'])){
