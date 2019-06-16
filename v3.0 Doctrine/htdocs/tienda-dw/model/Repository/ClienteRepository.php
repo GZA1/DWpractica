@@ -20,20 +20,27 @@ class ClienteRepository extends EntityRepository
                 ->setNombre($nombre)
                 ->setApellidos($apellidos)
             ;
+            $c->setDomicilio($domicilio);
             $qb = $this->_em->createQueryBuilder();
             $qb ->update('Entity\\Usuario', 'u')
-                ->update('Entity\\Cliente', 'c')
                 ->set('u.username', ':username')
                 ->set('u.nombre', ':nombre')
                 ->set('u.apellidos', ':apell')
-                ->set('c.domicilio', ':domic')
                 ->where('u.idUsuario = :u')
                 ->setParameter('username', $username)
                 ->setParameter('nombre', $nombre)
                 ->setParameter('apell', $apellidos)
+                ->setParameter('u', $u);
+            $res = $qb->getQuery()->getResult();
+            console_log($res);
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->update('Entity\\Cliente', 'c')
+                ->set('c.domicilio', ':domic')
+                ->where('c.usuario = :u')
                 ->setParameter('domic', $domicilio)
                 ->setParameter('u', $u);
             $res = $qb->getQuery()->getResult();
+            console_log($res);
             return true;
         } else{
             return false;

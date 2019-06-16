@@ -238,10 +238,10 @@
             
             case 'Actualizar Perfil':
                 if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
-                    if( $tipo == "cliente"  && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
+                    if( $tipo == "cliente"  && (! $usuarioRep->existsUsername($_POST['Username'])) && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
                         header('Location: ?updateProfile=1');
                         exit;
-                    }else if( $tipo == "empleado"  && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos']) ){
+                    }else if( $tipo == "empleado" && (! $usuarioRep->existsUsername($_POST['Username'])) && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos']) ){
                         header('Location: ?updateProfile=1');
                         exit;
                     }else{                        
@@ -258,7 +258,7 @@
                 console_log($_POST['oldPasswd']);
                 console_log($_POST['newPasswd']);
                 if( $u->getPasswd() == sha1($_POST['oldPasswd']) ){
-                    if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuarioRep->changePasswd($u, $_POST['newPasswd']) ){
+                    if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuarioRep->changePasswd($u, sha1($_POST['newPasswd'])) ){
                         header('Location: ?passwdchange=1');
                         exit;
                     }else {
