@@ -45,12 +45,13 @@ class Empleado
      * @OneToOne(targetEntity="Usuario")
      * @JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      */
-    private $idUsuario;
+    private $usuario;
 
 
 
 
     public function __construct(){
+        $this->generateId();
     }
 
 
@@ -183,21 +184,21 @@ class Empleado
 
     
     /**
-     * Get un idUsuario tiene un cliente
+     * Get un usuario tiene un cliente
      */
-    public function getIdUsuario()
+    public function getUsuario()
     {
-        return $this->idUsuario;
+        return $this->usuario;
     }
 
     /**
-     * Set un idUsuario tiene un cliente
+     * Set un usuario tiene un cliente
      *
      * @return  self
      */
-    public function setIdUsuario($idUsuario)
+    public function setUsuario($usuario)
     {
-        $this->idUsuario = $idUsuario;
+        $this->usuario = $usuario;
 
         return $this;
     }

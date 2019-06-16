@@ -24,25 +24,20 @@ class EmpleadoRepository extends EntityRepository{
     }
 
     public function findByUser($usuario){
-        return $this->findOneBy(array("Usuario_idUsuario" => $usuario->getIdUsuario()));
+        return $this->findOneBy(array("usuario" => $usuario));
     }
 
 
-    /* No se si funciona, probar*/
-    public function updatePerfilEmpleado($id, $username, $name, $surnames){
-        if(isset($username) && isset($name) && isset($surnames)){
-            $user = $this->findBy(['id'=>$id]);
-            $user->setUsername($username)
-                 ->setNombre($name)
-                 ->setApellidos($surnames)
-                 ->setDomicilio($address);
-            $em->persist($user);
-            $em->flush();
-            
+    public function updatePerfilEmpleado($u, $username, $nombre, $apellidos){
+        if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) ){
+            $u  ->setUsername($username)
+                ->setNombre($nombre)
+                ->setApellidos($apellidos)
+            ;
+            $this->_em->persist($u);
+            $this->_em->flush();
             return true;
-
-        }else{
-
+        } else{
             return false;
         }
     }
