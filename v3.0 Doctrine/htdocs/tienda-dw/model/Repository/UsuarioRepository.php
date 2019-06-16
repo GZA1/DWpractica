@@ -28,7 +28,11 @@ class UsuarioRepository extends EntityRepository{
             return false;
         }
         console_log($usuario->getPasswd());
-        $res = $qb->getQuery()->getSingleResult();
+        echo $qb;
+        echo  $usuario->getEmail();
+        echo  $usuario->getUsername();
+        echo  $usuario->getPasswd();
+        $res = $qb->getQuery()->getOneOrNullResult();
         return $res;
     }
 
