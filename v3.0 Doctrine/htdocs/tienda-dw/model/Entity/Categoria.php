@@ -3,6 +3,7 @@
 namespace Entity;
 /**
  * @Entity(repositoryClass="Repository\CategoriaRepository")
+ * @Table("categoria")
  */
 
  class Categoria

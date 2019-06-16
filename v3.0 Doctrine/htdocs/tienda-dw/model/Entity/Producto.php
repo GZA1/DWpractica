@@ -29,6 +29,16 @@ class Producto
      * @Column(name="precio", type="float", nullable=false)
      */
     private $precio;
+    
+    /**
+     * @Column(name="descripcion", length=200, nullable=true)
+     */
+    private $descripcion;
+    /**
+     * @Column(name="picPath", length=45, nullable=true)
+     */
+    private $picPath;
+
 
     /**
      * Un producto tiene muchas unidades
@@ -190,6 +200,46 @@ class Producto
     public function setCategoria($categoria)
     {
         $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of descripcion
+     */ 
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set the value of descripcion
+     *
+     * @return  self
+     */ 
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of picPath
+     */ 
+    public function getPicPath()
+    {
+        return $this->picPath;
+    }
+
+    /**
+     * Set the value of picPath
+     *
+     * @return  self
+     */ 
+    public function setPicPath($picPath)
+    {
+        $this->picPath = $picPath;
 
         return $this;
     }
