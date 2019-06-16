@@ -1,32 +1,37 @@
 <?php
+    require_once("../dbconfig.php");
     require_once('/xampp/appdata/model/console.php');
-    require_once('/xampp/appdata/model/Usuario.php');
-    require_once('/xampp/appdata/model/Cliente.php');
-    require_once('/xampp/appdata/model/Empleado.php');
-    
 
+    use Entity\Usuario;
+    use Entity\Cliente;
+    use Entity\Empleado;
+    
+    $em = GetEntityManager();
+    
     session_start();
 
     $u = null;
+    $c = null;
+    $e = null;
    
     if(isset($_SESSION['user'])){
-        $u = new Usuario($_SESSION['user']);
+        $usuarioRep = $em->getRepository("Entity\\Usuario");
+        $u = $_SESSION['user'];
         $tipo = $u->getTipo();
         $username = $u->getUsername();
             if($tipo == "cliente"){
-                $u = new Cliente($_SESSION['user']);
+                $clienteRep = $em->getRepository("Entity\\Cliente");
+                $c = $clienteRep->findByUser($_SESSION['user']);
             }else if($tipo == "empleado"){
-                $u = new Empleado($_SESSION['user']);
-                if( $u->getIsAdministrador() ){
-                    $u = new Admin($_SESSION['user']);
-                }
+                $empleadoRep = $em->getRepository("Entity\\Empleado");
+                $e = $empleadoRep->findByUser($_SESSION['user']);
             }
+        console_log((array)$u);
+        console_log((array)$c);
+        console_log((array)$e);
     }
-
-    // $usuario = new Usuario($_SESSION['user']);
     
     if( $_SERVER['REQUEST_METHOD']=='GET') {
-        // $u = $usuario->getLoggedUser();
 ?>
 <!DOCTYPE html>
 <html>
@@ -96,7 +101,7 @@
                     </div>
                     <div class="profileAttr">
                         <div class="attrName attr">Apellidos:</div>
-                        <p class="attr"><?php echo $u->getApell();?></p>
+                        <p class="attr"><?php echo $u->getApellidos();?></p>
                     </div>
 
                     <div class="profileAttr">
@@ -108,7 +113,7 @@
                     ?>
                     <div class="profileAttr">
                         <div class="attrName attr">Domicilio:</div>
-                        <p class="attr"><?php echo $u->getDomicilio();?></p>
+                        <p class="attr"><?php echo $c->getDomicilio();?></p>
                     </div>
 
                     <?php
@@ -132,12 +137,12 @@
                         <label>Nombre</label>
                         <input type="text" value="<?php echo htmlspecialchars($u->getNombre());?>" name="Nombre">
                         <label>Apellidos</label>
-                        <input type="text" value="<?php echo htmlspecialchars($u->getApell());?>" name="Apellidos">
+                        <input type="text" value="<?php echo htmlspecialchars($u->getApellidos());?>" name="Apellidos">
                         <?php
                         if($u->getTipo() == "cliente"){
                             ?>
                         <label>Domicilio</label>
-                        <input type="text" value="<?php echo htmlspecialchars($u->getDomicilio());?>" name="Domicilio">
+                        <input type="text" value="<?php echo htmlspecialchars($c->getDomicilio());?>" name="Domicilio">
                         <?php
                         }
                         ?>
@@ -232,11 +237,11 @@
         switch($_POST['optsSubmit']){
             
             case 'Actualizar Perfil':
-                if($u->compararPass(sha1($_POST['ContraseñaConfirm']))){
-                    if( $tipo == "cliente"  && $u->updatePerfilCliente($_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
+                if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
+                    if( $tipo == "cliente"  && (! $usuarioRep->existsUsername($_POST['Username'])) && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
                         header('Location: ?updateProfile=1');
                         exit;
-                    }else if( $tipo == "empleado"  && $u->updatePerfilEmpleado($_POST['Username'], $_POST['Nombre'], $_POST['Apellidos']) ){
+                    }else if( $tipo == "empleado" && (! $usuarioRep->existsUsername($_POST['Username'])) && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos']) ){
                         header('Location: ?updateProfile=1');
                         exit;
                     }else{                        
@@ -252,8 +257,8 @@
             case 'Cambiar contraseña':
                 console_log($_POST['oldPasswd']);
                 console_log($_POST['newPasswd']);
-                if( $u->compararPass(sha1($_POST['oldPasswd'])) ){
-                    if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $u->changePasswd($_POST['newPasswd']) ){
+                if( $u->getPasswd() == sha1($_POST['oldPasswd']) ){
+                    if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuarioRep->changePasswd($u, sha1($_POST['newPasswd'])) ){
                         header('Location: ?passwdchange=1');
                         exit;
                     }else {
