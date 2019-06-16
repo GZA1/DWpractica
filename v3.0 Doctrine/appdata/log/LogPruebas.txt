@@ -25,3 +25,13 @@ Ar' for column 'Tienda_id' at row 1
 2019-06-15 01:43:02 IdUsuario logueado: 2
 2019-06-15 01:57:40 IdUsuario logueado: 2
 2019-06-15 01:58:10 IdUsuario logueado: 2
+2019-06-15 12:24:12 IdUsuario logueado: 2
+2019-06-15 12:25:03 IdUsuario logueado: 2
+2019-06-15 18:02:32 IdUsuario logueado: 2
+2019-06-15 19:03:51 IdUsuario logueado: 4
+2019-06-15 19:19:47 IdUsuario logueado: 1
+2019-06-15 19:22:57 IdUsuario logueado: 4
+2019-06-15 19:24:01 IdUsuario logueado: 5
+2019-06-16 12:01:58 IdUsuario logueado: 9
+2019-06-16 12:06:55 IdUsuario logueado: 9
+2019-06-16 12:34:17 IdUsuario logueado: 1
