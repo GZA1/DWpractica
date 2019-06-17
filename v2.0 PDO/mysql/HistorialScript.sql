@@ -74,7 +74,6 @@ insert into Producto(nombre, marca, modelo, precio, categoria_id) values
     ("LG-Predator 1 TB", "LG", "Predator", 38.99, 4);
     
     insert into Producto(nombre, marca, modelo, precio, descripcion, picPath, categoria_id) values
-    ("WR", "Corsair", "4GB-3200-CL16", 162.99, "2 TB de almacenamiento, 5200RPM", "../img/externos/1.jpg",2),
     ("WD-Sauvage88 3TB", "-WesternDigital", "Sauvage88", 200, "3TB ultrarápido" , "../img/externos/2.jpg",4),
     ("Maxtor 116 500GB", "Maxtor", "116", 459.99, "500GB versátil y ágil", "../img/externos/3.jpg",4),
     ("LG-Predator 1 TB", "LG", "Predator", 38.99, "1 TB de almacenamiento ultra rápido para todo lo que necesites" , "../img/externos/4.jpg",4),

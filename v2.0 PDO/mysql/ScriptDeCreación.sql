@@ -1,12 +1,12 @@
 -- MySQL Workbench Forward Engineering
 
--- MySQL Workbench Forward Engineering
-
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema BD_Tienda
+-- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema BD_Tienda
@@ -62,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cliente` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   INDEX `fk_Cliente_Ubicacion2_idx` (`Ubicacion_idUbicacion` ASC) VISIBLE,
   INDEX `fk_Cliente_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
-  UNIQUE INDEX `Usuario_idUsuario_UNIQUE` (`Usuario_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Cliente_Ubicacion2`
     FOREIGN KEY (`Ubicacion_idUbicacion`)
     REFERENCES `BD_Tienda`.`Ubicacion` (`idUbicacion`)
@@ -112,7 +111,6 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Empleado` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   INDEX `fk_Empleado_Tienda1_idx` (`Tienda_id` ASC) VISIBLE,
   INDEX `fk_Empleado_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
-  UNIQUE INDEX `Usuario_idUsuario_UNIQUE` (`Usuario_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Empleado_Tienda1`
     FOREIGN KEY (`Tienda_id`)
     REFERENCES `BD_Tienda`.`Tienda` (`id`)
@@ -132,6 +130,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Categoria` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
+  `acronimo` VARCHAR(45) NOT NULL,
+  `descripcion` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -232,6 +232,7 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
 
@@ -38135,14 +38136,14 @@ insert into cliente (id, domicilio, Ubicacion_idUbicacion, Usuario_idUsuario)
 values ('CLI:000000004029530e0000000014d11trs', 'Calle Mayor 15', 16238, 2); #cli1 es de Cuéllar
 insert into cesta (costeTotal, Cliente_id) values (25, 'CLI:000000004029530e0000000014d11trs'), (12, 'CLI:000000004029530e0000000014d11trs');
 insert into pedido (estado, Cesta_id) values ('procesando', 1), ('completado', 2);
-insert into categoria(nombre) values("CPU");
 
 
-insert into categoria(nombre) values("RAM");
 
-insert into categoria(nombre) values("GPU");
-
-insert into categoria(nombre) values("DiscosDuros");
+insert into categoria(nombre, acronimo, descripcion) values
+("Memoria RAM", "RAM", "Memoria principal, acceso ultra-rapido, poca capacidad"),
+("Tarjetas Gráficas", "GPU", "Dispositivo r4esponsable del renderizado de los gráficos"),
+("Almacenamiento", "HDD/SSD", "Dispositivos de almacenamiento"),
+("Procesadores", "CPU", "Procesador, el cerebro del sistema");
 
 insert into Producto(nombre, marca, modelo, precio, categoria_id) values
 	("Sandy Bridge", 	"Intel", 	"i7-2600k-2.9GHz", 	123.99, 1),
@@ -38152,7 +38153,6 @@ insert into Producto(nombre, marca, modelo, precio, categoria_id) values
 	("FastSlim", 		"Kingston", "SODIMM-8GB-1600-CL15", 114.99, 2);
  
     insert into Producto(nombre, marca, modelo, precio, descripcion, picPath, categoria_id) values
-    ("WR", "Corsair", "4GB-3200-CL16", 162.99, "2 TB de almacenamiento, 5200RPM", "../img/externos/1.jpg",2),
     ("WD-Sauvage88 3TB", "-WesternDigital", "Sauvage88", 200, "3TB ultrarápido" , "../img/externos/2.jpg",4),
     ("Maxtor 116 500GB", "Maxtor", "116", 459.99, "500GB versátil y ágil", "../img/externos/3.jpg",4),
     ("LG-Predator 1 TB", "LG", "Predator", 38.99, "1 TB de almacenamiento ultra rápido para todo lo que necesites" , "../img/externos/4.jpg",4),
