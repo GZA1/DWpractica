@@ -147,7 +147,7 @@
 
                         <label id="aCPasswdConfirm">Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="aCpasswdConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="addCategoria" value="Añadir Categoria">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="addCategoria" value="Añadir Categoria">
                         <input class="submitCDF cancel" id="cancelButtonACAT" type="button" value="Cancelar">
                     </form>
                 </div>
@@ -156,7 +156,7 @@
                 <div id="editCatForm" class="configForm not-active">                    
                     <form method="post" id="eCAT">
                         <label id="CAT">Categoría </label> <br>
-                        <select id="categoriaElegida" name="cat_eleg" form="eCAT">
+                        <select id="categoriaElegida" name="cat_elegEdit" form="eCAT">
                             <?php
                             $categorias = $em->getRepository("Entity\\Categoria")->findAll();
                              foreach($categorias as $c){ ?>
@@ -174,7 +174,7 @@
 
                         <label id="eCPasswdConfirm">Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="eCpasswdConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="editCategoria" value="Editar Categoria">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="editCategoria" value="Editar Categoria">
                         <input class="submitCDF cancel" id="cancelButtonECAT" type="button" value="Cancelar">
                     </form>
                 </div>
@@ -182,18 +182,20 @@
                 <!-- 3º Formulario --- Eliminar Categoria -->
                 <div id="removeCatForm" class="configForm not-active" >                    
                     <form method="post" id="rCAT">                        
-                        <select id="catToRem" name="cat_eleg" form="eCAT">
+                        <label> Categoria </label><br>
+                        <select id="catToRem" name="cat_elegRem" form="eCAT">
                                 <?php
                                 $categorias = $em->getRepository("Entity\\Categoria")->findAll();
                                 foreach($categorias as $c){ ?>
-                                    <option value=" <?php echo $c->getAcronimo() ?>"> Categoria <?php echo $c->getAcronimo() ?></option>";
+                                    
+                                    <option value=" <?php echo $c->getAcronimo() ?>"><?php echo $c->getAcronimo() ?></option>";
                                 <?php 
                                 }
                                 ?>        
                         </select>
                         <label id="rCPasswdConfirm">Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="rCpasswdConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="remCategoria" value="Eliminar Categoria">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="remCategoria" value="Eliminar Categoria">
                         <input class="submitCDF cancel" id="cancelButtonRCAT" type="button" value="Cancelar">
                     </form>
                 </div>
@@ -225,7 +227,7 @@
                         </select>
                         <label id="aPPasswdConfirm">Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="aPpasswdConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="addProducto" value="Añadir Producto">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="addProducto" value="Añadir Producto">
                         <input class="submitCDF cancel" id="cancelButtonAPROD" type="button" value="Cancelar">
                     </form>
                 </div>
@@ -234,17 +236,17 @@
                 <div id="editProdForm" class="configForm not-active">                    
                     <form method="post" id="ePROD">
                     <label id="ePrNombre">Nombre de Producto</label>
-                        <input type="text" id="nombrePrEdit" name="nombreCAT">
+                        <input type="text" id="nombrePrEdit" name="nombrePrEDIT">
                         <label id="ePrMarca">Marca</label>
-                        <input type="text" id="marcaPrEdit" name="acrCAT">
+                        <input type="text" id="marcaPrEdit" name="marcaPrEDIT">
                         <label id="ePrModelo">Modelo</label>
-                        <input type="text" id="modeloPrEdit" name="descCAT">
+                        <input type="text" id="modeloPrEdit" name="modeloPrEDIT">
                         <label id="ePrPrecio">Precio</label>
-                        <input type="text" id="precioPrEdit" name="descCAT">
+                        <input type="text" id="precioPrEdit" name="precioPrEDIT">
                         <label id="ePrDescripcion">Descripcion</label>
-                        <input type="text" id="descripcionPrEdit" name="descCAT">
+                        <input type="text" id="descripcionPrEdit" name="descPrEDIT">
                         <label id="ePrPicPath">Path de la Foto</label>
-                        <input type="text" id="picpathPrEdit" name="descCAT">
+                        <input type="text" id="picpathPrEdit" name="picpathPrEDIT">
                         <br><label>Categorias disponibles</label><br>
                         <select id="catDisponibles" name="cat_eleg" form="eCAT">
                         <?php 
@@ -257,7 +259,7 @@
                         </select>
                         <label id="ePPasswdConfirm">Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="ePpasswdConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="editProducto" value="Editar Producto">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="editProducto" value="Editar Producto">
                         <input class="submitCDF cancel" id="cancelButtonEPROD" type="button" value="Cancelar">
                     </form>
                 </div>
@@ -266,7 +268,7 @@
                 <div id="remProdForm" class="configForm not-active">                    
                     <form method="post" id="rPROD">
                         
-                    <select id="prToRem" name="cat_eleg" form="eCAT">
+                    <select id="prToRem" name="pr_elegRemove" form="eCAT">
                                 <?php
                                 $productos = $em->getRepository("Entity\\Producto")->findAll();
                                 foreach($productos as $p){ ?>
@@ -277,7 +279,7 @@
                         </select> 
                         <label id="rPPasswdConfirm">Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="rPpasswdConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Eliminar Producto">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="updateButton" value="Eliminar Producto">
                         <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
                     </form>
                 </div>
@@ -288,7 +290,78 @@
 </html>
 <?php
 }else if( $_SERVER['REQUEST_METHOD']=='POST') {
+    console_log('POST');
+        console_log($_POST['optsSubmit2']);
+        if(isset($_POST['optsSubmit2'])){
+            switch($_POST['optsSubmit2']){
+                case 'Añadir Categoria':
+                    $nuevaCategoria = new Categoria();
+                    $nuevaCategoria->setNombre($_POST['nombreCATAdd'])
+                                    ->setAcronimo($_POST['acrCATAdd'])
+                                    ->setDescripcion($_POST['descCATAdd']);
+                    $em->persist($nuevaCategoria);
+                    $em->flush();
+                    header('Location: ?addCat=1');
+                break;
 
+                case 'Editar Categoria':                
+                
+                    $catEdit = $em->findOneBy('acronimo', $_POST['cat_elegEdit']);
+                    $catEdit->setNombre($_POST['nombreCATEdit'])
+                            ->setAcronimo($_POST['acrCATEdit'])
+                            ->setDescripcion($_POST['descCATEdit']);
+                    $em->persist($catEdit);
+                    $em->flush();
+                    header('Location: ?editCat=1');
+                
+                break;
+
+                case 'Eliminar Categoria':
+                    $catRemove = $em->findOneBy('acronimo', $_POST['cat_elegRem']);
+                    $em->remove($catRemove);
+                    $em->flush();
+                    header('Location: ?remCat=1');
+                break;
+                case 'Añadir Producto':
+                    $nuevoProducto = new Producto();
+                    $nuevoProducto->setNombre($_POST['nombrePrNEW'])
+                                    ->setMarca($_POST['marcaPrNEW'])
+                                    ->setModelo($_POST['modeloPrNEW'])
+                                    ->setPrecio($_POST['precioPrNEW'])
+                                    ->setDescripcion($_POST['descripcionPrNEW'])
+                                    ->setPicPath($_POST['picpathPrNEW']);
+                    $em->persist($nuevoProducto);
+                    $em->flush();
+                    header('Location: ?addPr=1');
+                       
+                break;
+
+                case 'Editar Producto':
+                $catEdit = $em->findOneBy('acronimo', $_POST['cat_elegEdit']);
+                if(isset($prEdit)){
+                    $prEdit->setNombre($_POST['nombrePrEDIT'])
+                    ->setMarca($_POST['marcaPrEDIT'])
+                    ->setModelo($_POST['modeloPrEDIT'])
+                    ->setPrecio($_POST['precioPrEDIT'])
+                    ->setDescripcion($_POST['descPrEDIT'])
+                    ->setPicPath($_POST['picpathPrEDIT']);
+                    $em->persist($prEdit);
+                    $em->flush();
+                    header('Location: ?editPr=1');
+                }else{
+                    header('Location: ?editPr=0');
+                }
+                
+                break;
+
+                case 'Eliminar Producto':
+                    $prRemove = $em->findOneBy('nombre', $_POST['pr_elegRemove']);
+                    $em->remove($prRemove);
+                    $em->flush();
+                    header('Location: ?removePr=1');
+                break;
+            }
+        }
 
 
        
