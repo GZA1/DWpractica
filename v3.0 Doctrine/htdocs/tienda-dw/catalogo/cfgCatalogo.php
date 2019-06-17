@@ -1,7 +1,7 @@
 <?php
 
     //require_once('/xampp/appdata/model/Saldo.php');
-    require_once('dbconfig.php');
+    require_once '../dbconfig.php';
     use Entity\Usuario;
     use Entity\Cliente;
     use Entity\Empleado;
@@ -43,9 +43,9 @@
         <meta name="keywords" content="hardware components">
         <meta name="robots" content="NoIndex, NoFollow">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="./styles/style-shared.css">
-        <link rel="stylesheet" href="./styles/style-cfg.css">
-        <link rel="stylesheet" href="./styles/style-perfil.css">
+        <link rel="stylesheet" href="../styles/style-shared.css">
+        <link rel="stylesheet" href="../styles/style-cfg.css">
+        <link rel="stylesheet" href="../styles/style-perfil.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
@@ -111,7 +111,7 @@
             <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
             <div id="logo-inic">
                 <a href="../main/index.php">
-                    <img src="./img/logo_horizontal.png" width="100%">
+                    <img src="../img/logo_horizontal.png" width="100%">
                 </a>
             </div>
             <div id="dashboard">
