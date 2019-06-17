@@ -219,6 +219,7 @@
                         <input type="text" id="descripcionPrNuevo" name="descripcionPrNEW">
                         <label id="nPrPicPath">Path de la Foto (OPT)</label>
                         <input type="text" id="picpathPrNuevo" name="picpathPrNEW">
+                        <br><label>Categorias disponibles</label><br>
                         <select id="nPrCat" name="cat_prod" form="aPROD">
                             <?php 
                                 $categorias = $em->getRepository("Entity\\Categoria")->findAll();
@@ -270,7 +271,7 @@
                 <!-- 6º Formulario --- Eliminar Producto -->
                 <div id="remProdForm" class="configForm not-active">                    
                     <form method="post" id="rPROD">
-                        
+                    <br><label>Categorias disponibles</label><br>
                     <select id="prToRem" name="pr_elegRemove" form="eCAT">
                                 <?php
                                 $productos = $em->getRepository("Entity\\Producto")->findAll();
@@ -377,7 +378,7 @@
 <?php 
             }
         }
-
+?>
 
 
 
