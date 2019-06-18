@@ -49,7 +49,7 @@ form>label {
     border-width: 2px;
     border-radius: 4px;
     background-color: #3399ff;
-    height: 6vh;
+    max-height: 8vh;
     /* vertical-align: middle; */
 }
 

@@ -138,12 +138,17 @@
                     <div class="dropdown-actuador flex_rows">
                         <div>
                         <!-- Introducir el enlace Admin-->
-                            <a href="../usuario/cfg.php"><img src="../img/gear.png" height="20px"></a>
+                            <img src="../img/gear.png" height="20px">
                         </div>
                         <div class="flex_cols">
-                            <div style="height: 7px; visibility: hidden"></div>                            
-                        </div> 
-                    </div>                    
+                            <div style="height: 7px; visibility: hidden"></div> 
+                            <div class="down-arrow"></div>                           
+                        </div>                         
+                    </div>
+                    <div class="dropdown-contenido">
+                        <a href="../usuario/cfg.php">Configuración Usuarios</a>
+                        <a href="../catalogo/cfgCatalogo.php">Configuración Catálogo</a>
+                    </div>                   
                 </div>
             </li>
         <?php
