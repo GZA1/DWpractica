@@ -11,7 +11,8 @@ class Empleado
 {
     /** 
      * @Id
-     * @Column(name="id",length=45, nullable=false, unique=true) 
+     * @Column(name="id",length=45, nullable=false, unique=true)
+     * @GeneratedColumn(strategy="NONE")
     */
     private $id;
     /** 
@@ -52,6 +53,9 @@ class Empleado
 
     public function __construct(){
         $this->generateId();
+        $this->activo = 1;
+        $this->isAdministrador = 0;
+        console_log((array)$this);
     }
 
 
@@ -207,7 +211,7 @@ class Empleado
     /*MAIN METHODS*/
 
     private function generateId(){
-        $this ->id = "EMP:" . spl_object_hash($this);
+        $this->id = "EMP:" . spl_object_hash($this);
     }
 
 

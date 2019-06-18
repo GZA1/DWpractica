@@ -17,8 +17,10 @@ drop database bd_tienda;
 
 delete from Usuario
 where idUsuario=2;
-show variables;
+show variables like 'sql_safe_updates';
 set sql_safe_updates = 0;
+SHOW VARIABLES LIKE 'sql_mode';
+set sql_mode = 0;
 
 
 /*Almacen central*/

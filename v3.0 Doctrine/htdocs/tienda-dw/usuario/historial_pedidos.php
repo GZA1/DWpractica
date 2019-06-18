@@ -1,15 +1,20 @@
 <?php
     require_once('/xampp/appdata/model/console.php');
-    require_once('/xampp/appdata/model/Usuario.php');
+
+    use Entity\Usuario;
+    use Entity\Cliente;
 
     session_start();
 
     $c = null;
    
     if(isset($_SESSION['user'])){
-        $c = new Cliente($_SESSION['user']);
+        $usuarioRep = $em->getRepository("Entity\\Usuario");
+        $clienteRep = $em->getRepository("Entity\\Cliente");
+        $c = $clienteRep->findByUser($_SESSION['user']);
         $tipo = $c->getTipo();
-        $username = $c->getUsername();
+        $username = $u->getUsername();
+        //Esperamos para cambiar esto después de modificar la bd
         $listaPedidos = $c->getPedidos();
 ?>
 <!DOCTYPE html>

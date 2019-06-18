@@ -43,6 +43,10 @@ class UsuarioRepository extends EntityRepository{
         return $res;
     }
 
+    public function exists($usuario){
+        return  $this->existsEmail($usuario->getEmail()) ||
+                $this->existsUsername($usuario->getUsername());
+    }
 
     public function existsUsername($username){
         $qb = $this->_em->createQueryBuilder();
@@ -88,6 +92,22 @@ class UsuarioRepository extends EntityRepository{
         }
     }
 
+    public function findEmpleados(){
+        return $this->findBy(['tipo' => 'empleado']);
+    }
+
+    public function findClientes(){
+        return $this->findBy(['tipo' => 'cliente']);
+    }
+
+    public function registrarUsuario($u){
+        if(isset($u)){
+            $this->_em->persist($u);
+            $this->_em->flush();
+            return true;
+        }
+        return false;
+    }
 
 }
 

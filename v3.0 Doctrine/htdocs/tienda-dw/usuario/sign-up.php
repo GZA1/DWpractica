@@ -180,22 +180,20 @@
             ->setTipo('cliente')
             ;
             
-            if( $usuarioRep->existsUsername($u->getUsername()) ||
-            $usuarioRep->existsUsername($u->getEmail())     ){
-                header('Location: ' . $_SERVER['PHP_SELF'] . '?usrreg=0');
-                exit;
-            }
-            
-        $em->persist($u);
-        $em->flush();
+        if( $usuarioRep->exists($u) ){
+            header('Location: ' . $_SERVER['PHP_SELF'] . '?usrreg=0');
+            exit;
+        }
+
+        $usuarioRep->registrarUsuario($u);
+        console_log((array)$usuarioRep->findByUsername($u->getUsername()));
 
         $c  ->setDomicilio($_POST['domicilio'])
             ->setUsuario($usuarioRep->findByUsername($u->getUsername()))
             ->setUbicacion($ubicRep->findByMunic($munic));
 
         console_log((array)$c);
-        $em->persist($c);
-        $em->flush();
+        $clienteRep->registrarCliente($c);
 
         header('Location: sign-in.php?usrreg=1');
         exit;

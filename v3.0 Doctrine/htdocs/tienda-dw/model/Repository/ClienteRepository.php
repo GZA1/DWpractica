@@ -15,12 +15,10 @@ class ClienteRepository extends EntityRepository
 
     public function updatePerfilCliente($u, $username, $nombre, $apellidos, $domicilio){
         if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) && isset($domicilio) ){
-            $c = $this->findByUser($u);
             $u  ->setUsername($username)
                 ->setNombre($nombre)
                 ->setApellidos($apellidos)
             ;
-            $c->setDomicilio($domicilio);
             $qb = $this->_em->createQueryBuilder();
             $qb ->update('Entity\\Usuario', 'u')
                 ->set('u.username', ':username')
@@ -155,6 +153,15 @@ private function getDataClienteId($id){
     }
     
 */
+
+public function registrarCliente($c){
+    if(isset($c)){
+        $this->_em->persist($c);
+        $this->_em->flush();
+        return true;
+    }
+    return false;
+}
 
 
 

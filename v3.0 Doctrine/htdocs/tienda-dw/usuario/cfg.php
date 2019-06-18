@@ -1,36 +1,39 @@
 <?php
     require_once('/xampp/appdata/model/console.php');
-    require_once('/xampp/appdata/model/Usuario.php');
-    require_once('/xampp/appdata/model/Cliente.php');
-    require_once('/xampp/appdata/model/Empleado.php');
-    require_once('/xampp/appdata/model/Admin.php');
-    require_once('/xampp/appdata/model/Tienda.php');
-    require_once('/xampp/appdata/model/Ubicacion.php');
-    //require_once('/xampp/appdata/model/Saldo.php');
+    require_once("../dbconfig.php");    
+
+    use Entity\Usuario;
+    use Entity\Cliente;
+    use Entity\Empleado;
+    use Entity\Tienda;
+    use Entity\Ubicacion;
+
+    $em = GetEntityManager();
 
     session_start();
 
-    $c = null;
+    $u = null;
+    // $c = null;
+    // $e = null;
     $ubicacion = null;
    
     if(isset($_SESSION['user'])){
-        $u = new Usuario($_SESSION['user']);
+        $usuarioRep = $em->getRepository("Entity\\Usuario");
+        $tiendaRep = $em->getRepository("Entity\\Tienda");
+        $ubicacionRep = $em->getRepository("Entity\\Ubicacion");
+        $u = $_SESSION['user'];
         $tipo = $u->getTipo();
         $username = $u->getUsername();
             if($tipo == "cliente"){
-                $u = new Cliente($_SESSION['user']);
+                $clienteRep = $em->getRepository("Entity\\Cliente");
+                $c = $clienteRep->findByUser($u);
             }else if($tipo == "empleado"){
-                $u = new Empleado($_SESSION['user']);
-                if( $u->getIsAdministrador() ){
-                    $u = new Admin($_SESSION['user']);
-                }
+                $empleadoRep = $em->getRepository("Entity\\Empleado");
+                $e = $empleadoRep->findByUser($u);
             }
     }
-
-    // $usuario = new Usuario($_SESSION['user']);
     
     if( $_SERVER['REQUEST_METHOD']=='GET') {
-        // $c = $usuario->getLoggedUser();
 ?>
 <html>
 <head>
@@ -81,31 +84,10 @@
     </script>
 </head>
 <body>
-    <div id="contenedor-inic" class="flex_cols heightmax">
-        <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
-        <div id="logo-inic">
-            <a href="../main/index.php">
-                <img src="../img/logo_horizontal.png" width="100%">
-            </a>
-        </div>
-        <!-- Configuracion de administrador -->
-        <?php            
-            if($u->getTipo() == "empleado" && $u->getisAdministrador()){
-
-                require_once("cfgAdmin.php");
-        
-            }else {
-                require_once("cfgEmpleado.php");
-            }
-        ?>
-        
-    </div>
-</body>
-</html>
 <?php
         if(isset($_GET['newEmp'])){
            if($_GET['newEmp'] == 1){
-    ?>
+?>
         <script type="text/javascript">
             $('head').before('<div id="newEmp" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Empleado Registrado</div>');        
             setTimeout(function(){
@@ -150,9 +132,9 @@
                 );        
         </script>  
 <?php
-        }
-    }else if(isset($_GET['empDEL'])){
-        if($_GET['empDEL'] == 1){
+            }
+        }else if(isset($_GET['empDEL'])){
+            if($_GET['empDEL'] == 1){
 ?>
         <script type="text/javascript">
             $('head').before('<div id="empDeleted" style="width: 100%; height: 20px; color: #3ca51f; background-color: #e0e0d2; padding: 10px;">Empleado dado de baja con éxito</div>');        
@@ -165,7 +147,7 @@
         }else{
 ?>
             <script type="text/javascript">
-                $('head').before('<div id="empNoExist" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Empleado no encontrado</div>');        
+                $('head').before('<div id="empNoExist" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Empleado no encontrado O ERES TÚ MISMO!</div>');        
                 setTimeout(function(){
                     $('#empNoExist').fadeOut('fast');
                     }, 4000
@@ -174,26 +156,51 @@
 <?php
         }
     }
+?>
+    <div id="contenedor-inic" class="flex_cols heightmax">
+        <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+        <div id="logo-inic">
+            <a href="../main/index.php">
+                <img src="../img/logo_horizontal.png" width="100%">
+            </a>
+        </div>
+        <!-- Configuracion de administrador -->
+        <?php            
+            if( ! isset($c) && $e->getisAdministrador()){
+                require_once("cfgAdmin.php");
+            }
+
+        ?>
+        
+    </div>
+</body>
+</html>
+<?php
 
     }else if( $_SERVER['REQUEST_METHOD']=='POST') {
-        console_log('POST');
-        console_log($_POST['optsSubmit']);
         if(isset($_POST['optsSubmit'])){
             switch($_POST['optsSubmit']){
                 case 'Añadir Empleado':
-                    if( $u->compararPass(sha1($_POST['ContraseñaConfirm'])) ){
+                    if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
                         $newEmpleado = new Empleado();
-                        $newEmpleado ->setUsername($_POST['Username'])
-                                    ->setPasswd($_POST['Passwd']) 
+                        $newUsuario = new Usuario();
+                        $tiendaSeleccionada = $tiendaRep->find($_POST['tienda_id']);
+                        $newUsuario ->setUsername($_POST['Username'])
+                                    ->setPasswd($_POST['Passwd'])
+                                    ->encryptPasswd()
                                     ->setNombre($_POST['Nombre']) 
-                                    ->setApell($_POST['Apellidos']) 
-                                    ->setEmail($_POST['Email']) 
-                                    ->setPhotoPath($_POST['PhotoPath']) 
-                                    ->setCargo($_POST['Cargo'])
-                                    ->setTienda_id($_POST['tienda_id']);
-                                    
-                        $newEmpleado->encryptPasswd();
-                        if( $u->registrarEmpleado($newEmpleado) ){
+                                    ->setApellidos($_POST['Apellidos'])
+                                    ->setTipo('empleado')
+                                    ->setEmail($_POST['Email']);
+                        // console_log((array)$newUsuario);
+                        if( ! $usuarioRep->exists($newUsuario) ){
+                            $usuarioRep->registrarUsuario($newUsuario);
+                            $newEmpleado->setUsuario($usuarioRep->findByUsername($newUsuario->getUsername()))
+                                        ->setPhotoPath($_POST['PhotoPath']) 
+                                        ->setCargo($_POST['Cargo'])
+                                        ->setTienda($tiendaSeleccionada);
+                            console_log((array)$newEmpleado);
+                            $empleadoRep->registrarEmpleado($newEmpleado);
                             header('Location: ?newEmp=1');
                             exit;
                         }else{
@@ -207,32 +214,33 @@
                 break;
 
                 case 'Baja Empleado':
-                    if($u->doIDexist($_POST['idBajaEmpleado'])){
-                        $emp = new Empleado($_POST['idBajaEmpleado']);
-                        $u->bajaEmpleado($emp);                    
+                    $usBaja = $usuarioRep->find($_POST['idBajaEmpleado']);
+                    console_log((array)$usBaja);
+                    if( $usBaja != $u && $empleadoRep->darDeBaja($usBaja) ){
                         header('Location: ?empDEL=1');
-
+                        exit;
                     }else{
                         header('Location: ?empDEL=0');
+                        exit;
                     }
                 
                 break;
 
                 case 'Añadir Tienda':
-                    console_log("Add tienda");
-                    console_log($_POST);
-                    if( $u->compararPass(sha1($_POST['ContraseñaConfirm']))){
-                        console_log($_POST['CodigoPostal']);
-                        console_log($_POST['Municipio']);
-                        $ubicacion = new Ubicacion();
-                        $ubicacion  ->setCp($_POST['CodigoPostal'])
-                                    ->setMunicipio($_POST['Municipio']);
+                    // console_log("Add tienda");
+                    // console_log($_POST);
+                    if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
+                        // console_log($_POST['CodigoPostal']);
+                        // console_log($_POST['Municipio']);
+                        $cp = $_POST['CodigoPostal'];
+                        $ubic = $ubicacionRep->findOneBy(['cp'=>$cp]);
+                        console_log((array)$ubic);
                         $newTienda = new Tienda();
                         $newTienda  ->setNombre($_POST['NombreTienda'])
                                     ->setDireccion($_POST['Direccion']) 
                                     ->setEmail($_POST['EmailTienda'])
-                                    ->setIdUbicacion($ubicacion->searchIdByCpMunic());
-                        if( $u->añadirTienda($newTienda) ){
+                                    ->setUbicacion($ubic);
+                        if( isset($ubic) && $tiendaRep->registrarTienda($newTienda) ){
                             header('Location: ?newShop=1');
                             exit;
                         }else{

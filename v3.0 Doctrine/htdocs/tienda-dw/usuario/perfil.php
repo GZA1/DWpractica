@@ -21,10 +21,10 @@
         $username = $u->getUsername();
             if($tipo == "cliente"){
                 $clienteRep = $em->getRepository("Entity\\Cliente");
-                $c = $clienteRep->findByUser($_SESSION['user']);
+                $c = $clienteRep->findByUser($u);
             }else if($tipo == "empleado"){
                 $empleadoRep = $em->getRepository("Entity\\Empleado");
-                $e = $empleadoRep->findByUser($_SESSION['user']);
+                $e = $empleadoRep->findByUser($u);
             }
         console_log((array)$u);
         console_log((array)$c);
@@ -117,6 +117,13 @@
                     </div>
 
                     <?php
+                    } else if($u->getTipo() == "empleado"){
+                    ?>
+                    <div class="profileAttr">
+                        <div class="attrName attr">PhotoPath:</div>
+                        <p class="attr"><?php echo $e->getPhotoPath();?></p>
+                    </div>
+                    <?php
                     }
                     ?>
 
@@ -143,6 +150,11 @@
                             ?>
                         <label>Domicilio</label>
                         <input type="text" value="<?php echo htmlspecialchars($c->getDomicilio());?>" name="Domicilio">
+                        <?php
+                        } else if($u->getTipo() == "empleado"){
+                        ?>
+                        <label id="lPhotopath">Ruta de foto de perfil</label>
+                        <input type="file" accept="image/*" defaultValue="<?php echo htmlspecialchars($e->getPhotoPath());?>" placeholder="Opcional" name="PhotoPath">
                         <?php
                         }
                         ?>
@@ -238,10 +250,12 @@
             
             case 'Actualizar Perfil':
                 if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
-                    if( $tipo == "cliente"  && (! $usuarioRep->existsUsername($_POST['Username'])) && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
+                    if( $tipo == "cliente"  && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername()  ) 
+                        && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
                         header('Location: ?updateProfile=1');
                         exit;
-                    }else if( $tipo == "empleado" && (! $usuarioRep->existsUsername($_POST['Username'])) && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos']) ){
+                    }else if( $tipo == "empleado" && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername()  )
+                        && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['PhotoPath']) ){
                         header('Location: ?updateProfile=1');
                         exit;
                     }else{                        
