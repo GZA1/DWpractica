@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cliente` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   INDEX `fk_Cliente_Ubicacion2_idx` (`Ubicacion_idUbicacion` ASC) VISIBLE,
   INDEX `fk_Cliente_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
+  UNIQUE INDEX `Usuario_idUsuario_UNIQUE` (`Usuario_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Cliente_Ubicacion2`
     FOREIGN KEY (`Ubicacion_idUbicacion`)
     REFERENCES `BD_Tienda`.`Ubicacion` (`idUbicacion`)
@@ -111,6 +112,7 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Empleado` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   INDEX `fk_Empleado_Tienda1_idx` (`Tienda_id` ASC) VISIBLE,
   INDEX `fk_Empleado_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
+  UNIQUE INDEX `Usuario_idUsuario_UNIQUE` (`Usuario_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Empleado_Tienda1`
     FOREIGN KEY (`Tienda_id`)
     REFERENCES `BD_Tienda`.`Tienda` (`id`)
@@ -131,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Categoria` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `acronimo` VARCHAR(45) NOT NULL,
-  `descripcion` VARCHAR(200) NOT NULL,
+  `descripcion` VARCHAR(255) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -146,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Producto` (
   `marca` VARCHAR(45) NOT NULL,
   `modelo` VARCHAR(45) NOT NULL,
   `precio` DOUBLE NOT NULL,
-  `descripcion` VARCHAR(200) NULL,
+  `descripcion` VARCHAR(255) NULL,
   `picPath` VARCHAR(45) NULL,
   `Categoria_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -232,6 +234,9 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
 
 
 
