@@ -60,7 +60,10 @@
                 $("#removeCatForm").fadeOut('fast');  
                 $("#añadirProdForm").fadeOut('fast');  
                 $("#editProdForm").fadeOut('fast');  
-                $("#remProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast'); 
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');   
             });         
             $("#optEditCAT").click(function(){
                 $("#añadirCatForm").fadeOut('fast'); 
@@ -68,7 +71,10 @@
                 $("#removeCatForm").fadeOut('fast');  
                 $("#añadirProdForm").fadeOut('fast');  
                 $("#editProdForm").fadeOut('fast');  
-                $("#remProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');    
             });   
             $("#optRemCAT").click(function(){
                 $("#añadirCatForm").fadeOut('fast');
@@ -76,7 +82,10 @@
                 $("#removeCatForm").fadeIn('fast');
                 $("#añadirProdForm").fadeOut('fast');  
                 $("#editProdForm").fadeOut('fast');  
-                $("#remProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');    
             });
             $("#optAddPROD").click(function(){
                 $("#añadirCatForm").fadeOut('fast'); 
@@ -84,7 +93,10 @@
                 $("#removeCatForm").fadeOut('fast');  
                 $("#añadirProdForm").fadeIn('fast'); 
                 $("#editProdForm").fadeOut('fast');  
-                $("#remProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');    
             });         
             $("#optEditPROD").click(function(){
                 $("#añadirCatForm").fadeOut('fast');
@@ -92,7 +104,10 @@
                 $("#removeCatForm").fadeOut('fast');  
                 $("#añadirProdForm").fadeOut('fast');  
                 $("#editProdForm").fadeIn('fast');  
-                $("#remProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');    
             });       
             $("#optRemPROD").click(function(){
                 $("#añadirCatForm").fadeOut('fast');  
@@ -101,6 +116,42 @@
                 $("#añadirProdForm").fadeOut('fast');  
                 $("#editProdForm").fadeOut('fast');  
                 $("#remProdForm").fadeIn('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');  
+            });         
+            $("#optAumSTOCK").click(function(){
+                $("#añadirCatForm").fadeOut('fast'); 
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast'); 
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');  
+                $("#aumStockForm").fadeIn('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');  
+            });         
+            $("#optRedSTOCK").click(function(){
+                $("#añadirCatForm").fadeOut('fast');
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeIn('fast');  
+                $("#transProdForm").fadeOut('fast');    
+            });       
+            $("#optTransPROD").click(function(){
+                $("#añadirCatForm").fadeOut('fast');  
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeIn('fast');  
             });         
         });
         
@@ -127,6 +178,9 @@
                     <div class="optCfg"><a style="display: inline-block;" id="optAddPROD" class="adminOpt">Añadir Producto</a></div>
                     <div class="optCfg"><a style="display: inline-block;" id="optEditPROD" class="adminOpt">Editar Producto</a></div>
                     <div class="optCfg"><a style="display: inline-block;" id="optRemPROD" class="adminOpt">Eliminar Producto</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optAumSTOCK" class="adminOpt">Aumentar Stock</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optRedSTOCK" class="adminOpt">Reducir Stock</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optTransPROD" class="adminOpt">Transladar Stock</a></div>
                     <!--<div class="optCfg"><a style="display: inline-block;" id="optTransPROD" class="adminOpt">Transladar Producto</a></div>-->
               
 
@@ -219,7 +273,7 @@
                         <input type="text" id="descripcionPrNuevo" name="descripcionPrNEW">
                         <label id="nPrPicPath">Path de la Foto (OPT)</label>
                         <input type="text" id="picpathPrNuevo" name="picpathPrNEW">
-                        <br><label>Categorias disponibles</label><br>
+                        <label>Categorias disponibles</label><br>
                         <select id="nPrCat" name="cat_prod" form="aPROD">
                             <?php 
                                 $categorias = $em->getRepository("Entity\\Categoria")->findAll();
@@ -251,7 +305,7 @@
                         <input type="text" id="descripcionPrEdit" name="descPrEDIT">
                         <label id="ePrPicPath">Path de la Foto</label>
                         <input type="text" id="picpathPrEdit" name="picpathPrEDIT">
-                        <br><label>Categorias disponibles</label><br>
+                        <label>Categorias disponibles</label><br>
                         <select id="catDisponibles" name="cat_eleg" form="eCAT">
                         <?php 
                             $categorias = $em->getRepository("Entity\\Categoria")->findAll();
@@ -271,7 +325,7 @@
                 <!-- 6º Formulario --- Eliminar Producto -->
                 <div id="remProdForm" class="configForm not-active">                    
                     <form method="post" id="rPROD">
-                    <br><label>Categorias disponibles</label><br>
+                    <label>Productos disponibles</label><br>
                     <select id="prToRem" name="pr_elegRemove" form="eCAT">
                                 <?php
                                 $productos = $em->getRepository("Entity\\Producto")->findAll();
@@ -287,6 +341,185 @@
                         <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
                     </form>
                 </div>
+                
+                <!-- 7º Formulario --- Aumentar stock de Producto -->
+                <div id="aumStockForm" class="configForm not-active">                    
+                    <form method="post" id="aSTOCK">
+                    <label>Productos disponibles</label><br>
+                    <select id="prToAumStock" name="pr_elegAumStock" form="aSTOCK">
+                                <?php
+                                $productos = $em->getRepository("Entity\\Producto")->findAll();
+                                foreach($productos as $p){ ?>
+                                    <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                <?php 
+                                }
+                                ?>        
+                    </select>
+                    <label>Tienda que aumenta el stock</label><br>
+                    <select id="tiendaElegidaUP" name="pr_tiendaElegidaUP" form="aSTOCK">
+                                <?php
+                                $productos = $em->getRepository("Entity\\Tienda")->findAll();
+                                foreach($productos as $p){ ?>
+                                    <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                <?php 
+                                }
+                                ?>        
+                        </select>                        
+                        <label id="aStockCant">Cantidad a Añadir</label>
+                        <input type="text" id="stockUPvalue" name="stockUPvalue">  
+                        <label id="aPSlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="aPSpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="updateButton" value="Aumentar stock">
+                        <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+
+                <!-- 8º Formulario --- Reducir stock de Producto -->
+                <div id="redStockForm" class="configForm not-active">                    
+                    <form method="post" id="rSTOCK">
+
+
+                        <table style="border: 1px solid black; text-align: center;"> 
+                            <tr>
+                                <th>Producto</th>
+                                <th>Tienda</th>
+                                <th>Cantidad</th>
+                            </tr>                            
+                        <?php
+                            $productos = $em->getRepository("Entity\\Producto")->findAll();
+                            $tiendas = $em->getRepository("Entity\\Tienda")->findAll();
+                            
+                            foreach($productos as $p){ 
+                                foreach($tiendas as $t){
+                                    $unidadesTienda = $em->getRepository("Entity\\Unidad")->findBy(['producto'=> $p->getId(),'tienda'=> $t->getId()]);
+                                    if(sizeof($unidadesTienda) > 0){
+
+                                        ?>
+                                <tr>
+                                    <td><?php echo $p->getNombre();?></td>
+                                    <td><?php echo $t->getId();?></td>
+                                    <td><?php echo sizeof($unidadesTienda);?></td>
+                                </tr>
+                            <?php 
+                                    }
+                                }
+                            }
+                            ?>
+                        </table>
+                        <label>Producto a reducir stock</label><br>
+                        <select id="prToRemStock" name="pr_elegRemStock" form="rSTOCK">
+                                <?php                               
+                                foreach($productos as $p){ 
+                                    foreach($tiendas as $t){
+                                        $unidadesTienda = $em->getRepository("Entity\\Unidad")->findBy(['producto'=> $p->getId(),'tienda'=> $t->getId()]);
+                                        if(sizeof($unidadesTienda) > 0){ ?>
+                                            <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                <?php
+                                        }
+                                    } 
+                                }
+                                ?>        
+                        </select>
+                        <label id="cantAReducir">Cantidad a reducir</label>                         
+                        <input type="text" id="stockDOWNvalue" name="stockDOWNvalue">
+                        <label>Tienda que reduce el stock</label><br>
+                        <select id="tiendaElegidaDOWN" name="pr_tiendaElegidaDOWN" form="rSTOCK">
+                                    <?php
+                                    $productos = $em->getRepository("Entity\\Tienda")->findAll();
+                                    foreach($productos as $p){ ?>
+                                        <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                    <?php 
+                                    }
+                                    ?>        
+                        </select>
+                        <label id="rPSlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="rPSpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="updateButton" value="Reducir stock">
+                        <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+
+
+                <!-- 9º Formulario --- Transladar Producto -->
+                <div id="transProdForm" class="configForm not-active">                    
+                    <form method="post" id="tPROD">
+                        <table style="border: 1px solid black; text-align: center;"> 
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Tienda</th>
+                                    <th>Cantidad</th>
+                                </tr>                            
+                            <?php
+                                $productos = $em->getRepository("Entity\\Producto")->findAll();
+                                $tiendas = $em->getRepository("Entity\\Tienda")->findAll();
+                                
+                                foreach($productos as $p){ 
+                                    foreach($tiendas as $t){
+                                        $unidadesTienda = $em->getRepository("Entity\\Unidad")->findBy(['producto'=> $p->getId(),'tienda'=> $t->getId()]);
+                                        if(sizeof($unidadesTienda) > 0){
+                            ?>
+                                    <tr>
+                                        <td><?php echo $p->getNombre();?></td>
+                                        <td><?php echo $t->getId();?></td>
+                                        <td><?php echo sizeof($unidadesTienda);?></td>
+                                    </tr>
+                                <?php 
+                                        }
+                                    }
+                                }
+                                ?>
+                        </table>
+                        <label>Productos disponibles</label><br>
+                        <select id="prToTrans" name="pr_elegTrans" form="tPROD">
+                                <?php
+                                $productos = $em->getRepository("Entity\\Producto")->findAll();
+                                foreach($productos as $p){ 
+                                    foreach($tiendas as $t){
+                                        $unidadesTienda = $em->getRepository("Entity\\Unidad")->findBy(['producto'=> $p->getId(),'tienda'=> $t->getId()]);
+                                        if(sizeof($unidadesTienda) > 0){ ?>
+                                            <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                <?php
+                                        }
+                                    } 
+                                }
+                                ?>          
+                        </select> 
+                        <label id="cantATrans">Cantidad a transladar</label>                         
+                        <input type="text" id="prodTransValue" name="prodTransValue">
+                        
+                        <label>Tienda origen</label><br>
+                        <select id="tiendaElegidaTRANS1" name="pr_tiendaElegidaTRANS1" form="tPROD">
+                                    <?php
+                                    $productos = $em->getRepository("Entity\\Tienda")->findAll();
+                                    foreach($productos as $p){ ?>
+                                        <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                    <?php 
+                                    }
+                                    ?>        
+                        </select>
+                        <label>Tienda destino</label><br>
+                        <select id="tiendaElegidaTRANS2" name="pr_tiendaElegidaTRANS2" form="tPROD">
+                                    <?php                                    
+                                    foreach($productos as $p){ ?>
+                                        <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                    <?php 
+                                    }
+                                    ?>        
+                        </select>
+                    
+                        <label id="tPlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="tPpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="updateButton" value="Transladar Producto">
+                        <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+
+
+
+
            </div>   
         </div>
     </body>
@@ -368,16 +601,58 @@
         }else if(isset($_GET['opfallida'])){
             if($_GET['opfallida'] == 1){
 ?>
-            <script type="text/javascript">
-                $('head').before('<div id="opfallida" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Operación fallida</div>');        
+                <script type="text/javascript">
+                    $('head').before('<div id="opfallida" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Operación fallida</div>');        
+                    setTimeout(function(){
+                        $('#opfallida').fadeOut('fast');
+                        }, 4000
+                        );        
+                </script>
+<?php 
+                }else if($_GET['opfallida'] == 2){
+?>
+                <script type="text/javascript">
+                    $('head').before('<div id="opfallida" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2; padding: 10px;">Todos los campos Vacios</div>');        
+                    setTimeout(function(){
+                        $('#opfallida').fadeOut('fast');
+                        }, 4000
+                        );        
+                </script>
+<?php
+                }
+        }else if($_GET['aumStock'] == 1){
+            ?>
+                <script type="text/javascript">
+                $('head').before('<div id="aumStock"  style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Stock aumentado</div>');        
                 setTimeout(function(){
-                    $('#opfallida').fadeOut('fast');
+                    $('#aumStock').fadeOut('fast');
                     }, 4000
                     );        
             </script>
-<?php 
-            }
+<?php
+            
+        }else if($_GET['remStock'] == 1){
+?>
+            <script type="text/javascript">
+                $('head').before('<div id="remStock"  style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Stock reducido</div>');        
+                setTimeout(function(){
+                    $('#remStock').fadeOut('fast');
+                    }, 4000
+                    );        
+            </script>
+<?php
+        }else if($_GET['transProd'] == 1){
+            ?>
+            <script type="text/javascript">
+                $('head').before('<div id="transProd"  style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Producto transladado</div>');        
+                setTimeout(function(){
+                    $('#transProd').fadeOut('fast');
+                    }, 4000
+                    );        
+            </script>
+<?php
         }
+        
 ?>
 
 
@@ -405,15 +680,19 @@
                 case 'Editar Categoria':                
                 $catEdit = $em->findOneBy('acronimo', $_POST['cat_elegEdit']);
                 if(isset($catEdit)){
-                    
-                    if($_POST['nombreCATEdit'] != ""){
-                        $catEdit->setNombre($_POST['nombreCATEdit']);
-                    }                    
-                    if($_POST['acrCATEdit'] != ""){
-                        $catEdit->setAcronimo($_POST['acrCATEdit']);
-                    }
-                    if($_POST['descCATEdit'] != ""){
-                        $catEdit->setDescripcion($_POST['descCATEdit']);
+                    if(empty($nombreCATEdit) && empty($acrCATEdit) && empty($descCATEdit)){
+                        header('Location: ?opFallida=2');
+                    }else{
+
+                        if($_POST['nombreCATEdit'] != ""){
+                            $catEdit->setNombre($_POST['nombreCATEdit']);
+                        }                    
+                        if($_POST['acrCATEdit'] != ""){
+                            $catEdit->setAcronimo($_POST['acrCATEdit']);
+                        }
+                        if($_POST['descCATEdit'] != ""){
+                            $catEdit->setDescripcion($_POST['descCATEdit']);
+                        }
                     }
 
                     $em->persist($catEdit);
@@ -450,29 +729,36 @@
                 case 'Editar Producto':
                 $catEdit = $em->findOneBy('acronimo', $_POST['cat_elegEdit']);
                 if(isset($prEdit)){
-                    if($_POST['nombrePrEDIT'] != ""){
-                        $prEdit->setNombre($_POST['nombrePrEDIT']);
-                    }                    
-                    if($_POST['marcaPrEDIT'] != ""){
-                        $prEdit->setMarca($_POST['marcaPrEDIT']);
-                    }
-                    if($_POST['modeloPrEDIT'] != ""){
-                        $prEdit->setModelo($_POST['modeloPrEDIT']);
-                    }
-                    if($_POST['precioPrEDIT'] != ""){
-                        $prEdit->setPrecio($_POST['precioPrEDIT']);
-                    }
-                    if($_POST['descPrEDIT'] != ""){
-                        $prEdit->setDescripcion($_POST['descPrEDIT']);
-                    }
-                    if($_POST['picpathPrEDIT'] != ""){
-                        $prEdit->setPicPath($_POST['picpathPrEDIT']);
-                    }
+                    if(empty($nombrePrEDIT) && empty($marcaPrEDIT) && empty($modeloPrEDIT) && empty($precioPrEDIT)
+                       && empty($descPrEDIT) && empty($picpathPrEDIT)){
 
-                    $em->persist($prEdit);
-                    $em->flush();
-                    header('Location: ?editPr=1');
-                }else{
+                        header('Location: ?opFallida=2');
+                    }else{
+
+                        if($_POST['nombrePrEDIT'] != ""){
+                            $prEdit->setNombre($_POST['nombrePrEDIT']);
+                        }                    
+                        if($_POST['marcaPrEDIT'] != ""){
+                            $prEdit->setMarca($_POST['marcaPrEDIT']);
+                        }
+                        if($_POST['modeloPrEDIT'] != ""){
+                            $prEdit->setModelo($_POST['modeloPrEDIT']);
+                        }
+                        if($_POST['precioPrEDIT'] != ""){
+                            $prEdit->setPrecio($_POST['precioPrEDIT']);
+                        }
+                        if($_POST['descPrEDIT'] != ""){
+                            $prEdit->setDescripcion($_POST['descPrEDIT']);
+                        }
+                        if($_POST['picpathPrEDIT'] != ""){
+                            $prEdit->setPicPath($_POST['picpathPrEDIT']);
+                        }
+                        
+                        $em->persist($prEdit);
+                        $em->flush();
+                        header('Location: ?editPr=1');
+                    }
+                    }else{
                     header('Location: ?opfallida=1');
                 }
                 
@@ -483,6 +769,45 @@
                     $em->remove($prRemove);
                     $em->flush();
                     header('Location: ?removePr=1');
+                break;
+
+                case 'Aumentar stock';
+                    $unit = new Unidad();
+                    $unit->setProducto($_POST['prToAumStock'])
+                            ->setTienda($_POST['tiendaElegidaUP']);
+                    for($i=0; i<$_POST['stockUPvalue']; $i++){
+                        $em->persist($unit);
+                        $em->flush();
+                    }
+                        header('Location: ?aumStock=1');
+
+                break;
+
+                case 'Reducir stock';
+                    $unit = new Unidad();
+                    $unit->setProducto($_POST['prToRemStock'])
+                            ->setTienda($_POST['tiendaElegidaDOWN']);
+                    for($i=0; i<$_POST['stockDOWNvalue']; $i++){
+                        $em->remove($unit);
+                        $em->flush();
+                    }
+                    header('Location: ?remStock=1');
+                break;
+                
+                case 'Transladar producto';
+                    $unitT = new Unidad();
+                    $unitT->setProducto($_POST['prToTrans'])
+                            ->setTienda($_POST['prodTransValue']);
+                    $unitR->setProducto($_POST['prToTrans'])
+                            ->setTienda($_POST['prodTransValue']);
+
+                    for($i=0; i<$_POST['prodTransValue']; $i++){
+                        $em->remove($unitR);
+                        $em->flush();
+                        $em->persist($unitT);
+                        $em->flush();
+                    }
+                    header('Location: ?transProd=1');
                 break;
             }
         }
