@@ -9,6 +9,8 @@ select * from categoria;
 select * from producto;
 select * from unidad;
 
+delete from categoria where id=6;
+
 use BD_Tienda;
 
 drop database bd_tienda;
@@ -24,6 +26,7 @@ set sql_safe_updates = 0;
 /*Almacen central*/
 
 INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion) VALUES ('Almacén Central', 'Avenida del Almacén Central 1', 'almcentral@empresa.com', 32836); /*Está en Madrid el almacén central*/
+INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion) VALUES ('Tienda Almeria', 'Calle Flores', 'tiendaAlmeria@empresa.com', 04004); /*Está en Madrid el almacén central*/
 
 /*Usuarios*/
 insert into Usuario (username, passwd, nombre, apellidos, email, tipo) values
@@ -80,3 +83,35 @@ insert into Producto(nombre, marca, modelo, precio, categoria_id) values
     ("Lacie sr-200 2TB ", "LaCie", "sr-200", 159.99, "250 GB de almacenamiento ultra rápido para todo lo que necesites", "../img/externos/5.jpg", 4),
     ("Samsung GG-22 4TB", "Samsung", "GG-22", 259.99, "4TB Almacenamiento a 5200RPM", "../img/externos/6.jpg",4),
     ("ADATA HardSkin v2", "ADATA", "HardSkin v2", 238.99, "1 TB Robusto y versátil ", "../img/externos/7.jpg", 4);
+    
+insert into unidad(producto_id, tienda_id) values
+(6,2),
+(6,2),
+(6,2),
+(6,2),
+(6,2),
+(6,2);    
+
+insert into unidad(producto_id, tienda_id) values
+(8,2),
+(8,2),
+(8,2),
+(8,2),
+(8,2),
+(8,2),
+(8,2),
+(8,2),
+(8,2);
+
+insert into unidad(producto_id, tienda_id) values
+(3, 1),
+(3, 1),
+(3, 1),
+(3, 1),
+(3, 1),
+(3, 1),
+(3, 1),
+(3, 1),
+(3, 1),
+(3, 1),
+(3, 1);

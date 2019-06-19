@@ -164,5 +164,90 @@
 
 
 
+    $('#aSTOCK').submit(function(){
+        console.log("vamos a comprobar los campos del aumento de Stock");
+        $("#errorCat").remove();
+        var passwdConfirm = $("#aPSpasswdConfirm").val(),
+            cantAdd = $("#stockUPvalue").val();
+        var inputval = [passwdConfirm, cantAdd];
+        var textId = ["#aPSlPasswdConfirm", "#aPSlPasswdConfirm"] ;
+            
+            if ( passwdConfirm == null || passwdConfirm === "") {
+                console.log(textId[0] + ' incorrecto');
+                invalidEntry("contraseña");
+                return false;
+            }
+            if ( cantAdd == null || cantAdd === "" || cantAdd < 0 || !is_numeric(cantAdd)) {
+                console.log(textId[1] + ' incorrecto');
+                invalidEntry("cantidad");
+                return false;
+            }
+    
+            function invalidEntry(i) {
+                console.log(i + ' incorrecta');
+                $(textId).after("<p id='error' style='font-size: 14px; color: red' > El campo " + i + " no es válido.</p>");
+            }  
+            console.log("Aumentado el stock");
+        return true;
+    });
+
+    $('#rSTOCK').submit(function(){
+        console.log("vamos a comprobar los campos del descenso de Stock");
+        $("#errorCat").remove();
+        var passwdConfirm = $("#rPSpasswdConfirm").val(),
+            cantAdd = $("#stockDOWNvalue").val();
+        
+        var textId = ["#aPSlPasswdConfirm", "#rPSlPasswdConfirm"] ;
+            
+            if ( passwdConfirm == null || passwdConfirm === "") {
+                console.log(textId[0] + ' incorrecto');
+                invalidEntry("contraseña");
+                return false;
+            }
+            if ( cantAdd == null || cantAdd === "" || cantAdd < 0 || !is_numeric(cantAdd)) {
+                console.log(textId[1] + ' incorrecto');
+                invalidEntry("cantidad");
+                return false;
+            }
+    
+            function invalidEntry(i) {
+                console.log(i + ' incorrecta');
+                $(textId).after("<p id='error' style='font-size: 14px; color: red' > El campo " + i + " no es válido.</p>");
+            }  
+            console.log("Reducido el stock");
+        return true;
+    });
+
+
+
+    $('#tPROD').submit(function(){
+        console.log("vamos a comprobar los campos del translado de Stock");
+        $("#errorCat").remove();
+        var passwdConfirm = $("#tPpasswdConfirm").val(),
+            cantAdd = $("#prodTransValue").val();
+        
+        var textId = ["#tPlPasswdConfirm", "#tPlPasswdConfirm"] ;
+            
+            if ( passwdConfirm == null || passwdConfirm === "") {
+                console.log(textId[0] + ' incorrecto');
+                invalidEntry("contraseña");
+                return false;
+            }
+            if ( cantAdd == null || cantAdd === "" || cantAdd < 0 || !is_numeric(cantAdd)) {
+                console.log(textId[1] + ' incorrecto');
+                invalidEntry("cantidad");
+                return false;
+            }
+    
+            function invalidEntry(i) {
+                console.log(i + ' incorrecta');
+                $(textId).after("<p id='error' style='font-size: 14px; color: red' > El campo " + i + " no es válido.</p>");
+            }  
+            console.log("Transladado producto");
+        return true;
+    });
+
+
+
 
 });
