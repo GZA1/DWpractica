@@ -42,9 +42,15 @@ body {
     transition: color 4s ease-out;
 }
 
+ol{
+    padding-top: 50px;
+}
+
 ol li {
     height: 10vh;
     min-height: 100px;
+    border-bottom: 3px solid white;
+    padding: 25px 25px;
 }
 
 .pedido-img {

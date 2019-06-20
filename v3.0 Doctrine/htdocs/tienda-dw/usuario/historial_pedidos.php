@@ -1,8 +1,11 @@
 <?php
     require_once('/xampp/appdata/model/console.php');
+    require_once("../dbconfig.php");
 
     use Entity\Usuario;
-    use Entity\Cliente;
+    use Entity\Pedido;
+
+    $em = GetEntityManager();
 
     session_start();
 
@@ -10,12 +13,10 @@
    
     if(isset($_SESSION['user'])){
         $usuarioRep = $em->getRepository("Entity\\Usuario");
-        $clienteRep = $em->getRepository("Entity\\Cliente");
-        $c = $clienteRep->findByUser($_SESSION['user']);
-        $tipo = $c->getTipo();
-        $username = $u->getUsername();
+        $pedidoRep = $em->getRepository("Entity\\Pedido");
+        $u = $_SESSION['user'];
         //Esperamos para cambiar esto después de modificar la bd
-        $listaPedidos = $c->getPedidos();
+        $listaPedidos = $pedidoRep->findPedidosByUser($u);
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +32,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
-        <title>Historial Pedidos de <?php echo($username) ?></title>
+        <title>Historial Pedidos de <?php echo($u->getUsername()) ?></title>
     </head>
     <body>
         <div class="flex_cols" id="contenedor-inic">
@@ -43,7 +44,7 @@
             </div>
             <div style="height: 10vh; min-height: 50px; visibility: hidden"></div>
             <div id="mainContainer">
-                <div id="titulo">Pedidos del cliente <?php echo($username) ?></div>
+                <div id="titulo">Pedidos del cliente <?php echo($u->getUsername()) ?></div>
                 <ol reversed>
                 <?php 
                 foreach($listaPedidos as $p) { 
@@ -53,12 +54,11 @@
                             <a href=""><img src="<?php /*echo($p['photoPath']);*/ ?>" height="100%"></a>
                         </div>
                         <div class="flex_cols pedido-container">
-                            <div href="" class="nombre-pedido">NombrePedido<?php /*echo($p['nombrePedido']);*/ ?></div>
-                            <div class="estado"><?php echo($p['estado']); ?></div>
-                            <div class="costeTotal"><?php echo($p['costeTotal']); ?></div>
-                            <div class="fechaCreac"><?php echo($p['fechaCreacion']); ?></div>
+                            <div class="estado"><?php echo('Estado: '.$p->getEstado()); ?></div>
+                            <div class="costeTotal"><?php echo('Coste total del pedido: '.$p->getCesta()->getCosteTotal().'€'); ?></div>
+                            <div class="fechaCreac"><?php echo('Fecha de creación: '.$p->getFechaCreacion()->format('Y-m-d H:i:s')); ?></div>
                         </div>
-                        <div class="id-pedido"><?php echo($p['id']); ?></div>
+                        <div class="id-pedido"><?php echo('Id del pedido'.$p->getId()); ?></div>
                     </li>
                 <?php
                 }

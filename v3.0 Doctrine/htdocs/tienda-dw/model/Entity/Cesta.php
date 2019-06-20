@@ -21,7 +21,7 @@ class Cesta
 
     /**
     * Un cliente tiene una cesta
-    * @OneToOne(targetEntity="Cliente", inversedBy="cesta")
+    * @ManyToOne(targetEntity="Cliente", inversedBy="cesta")
     * @JoinColumn(name="Cliente_id", referencedColumnName="id")
     */
     private $cliente;

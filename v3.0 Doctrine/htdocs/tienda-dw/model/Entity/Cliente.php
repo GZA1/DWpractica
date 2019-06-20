@@ -38,7 +38,7 @@ class Cliente
     private $ubicacion;
     /**
      * Una cesta tiene un cliente
-     * @OneToOne(targetEntity="Cesta", mappedBy="cliente")
+     * @OneToMany(targetEntity="Cesta", mappedBy="cliente")
      */
     private $cesta;
     /**

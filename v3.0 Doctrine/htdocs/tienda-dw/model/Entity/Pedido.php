@@ -29,6 +29,9 @@ namespace Entity;
     */
     private $cesta;
 
+    public function __construct(){
+    }
+
     /**
      * Get the value of id
      */ 
