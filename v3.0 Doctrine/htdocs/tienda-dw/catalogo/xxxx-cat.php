@@ -1,9 +1,9 @@
 <?php
     require_once('/xampp/appdata/model/Console.php');
-
     require_once("../dbconfig.php");
 
     use Entity\Producto;
+    use Entity\Usuario;
     use Entity\Categoria;
 
     $em = GetEntityManager();
@@ -11,7 +11,7 @@
 
     $c = null;
     if(isset($_SESSION['user'])){
-        $u = new Usuario($_SESSION['user']);
+        $u = $_SESSION['user'];
         $tipo = $u->getTipo();
         $username = $u->getUsername();
     }
