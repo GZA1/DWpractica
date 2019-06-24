@@ -1,9 +1,15 @@
 <?php
     require_once('/xampp/appdata/model/Console.php');
-    require_once('/xampp/appdata/model/Usuario.php');
-    // require_once('/xampp/appdata/model/Saldo.php');
+
+    require_once("../dbconfig.php");
+
+    use Entity\Producto;
+    use Entity\Categoria;
+    use Entity\Unidad;
+    use Entity\Tienda;
 
 
+    $em = GetEntityManager();
     session_start();
 
     $c = null;
@@ -31,7 +37,62 @@
     
 
     <title>Catálogo</title>
+    <script type="text/javascript">
+            $("document").ready(function() {
 
+                $("#dCMenos").click(function() {
+                    var campo = $("#dCShow");
+                    var valorCampo = $("#dCShow").val();
+                    if (valorCampo > 0) {
+                        valorCampo--;
+                        campo.val(valorCampo);
+                    }
+
+                });
+                $("#dCMas").click(function() {
+                    var campo = $("#dCShow");
+                    var valorCampo = $("#dCShow").val();
+                    valorCampo++;
+                    campo.val(valorCampo);
+                });
+
+
+                /*Stock en tiendas*/
+                $("#prNdElement").click(function() {
+                    var showInfo = $("#prStockEspecifico");
+                    showInfo.fadeToggle(1000);
+                });
+                
+//                $("#detallesAdiccionalesWrapper").php(.function() {
+//                    var index = 1;
+//                    var primeraEtiqueta = $("#primeraPestaña");
+//                    var segundaEtiqueta = $("#segundaPestaña");
+//                    var primerParrafo = $("#detallesAdContent").contents();
+//                    var segundoParrafo = $("#lasReviews").contents();
+//                    
+//                    if(index = 1) primerParrafo.show();
+//                    segundaEtiqueta.click(function() {
+//                       primerParrafo.fadeOut();
+//                        segundoParrafo.fadeIn();
+//                    });
+//                    primeraEtiqueta.click(function() {
+//                       primerParrafo.fadeOut();
+//                        segundoParrafo.fadeIn();
+//                    });
+//                    });
+                $("#segundaPestaña").click(function(){
+                    $("#lasReviews").fadeIn();
+                    $("#detallesAdContent").fadeOut();
+                });
+                
+                $("#primeraPestaña").click(function(){
+                    $("#detallesAdContent").fadeIn();
+                    $("#lasReviews").fadeOut();
+                });    
+            });
+
+            
+        </script>
 </head>
 
 <body>
@@ -39,33 +100,37 @@
 
 
     <!--            Este contiene los divs laterales-->
-    <div style="height: 10vh; min-height: 70px; visibility: hidden">
-    </div>
+    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
 
     <div class="mainProductoWrapper">
 
-        <div class="prodContainer">
-            <div class="maxedMini">
-                <img src="../img/externos/5.jpg">
-                <!--
-                <img src="../img/externos/maxtor/maxtor1.jpg">            
-                <img src="../img/externos/maxtor/maxtor2.jpg">
-                <img src="../img/externos/maxtor/maxtor3.jpg">
--->
-            </div>
 
-            <div class="prodMiniaturas flex_rows">
-                <img src="../img/externos/5.jpg">
-                <img src="../img/externos/maxtor/maxtor1.jpg">
-                <img src="../img/externos/maxtor/maxtor2.jpg">
-                <img src="../img/externos/maxtor/maxtor3.jpg">
+<?php
+          $prodRepo = $em->getRepository("Entity\\Producto");
+          $stockRepo = $em->getRepository("Entity\\Unidad");
+          $tiendasRepo = $em->getRepository("Entity\\Tienda");
+          if(isset($_GET['pr'])){
+              $prod = $prodRepo->findOneBy(['id'=>$_GET['pr']]);
+              $stockProd = $stockRepo->findBy(['producto'=>$prod->getId()]);
+              
+              echo "<div class=\"prodContainer\">";
+                echo "<div class=\"maxedMini\">";
+                    echo "<img src=\"".$prod->getPicpath()."\">";
+                echo "</div>";
+?>
+                <div class="prodMiniaturas flex_rows">
+                    <img src="../img/externos/5.jpg">
+                    <img src="../img/externos/maxtor/maxtor1.jpg">
+                    <img src="../img/externos/maxtor/maxtor2.jpg">
+                    <img src="../img/externos/maxtor/maxtor3.jpg">
 
-            </div>
-        </div>
-
-        <div class="prodDescriptionWrapper">
-            <h1 id="desTitulo" style="padding: 8px 8px 8px 8px;">SAMSUNG/MAXTOR M3 EXTTERNAL 2.5" INCH 2TB MOBILE HARD DRIVE - MACBOOK/LAPTOP/IMAC DATA & TIME MACHINE BACKUP DISK</h1>
-            <h2 id="desDesc" style="padding: 8px 8px 8px 8px;">135.90€</h2>
+                </div>
+             </div> 
+             <div class="prodDescriptionWrapper">             
+<?php
+                echo "<h1 id=\"desTitulo\" style=\"padding: 8px 8px 8px 8px;\">".$prod->getNombre()."</h1>";
+                echo "<h2 id=\"desDesc\" style=\"padding: 8px 8px 8px 8px;\">".$prod->getPrecio()."€</h2>";
+?>
             <div style="border: solid; border-color: #6600cc; border-width: 3px 0; height: 0.5vh; width: 100%; margin: 10px 0"></div>
             <div id="desCantidadesWrapper">
                 <span id="desCantidad">Cantidad: </span>
@@ -77,8 +142,8 @@
                     <a id="dCMas">+</a>
 
                 </div>
-
             </div>
+
             <div id="botonesCompras" class="flex_rows">
                 <a>Añadir a la cesta</a>
                 <a>COMPRAR</a>
@@ -86,7 +151,9 @@
             <div id="prStockWrapper" class="flex_rows">
                 <div id="prStElement">
                     <span style="margin-right: 12px;">Stock:</span>
-                    <span id="prStock">5</span>
+<?php 
+                    echo "<span id=\"prStock\">".sizeOf($stockProd)."</span>";
+?>
                     <span>Disponibles</span>
                 </div>
                 <div id="prNdElement">
@@ -95,8 +162,28 @@
                 </div>
             </div>
             <div id="prStockEspecifico">
-                <p>2 Disponibles en Avda. Juan Perales</p>
-                <p>3 Disponibles en Calle Enrique Madroño</p>
+<?php
+                foreach($stockProd as $s){
+                    if(!isset($arrayTiendas)){
+                        $arrayTiendas = array($s->getTienda());
+                        
+                    }else{
+                        if(!in_array($s->getTienda(), $arrayTiendas)){
+                            array_push($arrayTiendas, $s->getTienda()); 
+                        }
+                    }
+                }
+                if(isset($arrayTiendas)){
+                    foreach($arrayTiendas as $at){
+                        // $tienda = $tiendasRepo->findOneBy(['id'=>$at->getTienda()]);
+                        
+                        $cantidadPrTienda = $stockRepo->findBy(['producto'=>$_GET['pr'],'tienda'=>$at->getId()]);
+                        
+                        echo "<p>".sizeOf($cantidadPrTienda)." Disponibles - ".$at->getNombre()." - ".$at->getDireccion()."</p>";
+                    }
+                }
+                
+?>
             </div>
             <div id="infoEnvio">
                 <div id="mainEnvio"><img src="../img/Envios/envios1.jpg"></div>
@@ -217,62 +304,14 @@
     
     
     
-        <script type="text/javascript">
-            $("document").ready(function() {
+        
+<?php
 
-                $("#dCMenos").click(function() {
-                    var campo = $("#dCShow");
-                    var valorCampo = $("#dCShow").val();
-                    if (valorCampo > 0) {
-                        valorCampo--;
-                        campo.val(valorCampo);
-                    }
-
-                });
-                $("#dCMas").click(function() {
-                    var campo = $("#dCShow");
-                    var valorCampo = $("#dCShow").val();
-                    valorCampo++;
-                    campo.val(valorCampo);
-                });
-
-
-                /*Stock en tiendas*/
-                $("#prNdElement").click(function() {
-                    var showInfo = $("#prStockEspecifico");
-                    showInfo.fadeToggle(1000);
-                });
-                
-//                $("#detallesAdiccionalesWrapper").php(.function() {
-//                    var index = 1;
-//                    var primeraEtiqueta = $("#primeraPestaña");
-//                    var segundaEtiqueta = $("#segundaPestaña");
-//                    var primerParrafo = $("#detallesAdContent").contents();
-//                    var segundoParrafo = $("#lasReviews").contents();
-//                    
-//                    if(index = 1) primerParrafo.show();
-//                    segundaEtiqueta.click(function() {
-//                       primerParrafo.fadeOut();
-//                        segundoParrafo.fadeIn();
-//                    });
-//                    primeraEtiqueta.click(function() {
-//                       primerParrafo.fadeOut();
-//                        segundoParrafo.fadeIn();
-//                    });
-//                    });
-                $("#segundaPestaña").click(function(){
-                    $("#lasReviews").fadeIn();
-                    $("#detallesAdContent").fadeOut();
-                });
-                
-                $("#primeraPestaña").click(function(){
-                    $("#detallesAdContent").fadeIn();
-                    $("#lasReviews").fadeOut();
-                });    
-            });
-
-            
-        </script>
+          }else{
+              echo "Error, sin producto";
+          }
+        
+?>
     </div>
 
 

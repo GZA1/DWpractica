@@ -38147,19 +38147,19 @@ insert into categoria(nombre, acronimo, descripcion) values
 ("Procesadores", "CPU", "Procesador, el cerebro del sistema");
 
 insert into Producto(nombre, marca, modelo, precio, categoria_id) values
-	("Sandy Bridge", 	"Intel", 	"i7-2600k-2.9GHz", 	123.99, 1),
-	("Kaby Lake", 		"Intel", 	"i7-7700-3.3GHz", 	348.99, 1),
-	("Haswell", 		"Intel", 	"i5-4250H-2.3GHz", 	191.99, 1),
-	("Vengance", 		"Corsair", 	"16GB-2400-CL14", 		223.99, 2),
-	("FastSlim", 		"Kingston", "SODIMM-8GB-1600-CL15", 114.99, 2);
+	("Sandy Bridge", 	"Intel", 	"i7-2600k-2.9GHz", 	123.99, 4),
+	("Kaby Lake", 		"Intel", 	"i7-7700-3.3GHz", 	348.99, 4),
+	("Haswell", 		"Intel", 	"i5-4250H-2.3GHz", 	191.99, 4),
+	("Vengance", 		"Corsair", 	"16GB-2400-CL14", 		223.99, 1),
+	("FastSlim", 		"Kingston", "SODIMM-8GB-1600-CL15", 114.99, 1);
  
     insert into Producto(nombre, marca, modelo, precio, descripcion, picPath, categoria_id) values
-    ("WD-Sauvage88 3TB", "-WesternDigital", "Sauvage88", 200, "3TB ultrarápido" , "../img/externos/2.jpg",4),
-    ("Maxtor 116 500GB", "Maxtor", "116", 459.99, "500GB versátil y ágil", "../img/externos/3.jpg",4),
-    ("LG-Predator 1 TB", "LG", "Predator", 38.99, "1 TB de almacenamiento ultra rápido para todo lo que necesites" , "../img/externos/4.jpg",4),
-    ("Lacie sr-200 2TB ", "LaCie", "sr-200", 159.99, "250 GB de almacenamiento ultra rápido para todo lo que necesites", "../img/externos/5.jpg", 4),
-    ("Samsung GG-22 4TB", "Samsung", "GG-22", 259.99, "4TB Almacenamiento a 5200RPM", "../img/externos/6.jpg",4),
-    ("ADATA HardSkin v2", "ADATA", "HardSkin v2", 238.99, "1 TB Robusto y versátil ", "../img/externos/7.jpg", 4);
+    ("WD-Sauvage88 3TB", "-WesternDigital", "Sauvage88", 200, "3TB ultrarápido" , "../img/externos/2.jpg",3),
+    ("Maxtor 116 500GB", "Maxtor", "116", 459.99, "500GB versátil y ágil", "../img/externos/3.jpg",3),
+    ("LG-Predator 1 TB", "LG", "Predator", 38.99, "1 TB de almacenamiento ultra rápido para todo lo que necesites" , "../img/externos/4.jpg",3),
+    ("Lacie sr-200 2TB ", "LaCie", "sr-200", 159.99, "250 GB de almacenamiento ultra rápido para todo lo que necesites", "../img/externos/5.jpg", 3),
+    ("Samsung GG-22 4TB", "Samsung", "GG-22", 259.99, "4TB Almacenamiento a 5200RPM", "../img/externos/6.jpg",3),
+    ("ADATA HardSkin v2", "ADATA", "HardSkin v2", 238.99, "1 TB Robusto y versátil ", "../img/externos/7.jpg", 3);
     
        
 insert into unidad(producto_id, tienda_id) values
@@ -38168,7 +38168,13 @@ insert into unidad(producto_id, tienda_id) values
 (6,2),
 (6,2),
 (6,2),
-(6,2);    
+(6,2),
+(6,1),
+(6,1),
+(6,1),
+(6,1),
+(6,1),
+(6,1);    
 
 insert into unidad(producto_id, tienda_id) values
 (8,2),
@@ -38179,8 +38185,16 @@ insert into unidad(producto_id, tienda_id) values
 (8,2),
 (8,2),
 (8,2),
-(8,2);
-
+(8,2),
+(8,1),
+(8,1),
+(8,1),
+(8,1),
+(8,1),
+(8,1),
+(8,1),
+(8,1),
+(8,1);
 insert into unidad(producto_id, tienda_id) values
 (3, 1),
 (3, 1),
@@ -38193,3 +38207,6 @@ insert into unidad(producto_id, tienda_id) values
 (3, 1),
 (3, 1),
 (3, 1);
+
+
+

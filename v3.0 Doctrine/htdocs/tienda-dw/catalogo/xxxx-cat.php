@@ -1,7 +1,6 @@
 <?php
     require_once('/xampp/appdata/model/Console.php');
-    require_once('/xampp/appdata/model/Usuario.php');
-    // require_once('/xampp/appdata/model/Saldo.php');
+
     require_once("../dbconfig.php");
 
     use Entity\Producto;
@@ -193,7 +192,7 @@
                 <?php 
                 $prodRepo = $em->getRepository("Entity\\Producto");
                 if(isset($_GET['cat'])){
-                    echo $_GET['cat'];
+                    
                     $prods = $prodRepo->findBy(['categoria'=>$_GET['cat']]);
                     $i = 0;
                         
