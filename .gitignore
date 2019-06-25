@@ -1,5 +1,4 @@
 
 *.ffs_db
 *.ffs_lock
-*\vendor*
 v3.0 Doctrine/appdata/log/LogPruebas.txt
