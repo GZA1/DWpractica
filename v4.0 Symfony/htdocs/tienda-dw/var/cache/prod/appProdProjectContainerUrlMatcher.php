@@ -40,6 +40,17 @@ class appProdProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBundle\R
             return $ret;
         }
 
+        // login
+        if ('/login' === $pathinfo) {
+            if ('GET' !== $canonicalMethod) {
+                $allow[] = 'GET';
+                goto not_login;
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::loginAction',  '_route' => 'login',);
+        }
+        not_login:
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

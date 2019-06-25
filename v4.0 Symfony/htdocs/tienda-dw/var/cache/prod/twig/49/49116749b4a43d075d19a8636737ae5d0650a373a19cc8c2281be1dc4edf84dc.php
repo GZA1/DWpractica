@@ -30,9 +30,9 @@ class __TwigTemplate_1520cee8f7b9dc35e8478046c1fcd6bb0ded4a3a18e3e1e7cd9f0933fcb
     {
         // line 4
         echo "    ";
-        $this->loadTemplate("../nav/nav.php", "main/index.html.twig", 4)->display($context);
-        // line 5
-        echo "        <div style=\"height: 10vh; min-height: 70px; visibility: hidden\"></div>
+        echo twig_include($this->env, $context, "../nav/nav.php");
+        echo "
+        <div style=\"height: 10vh; min-height: 70px; visibility: hidden\"></div>
         <div class=\"flex_cols\">
             <div class=\"flex_rows\" id=\"contenedor_main_ads\">
             <div id=\"sideContainer\">
@@ -162,7 +162,7 @@ class __TwigTemplate_1520cee8f7b9dc35e8478046c1fcd6bb0ded4a3a18e3e1e7cd9f0933fcb
 
     public function getDebugInfo()
     {
-        return array (  149 => 115,  146 => 114,  35 => 5,  32 => 4,  29 => 3,  11 => 1,);
+        return array (  149 => 115,  146 => 114,  32 => 4,  29 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
