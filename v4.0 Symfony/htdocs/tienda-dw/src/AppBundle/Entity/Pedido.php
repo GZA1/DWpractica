@@ -1,31 +1,31 @@
 <?php
 
-namespace Entity;
-
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Entity(repositoryClass="Repository\PedidoRepository")
+ * ORM\Entity(repositoryClass="AppBundle\Repository\PedidoRepository")
  */
 
  class Pedido
  {
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id", type="integer", nullable=false)
+     * @ORM\Id @ORM\GeneratedValue
+     * @ORM\Column(name="id", type="integer", nullable=false)
      */
     private $id;
     /**
-     * @Column(name="estado",length=45, nullable=false)
+     * @ORM\Column(name="estado",length=45, nullable=false)
      */
     private $estado;
     /**
-     * @Column(name="fechaCreacion",type="datetime", nullable=false)
+     * @ORM\Column(name="fechaCreacion",type="datetime", nullable=false)
      */
     private $fechaCreacion;
 
     /**
     * Un pedido es de una cesta
-    * @OneToOne(targetEntity="Cesta", inversedBy="pedido")
-    * @JoinColumn(name="Cesta_id", referencedColumnName="id")
+    * @ORM\OneToOne(targetEntity="Cesta", inversedBy="pedido")
+    * @ORM\JoinColumn(name="Cesta_id", referencedColumnName="id")
     */
     private $cesta;
 

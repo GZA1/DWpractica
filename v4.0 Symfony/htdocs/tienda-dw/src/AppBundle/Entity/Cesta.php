@@ -1,40 +1,40 @@
 <?php
 
-namespace Entity;
-
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Entity(repositoryClass="Repository\CestaRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CestaRepository")
  */
 
 class Cesta
 {
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id",type="integer", nullable=false)
+     * @ORM\Id @ORM\GeneratedValue
+     * @ORM\Column(name="id",type="integer", nullable=false)
      */
     private $id;
 
     /**
-     * @Column(name="costeTotal",type="float", nullable=false)
+     * @ORM\Column(name="costeTotal",type="float", nullable=false)
      */
     private $costeTotal;
 
     /**
     * Un cliente tiene una cesta
-    * @OneToOne(targetEntity="Cliente", inversedBy="cesta")
-    * @JoinColumn(name="Cliente_id", referencedColumnName="id")
+    * @ORM\OneToOne(targetEntity="Cliente", inversedBy="cesta")
+    * @ORM\JoinColumn(name="Cliente_id", referencedColumnName="id")
     */
     private $cliente;
 
     /**
     * Un cesta tiene muchas unidades
-    * @OneToMany(targetEntity="Unidad", mappedBy="cesta")
+    * @ORM\OneToMany(targetEntity="Unidad", mappedBy="cesta")
     */
     private $unidades;
 
     /**
     * Una cesta es de un pedido
-    * @OneToOne(targetEntity="Pedido", mappedBy="cesta")
+    * @ORM\OneToOne(targetEntity="Pedido", mappedBy="cesta")
     */
     private $pedido;
 

@@ -1,42 +1,42 @@
 <?php
 
-namespace Entity;
-
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Entity(repositoryClass="Repository\UnidadRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UnidadRepository")
  */
 
 class Unidad
 {
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id", type="integer", nullable=false)
+     * @ORM\Id @ORM\GeneratedValue
+     * @ORM\Column(name="id", type="integer", nullable=false)
      */
     private $id;
     /**
-     * @Column(name="vendido", type="boolean", nullable=false)
+     * @ORM\Column(name="vendido", type="boolean", nullable=false)
      */
     private $vendido;
 
 
     /**
     * Una unidad pertenece a una cesta
-    * @ManyToOne(targetEntity="Cesta", inversedBy="unidades")
-    * @JoinColumn(name="Cesta_id", referencedColumnName="id")
+    * @ORM\ManyToOne(targetEntity="Cesta", inversedBy="unidades")
+    * @ORM\JoinColumn(name="Cesta_id", referencedColumnName="id")
     */
     private $cesta;
 
     /**
     * Una unidad pertenece a una tienda
-    * @ManyToOne(targetEntity="Tienda", inversedBy="unidades")
-    * @JoinColumn(name="Tienda_id", referencedColumnName="id")
+    * @ORM\ManyToOne(targetEntity="Tienda", inversedBy="unidades")
+    * @ORM\JoinColumn(name="Tienda_id", referencedColumnName="id")
     */
     private $tienda;
 
     /**
     * Una unidad es de un producto
-    * @ManyToOne(targetEntity="Producto", inversedBy="unidades")
-    * @JoinColumn(name="Producto_id", referencedColumnName="id")
+    * @ORM\ManyToOne(targetEntity="Producto", inversedBy="unidades")
+    * @ORM\JoinColumn(name="Producto_id", referencedColumnName="id")
     */
     private $producto;
 

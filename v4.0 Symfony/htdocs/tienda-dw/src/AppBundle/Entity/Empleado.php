@@ -1,33 +1,33 @@
 <?php
 
-namespace Entity;
-
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Table("empleado")
- * @Entity(repositoryClass="Repository\EmpleadoRepository")
+ * @ORM\Table("empleado")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EmpleadoRepository")
  */
 
 class Empleado
 {
     /** 
-     * @Id
-     * @Column(name="id",length=45, nullable=false, unique=true) 
+     * @ORM\Id
+     * @ORM\Column(name="id",length=45, nullable=false, unique=true) 
     */
     private $id;
     /** 
-     * @Column(name="photoPath",length=45, nullable=true)
+     * @ORM\Column(name="photoPath",length=45, nullable=true)
      */
     private $photoPath;
     /** 
-     * @Column(name="activo",type="boolean", nullable=false)
+     * @ORM\Column(name="activo",type="boolean", nullable=false)
      */
     private $activo;
     /** 
-     * @Column(name="cargo",length=45, nullable=false)
+     * @ORM\Column(name="cargo",length=45, nullable=false)
      */
     private $cargo;
     /**
-     *  @Column(name="isAdministrador",type="boolean", nullable=false)
+     *  @ORM\Column(name="isAdministrador",type="boolean", nullable=false)
      */
     private $isAdministrador;
     
@@ -36,14 +36,14 @@ class Empleado
 
     /** 
      * Un empleado trabaja en una tienda
-     * @ManyToOne(targetEntity="Tienda", inversedBy="empleados") 
-     * @JoinColumn(name="Tienda_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Tienda", inversedBy="empleados") 
+     * @ORM\JoinColumn(name="Tienda_id", referencedColumnName="id")
      */
     private $tienda;
     /**
      * Un cliente tiene un usuario asociado
-     * @OneToOne(targetEntity="Usuario")
-     * @JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
+     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      */
     private $usuario;
 

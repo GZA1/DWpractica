@@ -1,6 +1,6 @@
 {% block navBlock %}
 <nav id="mainNav">
-    <img id="logo" src="img/logo.png" width="60">
+    <img id="logo" src="{{asset('img/logo.png')}}" width="60">
     <ul id="lista_nav">
         <li class="cont_enlace_interno">
             <a href="main/index.php">Inicio</a>
@@ -23,7 +23,7 @@
             <div class="dropdown">
                 <div class="dropdown-actuador flex_rows">
                     <div>
-                        <img href="usuario/sign-in.php" src="img/user-icon.png" height="20px">
+                        <img href="usuario/sign-in.php" src="{{asset('img/user-icon.png')}}" height="20px">
                     </div>
                     <div class="flex_cols">
                         <div style="height: 7px; visibility: hidden"></div>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="dropdown-contenido">
                 
-                {% if app.session.user is not defined %}
+                {% if app.session.get('user') is not defined %}
 
                     <a class="verde" href="{{path('login')}}">Iniciar Sesión</a>
                     <a class="azul" href="{{path('signUp')}}">Registrarse</a>
@@ -40,16 +40,16 @@
                 {% else %}
 
                     <div>                        
-                            Logueado como {{app.session.tipo}} : <b> {{app.session.username}} </b>
+                            Logueado como {{app.session.get('tipo')}} : <b> {{app.session.get('username')}} </b>
                     </div>
 
-                    <a href="usuario/perfil.php">Perfil de {{tipoLogueado}}</a>
+                    <a href="usuario/perfil.php">Perfil de {{app.session.get('tipo')}}</a>
 
-                    {% if app.session.tipo == 'cliente'%}
+                    {% if app.session.get('tipo') == 'cliente'%}
 
                         <a href="../usuario/historial_pedidos.php">Historial de Pedidos</a>
 
-                    {% elseif app.session.tipo == 'admin'%}
+                    {% elseif app.session.get('tipo') == 'admin'%}
 
                         <a href="">Gestión de Catálogo</a>
 
@@ -67,7 +67,7 @@
 
 
 
-        {% if user is defined and app.session.tipo == 'cliente' %}
+        {% if user is defined and app.session.get('tipo') == 'cliente' %}
             <li class="dropdown-container">
                     <div class="dropdown">
                         <div class="dropdown-actuador flex_rows">
@@ -161,7 +161,7 @@
                     </div>
                 </div>
             </li> #}
-        {% elseif user is defined and app.session.tipo == 'empleado' %}
+        {% elseif user is defined and app.session.get('tipo') == 'empleado' %}
             <li class="dropdown-container">
                     <div class="dropdown">
                         <div class="dropdown-actuador flex_rows">

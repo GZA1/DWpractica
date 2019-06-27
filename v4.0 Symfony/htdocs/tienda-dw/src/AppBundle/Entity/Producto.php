@@ -1,55 +1,55 @@
 <?php
 
-namespace Entity;
-
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Entity(repositoryClass="Repository\ProductoRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductoRepository")
  */
 
 class Producto 
 {
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id", type="integer", nullable=false)
+     * @ORM\Id @ORM\GeneratedValue
+     * @ORM\Column(name="id", type="integer", nullable=false)
      */
     private $id;
     /**
-     * @Column(name="nombre", length=45, nullable=false)
+     * @ORM\Column(name="nombre", length=45, nullable=false)
      */
     private $nombre;
     /**
-     * @Column(name="marca", length=45, nullable=false)
+     * @ORM\Column(name="marca", length=45, nullable=false)
      */
     private $marca;
     /**
-     * @Column(name="modelo", length=45, nullable=false)
+     * @ORM\Column(name="modelo", length=45, nullable=false)
      */
     private $modelo;
     /**
-     * @Column(name="precio", type="float", nullable=false)
+     * @ORM\Column(name="precio", type="float", nullable=false)
      */
     private $precio;
     
     /**
-     * @Column(name="descripcion", length=200, nullable=true)
+     * @ORM\Column(name="descripcion", length=200, nullable=true)
      */
     private $descripcion;
     /**
-     * @Column(name="picPath", length=45, nullable=true)
+     * @ORM\Column(name="picPath", length=45, nullable=true)
      */
     private $picPath;
 
 
     /**
      * Un producto tiene muchas unidades
-     * @OneToMany(targetEntity="Unidad", mappedBy="producto")
+     * @ORM\OneToMany(targetEntity="Unidad", mappedBy="producto")
      */
     private $unidades;
 
     /**
      * Un producto es de una categoria
-     * @ManyToOne(targetEntity="Categoria", inversedBy="productos")
-     * @JoinColumn(name="Categoria_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="productos")
+     * @ORM\JoinColumn(name="Categoria_id", referencedColumnName="id")
      */
     private $categoria;
 

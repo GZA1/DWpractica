@@ -1,6 +1,7 @@
 <?php
 
-namespace Entity;
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Repository\CategoriaRepository")
  * @ORM\Table("categoria")
@@ -9,27 +10,27 @@ namespace Entity;
  class Categoria
  {
      /**
-      * @Id @GeneratedValue
-      * @Column(name="id", type="integer", nullable=false)
+      * @ORM\Id @ORM\GeneratedValue
+      * @ORM\Column(name="id", type="integer", nullable=false)
       */
       private $id;
 
       /**
-       * @Column(name="nombre",length=45, nullable=false)
+       * @ORM\Column(name="nombre",length=45, nullable=false)
        */
       private $nombre;
       /**
-       * @Column(name="acronimo",length=45, nullable=false)
+       * @ORM\Column(name="acronimo",length=45, nullable=false)
        */
       private $acronimo;
       /**
-       * @Column(name="descripcion",length=200, nullable=false)
+       * @ORM\Column(name="descripcion",length=200, nullable=false)
        */
       private $descripcion;
 
     /**
      * Una Categoria tiene muchos productos
-     * @OneToMany(targetEntity="Producto", mappedBy="categoria")
+     * @ORM\OneToMany(targetEntity="Producto", mappedBy="categoria")
      */
     private $productos;
 

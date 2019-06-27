@@ -1,52 +1,52 @@
 <?php
 
-namespace Entity;
-
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Table("ubicacion")
- * @Entity(repositoryClass="Repository\UbicacionRepository")
+ * @ORM\Table("ubicacion")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UbicacionRepository")
  */
 
 class Ubicacion 
 {
         
     /**
-     * @Id @GeneratedValue
-     * @Column(name="idUbicacion", type="integer", nullable=false)
+     * @ORM\Id @ORM\GeneratedValue
+     * @ORM\Column(name="idUbicacion", type="integer", nullable=false)
      */
     private $idUbicacion;
         
     /**
-     * @Column(name="cp", type="integer", nullable=false)
+     * @ORM\Column(name="cp", type="integer", nullable=false)
      */
     private $cp;
         
     /**
-     * @Column(name="municipio", length=45, nullable=false)
+     * @ORM\Column(name="municipio", length=45, nullable=false)
      */
     private $municipio;
         
     /**
-     * @Column(name="provincia", length=45, nullable=true)
+     * @ORM\Column(name="provincia", length=45, nullable=true)
      */
     private $provincia;
         
     /**
-     * @Column(name="comunidadAutonoma", length=45, nullable=true)
+     * @ORM\Column(name="comunidadAutonoma", length=45, nullable=true)
      */
     private $comunidadAutonoma;
         
     /**
-     * @Column(name="latitud", type="float", nullable=true)
+     * @ORM\Column(name="latitud", type="float", nullable=true)
      */
     private $latitud;
     /**
-     * @Column(name="longitud", type="float", nullable=true)
+     * @ORM\Column(name="longitud", type="float", nullable=true)
      */
     private $longitud;
     /** 
      * Una ubicacion es d
-     * @OneToMany(targetEntity="Tienda", mappedBy="ubicacion") 
+     * @ORM\OneToMany(targetEntity="Tienda", mappedBy="ubicacion") 
      */
     private $tiendas;
 

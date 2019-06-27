@@ -8,16 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Empleado;
-use AppBundle\Entity\Categoria;
-use AppBundle\Entity\Cesta;
-use AppBundle\Entity\Pedido;
-use AppBundle\Entity\Producto;
-use AppBundle\Entity\Tienda;
-use AppBundle\Entity\Unidad;
-use AppBundle\Entity\Ubicacion;
+
 
 class DefaultController extends Controller
 {
@@ -59,7 +54,7 @@ class DefaultController extends Controller
 
         $u = new Usuario();
         
-        $usuarioRep = $em->getRepository("Entity\\Usuario");
+        $usuarioRep = $em->getRepository("AppBundle\\Entity\\Usuario");
 
 
         if( preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $_POST['login']) ){
@@ -73,23 +68,22 @@ class DefaultController extends Controller
 
 
         if( ! is_null($u = $usuarioRep->login($u)) ) {
-            $tipoLogueado == $u->getTipo();
+            $tipoLogueado = $u->getTipo();
             if($u->getTipo() == "empleado"){
-                $empRep = $em->getRepository("Entity\\Empleado");
+                $empRep = $em->getRepository("AppBundle\\Entity\\Empleado");
                 $u = $empRep->findByUser($u);
-                if( $e->getIsAdministrador() ){
+                if( $u->getIsAdministrador() ){
                     $tipoLogueado = "admin";
                 }
 
             }else{
-                $cliRep = $em->getRepository("Entity\\Cliente");
+                $cliRep = $em->getRepository("AppBundle\\Entity\\Cliente");
                 $u = $cliRep->findByUser($u);
             }
-            $sesion = new Session();
-            $sesion->start();
-            $sesion->set('username', $u->getUsuario()->getUsername());
-            $sesion->set('tipo', $tipoLogueado);
-            $sesion->set('ip', $request->request->getClientIp());
+            
+            $session->set('username', $u->getUsuario()->getUsername());
+            $session->set('tipo', $tipoLogueado);
+            //$sesion->set('ip', $request->request->getClientIp());
             
            // cLog("IdUsuario logueado: " . $_SESSION['user']->getIdUsuario());
            return $this->redirectToRoute('homepage', ['usrlog'=>1, 'user'=>$u]);

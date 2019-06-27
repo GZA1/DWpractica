@@ -1,8 +1,8 @@
 <?php
 
 namespace AppBundle\Entity;
-
-use \Datetime;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table("usuario")
@@ -12,43 +12,43 @@ use \Datetime;
 class Usuario
 {
     /** 
-     * @Id
-     * @Column(name="idUsuario",type="integer", nullable=false)
-     * @GeneratedValue
+     * @ORM\Id
+     * @ORM\Column(name="idUsuario",type="integer", nullable=false)
+     * @ORM\GeneratedValue
     */
     private $idUsuario;
     /** 
-     * @Column(name="username",length=45, nullable=false, unique=true)
+     * @ORM\Column(name="username",length=45, nullable=false, unique=true)
     */
     private $username;
     /** 
-     * @Column(name="passwd",length=45, nullable=false)
+     * @ORM\Column(name="passwd",length=45, nullable=false)
     */
     private $passwd;
     /** 
-     * @Column(name="nombre",length=45, nullable=false) 
+     * @ORM\Column(name="nombre",length=45, nullable=false) 
     */
     private $nombre;
     /** 
-     * @Column(name="apellidos",length=45, nullable=false) 
+     * @ORM\Column(name="apellidos",length=45, nullable=false) 
     */
     private $apellidos;
     /** 
-     * @Column(name="email",length=45, nullable=false, unique=true)
+     * @ORM\Column(name="email",length=45, nullable=false, unique=true)
     */
     private $email;
     /** 
-     * @Column(name="tipo",length=12, nullable=false)
+     * @ORM\Column(name="tipo",length=12, nullable=false)
     */
     private $tipo;
     /** 
-     * @Column(name="fechaCreacion",type="datetime", nullable=false)
-     * @GeneratedValue
+     * @ORM\Column(name="fechaCreacion",type="datetime", nullable=false)
+     * @ORM\GeneratedValue
      */
     private $fechaCreacion;
     /** 
-     * @Column(name="fechaModificacion",type="datetime", nullable=false)
-     * @GeneratedValue
+     * @ORM\Column(name="fechaModificacion",type="datetime", nullable=false)
+     * @ORM\GeneratedValue
      */
     private $fechaModificacion;
 

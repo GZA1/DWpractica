@@ -1,52 +1,52 @@
 <?php
 
-namespace Entity;
-
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Entity(repositoryClass="Repository\TiendaRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TiendaRepository")
  */
 
 class Tienda 
 {
     /**
-     * @Id @GeneratedValue
-     * @Column(name="id", type="integer", nullable=false)
+     * @ORM\Id @ORM\GeneratedValue
+     * @ORM\Column(name="id", type="integer", nullable=false)
      */
     private $id;
 
     /**
-     * @Column(name="nombre", length=45, nullable=false)
+     * @ORM\Column(name="nombre", length=45, nullable=false)
      */
     private $nombre;
 
     /**
-     * @Column(name="direccion", length=45, nullable=false)
+     * @ORM\Column(name="direccion", length=45, nullable=false)
      */
     private $direccion;
 
     
     /**
-     * @Column(name="email", length=45, nullable=false)
+     * @ORM\Column(name="email", length=45, nullable=false)
      */
     private $email;
 
 
     /** 
      * una tienda tiene una ubicacion
-     * @ManyToOne(targetEntity="Ubicacion", inversedBy="tiendas") 
-     * @JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
+     * @ORM\ManyToOne(targetEntity="Ubicacion", inversedBy="tiendas") 
+     * @ORM\JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
      */
     private $ubicacion;
 
     /** 
      * Una tienda tiene muchos empleados
-     * @OneToMany(targetEntity="Ubicacion", mappedBy="tienda")
+     * @ORM\OneToMany(targetEntity="Ubicacion", mappedBy="tienda")
      */
     private $empleados;
 
     /** 
      * Una tienda tiene muchas unidades
-     * @OneToMany(targetEntity="Unidad", mappedBy="tienda")
+     * @ORM\OneToMany(targetEntity="Unidad", mappedBy="tienda")
      */
     private $unidades;
 

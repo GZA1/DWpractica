@@ -3,7 +3,7 @@
 
 {% block title %} Pagina principal {% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{absolute_url(asset('styles/style-shared.css'))}}">
+    <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
 {% endblock %}
 
 
@@ -72,10 +72,10 @@
         <div class="mainContainer">
             <div class="flex_cols transition" id="contenidoMain">
                 <div id="firstThing">
-                    <img src="img/logo_horizontal.png" width="100%">
+                    <img src="{{asset('img/logo_horizontal.png')}}" width="100%">
                     <div id="designed-by">
                         <p>Designed by</p>
-                        <img src="img/sv-logo.png" width="60">
+                        <img src="{{asset('img/sv-logo.png')}}" width="60">
                     </div>
                 </div>
                 <div id="secondThing" style="display: none;">
