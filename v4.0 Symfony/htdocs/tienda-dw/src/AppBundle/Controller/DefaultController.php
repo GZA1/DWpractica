@@ -19,6 +19,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
+        // return $this->render('main/index.html.twig');
+        // return $this->render('main/index.html.twig');
         return $this->render('main/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
@@ -30,14 +32,14 @@ class DefaultController extends Controller
     public function loginAction(Request $request)
     {
         $message = null;
-        if( $request->query->has('error') && $request->query->get('error')==1 ) {   // $_GET['error']
-            $message = "Usuario no existe";
+        if( $request->query->has('usrreg') && $request->query->get('usrreg')==1 ) {   // $_GET['error']
+            $message = "Usuario registrado con éxito, proceda a loguearse";
         }
-        if( $request->query->has('error') && $request->query->get('error')==2 ) {   // $_GET['error']
-            $message = "Contraseña incorrecta";
+        if( $request->query->has('usrerror') && $request->query->get('usrerror')==1 ) {   // $_GET['error']
+            $message = "Usuario o contraseña incorrectos";
         }
 
-        return $this->render('default/login.html.twig', ['msg'=>$message]);
+        return $this->render('usuario/login.html.twig', ['msg'=>$message]);
     }
 
     /**
@@ -76,5 +78,21 @@ class DefaultController extends Controller
             return $this->redirectToRoute('login',['error'=>1]);
         }
         */
+    }
+
+    /**
+     * @Route("/signUp", name="loginWFWEFw", methods={"GET"})
+     */    
+    public function signUpAction(Request $request)
+    {
+        $message = null;
+        if( $request->query->has('usrreg') && $request->query->get('usrreg')==1 ) {   // $_GET['error']
+            $message = "Usuario registrado con éxito, proceda a loguearse";
+        }
+        if( $request->query->has('usrerror') && $request->query->get('usrerror')==1 ) {   // $_GET['error']
+            $message = "Usuario o contraseña incorrectos";
+        }
+
+        return $this->render('usuario/sign-in.html.twig', ['msg'=>$message]);
     }
 }
