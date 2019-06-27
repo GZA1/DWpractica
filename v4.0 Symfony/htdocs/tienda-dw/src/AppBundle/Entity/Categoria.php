@@ -1,8 +1,8 @@
 <?php
 
-namespace Entity;
+namespace AppBundle\Entity;
 /**
- * @Entity(repositoryClass="Repository\CategoriaRepository")
+ * @Entity(repositoryClass="AppBundle\Repository\CategoriaRepository")
  * @Table("categoria")
  */
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Entity;
+namespace AppBundle\Entity;
 
 use \Datetime;
 
 /**
  * @Table("usuario")
- * @Entity(repositoryClass="Repository\UsuarioRepository")
+ * @Entity(repositoryClass="AppBundle\Repository\UsuarioRepository")
  */
 
 class Usuario

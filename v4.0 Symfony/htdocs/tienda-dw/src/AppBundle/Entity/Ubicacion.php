@@ -1,10 +1,10 @@
 <?php
 
-namespace Entity;
+namespace AppBundle\Entity;
 
 /**
  * @Table("ubicacion")
- * @Entity(repositoryClass="Repository\UbicacionRepository")
+ * @Entity(repositoryClass="AppBundle\Repository\UbicacionRepository")
  */
 
 class Ubicacion 

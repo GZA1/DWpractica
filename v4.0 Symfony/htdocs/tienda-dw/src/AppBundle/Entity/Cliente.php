@@ -1,11 +1,11 @@
 <?php
 
-namespace Entity;
+namespace AppBundle\Entity;
 
 
 /**
  * @Table("cliente")
- * @Entity(repositoryClass="Repository\ClienteRepository")
+ * @Entity(repositoryClass="AppBundle\Repository\ClienteRepository")
  */
 
 class Cliente

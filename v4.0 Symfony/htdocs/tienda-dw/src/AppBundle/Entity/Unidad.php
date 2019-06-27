@@ -1,9 +1,9 @@
 <?php
 
-namespace Entity;
+namespace AppBundle\Entity;
 
 /**
- * @Entity(repositoryClass="Repository\UnidadRepository")
+ * @Entity(repositoryClass="AppBundle\Repository\UnidadRepository")
  */
 
 class Unidad
