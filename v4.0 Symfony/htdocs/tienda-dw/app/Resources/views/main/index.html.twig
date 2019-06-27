@@ -8,7 +8,16 @@
 
 
 {% block javascripts %}
-    
+    {% if usrlog is defined and usrlog == 1 %}        
+            <script>
+                $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #0083ff; background-color: #e0e0d2;padding: 10px;">{{msg}}</div>');
+                setTimeout(function(){ 
+                    $('#usrlog').fadeOut('fast');
+                    }, 4000
+                    );
+            </script>
+        
+    {% endif %}
     <script type="text/javascript">
         $("document").ready(function() {
 

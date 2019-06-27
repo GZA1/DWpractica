@@ -7,9 +7,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Entity\Usuario;
-use Entity\Cliente;
-use Entity\Empleado;
+
+use AppBundle\Entity\Usuario;
+use AppBundle\Entity\Cliente;
+use AppBundle\Entity\Empleado;
+use AppBundle\Entity\Categoria;
+use AppBundle\Entity\Cesta;
+use AppBundle\Entity\Pedido;
+use AppBundle\Entity\Producto;
+use AppBundle\Entity\Tienda;
+use AppBundle\Entity\Unidad;
+use AppBundle\Entity\Ubicacion;
 
 class DefaultController extends Controller
 {
@@ -49,41 +57,71 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $username = $request->request->get('username'); // $_POST['username']
-        $password = $request->request->get('password'); // $_POST['password']
+        $u = new Usuario();
+        
+        $usuarioRep = $em->getRepository("Entity\\Usuario");
 
-        $user = $em->getRepository('AppBundle:Usuario')->authenticate($username, $password);
-        if( $user ) {
-            // Login con exito
-            $session->set('is_logged', true);
-            return $this->redirectToRoute('private');   // Redireccion interna
-        }
-        else if( $user===false ) {
-            // Contraseña incorrecta
-            return $this->redirectToRoute('login',['error'=>2]);
-        }
-        else if( $user===null ) {
-            // Usuario no existe
-            return $this->redirectToRoute('login',['error'=>1]);
-        }        
 
-        /*
-        if( $username=='admin' && $password=='123' ) {
-            // Login con exito
-            $session->set('is_logged', true);
-            return $this->redirectToRoute('private');   // Redireccion interna
+        if( preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $_POST['login']) ){
+            $u->setEmail($request->request->get('login'));
+        } else{
+            $u->setUsername($request->request->get('login'));
+        }
+        $u->setPasswd($request->request->get('passwd'));
+        $u->encryptPasswd();
+
+
+
+        if( ! is_null($u = $usuarioRep->login($u)) ) {
+            $tipoLogueado == $u->getTipo();
+            if($u->getTipo() == "empleado"){
+                $empRep = $em->getRepository("Entity\\Empleado");
+                $u = $empRep->findByUser($u);
+                if( $e->getIsAdministrador() ){
+                    $tipoLogueado = "admin";
+                }
+
+            }else{
+                $cliRep = $em->getRepository("Entity\\Cliente");
+                $u = $cliRep->findByUser($u);
+            }
+            $sesion = new Session();
+            $sesion->start();
+            $sesion->set('username', $u->getUsuario()->getUsername());
+            $sesion->set('tipo', $tipoLogueado);
+            $sesion->set('ip', $request->request->getClientIp());
+            
+           // cLog("IdUsuario logueado: " . $_SESSION['user']->getIdUsuario());
+           return $this->redirectToRoute('homepage', ['usrlog'=>1, 'user'=>$u]);
+            
+            
         }
         else {
-            // Login erroneo
-            return $this->redirectToRoute('login',['error'=>1]);
+            return $this->redirectToRoute('login', ['usrerror'=>1]);
+            
         }
-        */
+
     }
 
     /**
-     * @Route("/signUp", name="loginWFWEFw", methods={"GET"})
+     * @Route("/signUp", name="signUp", methods={"GET"})
      */    
     public function signUpAction(Request $request)
+    {
+        $message = null;
+        if( $request->query->has('usrreg') && $request->query->get('usrreg')==1 ) {   // $_GET['error']
+            $message = "Usuario registrado con éxito, proceda a loguearse";
+        }
+        if( $request->query->has('usrerror') && $request->query->get('usrerror')==1 ) {   // $_GET['error']
+            $message = "Usuario o contraseña incorrectos";
+        }
+
+        return $this->render('usuario/sign-in.html.twig', ['msg'=>$message]);
+    }
+    /**
+     * @Route("/signUp", name="signUp_post", methods={"GET"})
+     */    
+    public function signUpPostAction(Request $request)
     {
         $message = null;
         if( $request->query->has('usrreg') && $request->query->get('usrreg')==1 ) {   // $_GET['error']

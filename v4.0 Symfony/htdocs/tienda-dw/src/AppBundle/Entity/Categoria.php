@@ -2,8 +2,8 @@
 
 namespace Entity;
 /**
- * @Entity(repositoryClass="Repository\CategoriaRepository")
- * @Table("categoria")
+ * @ORM\Entity(repositoryClass="Repository\CategoriaRepository")
+ * @ORM\Table("categoria")
  */
 
  class Categoria

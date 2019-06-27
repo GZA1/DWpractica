@@ -1,17 +1,18 @@
+{% block navBlock %}
 <nav id="mainNav">
-    <img id="logo" src="../img/logo.png" width="60">
+    <img id="logo" src="img/logo.png" width="60">
     <ul id="lista_nav">
         <li class="cont_enlace_interno">
-            <a href="../main/index.php">Inicio</a>
+            <a href="main/index.php">Inicio</a>
         </li>
         <li class="cont_enlace_interno">
-            <a href="../catalogo/index.php">Catálogo</a>
+            <a href="catalogo/index.php">Catálogo</a>
         </li>
         <li class="cont_enlace_interno">
-            <a href="../servicios/index.php">Servicios</a>
+            <a href="servicios/index.php">Servicios</a>
         </li>
         <li class="cont_enlace_interno">
-            <a href="../encuentranos/index.php">Encuéntranos</a>
+            <a href="encuentranos/index.php">Encuéntranos</a>
         </li>
         <li>
             <form>
@@ -22,7 +23,7 @@
             <div class="dropdown">
                 <div class="dropdown-actuador flex_rows">
                     <div>
-                        <img href="../usuario/sign-in.php" src="../img/user-icon.png" height="20px">
+                        <img href="usuario/sign-in.php" src="img/user-icon.png" height="20px">
                     </div>
                     <div class="flex_cols">
                         <div style="height: 7px; visibility: hidden"></div>
@@ -31,64 +32,83 @@
                 </div>
                 <div class="dropdown-contenido">
                 
-                {% if user = null %}
-                    <a class="verde" href="../usuario/sign-in.php">Iniciar Sesión</a>
-                    <a class="azul" href="../usuario/sign-up.php">Registrarse</a>
+                {% if app.session.user is not defined %}
+
+                    <a class="verde" href="{{path('login')}}">Iniciar Sesión</a>
+                    <a class="azul" href="{{path('signUp')}}">Registrarse</a>
+
                 {% else %}
-                    {# <?php
-                        if( !isset($u) ){
-                    ?>
-                    
-                    <?php
-                        }else{
-                    ?>
-                
-                    <div>
-                
-                        <?php
-                            
-                            
-                            if($tipo=="empleado"){
-                                $empRep = $em->getRepository("Entity\\Empleado");
-                                $e = $empRep->findByUser($_SESSION['user']);
-                                if( $e->getIsAdministrador() ){
-                                    $tipoLogueado = "admin";
-                                }
-                            }
-                            echo("Logueado como " . $tipoLogueado . ": <b>" . $username . "</b>");
-                            ?>
-                
+
+                    <div>                        
+                            Logueado como {{app.session.tipo}} : <b> {{app.session.username}} </b>
                     </div>
-                    <a href="../usuario/perfil.php">Perfil de
-                
-                        <?php
-                            $tipoPerfil = $tipoLogueado;
-                            echo(" " . $tipoPerfil);
-                            ?>
-                
-                    </a>
-                    <?php
-                        if( $tipoLogueado=="cliente" ){
-                    ?>
-                    <a href="../usuario/historial_pedidos.php">Historial de Pedidos</a>
-                    <?php
-                        }else if( $tipoLogueado=="admin" ){
-                    ?>
-                    <a href="">Gestión de Catálogo</a>
-                    <?php
-                        }
-                    ?>
-                    <a class="rojo" href="../usuario/logout.php">Cerrar Sesión</a>
-                    <?php
-                        }
-                    ?> #}
+
+                    <a href="usuario/perfil.php">Perfil de {{tipoLogueado}}</a>
+
+                    {% if app.session.tipo == 'cliente'%}
+
+                        <a href="../usuario/historial_pedidos.php">Historial de Pedidos</a>
+
+                    {% elseif app.session.tipo == 'admin'%}
+
+                        <a href="">Gestión de Catálogo</a>
+
+                    {% endif %}
+
+                        <a class="rojo" href="../usuario/logout.php">Cerrar Sesión</a>
+                    
                 {% endif %}
                    
                 {# Aqui acaba el if #}
                 </div>
             </div>
         </li>
-        {% if user != null and tipo == 'cliente' %}
+
+
+
+
+        {% if user is defined and app.session.tipo == 'cliente' %}
+            <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                                <img src="{{asset('img/shopping-trolley.png')}}" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                        <div class="dropdown-contenido">
+                            <a href="../cesta_compra/xxxx-cesta.php">Cesta</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                            <img src="{{asset('img/monedero-icon.png')}}" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                        <div class="dropdown-contenido">
+                            <div>Saldo disponible {{user.saldo}}€</div>
+                            <div class="verde">
+                                <form method="post">
+                                    <label>Ingresar Saldo</label>
+                                    <input style="width: 80%;" name="saldo-add" type="text">
+                                    <label>IBAN (el que sea)</label>
+                                    <input style="width: 80%;" name="iban" type="text">
+                                    <input style="width: 80%;" class="naranja" type="submit" value="Ingresar">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
             {# <?php
                 if( isset($u) && $tipo == 'cliente' ){
                     $clienteRep = $em->getRepository("Entity\\Cliente");
@@ -141,7 +161,25 @@
                     </div>
                 </div>
             </li> #}
-        {% else %}
+        {% elseif user is defined and app.session.tipo == 'empleado' %}
+            <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                            <!-- Introducir el enlace Admin-->
+                                <img src="{{asset('img/gear.png')}}" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div> 
+                                <div class="down-arrow"></div>                           
+                            </div>                         
+                        </div>
+                        <div class="dropdown-contenido">
+                            <a href="../usuario/cfg.php">Configuración Usuarios</a>
+                            <a href="../catalogo/cfgCatalogo.php">Configuración Catálogo</a>
+                        </div>                   
+                    </div>
+                </li>
             {#  <?php
                 }else if(isset($u) && $tipo == "empleado" ){
                     $empRep = $em->getRepository("Entity\\Empleado");
@@ -175,3 +213,4 @@
         
     </ul>
 </nav>
+{% endblock %}
