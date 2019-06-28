@@ -8,16 +8,7 @@
 
 
 {% block javascripts %}
-    {% if usrlog is defined and usrlog == 1 %}        
-            <script>
-                $('head').before('<div id="usrlog" style="width: 100%; height: 20px; color: #0083ff; background-color: #e0e0d2;padding: 10px;">{{msg}}</div>');
-                setTimeout(function(){ 
-                    $('#usrlog').fadeOut('fast');
-                    }, 4000
-                    );
-            </script>
-        
-    {% endif %}
+    
     <script type="text/javascript">
         $("document").ready(function() {
 
@@ -38,14 +29,30 @@
                 $("#firstThing").fadeOut();
                 $("#thirdThing").fadeIn();
             });
-
+            setTimeout(function(){ 
+                    $('#notificacion').fadeOut('fast');
+                    }, 4000
+                    );
         });
 
     </script>
 {% endblock %}
 
 {% block body %}
+    {% if msg is defined and msg != null %} 
+        {% if tipoMessage == 1 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+
+        {% endif %}
+
+        {% if tipoMessage == 0 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+        {% endif %}    
+    {% endif %}
+
+    
     {% include 'nav/nav.html.twig' %}
+
 <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
 <div class="flex_cols">
     <div class="flex_rows" id="contenedor_main_ads">

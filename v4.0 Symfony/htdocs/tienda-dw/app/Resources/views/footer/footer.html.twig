@@ -1,4 +1,4 @@
-{% block footer %}
+{% block footerContent %}
 
     <div class="flex_cols">
         <div class="flex_rows" id="footer_info">
@@ -39,9 +39,9 @@
             </div>
         </div>
         <div id="footer_copyright">
-            <a href="main/privacy-policy.php" target="_blank">Política de Privacidad</a>
+            <a href="{{path('privacyPolicy')}}" target="_blank">Política de Privacidad</a>
             <a href="http://www.uemc.es" target="_blank">Universidad Europea Miguel de Cervantes</a>
-            <a href="https://creativecommons.org/choose/zero/?lang=es" target="_blank"><img src="img/CC0.png" alt="cc0" width="15px"></a>
+            <a href="https://creativecommons.org/choose/zero/?lang=es" target="_blank"><img src="{{asset('img/CC0.png')}}" alt="cc0" width="15px"></a>
         </div>
     </div>
 {% endblock %}

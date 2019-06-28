@@ -1,6 +1,5 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
-    resource: '@AppBundle/Entity/'
-    type: annotation
+
     

@@ -32,7 +32,7 @@
                 </div>
                 <div class="dropdown-contenido">
                 
-                {% if app.session.get('username') is not defined or app.session.get('username') == null %}
+                {% if app.session.get('user').usuario.username is not defined or app.session.get('user').usuario.username == null %}
                        
                     <a class="verde" href="{{path('login')}}">Iniciar Sesión</a>
                     <a class="azul" href="{{path('signUp')}}">Registrarse</a>
@@ -40,10 +40,10 @@
                 {% else %}
 
                     <div>                        
-                            Logueado como {{app.session.get('tipo')}} : <b> {{app.session.get('username')}} </b>
+                            Logueado como {{app.session.get('tipo')}} : <b> {{app.session.get('user').usuario.username}} </b>
                     </div>
 
-                    <a href="usuario/perfil.php">Perfil de {{app.session.get('tipo')}}</a>
+                    <a href="{{path('perfil')}}">Perfil de {{app.session.get('tipo')}}</a>
 
                     {% if app.session.get('tipo') == 'cliente'%}
 
@@ -67,7 +67,7 @@
 
 
 
-        {% if user is defined and app.session.get('tipo') == 'cliente' %}
+        {% if app.session.get('user') is defined and app.session.get('tipo') == 'cliente' %}
             <li class="dropdown-container">
                     <div class="dropdown">
                         <div class="dropdown-actuador flex_rows">
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <div class="dropdown-contenido">
-                            <div>Saldo disponible {{user.saldo}}€</div>
+                            <div>Saldo disponible {{ app.session.get('user').saldo }}€</div>
                             <div class="verde">
                                 <form method="post">
                                     <label>Ingresar Saldo</label>
@@ -110,7 +110,7 @@
                     </div>
                 </li>
 
-        {% elseif user is defined and app.session.get('tipo') == 'empleado' %}
+        {% elseif app.session.get('user') is defined and app.session.get('tipo') == 'empleado' %}
             <li class="dropdown-container">
                     <div class="dropdown">
                         <div class="dropdown-actuador flex_rows">
