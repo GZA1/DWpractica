@@ -110,7 +110,7 @@
                     </div>
                 </li>
 
-        {% elseif app.session.get('user') is defined and app.session.get('tipo') == 'empleado' %}
+        {% elseif app.session.get('user') is defined and app.session.get('tipo') == 'empleado' or app.session.get('tipo') == 'admin' %}
             <li class="dropdown-container">
                     <div class="dropdown">
                         <div class="dropdown-actuador flex_rows">
