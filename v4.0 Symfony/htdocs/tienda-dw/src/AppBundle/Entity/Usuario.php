@@ -56,8 +56,8 @@ class Usuario
 
 
     public function __construct(){
-        $this->fechaCreacion = new DateTime();
-        $this->fechaModificacion = new DateTime();
+        $this->fechaCreacion = new \DateTime();
+        $this->fechaModificacion = new \DateTime();
     }
 
     

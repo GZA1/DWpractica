@@ -38,7 +38,7 @@
         })(jQuery);
 
     </script>
-    {% if msg != null %}        
+    {% if msg is defined and msg != null %}        
             <script>
                 $('head').before('<div id="usrreg" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">{{msg}}</div>');
                 setTimeout(function(){ 

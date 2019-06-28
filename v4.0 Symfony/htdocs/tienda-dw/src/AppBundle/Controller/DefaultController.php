@@ -136,7 +136,7 @@ class DefaultController extends Controller
             ;
             
             if( $usuarioRep->existsUsername($u->getUsername()) ||
-            $usuarioRep->existsUsername($u->getEmail())){
+            $usuarioRep->existsEmail($u->getEmail())){
                 
                 return $this->render('usuario/sign-up.html.twig', ['usrreg'=>0]);
             }
@@ -153,7 +153,7 @@ class DefaultController extends Controller
         $em->flush();
 
         
-        return $this->render('usuario/sign-in.html.twig', ['usrreg'=>1]);
+        return $this->render('usuario/login.html.twig', ['usrreg'=>1]);
 
     }
 }

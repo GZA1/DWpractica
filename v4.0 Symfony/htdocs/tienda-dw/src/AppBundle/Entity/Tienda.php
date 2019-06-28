@@ -40,7 +40,7 @@ class Tienda
 
     /** 
      * Una tienda tiene muchos empleados
-     * @ORM\OneToMany(targetEntity="Ubicacion", mappedBy="tienda")
+     * @ORM\OneToMany(targetEntity="Empleado", mappedBy="tienda")
      */
     private $empleados;
 

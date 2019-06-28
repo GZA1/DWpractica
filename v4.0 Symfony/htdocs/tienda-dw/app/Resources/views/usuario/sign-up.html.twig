@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{asset('styles/style-usuario.css')}}">
 {% endblock %}
 {% block javascripts %}
-    {% if usrreg is defined and usrreg == 0 %}        
+    {% if msg is defined and msg != null %}        
         <script>
             $('head').before('<div id="usrreg" style="height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">{{msg}}</div>');
             setTimeout(function(){ 
