@@ -9,7 +9,7 @@ select * from categoria;
 select * from producto;
 select * from unidad;
 
-delete from categoria where id=6;
+delete from usuario where idUsuario=3;
 
 use BD_Tienda;
 

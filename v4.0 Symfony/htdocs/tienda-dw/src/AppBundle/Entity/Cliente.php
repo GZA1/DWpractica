@@ -15,7 +15,7 @@ class Cliente
     /**
      * @ORM\Id
      * @ORM\Column(name="id",length=45, nullable=false, unique=true)
-     * @ORM\GeneratedColumn(strategy="NONE")
+     * @ORM\GeneratedColumn(strategy="CUSTOM")
      */
     private $id;
     /**

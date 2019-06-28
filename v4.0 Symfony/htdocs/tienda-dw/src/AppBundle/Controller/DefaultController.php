@@ -103,28 +103,57 @@ class DefaultController extends Controller
     public function signUpAction(Request $request)
     {
         $message = null;
-        if( $request->query->has('usrreg') && $request->query->get('usrreg')==1 ) {   // $_GET['error']
-            $message = "Usuario registrado con éxito, proceda a loguearse";
-        }
-        if( $request->query->has('usrerror') && $request->query->get('usrerror')==1 ) {   // $_GET['error']
-            $message = "Usuario o contraseña incorrectos";
-        }
+        if( $request->query->has('usrreg') && $request->query->get('usrreg')==0 ) {   // $_GET['error']
+            $message = "Nombre de usuario o email inválido";
+        }        
 
-        return $this->render('usuario/sign-in.html.twig', ['msg'=>$message]);
+        return $this->render('usuario/sign-up.html.twig', ['msg'=>$message]);
     }
     /**
-     * @Route("/signUp", name="signUp_post", methods={"GET"})
+     * @Route("/signUp", name="signUp_post", methods={"POST"})
      */    
     public function signUpPostAction(Request $request)
     {
-        $message = null;
-        if( $request->query->has('usrreg') && $request->query->get('usrreg')==1 ) {   // $_GET['error']
-            $message = "Usuario registrado con éxito, proceda a loguearse";
-        }
-        if( $request->query->has('usrerror') && $request->query->get('usrerror')==1 ) {   // $_GET['error']
-            $message = "Usuario o contraseña incorrectos";
-        }
+        $em = $this->getDoctrine()->getManager();
+        $u = new Usuario();
+        $c = new Cliente();
+        $usuarioRep = $em->getRepository("AppBundle\\Entity\\Usuario");
+        $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+        $ubicRep = $em->getRepository("AppBundle\\Entity\\Ubicacion");
 
-        return $this->render('usuario/sign-in.html.twig', ['msg'=>$message]);
+        error_reporting(E_ALL ^ E_NOTICE);
+        $geo = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['HTTP_CLIENT_IP']));
+        //console_log($geo);
+        $munic = $geo['geoplugin_city'];
+        
+        $u  ->setUsername($_POST['username'])
+            ->setPasswd($_POST['passwd'])
+            ->encryptPasswd()
+            ->setNombre($_POST['nombre'])
+            ->setApellidos($_POST['apell'])
+            ->setEmail($_POST['email'])
+            ->setTipo('cliente')
+            ;
+            
+            if( $usuarioRep->existsUsername($u->getUsername()) ||
+            $usuarioRep->existsUsername($u->getEmail())){
+                
+                return $this->render('usuario/sign-up.html.twig', ['usrreg'=>0]);
+            }
+            
+        $em->persist($u);
+        $em->flush();
+
+        $c  ->setDomicilio($_POST['domicilio'])
+            ->setUsuario($usuarioRep->findByUsername($u->getUsername()))
+            ->setUbicacion($ubicRep->findByMunic($munic));
+
+        console_log((array)$c);
+        $em->persist($c);
+        $em->flush();
+
+        
+        return $this->render('usuario/sign-in.html.twig', ['usrreg'=>1]);
+
     }
 }
