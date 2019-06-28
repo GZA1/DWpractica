@@ -64,9 +64,7 @@ class DefaultController extends Controller
         }
         $u->setPasswd($request->request->get('passwd'));
         $u->encryptPasswd();
-
-
-
+        
         if( ! is_null($u = $usuarioRep->login($u)) ) {
             $tipoLogueado = $u->getTipo();
             if($u->getTipo() == "empleado"){
@@ -95,6 +93,17 @@ class DefaultController extends Controller
             
         }
 
+    }
+
+
+    /**
+     * @Route("/logout", name="logout", methods={"GET"})
+     */    
+    public function logoutAction(Request $request, SessionInterface $session)
+    {
+        $session->invalidate();
+
+        return $this->render('main/index.html.twig');
     }
 
     /**
@@ -156,4 +165,6 @@ class DefaultController extends Controller
         return $this->render('usuario/login.html.twig', ['usrreg'=>1]);
 
     }
+
+
 }
