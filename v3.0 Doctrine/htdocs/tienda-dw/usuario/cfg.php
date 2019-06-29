@@ -1,20 +1,18 @@
 <?php
-    require_once('/xampp/appdata/model/console.php');
-    require_once("../dbconfig.php");    
+
+require_once('/xampp/appdata/model/console.php');
+    require_once '../dbconfig.php';
 
     use Entity\Usuario;
     use Entity\Cliente;
     use Entity\Empleado;
+    use Entity\Admin;
     use Entity\Tienda;
     use Entity\Ubicacion;
-
     $em = GetEntityManager();
-
     session_start();
 
     $u = null;
-    // $c = null;
-    // $e = null;
     $ubicacion = null;
    
     if(isset($_SESSION['user'])){
@@ -34,6 +32,7 @@
     }
     
     if( $_SERVER['REQUEST_METHOD']=='GET') {
+
 ?>
 <html>
 <head>
@@ -175,8 +174,8 @@
     </div>
 </body>
 </html>
-<?php
 
+<?php
     }else if( $_SERVER['REQUEST_METHOD']=='POST') {
         if(isset($_POST['optsSubmit'])){
             switch($_POST['optsSubmit']){
@@ -192,7 +191,7 @@
                                     ->setApellidos($_POST['Apellidos'])
                                     ->setTipo('empleado')
                                     ->setEmail($_POST['Email']);
-                        // console_log((array)$newUsuario);
+                        
                         if( ! $usuarioRep->exists($newUsuario) ){
                             $usuarioRep->registrarUsuario($newUsuario);
                             $newEmpleado->setUsuario($usuarioRep->findByUsername($newUsuario->getUsername()))
@@ -227,11 +226,11 @@
                 break;
 
                 case 'Añadir Tienda':
-                    // console_log("Add tienda");
-                    // console_log($_POST);
+                     console_log("Add tienda");
+                     console_log($_POST);
                     if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
-                        // console_log($_POST['CodigoPostal']);
-                        // console_log($_POST['Municipio']);
+                         console_log($_POST['CodigoPostal']);
+                         console_log($_POST['Municipio']);
                         $cp = $_POST['CodigoPostal'];
                         $ubic = $ubicacionRep->findOneBy(['cp'=>$cp]);
                         console_log((array)$ubic);

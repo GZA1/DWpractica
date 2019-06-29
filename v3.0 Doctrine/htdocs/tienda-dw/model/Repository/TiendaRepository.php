@@ -2,8 +2,6 @@
 
 namespace Repository;
 
-require_once('/xampp/appdata/model/console.php');
-
 
 use Doctrine\ORM\EntityRepository;
 
@@ -42,6 +40,15 @@ class TiendaRepository extends EntityRepository
         return false;
     }
     
+    public function addTienda($tienda){
+        try{
+            $this->_em->persist($tienda);
+            $this->_em->flush();
+            return true;
+        }catch(Exception $ex){
+            return false;
+        };
+    }
 }
 
 ?>

@@ -47,10 +47,6 @@ class UsuarioRepository extends EntityRepository{
         return $res;
     }
 
-    public function exists($usuario){
-        return  $this->existsEmail($usuario->getEmail()) ||
-                $this->existsUsername($usuario->getUsername());
-    }
 
     public function existsUsername($username){
         $qb = $this->_em->createQueryBuilder();
@@ -95,13 +91,14 @@ class UsuarioRepository extends EntityRepository{
             return false;
         }
     }
-
-    public function findEmpleados(){
-        return $this->findBy(['tipo' => 'empleado']);
-    }
-
-    public function findClientes(){
-        return $this->findBy(['tipo' => 'cliente']);
+    public function compararPass($usuario, $pass){
+        if( isset($usuario) && isset($pass)){
+            if($usuario->getPasswd() == $pass)
+                return true;
+        }else{
+            
+            return false;
+        }
     }
 
     public function registrarUsuario($u){
@@ -111,6 +108,18 @@ class UsuarioRepository extends EntityRepository{
             return true;
         }
         return false;
+    }
+    public function exists($usuario){
+        return  $this->existsEmail($usuario->getEmail()) ||
+                $this->existsUsername($usuario->getUsername());
+    }
+
+    public function findEmpleados(){
+        return $this->findBy(['tipo' => 'empleado']);
+    }
+
+    public function findClientes(){
+        return $this->findBy(['tipo' => 'cliente']);
     }
 
 }

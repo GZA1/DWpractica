@@ -1,6 +1,6 @@
 <?php
 
-    //require_once('/xampp/appdata/model/Saldo.php');
+require_once('/xampp/appdata/model/console.php');
     require_once '../dbconfig.php';
     use Entity\Usuario;
     use Entity\Cliente;
@@ -16,23 +16,22 @@
     $ubicacion = null;
    
     if(isset($_SESSION['user'])){
-        $u = new Usuario($_SESSION['user']);
-        $tipo = $u->getTipo();
+        
+        $u = $_SESSION['user'];        
+        $tipo = $u->getTipo();        
         $username = $u->getUsername();
+        
             if($tipo == "cliente"){
-                $u = new Cliente($_SESSION['user']);
+                $u = $em->getRepository("Entity\\Cliente")->findByUser($u);
             }else if($tipo == "empleado"){
-                $u = new Empleado($_SESSION['user']);
-                if( $u->getIsAdministrador() ){
-                    $u = new Admin($_SESSION['user']);
-                }
+                $u = $em->getRepository("Entity\\Empleado")->findByUser($u);
             }
     }
 
-    // $usuario = new Usuario($_SESSION['user']);
+
     
     if( $_SERVER['REQUEST_METHOD']=='GET') {
-        // $c = $usuario->getLoggedUser();
+
 ?>
 
 <html>
