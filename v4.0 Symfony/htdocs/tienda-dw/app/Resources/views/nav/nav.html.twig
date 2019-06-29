@@ -49,10 +49,6 @@
 
                         <a href="../usuario/historial_pedidos.php">Historial de Pedidos</a>
 
-                    {% elseif app.session.get('tipo') == 'admin'%}
-
-                        <a href="">Gestión de Catálogo</a>
-
                     {% endif %}
 
                         <a class="rojo" href="{{path('logout')}}">Cerrar Sesión</a>
@@ -124,7 +120,7 @@
                             </div>                         
                         </div>
                         <div class="dropdown-contenido">
-                            <a href="../usuario/cfg.php">Configuración Usuarios</a>
+                            <a href="{{path('adminCfg')}}">Configuración Usuarios</a>
                             <a href="../catalogo/cfgCatalogo.php">Configuración Catálogo</a>
                         </div>                   
                     </div>

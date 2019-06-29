@@ -1,49 +1,49 @@
 <?php
 
-namespace AppBundle\Entity;
-use Doctrine\ORM\Mapping as ORM;
+namespace Entity;
+
 /**
- * @ORM\Table("empleado")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\EmpleadoRepository")
+ * @Table("empleado")
+ * @Entity(repositoryClass="Repository\EmpleadoRepository")
  */
 
 class Empleado
 {
     /** 
-     * @ORM\Id
-     * @ORM\Column(name="id",length=45, nullable=false, unique=true) 
+     * @Id
+     * @Column(name="id",length=45, nullable=false, unique=true) 
     */
     private $id;
     /** 
-     * @ORM\Column(name="photoPath",length=45, nullable=true)
+     * @Column(name="photoPath",length=45, nullable=true)
      */
     private $photoPath;
     /** 
-     * @ORM\Column(name="activo",type="boolean", nullable=false)
+     * @Column(name="activo",type="boolean", nullable=false)
      */
-    private $activo;
+    private $activo = true;
     /** 
-     * @ORM\Column(name="cargo",length=45, nullable=false)
+     * @Column(name="cargo",length=45, nullable=false)
      */
     private $cargo;
     /**
-     *  @ORM\Column(name="isAdministrador",type="boolean", nullable=false)
+     *  @Column(name="isAdministrador",type="boolean", nullable=false)
      */
-    private $isAdministrador;
+    private $isAdministrador = false;
     
     /*                      F O R E I G N   K E Y S
     */
 
     /** 
      * Un empleado trabaja en una tienda
-     * @ORM\ManyToOne(targetEntity="Tienda", inversedBy="empleados") 
-     * @ORM\JoinColumn(name="Tienda_id", referencedColumnName="id")
+     * @ManyToOne(targetEntity="Tienda", inversedBy="empleados") 
+     * @JoinColumn(name="Tienda_id", referencedColumnName="id")
      */
     private $tienda;
     /**
      * Un cliente tiene un usuario asociado
-     * @ORM\OneToOne(targetEntity="Usuario")
-     * @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
+     * @OneToOne(targetEntity="Usuario")
+     * @JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      */
     private $usuario;
 

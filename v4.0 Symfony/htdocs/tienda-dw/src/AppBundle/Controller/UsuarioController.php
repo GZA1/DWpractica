@@ -12,6 +12,7 @@ use Psr\Log\LoggerInterface;
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Empleado;
+use AppBundle\Entity\Tienda;
 
 
 class UsuarioController extends Controller
@@ -176,6 +177,7 @@ class UsuarioController extends Controller
 
         if( $request->query->has('updateProfile') && $request->query->get('updateProfile')==1 ) {   
             $tipoMessage = 1; //color: #2fbf2f
+            $message = "Perfil Actualizado";
         }        
         if( $request->query->has('passwdchange') && $request->query->get('passwdchange')==0 ) {   
             $message = "No se pudo cambiar la contraseña";
@@ -242,4 +244,60 @@ class UsuarioController extends Controller
         }
 
     }
+
+    /**
+     * @Route("/adminCfg", name="adminCfg", methods={"GET"})
+     */    
+    public function adminCfgAction(Request $request)
+    {
+        $message = null;
+        $tipoMessage = null;
+        $em = $this->getDoctrine()->getManager();
+        $tiendaRep = $em->getRepository("AppBundle\\Entity\\Tienda");
+        $empleadoRep = $em->getRepository("AppBundle\\Entity\\Empleado");
+        $tiendas = $tiendaRep->findAll();
+        $empleados = $empleadoRep->findAll();
+
+
+
+        if( $request->query->has('newEmp') && $request->query->get('newEmp')==1 ) {   
+            $tipoMessage = 1; //color: #2fbf2f
+            $message = "Empleado Registrado";
+        }        
+        if( $request->query->has('opfallida') && $request->query->get('opfallida')==1 ) {   
+            $message = "Operación fallida";
+            $tipoMessage = 0; //color: #ff7f7f
+        }        
+        if( $request->query->has('newShop') && $request->query->get('newShop')==1 ) {   
+            $message = "Tienda añadida";
+            $tipoMessage = 1;
+        }        
+        if( $request->query->has('confirmpasswd') && $request->query->get('confirmpasswd')==0 ) {   
+            $message = "Contraseña de confirmación incorrecta";
+            $tipoMessage = 0; 
+        }        
+        if( $request->query->has('empDEL') && $request->query->get('empDEL')==0 ) {   
+            $message = "Empleado no encontrado O ERES TÚ MISMO!";
+            $tipoMessage = 0; 
+        }        
+        if( $request->query->has('empDEL') && $request->query->get('empDEL')==1 ) {   
+            $message = "Empleado dado de baja con éxito";
+            $tipoMessage = 1; 
+        }        
+
+        return $this->render('usuario/perfil.html.twig', [  'msg'=>$message, 
+                                                            'tipoMessage'=> $tipoMessage, 
+                                                            'tiendas'=> $tiendas,
+                                                            'empleados'=> $empleados]
+                                                        );
+    }
+    
+    /**
+     * @Route("/adminCfg", name="adminCfg_post", methods={"POST"})
+     */    
+    public function adminCfgPostAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+    }
+
 }

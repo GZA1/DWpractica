@@ -1,6 +1,6 @@
 <?php 
 
-namespace AppBundle\Repository;
+namespace Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -52,7 +52,29 @@ class EmpleadoRepository extends EntityRepository{
         }
     }
 
-
+    public function registrarEmpleado($e){
+        if(isset($e)){
+            $this->_em->persist($e);
+            $this->_em->flush();
+            return true;
+        }
+        return false;
+    }
+    
+    public function darDeBaja($usuario){
+        if(isset($usuario)){
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->update('Entity\\Empleado', 'e')
+                ->set('e.activo', ':activo')
+                ->where('e.usuario = :u')
+                ->setParameter('activo', '0')
+                ->setParameter('u', $usuario);
+            $res = $qb->getQuery()->getResult();
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
 

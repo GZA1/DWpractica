@@ -35,14 +35,10 @@
                         <input type="text" id="cargo" name="Cargo">
                         <label id="lTiendaId">ID de la tienda a la que pertenece</label>
                         <select id="tiendaId" name="tienda_id" form="rEMP">
-                            {% for %}
-                            <?php
-                            $tiendas = $u->getAllTiendasID();                    
-                            foreach($tiendas as $a){ ?>
-                                <option value="<?php echo $a['id'] ?>">Tienda <?php echo $a['id'] ?></option>";
-                            <?php 
-                            }
-                            ?>        
+                            {% for tienda in tiendas %}
+                                <option value="{{ tienda.id }}">ID {{tienda.id}} - {{tienda.nombre}} </option>";
+                            {% endfor %}
+                                   
                         </select>
                         <label id="lPasswdConfirm">Introduzca su contraseña para confirmar</label>
                         <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="passwdConfirm">
@@ -80,14 +76,11 @@
                         
                         <label id="lIdBajaEmpleado">Seleccione el empleado a dar de baja</label>
                         <select id="idBajaEmpleado" name="idBajaEmpleado" form="bajaEMP">
-                            <?php
-                            $empleados = $u->getAllEmpleados();
-                            foreach($empleados as $e){
-                                if($e['id']!=$u->getId()){
-                                    echo "<option value=".$e['id'].">".$e['username']."</option>";
-                                }
-                        }
-                        ?>        
+
+                            {% for empleado in empleados %}
+                                <option value="{{ empleado.id }}">{{empleado.usuario.username}} </option>";
+                            {% endfor %}
+                                   
                     </select>
                     <label id="lPasswdConfBaja">Introduzca su contraseña para confirmar</label>
                     <input id="passwdConfBaja" type="password" placeholder="Contraseña" name="ContraseñaConfirm">

@@ -1,6 +1,6 @@
 <?php
     require_once("../dbconfig.php");
-    
+    require_once('/xampp/appdata/model/console.php');
     use Entity\Categoria;
     use Entity\Usuario;
     $em = GetEntityManager();
@@ -8,8 +8,9 @@
     session_start();
 
     $c = null;
+    
     if(isset($_SESSION['user'])){
-        $u = new Usuario($_SESSION['user']);
+        $u = $_SESSION['user'];
         $tipo = $u->getTipo();
         $username = $u->getUsername();
     }
@@ -123,92 +124,6 @@
                         }
                     
                     ?>
-                        <!-- <a>Ordenadores</a>
-                            <div class="subMenu" id="subOrdenadores">
-                                <div>Ordenadores</div>
-                                <a href="xxxx-cat.php">Ya construidos</a>
-                                <a href="xxxx-cat.php">Portátiles</a>
-                                <a href="xxxx-cat.php">Portátiles Gaming</a>
-                                <a href="xxxx-cat.php">Ultrabooks</a>
-                                <a href="xxxx-cat.php">Convertibles</a>
-                                <a href="xxxx-cat.php">Fundas</a>
-                                <a href="xxxx-cat.php">Mochilas</a>
-
-                            </div>
-
-                        <a>Componentes</a>
-                        <div class="subMenu" id="subComponentes">
-                                <div>Componentes</div>
-
-                                <a href="xxxx-cat.php">Procesadores</a>
-                                <a href="xxxx-cat.php">RAM</a>
-                                <a href="xxxx-cat.php">Targetas Gráficas</a>
-                                <a href="xxxx-cat.php">Trajetas de red</a>
-                                <a href="xxxx-cat.php">Cajas</a>
-                                <a href="xxxx-cat.php">Tarjetas de sonido</a>
-
-                        </div>
-
-                        <a>Cámaras</a>
-                        <div class="subMenu" id="subCámaras">
-                                <div>Cámaras</div>
-
-                                <a href="xxxx-cat.php">4K</a>
-                                <a href="xxxx-cat.php">Foto</a>
-                                <a href="xxxx-cat.php">Video</a>
-                                <a href="xxxx-cat.php">Cannon</a>
-                                <a href="xxxx-cat.php">Nikkon</a>
-                                <a href="xxxx-cat.php">Accesorios</a>
-
-                        </div>
-                        <a>TV</a>
-                        <div class="subMenu" id="subTv">
-                                <div>TV</div>
-
-                                <a href="xxxx-cat.php">Mandos</a>
-                                <a href="xxxx-cat.php">Periféricos</a>
-                                <a href="xxxx-cat.php">4K</a>
-                                <a href="xxxx-cat.php">8K</a>
-                                <a href="xxxx-cat.php">Full HD</a>
-                                <a href="xxxx-cat.php">3D TV</a>
-
-                        </div>
-                        <a>Gadgets</a>
-                        <div class="subMenu" id="subGadgets">
-                                <div>Gadgets</div>
-
-                                <a href="xxxx-cat.php">Cargadores</a>
-                                <a href="xxxx-cat.php">Gadgets para el coche</a>
-                                <a href="xxxx-cat.php">Linternas</a>
-                                <a href="xxxx-cat.php">Supervivencia</a>
-                                <a href="xxxx-cat.php">Cables</a>
-                                <a href="xxxx-cat.php">Conectores</a>
-
-                        </div>
-                        <a>Gaming</a>
-                        <div class="subMenu" id="subGaming">
-                                <div>Gaming</div>
-
-                                <a href="xxxx-cat.php">Cajas RGB</a>
-                                <a href="xxxx-cat.php">Accesorios RGB</a>
-                                <a href="xxxx-cat.php">Mods RGB</a>
-                                <a href="xxxx-cat.php">Gráficas Gaming</a>
-                                <a href="xxxx-cat.php">Procesadores Gaming</a>
-                                <a href="xxxx-cat.php">Sillas Gaming</a>
-
-                        </div>
-                        <a>Impresoras</a>
-                        <div class="subMenu" id="subImpresoras">
-                                <div>Impresoras</div>
-
-                                <a href="xxxx-cat.php">A color</a>
-                                <a href="xxxx-cat.php">Láser</a>
-                                <a href="xxxx-cat.php">Industriales</a>
-                                <a href="xxxx-cat.php">Uso doméstico</a>
-                                <a href="xxxx-cat.php">Para niños</a>
-                                <a href="xxxx-cat.php">Papel</a>
-
-                        </div> -->
 
 
                     </div>
