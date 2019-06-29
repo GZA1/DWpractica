@@ -1,6 +1,6 @@
 <?php 
 
-namespace Repository;
+namespace AppBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
@@ -11,7 +11,7 @@ class TiendaRepository extends EntityRepository
     public function findAll(){
         $qb = $this->_em->createQueryBuilder();
         $qb ->select('t')
-            ->from('Entity\\Tienda', 't');
+            ->from('AppBundle\\Entity\\Tienda', 't');
         $res = $qb->getQuery()->getResult();
         console_log((array)$res[0]->getNombre());
         return $res;   
@@ -20,7 +20,7 @@ class TiendaRepository extends EntityRepository
     public function exists($t){
         $qb = $this->_em->createQueryBuilder();
         $qb ->select('count(t.id)')
-            ->from('Entity\\Tienda', 't')
+            ->from('AppBundle\\Entity\\Tienda', 't')
             ->where('t.email = :email')
             ->setParameter('email', $t->getEmail());
         $res = $qb->getQuery()->getSingleScalarResult();

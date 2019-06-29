@@ -285,7 +285,7 @@ class UsuarioController extends Controller
             $tipoMessage = 1; 
         }        
 
-        return $this->render('usuario/perfil.html.twig', [  'msg'=>$message, 
+        return $this->render('usuario/cfg.html.twig', [  'msg'=>$message, 
                                                             'tipoMessage'=> $tipoMessage, 
                                                             'tiendas'=> $tiendas,
                                                             'empleados'=> $empleados]
@@ -298,6 +298,89 @@ class UsuarioController extends Controller
     public function adminCfgPostAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $usuarioRep = $em->getRepository("AppBundle\\Entity\\Usuario");
+        $tiendaRep = $em->getRepository("AppBundle\\Entity\\Tienda");
+        $empleadoRep = $em->getRepository("AppBundle\\Entity\\Empleado");
+
+
+        if(isset($_POST['optsSubmit'])){
+            switch($_POST['optsSubmit']){
+                case 'Añadir Empleado':
+                    if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
+                        $newEmpleado = new Empleado();
+                        $newUsuario = new Usuario();
+                        $tiendaSeleccionada = $tiendaRep->find($_POST['tienda_id']);
+                        $newUsuario ->setUsername($_POST['Username'])
+                                    ->setPasswd($_POST['Passwd'])
+                                    ->encryptPasswd()
+                                    ->setNombre($_POST['Nombre']) 
+                                    ->setApellidos($_POST['Apellidos'])
+                                    ->setTipo('empleado')
+                                    ->setEmail($_POST['Email']);
+                        
+                        if( ! $usuarioRep->exists($newUsuario) ){
+                            $usuarioRep->registrarUsuario($newUsuario);
+                            $newEmpleado->setUsuario($usuarioRep->findByUsername($newUsuario->getUsername()))
+                                        ->setPhotoPath($_POST['PhotoPath']) 
+                                        ->setCargo($_POST['Cargo'])
+                                        ->setTienda($tiendaSeleccionada);
+                            console_log((array)$newEmpleado);
+                            $empleadoRep->registrarEmpleado($newEmpleado);
+                            
+                            return $this->redirectToRoute('adminCfg', ['newEmp'=>1]);
+                            
+                        }else{
+                            return $this->redirectToRoute('adminCfg', ['opfallida'=>1]);                            
+                        }
+                    }else{
+                        return $this->redirectToRoute('adminCfg', ['confirmpasswd'=>0]);                            
+                        header('Location: ?confirmpasswd=0');
+                        exit;
+                    }    
+                    break;
+                    
+                    case 'Baja Empleado':
+                    $usBaja = $usuarioRep->find($_POST['idBajaEmpleado']);
+                    console_log((array)$usBaja);
+                    if( $usBaja != $u && $empleadoRep->darDeBaja($usBaja) ){
+                        
+                        return $this->redirectToRoute('adminCfg', ['empDEL'=>1]);                            
+                        
+                    }else{
+                        
+                        return $this->redirectToRoute('adminCfg', ['empDEL'=>0]);                            
+                        
+                    }
+                    
+                    break;
+                    
+                    case 'Añadir Tienda':
+                    console_log("Add tienda");
+                    console_log($_POST);
+                    if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
+                        console_log($_POST['CodigoPostal']);
+                        console_log($_POST['Municipio']);
+                        $cp = $_POST['CodigoPostal'];
+                        $ubic = $ubicacionRep->findOneBy(['cp'=>$cp]);
+                        console_log((array)$ubic);
+                        $newTienda = new Tienda();
+                        $newTienda  ->setNombre($_POST['NombreTienda'])
+                        ->setDireccion($_POST['Direccion']) 
+                        ->setEmail($_POST['EmailTienda'])
+                        ->setUbicacion($ubic);
+                        if( isset($ubic) && $tiendaRep->registrarTienda($newTienda) ){
+                            return $this->redirectToRoute('adminCfg', ['newShop'=>1]);                            
+
+                        }else{
+                            return $this->redirectToRoute('adminCfg', ['opfallida'=>1]);                            
+                            
+                        }
+                    }else{
+                        return $this->redirectToRoute('adminCfg', ['confirmpasswd'=>1]);                            
+                    }
+                break;
+            }
+        }
     }
 
 }

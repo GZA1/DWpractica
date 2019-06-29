@@ -1,8 +1,8 @@
 <?php
 
 namespace AppBundle\Entity;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Table("usuario")
