@@ -1,11 +1,11 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Table("cliente")
- * @Entity(repositoryClass="AppBundle\Repository\ClienteRepository")
+ * @ORM\Table("cliente")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ClienteRepository")
  */
 
 class Cliente
@@ -13,17 +13,17 @@ class Cliente
 
 
     /**
-     * @Id
-     * @Column(name="id",length=45, nullable=false, unique=true)
-     * @GeneratedColumn(strategy="NONE")
+     * @ORM\Id
+     * @ORM\Column(name="id",length=45, nullable=false, unique=true)
+     *
      */
     private $id;
     /**
-     * @Column(name="domicilio",length=45, nullable=true)
+     * @ORM\Column(name="domicilio",length=45, nullable=true)
      */
     private $domicilio;
     /**
-     * @Column(name="saldo",length=20, nullable=false)
+     * @ORM\Column(name="saldo",length=20, nullable=false)
      */
     private $saldo;
 
@@ -32,19 +32,19 @@ class Cliente
 
     /**
      * Un cliente tienen una ubicacion
-     * @OneToOne(targetEntity="Ubicacion")
-     * @JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
+     * @ORM\OneToOne(targetEntity="Ubicacion")
+     * @ORM\JoinColumn(name="Ubicacion_idUbicacion", referencedColumnName="idUbicacion")
      */
     private $ubicacion;
     /**
      * Una cesta tiene un cliente
-     * @OneToOne(targetEntity="Cesta", mappedBy="cliente")
+     * @ORM\OneToOne(targetEntity="Cesta", mappedBy="cliente")
      */
     private $cesta;
     /**
      * Un cliente tiene un usuario asociado
-     * @OneToOne(targetEntity="Usuario")
-     * @JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
+     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      */
     private $usuario;
 

@@ -7,9 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Entity\Usuario;
-use Entity\Cliente;
-use Entity\Empleado;
+
+
+use AppBundle\Entity\Usuario;
+use AppBundle\Entity\Cliente;
+use AppBundle\Entity\Empleado;
+
 
 class DefaultController extends Controller
 {
@@ -18,63 +21,37 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
+        $message = null;
+        $tipoMessage = null;
+
+        if( $request->query->has('usrlog') && $request->query->get('usrlog')==1 ) {   // $_GET['error']
+            $message = "Logueado con éxito";
+            $tipoMessage = 1;
+        }
+        if( $request->query->has('usrlog') && $request->query->get('usrlog')==0 ) {   // $_GET['error']
+            $message = "Sesión cerrada";
+            $tipoMessage = 1;
+        }
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+            $message = "Saldo añadido con éxito";
+            $tipoMessage = 1;
+        }
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+            $message = "No se pudo añadir saldo correctamente";
+            $tipoMessage = 0;
+        }
         return $this->render('main/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'msg'=> $message,
+            'tipoMessage'=> $tipoMessage,
         ]);
     }
 
     /**
-     * @Route("/login", name="login", methods={"GET"})
+     * @Route("/privacyPolicy", name="privacyPolicy", methods={"GET"})
      */    
-    public function loginAction(Request $request)
-    {
-        $message = null;
-        if( $request->query->has('error') && $request->query->get('error')==1 ) {   // $_GET['error']
-            $message = "Usuario no existe";
-        }
-        if( $request->query->has('error') && $request->query->get('error')==2 ) {   // $_GET['error']
-            $message = "Contraseña incorrecta";
-        }
-
-        return $this->render('default/login.html.twig', ['msg'=>$message]);
+    public function privacyPolicyAction(Request $request){
+        return $this->render('main/privacy-policy.html.twig');
     }
 
-    /**
-     * @Route("/login", name="login_post", methods={"POST"})
-     */    
-    public function loginPostAction(Request $request, SessionInterface $session)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $username = $request->request->get('username'); // $_POST['username']
-        $password = $request->request->get('password'); // $_POST['password']
-
-        $user = $em->getRepository('AppBundle:Usuario')->authenticate($username, $password);
-        if( $user ) {
-            // Login con exito
-            $session->set('is_logged', true);
-            return $this->redirectToRoute('private');   // Redireccion interna
-        }
-        else if( $user===false ) {
-            // Contraseña incorrecta
-            return $this->redirectToRoute('login',['error'=>2]);
-        }
-        else if( $user===null ) {
-            // Usuario no existe
-            return $this->redirectToRoute('login',['error'=>1]);
-        }        
-
-        /*
-        if( $username=='admin' && $password=='123' ) {
-            // Login con exito
-            $session->set('is_logged', true);
-            return $this->redirectToRoute('private');   // Redireccion interna
-        }
-        else {
-            // Login erroneo
-            return $this->redirectToRoute('login',['error'=>1]);
-        }
-        */
-    }
 }

@@ -1,5 +1,5 @@
 <?php
-    require_once('/xampp/appdata/model/Console.php');
+    require_once('/xampp/appdata/model/console.php');
     require_once("../dbconfig.php");
 
     use Entity\Usuario;
@@ -10,25 +10,7 @@
     
 
     if( $_SERVER['REQUEST_METHOD']=='GET') {
-        // error_reporting(E_ALL ^ E_NOTICE);
-        // $geo = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['HTTP_CLIENT_IP']));
-        // console_log($geo);
-
-        // $usuarioRep = $em->getRepository("Entity\\Usuario");
-        // $ubicRep = $em->getRepository("Entity\\Ubicacion");
-        // console_log((array)$ubicRep->findByMunic($geo['geoplugin_city']));
-        // //console_log($ubicRep->findIdByMunic('Valladolid'));
-        // //console_log($ubicRep->findIdByMunic('Cuéllar'));
-        // console_log((array)$usuarioRep->findByUsername('cli1'));
-
-        // $c = new Cliente();
-        // $c  ->setDomicilio('calle')
-        //     ->setUsuario($usuarioRep->findByUsername('cli1'))
-        //     ->setUbicacion($ubicRep->findByMunic($geo['geoplugin_city']));
-
-        // console_log((array)$c);
-        // $em->persist($c);
-        // $em->flush();
+        
         ?>
 <html>
     <head>
@@ -167,7 +149,7 @@
 
         error_reporting(E_ALL ^ E_NOTICE);
         $geo = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['HTTP_CLIENT_IP']));
-        //console_log($geo);
+        console_log($geo);
         $munic = $geo['geoplugin_city'];
 
         
@@ -180,20 +162,22 @@
             ->setTipo('cliente')
             ;
             
-        if( $usuarioRep->exists($u) ){
-            header('Location: ' . $_SERVER['PHP_SELF'] . '?usrreg=0');
-            exit;
-        }
-
-        $usuarioRep->registrarUsuario($u);
-        console_log((array)$usuarioRep->findByUsername($u->getUsername()));
+            if( $usuarioRep->existsUsername($u->getUsername()) ||
+            $usuarioRep->existsUsername($u->getEmail())     ){
+                header('Location: ' . $_SERVER['PHP_SELF'] . '?usrreg=0');
+                exit;
+            }
+            
+        $em->persist($u);
+        $em->flush();
 
         $c  ->setDomicilio($_POST['domicilio'])
             ->setUsuario($usuarioRep->findByUsername($u->getUsername()))
             ->setUbicacion($ubicRep->findByMunic($munic));
 
         console_log((array)$c);
-        $clienteRep->registrarCliente($c);
+        $em->persist($c);
+        $em->flush();
 
         header('Location: sign-in.php?usrreg=1');
         exit;

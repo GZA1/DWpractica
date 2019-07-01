@@ -61,10 +61,7 @@
                         if( $tipoLogueado=="cliente" ){
                     ?>
                     <a href="../usuario/historial_pedidos.php">Historial de Pedidos</a>
-                    <?php
-                        }else if( $tipoLogueado=="admin" ){
-                    ?>
-                    <a href="">Gestión de Catálogo</a>
+                    
                     <?php
                         }
                     ?>
@@ -137,7 +134,6 @@
                 <div class="dropdown">
                     <div class="dropdown-actuador flex_rows">
                         <div>
-                        <!-- Introducir el enlace Admin-->
                             <img src="../img/gear.png" height="20px">
                         </div>
                         <div class="flex_cols">

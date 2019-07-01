@@ -8,15 +8,7 @@ require_once '/xampp/appdata/model/console.php';
 
 class EmpleadoRepository extends EntityRepository{
     
-    
-    // public function getEmpleadoByID($username, $passwd, $nombre, $apell, $email, $photoPath, $active, $cargo, $isAdministrador, $tienda_id){
-        
-    //     $DQL = "select * from Entities\\Empleado where id = :id";
-    //     //$query = -> $this ->createQuery($DQL);
-    //     /**OYE ESTO NO ESTÁ HECHO JEJ */
-    //     $query->setParameters('id', 'Bob');
-    //     $emp = $query->$em->getResult();
-    // }
+
 
     public function getEmpleadoByID($id){
             $resultado = $this->findBy(['id'=>$id]);
@@ -52,7 +44,29 @@ class EmpleadoRepository extends EntityRepository{
         }
     }
 
-
+    public function registrarEmpleado($e){
+        if(isset($e)){
+            $this->_em->persist($e);
+            $this->_em->flush();
+            return true;
+        }
+        return false;
+    }
+    
+    public function darDeBaja($usuario){
+        if(isset($usuario)){
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->update('AppBundle\\Entity\\Empleado', 'e')
+                ->set('e.activo', ':activo')
+                ->where('e.usuario = :u')
+                ->setParameter('activo', '0')
+                ->setParameter('u', $usuario);
+            $res = $qb->getQuery()->getResult();
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
 

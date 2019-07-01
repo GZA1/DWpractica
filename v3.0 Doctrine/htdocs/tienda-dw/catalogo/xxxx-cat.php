@@ -1,9 +1,9 @@
 <?php
-    require_once('/xampp/appdata/model/Console.php');
+    require_once('/xampp/appdata/model/console.php');
+
     require_once("../dbconfig.php");
 
     use Entity\Producto;
-    use Entity\Usuario;
     use Entity\Categoria;
 
     $em = GetEntityManager();
@@ -87,21 +87,7 @@
                         <input type="text" id="sliderCantidad" readonly style="background-color: rgba(46,46,31,0.02); border:0; color: rgba(102,0,204,0.80); font-weight:bold;">
                       </p>
 
-                      <!--
-                        <div id="priceSlider">
-                            <input type="range" min="0" max="900" value="900" class="slider" id="miSlider">
-                            <p>0 -<span id="valor"></span> $</p>
-                        </div>
-                        <script>
-                            var slider = document.getElementById("miSlider");
-                            var output = document.getElementById("valor");
-                            output.innerHTML = slider.value; // Display the default slider value
-
-                            // Update the current slider value (each time you drag the slider handle)
-                            slider.oninput = function() {
-                              output.innerHTML = this.value;
-                            }
-                        </script> -->
+                      
                     </div>
                     <div class="filtroItem">
                         <span>Capacidad</span>
@@ -229,65 +215,7 @@
 
                 
                 ?>
-                    <!-- <div id="category">Discos Duros</div>
-                    <div class="productRow">
-                        <div class="product">
-                            <a href="producto.php"><img src="../img/externos/1.jpg"></a>
-                            <p class="proTitulo">Lacie sr-200</p>
-                            <p class="proDescripcion">2 TB de almacenamiento, 5200RPM</p>
-                            <p class="proPrecio">159.99€</p>
-                        </div>
-                        <div class="product">
-                            <a href="producto.php"><img src="../img/externos//2.jpg"></a>
-                            <p class="proTitulo">Samsung GG-2</p>
-                            <p class="proDescripcion">4TB Almacenamiento a 5200RPM</p>
-                            <p class="proPrecio">259.99€</p>
-                        </div>
 
-                        <div class="product">
-                            <a href="producto.php"><img src="../img/externos/3.jpg"></a>
-                            <p class="proTitulo">LG-Predator</p>
-                            <p class="proDescripcion">250 GB de almacenamiento ultra rápido para todo lo que necesites</p>
-                            <p class="proPrecio">38.99€</p>
-                        </div>
-                    </div>
-                    <div class="productRow">
-                        <div class="product">
-                            <a href="producto.php"><img src="../img/externos/4.jpg"></a>
-                            <p class="proTitulo">WD-Sauvage88</p>
-                            <p class="proDescripcion">3TB ultrarápido</p>
-                            <p class="proPrecio">200€</p>
-                        </div>
-                        <div class="product">
-                            <a href="producto.php"><img src="../img/externos/5.jpg"></a>
-                            <p class="proTitulo">Maxtor 116</p>
-                            <p class="proDescripcion">500GB versátil y ágil</p>
-                            <p class="proPrecio">º€</p>
-                        </div>
-                        <div class="product">
-                            <a href="producto.php"><img src="../img/externos/6.jpg"></a>
-                            <p class="proTitulo">ADATA HardSkin v2</p>
-                            <p class="proDescripcion">1 TB Robusto y versátil </p>
-                            <p class="proPrecio">38.99€</p>
-                        </div>
-                    </div>
-                    <div class="productRow">
-                        <div class="product"></div>
-                        <div class="product"></div>
-                        <div class="product"></div>
-                    </div> -->
-<!--
-                    <div class="productRow">
-                        <div class="product"></div>
-                        <div class="product"></div>
-                        <div class="product"></div>
-                    </div>
-                    <div class="productRow">
-                        <div class="product"></div>
-                        <div class="product"></div>
-                        <div class="product"></div>
-                    </div>
--->
 
 
                 </div>

@@ -1,59 +1,59 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Table("ubicacion")
- * @Entity(repositoryClass="AppBundle\Repository\UbicacionRepository")
+ * @ORM\Table("ubicacion")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UbicacionRepository")
  */
 
-class Ubicacion 
+class Ubicacion
 {
-        
+
     /**
-     * @Id @GeneratedValue
-     * @Column(name="idUbicacion", type="integer", nullable=false)
+     * @ORM\Id @ORM\GeneratedValue
+     * @ORM\Column(name="idUbicacion", type="integer", nullable=false)
      */
     private $idUbicacion;
-        
+
     /**
-     * @Column(name="cp", type="integer", nullable=false)
+     * @ORM\Column(name="cp", type="integer", nullable=false)
      */
     private $cp;
-        
+
     /**
-     * @Column(name="municipio", length=45, nullable=false)
+     * @ORM\Column(name="municipio", length=45, nullable=false)
      */
     private $municipio;
-        
+
     /**
-     * @Column(name="provincia", length=45, nullable=true)
+     * @ORM\Column(name="provincia", length=45, nullable=true)
      */
     private $provincia;
-        
+
     /**
-     * @Column(name="comunidadAutonoma", length=45, nullable=true)
+     * @ORM\Column(name="comunidadAutonoma", length=45, nullable=true)
      */
     private $comunidadAutonoma;
-        
+
     /**
-     * @Column(name="latitud", type="float", nullable=true)
+     * @ORM\Column(name="latitud", type="float", nullable=true)
      */
     private $latitud;
     /**
-     * @Column(name="longitud", type="float", nullable=true)
+     * @ORM\Column(name="longitud", type="float", nullable=true)
      */
     private $longitud;
-    /** 
+    /**
      * Una ubicacion es d
-     * @OneToMany(targetEntity="Tienda", mappedBy="ubicacion") 
+     * @ORM\OneToMany(targetEntity="Tienda", mappedBy="ubicacion")
      */
     private $tiendas;
 
      public function __construct()
      {
-        $this->tiendas = new \Doctrine\Common\Collections\ArrayCollection();  
-        $this->clientes = new \Doctrine\Common\Collections\ArrayCollection();  
+        $this->tiendas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->clientes = new \Doctrine\Common\Collections\ArrayCollection();
      }
 
 
@@ -73,7 +73,7 @@ class Ubicacion
 
     /**
      * Get the value of idUbicacion
-     */ 
+     */
     public function getIdUbicacion()
     {
         return $this->idUbicacion;
@@ -83,7 +83,7 @@ class Ubicacion
      * Set the value of idUbicacion
      *
      * @return  self
-     */ 
+     */
     public function setIdUbicacion($idUbicacion)
     {
         $this->idUbicacion = $idUbicacion;
@@ -93,7 +93,7 @@ class Ubicacion
 
     /**
      * Get the value of cp
-     */ 
+     */
     public function getCp()
     {
         return $this->cp;
@@ -103,7 +103,7 @@ class Ubicacion
      * Set the value of cp
      *
      * @return  self
-     */ 
+     */
     public function setCp($cp)
     {
         $this->cp = $cp;
@@ -113,7 +113,7 @@ class Ubicacion
 
     /**
      * Get the value of municipio
-     */ 
+     */
     public function getMunicipio()
     {
         return $this->municipio;
@@ -123,7 +123,7 @@ class Ubicacion
      * Set the value of municipio
      *
      * @return  self
-     */ 
+     */
     public function setMunicipio($municipio)
     {
         $this->municipio = $municipio;
@@ -133,7 +133,7 @@ class Ubicacion
 
     /**
      * Get the value of provincia
-     */ 
+     */
     public function getProvincia()
     {
         return $this->provincia;
@@ -143,7 +143,7 @@ class Ubicacion
      * Set the value of provincia
      *
      * @return  self
-     */ 
+     */
     public function setProvincia($provincia)
     {
         $this->provincia = $provincia;
@@ -153,7 +153,7 @@ class Ubicacion
 
     /**
      * Get the value of comunidadAutonoma
-     */ 
+     */
     public function getComunidadAutonoma()
     {
         return $this->comunidadAutonoma;
@@ -163,7 +163,7 @@ class Ubicacion
      * Set the value of comunidadAutonoma
      *
      * @return  self
-     */ 
+     */
     public function setComunidadAutonoma($comunidadAutonoma)
     {
         $this->comunidadAutonoma = $comunidadAutonoma;
@@ -173,7 +173,7 @@ class Ubicacion
 
     /**
      * Get the value of latitud
-     */ 
+     */
     public function getLatitud()
     {
         return $this->latitud;
@@ -183,7 +183,7 @@ class Ubicacion
      * Set the value of latitud
      *
      * @return  self
-     */ 
+     */
     public function setLatitud($latitud)
     {
         $this->latitud = $latitud;
@@ -193,7 +193,7 @@ class Ubicacion
 
     /**
      * Get the value of longitud
-     */ 
+     */
     public function getLongitud()
     {
         return $this->longitud;
@@ -203,7 +203,7 @@ class Ubicacion
      * Set the value of longitud
      *
      * @return  self
-     */ 
+     */
     public function setLongitud($longitud)
     {
         $this->longitud = $longitud;
@@ -213,7 +213,7 @@ class Ubicacion
 
     /**
      * Get una ubicacion es d
-     */ 
+     */
     public function getClientes()
     {
         return $this->clientes;
@@ -223,7 +223,7 @@ class Ubicacion
      * Set una ubicacion es d
      *
      * @return  self
-     */ 
+     */
     public function setClientes($clientes)
     {
         $this->clientes = $clientes;
@@ -233,7 +233,7 @@ class Ubicacion
 
     /**
      * Get una ubicacion es d
-     */ 
+     */
     public function getTiendas()
     {
         return $this->tiendas;
@@ -243,7 +243,7 @@ class Ubicacion
      * Set una ubicacion es d
      *
      * @return  self
-     */ 
+     */
     public function setTiendas($tiendas)
     {
         $this->tiendas = $tiendas;
@@ -252,5 +252,5 @@ class Ubicacion
     }
 
 }
-    
+
 ?>

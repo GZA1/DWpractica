@@ -1,49 +1,49 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Table("empleado")
- * @Entity(repositoryClass="AppBundle\Repository\EmpleadoRepository")
+ * @ORM\Table("empleado")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EmpleadoRepository")
  */
 
 class Empleado
 {
-    /** 
-     * @Id
-     * @Column(name="id",length=45, nullable=false, unique=true) 
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="id",length=45, nullable=false, unique=true)
     */
     private $id;
-    /** 
-     * @Column(name="photoPath",length=45, nullable=true)
+    /**
+     * @ORM\Column(name="photoPath",length=45, nullable=true)
      */
     private $photoPath;
-    /** 
-     * @Column(name="activo",type="boolean", nullable=false)
+    /**
+     * @ORM\Column(name="activo",type="boolean", nullable=false)
      */
-    private $activo;
-    /** 
-     * @Column(name="cargo",length=45, nullable=false)
+    private $activo = true;
+    /**
+     * @ORM\Column(name="cargo",length=45, nullable=false)
      */
     private $cargo;
     /**
-     *  @Column(name="isAdministrador",type="boolean", nullable=false)
+     *  @ORM\Column(name="isAdministrador",type="boolean", nullable=false)
      */
-    private $isAdministrador;
-    
+    private $isAdministrador = false;
+
     /*                      F O R E I G N   K E Y S
     */
 
-    /** 
+    /**
      * Un empleado trabaja en una tienda
-     * @ManyToOne(targetEntity="Tienda", inversedBy="empleados") 
-     * @JoinColumn(name="Tienda_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Tienda", inversedBy="empleados")
+     * @ORM\JoinColumn(name="Tienda_id", referencedColumnName="id")
      */
     private $tienda;
     /**
      * Un cliente tiene un usuario asociado
-     * @OneToOne(targetEntity="Usuario")
-     * @JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
+     * @ORM\OneToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      */
     private $usuario;
 
@@ -56,14 +56,14 @@ class Empleado
 
 
 
-    
+
     /** GETTERS & SETTERS */
 
 
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -73,7 +73,7 @@ class Empleado
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -83,7 +83,7 @@ class Empleado
 
     /**
      * Get the value of photoPath
-     */ 
+     */
     public function getPhotoPath()
     {
         return $this->photoPath;
@@ -93,7 +93,7 @@ class Empleado
      * Set the value of photoPath
      *
      * @return  self
-     */ 
+     */
     public function setPhotoPath($photoPath)
     {
         $this->photoPath = $photoPath;
@@ -101,10 +101,10 @@ class Empleado
         return $this;
     }
 
-    
+
     /**
      * Get the value of activo
-     */ 
+     */
     public function getActivo()
     {
         return $this->activo;
@@ -114,7 +114,7 @@ class Empleado
      * Set the value of activo
      *
      * @return  self
-     */ 
+     */
     public function setActivo($activo)
     {
         $this->activo = $activo;
@@ -124,7 +124,7 @@ class Empleado
 
     /**
      * Get the value of cargo
-     */ 
+     */
     public function getCargo()
     {
         return $this->cargo;
@@ -134,7 +134,7 @@ class Empleado
      * Set the value of cargo
      *
      * @return  self
-     */ 
+     */
     public function setCargo($cargo)
     {
         $this->cargo = $cargo;
@@ -144,7 +144,7 @@ class Empleado
 
     /**
      * Get the value of isAdministrador
-     */ 
+     */
     public function getIsAdministrador()
     {
         return $this->isAdministrador;
@@ -154,7 +154,7 @@ class Empleado
      * Set the value of isAdministrador
      *
      * @return  self
-     */ 
+     */
     public function setIsAdministrador($isAdministrador)
     {
         $this->isAdministrador = $isAdministrador;
@@ -164,7 +164,7 @@ class Empleado
 
     /**
      * Get un empleado trabaja en una tienda
-     */ 
+     */
     public function getTienda()
     {
         return $this->tienda;
@@ -174,7 +174,7 @@ class Empleado
      * Set un empleado trabaja en una tienda
      *
      * @return  self
-     */ 
+     */
     public function setTienda($tienda)
     {
         $this->tienda = $tienda;
@@ -182,7 +182,7 @@ class Empleado
         return $this;
     }
 
-    
+
     /**
      * Get un usuario tiene un cliente
      */
