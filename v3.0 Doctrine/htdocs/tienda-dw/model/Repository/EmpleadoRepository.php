@@ -28,8 +28,8 @@ class EmpleadoRepository extends EntityRepository{
     }
 
 
-    public function updatePerfilEmpleado($u, $username, $nombre, $apellidos){
-        if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) ){
+    public function updatePerfilEmpleado($u, $username, $nombre, $apellidos, $photo){
+        if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) && isset($photo) ){
             $u  ->setUsername($username)
                 ->setNombre($nombre)
                 ->setApellidos($apellidos)
@@ -48,9 +48,9 @@ class EmpleadoRepository extends EntityRepository{
             console_log($res);
             $qb = $this->_em->createQueryBuilder();
             $qb ->update('Entity\\Empleado', 'e')
-                ->set('e.photo', ':photop')
+                ->set('e.photo', ':photo')
                 ->where('e.usuario = :u')
-                ->setParameter('photop', $photo)
+                ->setParameter('photo', $photo)
                 ->setParameter('u', $u);
             $res = $qb->getQuery()->getResult();
             console_log($res);

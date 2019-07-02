@@ -35,7 +35,7 @@ class Producto
      */
     private $descripcion;
     /**
-     * @Column(name="photo", nullable=true)
+     * @Column(name="photo", length=45, nullable=true)
      */
     private $photo;
 
@@ -225,21 +225,21 @@ class Producto
     }
 
     /**
-     * Get the value of picPath
+     * Get the value of photo
      */ 
-    public function getPicPath()
+    public function getPhoto()
     {
         return $this->picPath;
     }
 
     /**
-     * Set the value of picPath
+     * Set the value of photo
      *
      * @return  self
      */ 
-    public function setPicPath($picPath)
+    public function setPhoto($photo)
     {
-        $this->picPath = $picPath;
+        $this->photo = $photo;
 
         return $this;
     }

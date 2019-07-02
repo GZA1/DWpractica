@@ -15,7 +15,7 @@
             
             <form method="post" id="rEMP">
                 
-                <label id="lUser">Nombre de usuario</label>
+                <label id="lUsername">Nombre de usuario</label>
                 <input type="text" id="username" name="Username">
                 <label id="lPasswd">Contraseña</label>
                 <input type="password" id="passwd" name="Passwd">
@@ -24,49 +24,47 @@
                 <label id="lApell">Apellidos</label>
                 <input type="text" id="apell" name="Apellidos">
                 <label id="lEmail">Email</label>
-                    <input type="text" id="email" name="Email">
-                    <label id="lPhoto">Foto de perfil (opcional)</label>
-                    <input type="file" id="photo" name="Photo">
-                    <label id="lCargo">Cargo</label>
-                    <input type="text" id="cargo" name="Cargo">
-                    <label id="lTiendaId">ID de la tienda a la que pertenece</label>
-                    <select id="tiendaId" name="tienda_id" form="rEMP">
-                        <?php
-                        $tiendas = $em->getRepository("Entity\\Tienda")->findAll();                    
-                        foreach($tiendas as $a){ ?>
-                            <option value="<?php echo $a->getId() ?>">ID <?php echo($a->getId().' - '.$a->getNombre()) ?></option>";
-                        <?php 
-                        }
-                        ?>        
-                    </select>
-                    <label id="lPasswdConfirm">Introduzca su contraseña para confirmar</label>
-                    <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="passwdConfirm">
-                    <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Añadir Empleado">
-                    <input class="submitCDF cancel" id="cancelButtonREMP" type="button" value="Cancelar">
-                </form>
-            </div>
+                <input type="text" id="email" name="Email">
+                <label id="lPhoto">Foto de perfil (opcional)</label>
+                <input type="file" accept="image/*" alt="Opcional" id="photo" name="Photo">
+                <label id="lCargo">Cargo</label>
+                <input type="text" id="cargo" name="Cargo">
+                <label id="lTiendaId">ID de la tienda a la que pertenece</label>
+                <select id="tiendaId" name="tienda_id" form="rEMP">
+                    <?php
+                    $tiendas = $em->getRepository("Entity\\Tienda")->findAll();                    
+                    foreach($tiendas as $a){ ?>
+                        <option value="<?php echo $a->getId() ?>">ID <?php echo($a->getId().' - '.$a->getNombre()) ?></option>";
+                    <?php 
+                    }
+                    ?>        
+                </select>
+                <label id="lPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="passwdConfirm">
+                <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Añadir Empleado">
+                <input class="submitCDF cancel" id="cancelButtonREMP" type="button" value="Cancelar">
+            </form>
+        </div>
 
-            <!-- 2do Formulario-->
-            <div id="añadirTiendaForm" class="configForm not-active">
-        
-                <form method="post" id="aSHOP">
-                    
-                    <label id="lNombreTienda">Nombre tienda</label>
-                    <input type="text" id="nombreTienda" name="NombreTienda">
-                    <label id="lDireccion">Direccion</label>
-                    <input type="text" id="direccion" name="Direccion">
-                    <label id="lCp">Código Postal</label>
-                    <input type="text" id="cp" name="CodigoPostal">
-                    <label id="lMunic">Municipio</label>
-                    <input type="text" id="munic" name="Municipio">
-                    <label id="lEmailTienda">Email</label>
-                    <input type="text" id="emailTienda" name="EmailTienda">
-                    <label id="lPasswdConfTienda">Introduzca su contraseña para confirmar</label>
-                    <input type="password" placeholder="Contraseña" id="passwdConfTienda" name="ContraseñaConfirm">
-                    <input class="submitCDF" type="submit" name="optsSubmit" id="addButtonaSHOP" value="Añadir Tienda">
-                    <input class="submitCDF cancel" id="cancelButtonaSHOP" type="button" value="Cancelar">
-                </form>
-            </div>
+        <!-- 2do Formulario-->
+        <div id="añadirTiendaForm" class="configForm not-active">
+    
+            <form method="post" id="aSHOP">
+                
+                <label id="lNombreTienda">Nombre tienda</label>
+                <input type="text" id="nombreTienda" name="NombreTienda">
+                <label id="lDireccion">Direccion</label>
+                <input type="text" id="direccion" name="Direccion">
+                <label id="lCp">Código Postal</label>
+                <input type="text" id="cp" name="CodigoPostal">
+                <label id="lEmailTienda">Email</label>
+                <input type="text" id="emailTienda" name="EmailTienda">
+                <label id="lPasswdConfTienda">Introduzca su contraseña para confirmar</label>
+                <input type="password" placeholder="Contraseña" id="passwdConfTienda" name="ContraseñaConfirm">
+                <input class="submitCDF" type="submit" name="optsSubmit" id="addButtonaSHOP" value="Añadir Tienda">
+                <input class="submitCDF cancel" id="cancelButtonaSHOP" type="button" value="Cancelar">
+            </form>
+        </div>
 
         <!-- 3er Formulario -->
         <div id="bajaEMPForm" class="configForm not-active">

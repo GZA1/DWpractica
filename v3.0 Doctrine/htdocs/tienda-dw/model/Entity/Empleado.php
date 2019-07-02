@@ -15,7 +15,7 @@ class Empleado
     */
     private $id;
     /** 
-     * @Column(name="photo", nullable=true)
+     * @Column(name="photo", length=45, nullable=true)
      */
     private $photo;
     /** 
@@ -84,7 +84,7 @@ class Empleado
     /**
      * Get the value of photo
      */ 
-    public function getphoto()
+    public function getPhoto()
     {
         return $this->photo;
     }
@@ -94,7 +94,7 @@ class Empleado
      *
      * @return  self
      */ 
-    public function setphoto($photo)
+    public function setPhoto($photo)
     {
         $this->photo = $photo;
 
