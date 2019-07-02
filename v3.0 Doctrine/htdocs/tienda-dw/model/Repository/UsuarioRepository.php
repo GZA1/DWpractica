@@ -91,15 +91,6 @@ class UsuarioRepository extends EntityRepository{
             return false;
         }
     }
-    public function compararPass($usuario, $pass){
-        if( isset($usuario) && isset($pass)){
-            if($usuario->getPasswd() == $pass)
-                return true;
-        }else{
-            
-            return false;
-        }
-    }
 
     public function registrarUsuario($u){
         if(isset($u)){
@@ -109,6 +100,7 @@ class UsuarioRepository extends EntityRepository{
         }
         return false;
     }
+    
     public function exists($usuario){
         return  $this->existsEmail($usuario->getEmail()) ||
                 $this->existsUsername($usuario->getUsername());

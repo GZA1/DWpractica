@@ -25,8 +25,8 @@
                 <input type="text" id="apell" name="Apellidos">
                 <label id="lEmail">Email</label>
                     <input type="text" id="email" name="Email">
-                    <label id="lPhotopath">Ruta de foto de perfil</label>
-                    <input type="text" placeholder="Opcional" id="photopath" name="PhotoPath">
+                    <label id="lphoto">Ruta de foto de perfil</label>
+                    <input type="text" placeholder="Opcional" id="photo" name="photo">
                     <label id="lCargo">Cargo</label>
                     <input type="text" id="cargo" name="Cargo">
                     <label id="lTiendaId">ID de la tienda a la que pertenece</label>

@@ -188,7 +188,7 @@
                                     ->setNombre($_POST['Nombre']) 
                                     ->setApell($_POST['Apellidos']) 
                                     ->setEmail($_POST['Email']) 
-                                    ->setPhotoPath($_POST['PhotoPath']) 
+                                    ->setphoto($_POST['photo']) 
                                     ->setCargo($_POST['Cargo'])
                                     ->setTienda_id($_POST['tienda_id']);
                                     

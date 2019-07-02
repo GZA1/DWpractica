@@ -120,8 +120,8 @@
                     } else if($u->getTipo() == "empleado"){
                     ?>
                     <div class="profileAttr">
-                        <div class="attrName attr">PhotoPath:</div>
-                        <p class="attr"><?php echo $e->getPhotoPath();?></p>
+                        <div class="attrName attr">photo:</div>
+                        <p class="attr"><?php echo $e->getphoto();?></p>
                     </div>
                     <?php
                     }
@@ -153,8 +153,8 @@
                         <?php
                         } else if($u->getTipo() == "empleado"){
                         ?>
-                        <label id="lPhotopath">Ruta de foto de perfil</label>
-                        <input type="file" accept="image/*" defaultValue="<?php echo htmlspecialchars($e->getPhotoPath());?>" placeholder="Opcional" name="PhotoPath">
+                        <label id="lphoto">Ruta de foto de perfil</label>
+                        <input type="file" accept="image/*" defaultValue="<?php echo htmlspecialchars($e->getphoto());?>" placeholder="Opcional" name="photo">
                         <?php
                         }
                         ?>
@@ -255,7 +255,7 @@
                         header('Location: ?updateProfile=1');
                         exit;
                     }else if( $tipo == "empleado" && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername()  )
-                        && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['PhotoPath']) ){
+                        && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['photo']) ){
                         header('Location: ?updateProfile=1');
                         exit;
                     }else{                        

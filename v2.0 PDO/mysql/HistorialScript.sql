@@ -9,8 +9,6 @@ select * from categoria;
 select * from producto;
 select * from unidad;
 
-delete from usuario where idUsuario=3;
-
 use BD_Tienda;
 
 drop database bd_tienda;

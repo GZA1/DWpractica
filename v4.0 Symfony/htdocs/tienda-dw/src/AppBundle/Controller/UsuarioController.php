@@ -169,7 +169,7 @@ class UsuarioController extends Controller
     /**
      * @Route("/perfil", name="perfil", methods={"GET"})
      */    
-    public function perfilAction(Request $request)
+    public function perfilAction(Request $request, SessionInterface $session)
     {
         $message = null;
         $tipoMessage = null;
@@ -208,6 +208,8 @@ class UsuarioController extends Controller
         
         $usuarioRep = $em->getRepository("AppBundle\\Entity\\Usuario");
         $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+
+        $u = $session->get('user')->getUsuario();
 
         switch($_POST['optsSubmit']){
             
@@ -285,10 +287,10 @@ class UsuarioController extends Controller
             $tipoMessage = 1; 
         }        
 
-        return $this->render('usuario/cfg.html.twig', [  'msg'=>$message, 
-                                                            'tipoMessage'=> $tipoMessage, 
-                                                            'tiendas'=> $tiendas,
-                                                            'empleados'=> $empleados]
+        return $this->render('usuario/cfg.html.twig', [ 'msg'=>$message, 
+                                                        'tipoMessage'=> $tipoMessage, 
+                                                        'tiendas'=> $tiendas,
+                                                        'empleados'=> $empleados]
                                                         );
     }
     

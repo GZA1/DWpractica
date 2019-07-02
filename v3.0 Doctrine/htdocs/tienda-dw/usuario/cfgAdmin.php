@@ -25,8 +25,8 @@
                 <input type="text" id="apell" name="Apellidos">
                 <label id="lEmail">Email</label>
                     <input type="text" id="email" name="Email">
-                    <label id="lPhotopath">Ruta de foto de perfil</label>
-                    <input type="text" placeholder="Opcional" id="photopath" name="PhotoPath">
+                    <label id="lPhoto">Foto de perfil (opcional)</label>
+                    <input type="file" id="photo" name="Photo">
                     <label id="lCargo">Cargo</label>
                     <input type="text" id="cargo" name="Cargo">
                     <label id="lTiendaId">ID de la tienda a la que pertenece</label>
@@ -68,26 +68,23 @@
                 </form>
             </div>
 
-            <!-- 3er Formulario -->
-            <div id="bajaEMPForm" class="configForm not-active">
-            
-                <form method="post" id="bajaEMP">
-                    
-                    <label id="lIdBajaEmpleado">Seleccione el empleado a dar de baja</label>
-                    <select id="idBajaEmpleado" name="idBajaEmpleado" form="bajaEMP">
-                        <?php
-                        $empleados = $em->getRepository("Entity\\Empleado")->findAll(); 
-                        foreach($empleados as $e){
-                            if($e->getId() != $u->getId()){
-                                echo "<option value=".$e->getId().">".$e->getUsuario()->getUsername()."</option>";
-                            }
+        <!-- 3er Formulario -->
+        <div id="bajaEMPForm" class="configForm not-active">
+            <form method="post" id="bajaEMP">
+                <label id="lIdBajaEmpleado">Seleccione el empleado a dar de baja</label>
+                <select id="idBajaEmpleado" name="idBajaEmpleado" form="bajaEMP">
+                    <?php
+                    $usuariosRep = $em->getRepository("Entity\\Usuario");
+                    $usEmpleados = $usuariosRep->findEmpleados();
+                    foreach($usEmpleados as $usEmp){ console_log((array)$usEmp); console_log($usEmp->getIdUsuario());?>
+                        <option value='<?php echo $usEmp->getIdUsuario()?>'><?php echo($usEmp->getUsername())?></option>
+                    <?php
                     }
-                    ?>        
+                ?>        
                 </select>
                 <label id="lPasswdConfBaja">Introduzca su contraseña para confirmar</label>
                 <input id="passwdConfBaja" type="password" placeholder="Contraseña" name="ContraseñaConfirm">
-                <input class="submitCDF" type="submit" name="optsSubmit" id="bajaButtonEMP"
-                value="Baja Empleado">
+                <input class="submitCDF" type="submit" name="optsSubmit" id="bajaButtonEMP" value="Baja Empleado">
                 <input class="submitCDF cancel" id="cancelButtonbajaEMP" type="button" value="Cancelar">
             </form>
 

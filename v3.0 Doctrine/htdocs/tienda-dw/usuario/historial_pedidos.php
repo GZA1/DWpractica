@@ -51,7 +51,7 @@
                 ?>
                     <li class="flex_rows">
                         <div class="pedido-img">
-                            <a href=""><img src="<?php /*echo($p['photoPath']);*/ ?>" height="100%"></a>
+                            <a href=""><img src="<?php /*echo($p['photo']);*/ ?>" height="100%"></a>
                         </div>
                         <div class="flex_cols pedido-container">
                             <div class="estado"><?php echo('Estado: '.$p->getEstado()); ?></div>

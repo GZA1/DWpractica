@@ -195,7 +195,7 @@ require_once('/xampp/appdata/model/console.php');
                         if( ! $usuarioRep->exists($newUsuario) ){
                             $usuarioRep->registrarUsuario($newUsuario);
                             $newEmpleado->setUsuario($usuarioRep->findByUsername($newUsuario->getUsername()))
-                                        ->setPhotoPath($_POST['PhotoPath']) 
+                                        ->setphoto($_POST['photo']) 
                                         ->setCargo($_POST['Cargo'])
                                         ->setTienda($tiendaSeleccionada);
                             console_log((array)$newEmpleado);

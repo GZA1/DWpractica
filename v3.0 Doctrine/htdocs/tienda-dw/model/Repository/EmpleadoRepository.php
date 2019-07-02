@@ -9,7 +9,7 @@ require_once '/xampp/appdata/model/console.php';
 class EmpleadoRepository extends EntityRepository{
     
     
-    // public function getEmpleadoByID($username, $passwd, $nombre, $apell, $email, $photoPath, $active, $cargo, $isAdministrador, $tienda_id){
+    // public function getEmpleadoByID($username, $passwd, $nombre, $apell, $email, $photo, $active, $cargo, $isAdministrador, $tienda_id){
         
     //     $DQL = "select * from Entities\\Empleado where id = :id";
     //     //$query = -> $this ->createQuery($DQL);
@@ -34,8 +34,26 @@ class EmpleadoRepository extends EntityRepository{
                 ->setNombre($nombre)
                 ->setApellidos($apellidos)
             ;
-            $this->_em->persist($u);
-            $this->_em->flush();
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->update('Entity\\Usuario', 'u')
+                ->set('u.username', ':username')
+                ->set('u.nombre', ':nombre')
+                ->set('u.apellidos', ':apell')
+                ->where('u.idUsuario = :u')
+                ->setParameter('username', $username)
+                ->setParameter('nombre', $nombre)
+                ->setParameter('apell', $apellidos)
+                ->setParameter('u', $u);
+            $res = $qb->getQuery()->getResult();
+            console_log($res);
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->update('Entity\\Empleado', 'e')
+                ->set('e.photo', ':photop')
+                ->where('e.usuario = :u')
+                ->setParameter('photop', $photo)
+                ->setParameter('u', $u);
+            $res = $qb->getQuery()->getResult();
+            console_log($res);
             return true;
         } else{
             return false;

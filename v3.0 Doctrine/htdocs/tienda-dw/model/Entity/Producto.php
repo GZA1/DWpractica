@@ -35,9 +35,9 @@ class Producto
      */
     private $descripcion;
     /**
-     * @Column(name="picPath", length=45, nullable=true)
+     * @Column(name="photo", nullable=true)
      */
-    private $picPath;
+    private $photo;
 
 
     /**

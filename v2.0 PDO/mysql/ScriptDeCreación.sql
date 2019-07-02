@@ -102,7 +102,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Empleado` (
   `id` VARCHAR(45) NOT NULL,
-  `photoPath` VARCHAR(45) NULL,
+  `photo` VARCHAR(45) NULL,
   `activo` TINYINT(1) NOT NULL DEFAULT 1,
   `cargo` VARCHAR(45) NOT NULL,
   `isAdministrador` TINYINT(1) NOT NULL DEFAULT 0,
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Producto` (
   `modelo` VARCHAR(45) NOT NULL,
   `precio` DOUBLE NOT NULL,
   `descripcion` VARCHAR(255) NULL,
-  `picPath` VARCHAR(45) NULL,
+  `photo` VARCHAR(45) NULL,
   `Categoria_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
@@ -234,6 +234,9 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
 
 
 
@@ -38122,7 +38125,7 @@ VALUES
 /*Esto lo guardo aquí de backup por si modificamos el script de creación. Almacén central*/
 
 INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion) VALUES ('Almacén Central', 'Avenida del Almacén Central 1', 'almcentral@empresa.com', 32836); /*Está en Madrid el almacén central*/
-INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion) VALUES ('Tienda Almeria', 'Calle Flores', 'tiendaAlmeria@empresa.com', 04004);
+INSERT INTO Tienda (nombre, direccion, email, Ubicacion_idUbicacion) VALUES ('Tienda Almeria', 'Calle Flores', 'tiendaAlmeria@empresa.com', 34);
 
 /*Usuarios*/
 insert into Usuario (username, passwd, nombre, apellidos, email, tipo) values
@@ -38130,8 +38133,8 @@ insert into Usuario (username, passwd, nombre, apellidos, email, tipo) values
     ('cli1', 	'7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Cliente', 		'Numero Uno', 		'cli1@gmail.com', 'cliente'	);
 
 /*Usuario Administrador*/
-INSERT INTO Empleado (id, photopath, cargo, isAdministrador, Tienda_id, Usuario_idUsuario) 
-VALUES ('EMP:000000005022630e0000000012d81fbf', './/img/externos/1.jpg', 'encargado', 1, 1, 1);
+INSERT INTO Empleado (id, cargo, isAdministrador, Tienda_id, Usuario_idUsuario) 
+VALUES ('EMP:000000005022630e0000000012d81fbf', 'encargado', 1, 1, 1);
 
 /*Hacer inserts de clientes desde el sign up*/
 
@@ -38158,13 +38161,13 @@ insert into Producto(nombre, marca, modelo, precio, categoria_id) values
 	("Vengance", 		"Corsair", 	"16GB-2400-CL14", 		223.99, 1),
 	("FastSlim", 		"Kingston", "SODIMM-8GB-1600-CL15", 114.99, 1);
  
-    insert into Producto(nombre, marca, modelo, precio, descripcion, picPath, categoria_id) values
-    ("WD-Sauvage88 3TB", "-WesternDigital", "Sauvage88", 200, "3TB ultrarápido" , "../img/externos/2.jpg",3),
-    ("Maxtor 116 500GB", "Maxtor", "116", 459.99, "500GB versátil y ágil", "../img/externos/3.jpg",3),
-    ("LG-Predator 1 TB", "LG", "Predator", 38.99, "1 TB de almacenamiento ultra rápido para todo lo que necesites" , "../img/externos/4.jpg",3),
-    ("Lacie sr-200 2TB ", "LaCie", "sr-200", 159.99, "250 GB de almacenamiento ultra rápido para todo lo que necesites", "../img/externos/5.jpg", 3),
-    ("Samsung GG-22 4TB", "Samsung", "GG-22", 259.99, "4TB Almacenamiento a 5200RPM", "../img/externos/6.jpg",3),
-    ("ADATA HardSkin v2", "ADATA", "HardSkin v2", 238.99, "1 TB Robusto y versátil ", "../img/externos/7.jpg", 3);
+    insert into Producto(nombre, marca, modelo, precio, descripcion, categoria_id) values
+    ("WD-Sauvage88 3TB", "-WesternDigital", "Sauvage88", 200, "3TB ultrarápido" ,3),
+    ("Maxtor 116 500GB", "Maxtor", "116", 459.99, "500GB versátil y ágil",3),
+    ("LG-Predator 1 TB", "LG", "Predator", 38.99, "1 TB de almacenamiento ultra rápido para todo lo que necesites" ,3),
+    ("Lacie sr-200 2TB ", "LaCie", "sr-200", 159.99, "250 GB de almacenamiento ultra rápido para todo lo que necesites",3),
+    ("Samsung GG-22 4TB", "Samsung", "GG-22", 259.99, "4TB Almacenamiento a 5200RPM",3),
+    ("ADATA HardSkin v2", "ADATA", "HardSkin v2", 238.99, "1 TB Robusto y versátil ",3);
     
        
 insert into unidad(producto_id, tienda_id) values

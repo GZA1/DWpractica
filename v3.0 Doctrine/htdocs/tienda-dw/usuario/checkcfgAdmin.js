@@ -10,13 +10,12 @@
             apell = $("#apell").val(),
             email = $("#email").val(),
             cargo = $("#cargo").val(),
-            photoPath = $("#photoPath").val(),
             tiendaId = $("#tiendaId").val(),
             passwdConfirm = $("#passwdConfirm").val();
 
-        var inputVal = [username, passwd, nombre, apell, email, cargo, photoPath, tiendaId, passwdConfirm],
-            inputMessage = ["username", "contraseña", "nombre", "apellidos", "email", "cargo", "photoPath", "tienda id", "contraseña de confirmación"],
-            textId = ["#lUsername", "#lPasswd", "#lNombre", "#lApell", "#lEmail", "#lCargo", "lPhotoPath", "lTiendaId", "#lPasswdConfirm"];
+        var inputVal = [username, passwd, nombre, apell, email, cargo, tiendaId, passwdConfirm],
+            inputMessage = ["username", "contraseña", "nombre", "apellidos", "email", "cargo", "tienda id", "contraseña de confirmación"],
+            textId = ["#lUsername", "#lPasswd", "#lNombre", "#lApell", "#lEmail", "#lCargo", "lTiendaId", "#lPasswdConfirm"];
 
         for(var i=0;i<inputVal.length;i++){
             inputVal[i] = $.trim(inputVal[i]);

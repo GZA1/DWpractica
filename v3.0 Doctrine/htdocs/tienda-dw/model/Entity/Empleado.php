@@ -15,9 +15,9 @@ class Empleado
     */
     private $id;
     /** 
-     * @Column(name="photoPath",length=45, nullable=true)
+     * @Column(name="photo", nullable=true)
      */
-    private $photoPath;
+    private $photo;
     /** 
      * @Column(name="activo",type="boolean", nullable=false)
      */
@@ -82,21 +82,21 @@ class Empleado
     }
 
     /**
-     * Get the value of photoPath
+     * Get the value of photo
      */ 
-    public function getPhotoPath()
+    public function getphoto()
     {
-        return $this->photoPath;
+        return $this->photo;
     }
 
     /**
-     * Set the value of photoPath
+     * Set the value of photo
      *
      * @return  self
      */ 
-    public function setPhotoPath($photoPath)
+    public function setphoto($photo)
     {
-        $this->photoPath = $photoPath;
+        $this->photo = $photo;
 
         return $this;
     }
