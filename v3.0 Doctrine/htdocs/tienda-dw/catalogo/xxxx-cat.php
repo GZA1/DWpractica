@@ -195,8 +195,8 @@
                             $desc = "";
                         }
                         
-                        if($p->getPicPath() !== null){
-                            $picPath = $p->getPicPath();
+                        if($p->getPhoto() !== null){
+                            $picPath = $p->getPhoto();
                         }else{
                             $picPath = "";
                         }
