@@ -86,7 +86,7 @@ class Empleado
      */ 
     public function getPhoto()
     {
-        return $this->photo;
+        return "../".$this->photo;
     }
 
     /**

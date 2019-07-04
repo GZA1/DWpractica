@@ -13,7 +13,7 @@
     $u = null;
     $c = null;
     $e = null;
-    $imgsDir = "../img/";
+    $imgsDir = "img/";
    
     if(isset($_SESSION['user'])){
         $usuarioRep = $em->getRepository("Entity\\Usuario");

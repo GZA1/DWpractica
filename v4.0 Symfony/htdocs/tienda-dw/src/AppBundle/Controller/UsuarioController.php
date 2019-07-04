@@ -175,7 +175,7 @@ class UsuarioController extends Controller
         $tipoMessage = null;
 
 
-        if( $request->query->has('updateProfile') && $request->query->get('updateProfile')==1 ) {   
+        if( $request->query->has('updateProfile') && $request->query->get('updateProfile')==1 ) {
             $tipoMessage = 1; //color: #2fbf2f
             $message = "Perfil Actualizado";
         }        
@@ -208,6 +208,7 @@ class UsuarioController extends Controller
         
         $usuarioRep = $em->getRepository("AppBundle\\Entity\\Usuario");
         $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+        $empleadoRep = $em->getRepository("AppBundle\\Entity\\Empleado");
 
         $u = $session->get('user')->getUsuario();
 
@@ -215,13 +216,17 @@ class UsuarioController extends Controller
             
             case 'Actualizar Perfil':
                 if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
-                    if( $session->get('tipo') == "cliente"  && (! $usuarioRep->existsUsername($_POST['Username'])) && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
+
+                    if( $session->get('tipo') == "cliente"  && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername() )
+                        && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
                         
                         return $this->redirectToRoute('perfil', ['updateProfile'=>1]);
-                        
-                    }else if( $session->get('tipo') == "empleado" && (! $usuarioRep->existsUsername($_POST['Username'])) && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos']) ){
+
+                    }else if( ($session->get('tipo') == "empleado" || $session->get('tipo') == "admin") && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername() )
+                        && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_FILES['photo']['name']) ){
+
                         return $this->redirectToRoute('perfil', ['updateProfile'=>1]);
-                        
+
                     }else{                        
                         return $this->redirectToRoute('perfil', ['opfallida'=>1]);                        
                     }
@@ -323,7 +328,7 @@ class UsuarioController extends Controller
                         if( ! $usuarioRep->exists($newUsuario) ){
                             $usuarioRep->registrarUsuario($newUsuario);
                             $newEmpleado->setUsuario($usuarioRep->findByUsername($newUsuario->getUsername()))
-                                        ->setPhotoPath($_POST['PhotoPath']) 
+                                        ->setphoto($_POST['photo']) 
                                         ->setCargo($_POST['Cargo'])
                                         ->setTienda($tiendaSeleccionada);
                             console_log((array)$newEmpleado);

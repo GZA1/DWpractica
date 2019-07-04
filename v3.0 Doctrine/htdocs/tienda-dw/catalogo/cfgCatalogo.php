@@ -258,7 +258,7 @@ require_once('/xampp/appdata/model/console.php');
 
                 <!-- 4º Formulario --- Añadir Producto -->
                 <div id="añadirProdForm" class="configForm not-active">                    
-                    <form method="post" id="aPROD">
+                    <form method="post" id="aPROD" enctype="multipart/form-data">
                         
                         <label id="nPrNombre">Nombre de Producto</label>
                         <input type="text" id="nombrePrNuevo" name="nombrePrNEW">

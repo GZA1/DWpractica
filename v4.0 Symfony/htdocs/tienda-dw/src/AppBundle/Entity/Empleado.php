@@ -15,9 +15,9 @@ class Empleado
     */
     private $id;
     /**
-     * @ORM\Column(name="photoPath",length=45, nullable=true)
+     * @ORM\Column(name="photo",length=45, nullable=true)
      */
-    private $photoPath;
+    private $photo;
     /**
      * @ORM\Column(name="activo",type="boolean", nullable=false)
      */
@@ -82,21 +82,21 @@ class Empleado
     }
 
     /**
-     * Get the value of photoPath
+     * Get the value of photo
      */
-    public function getPhotoPath()
+    public function getPhoto()
     {
-        return $this->photoPath;
+        return $this->photo;
     }
 
     /**
-     * Set the value of photoPath
+     * Set the value of photo
      *
      * @return  self
      */
-    public function setPhotoPath($photoPath)
+    public function setPhoto($photo)
     {
-        $this->photoPath = $photoPath;
+        $this->photo = $photo;
 
         return $this;
     }

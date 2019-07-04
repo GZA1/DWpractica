@@ -229,8 +229,9 @@ class Producto
      */ 
     public function getPhoto()
     {
-        return $this->picPath;
+        return "../".$this->photo;
     }
+
 
     /**
      * Set the value of photo

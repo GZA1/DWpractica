@@ -14,7 +14,7 @@ class ClienteRepository extends EntityRepository
     }
 
     public function updatePerfilCliente($u, $username, $nombre, $apellidos, $domicilio){
-        if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) && isset($domicilio) ){
+        if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) ){
             $c = $this->findByUser($u);
             $u  ->setUsername($username)
                 ->setNombre($nombre)
@@ -22,7 +22,7 @@ class ClienteRepository extends EntityRepository
             ;
             $c->setDomicilio($domicilio);
             $qb = $this->_em->createQueryBuilder();
-            $qb ->update('Entity\\Usuario', 'u')
+            $qb ->update('AppBundle\\Entity\\Usuario', 'u')
                 ->set('u.username', ':username')
                 ->set('u.nombre', ':nombre')
                 ->set('u.apellidos', ':apell')
@@ -34,14 +34,16 @@ class ClienteRepository extends EntityRepository
             $res = $qb->getQuery()->getResult();
             console_log($res);
             $qb = $this->_em->createQueryBuilder();
-            $qb ->update('Entity\\Cliente', 'c')
-                ->set('c.domicilio', ':domic')
-                ->where('c.usuario = :u')
-                ->setParameter('domic', $domicilio)
-                ->setParameter('u', $u);
-            $res = $qb->getQuery()->getResult();
-            console_log($res);
-            return true;
+            if(isset($domicilio)){
+                $qb ->update('AppBundle\\Entity\\Cliente', 'c')
+                    ->set('c.domicilio', ':domic')
+                    ->where('c.usuario = :u')
+                    ->setParameter('domic', $domicilio)
+                    ->setParameter('u', $u);
+                $res = $qb->getQuery()->getResult();
+                console_log($res);
+            }
+            return $u;
         } else{
             return false;
         }
