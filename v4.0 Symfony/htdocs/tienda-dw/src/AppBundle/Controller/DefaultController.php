@@ -46,12 +46,49 @@ class DefaultController extends Controller
             'tipoMessage'=> $tipoMessage,
         ]);
     }
+    /**
+     * @Route("/", name="homepage_post")
+     */
+    public function indexPostAction(Request $request, SessionInterface $session)
+    {
+        if( $session->get('user') != null){
+            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+            $cli = $empleadoRep->findOneBy($session->get('user')->getUsuario()->getUsername());
+        }
+
+        
+        $saldoAdd = $_POST['saldo-add'];
+        if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) ){
+            return $this->redirectToRoute('homepage', ['saldoadd'=>1]);
+        }else{
+            return $this->redirectToRoute('homepage', ['saldoadd'=>0]);
+        }
+    }
 
     /**
      * @Route("/privacyPolicy", name="privacyPolicy", methods={"GET"})
      */    
     public function privacyPolicyAction(Request $request){
+        
         return $this->render('main/privacy-policy.html.twig');
+    }
+    /**
+     * @Route("/privacyPolicy", name="privacyPolicy_post", methods={"GET"})
+     */    
+    public function privacyPolicyPostAction(Request $request){
+
+        if( $session->get('user') != null){
+            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+            $cli = $empleadoRep->findOneBy($session->get('user')->getUsuario()->getUsername());
+        }
+
+        
+        $saldoAdd = $_POST['saldo-add'];
+        if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) ){
+            return $this->redirectToRoute('homepage', ['saldoadd'=>1]);
+        }else{
+            return $this->redirectToRoute('homepage', ['saldoadd'=>0]);
+        }
     }
 
 }

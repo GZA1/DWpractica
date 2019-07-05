@@ -149,7 +149,7 @@
 <?php
                 foreach($stockProd as $s){
                     if(!isset($arrayTiendas)){
-                        $arrayTiendas = array($s->getTienda());
+                        $arrayTiendas = array($s->getTienda());                        
                         
                     }else{
                         if(!in_array($s->getTienda(), $arrayTiendas)){

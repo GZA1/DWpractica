@@ -1,0 +1,313 @@
+{% extends 'base.html.twig' %}
+{% block title %} Pagina principal {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/style-catalogo.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/Carousel.css')}}">
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+            var slideIndex = 3;
+
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+              showSlides(slideIndex += n);
+            }
+
+            function currentSlide(n) {
+              showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+              var i;
+              var slides = document.getElementsByClassName("mySlides");
+
+
+              if (n > slides.length) {slideIndex = 3}
+
+                if (n < 1) {slideIndex = slides.length}
+
+              for (i = 0; i < slides.length; i++) {
+                  slides[i].style.display = "none";
+              }
+
+                if(slideIndex<3) {
+                    slides[slideIndex-1].style.display = "block";
+                    slides[slideIndex-2].style.display = "block";
+                    slides[slideIndex-3].style.display = "block";
+                }
+                slides[slideIndex-1].style.display = "block";
+                slides[slideIndex-2].style.display = "block";
+                slides[slideIndex-3].style.display = "block";
+            }
+
+
+            var slideIndex1 = 3;
+
+            showSlides1(slideIndex1);
+
+            function plusSlides1(n) {
+              showSlides1(slideIndex1 += n);
+            }
+
+
+
+            function showSlides1(n) {
+              var i;
+              var slides1 = document.getElementsByClassName("mySlides1");
+
+
+              if (n > slides1.length) {slideIndex1 = 3}
+
+                if (n < 1) {slideIndex1 = slides1.length}
+
+              for (i = 0; i < slides1.length; i++) {
+                  slides1[i].style.display = "none";
+              }
+
+                if(slideIndex<3) {
+                    slides1[slideIndex1-1].style.display = "block";
+                    slides1[slideIndex1-2].style.display = "block";
+                    slides1[slideIndex1-3].style.display = "block";
+                }
+                slides1[slideIndex1-1].style.display = "block";
+                slides1[slideIndex1-2].style.display = "block";
+                slides1[slideIndex1-3].style.display = "block";
+            }
+             $("document").ready(function() {
+                setTimeout(function(){ 
+                        $('#notificacion').fadeOut('fast');
+                        }, 4000
+                        );
+            });
+
+        </script>
+{% endblock %}
+
+{% block body %}
+    {% if msg is defined and msg != null %} 
+        {% if tipoMessage == 1 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+
+        {% endif %}
+
+        {% if tipoMessage == 0 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+        {% endif %}    
+    {% endif %}
+
+    
+    {% include 'nav/nav.html.twig' %}
+
+    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+        <div class="flex_cols">
+            <div class="flex_rows" id="contenedor_main_ads">
+<!-- Hey las categorias son aqui-->
+                <div id="sideLFTblank">
+                    <div id="lftCategorias">
+                        <div id="catTitulo">CATEGORIAS</div>
+
+                            {% for categoria in categorias %}
+                                <a id="linkCategoria" href="{{path('xxx-cat', {'categoria': categoria.id})}}">{{categoria.nombre}}</a>
+                            {% endfor %}
+                    </div>
+
+                </div>
+                <div id="mid">
+                    <div id="midFiller"></div>
+                    <p >Recomendados</p>
+                    <div id="catCarousel">
+                        <div class="slideshow-container flex_rows">
+
+                            <div class="mySlides fade">
+                                <div class="imaagen"><img src="{{asset('img/externos/1.jpg')}}"></div>
+                                <div class="text">
+                                    <h6>50% Descuento !</h6>
+                                    <h5>Maxtor 2TB - 20.99€</h5>
+
+                                </div>
+                            </div>
+
+                            <div class="mySlides fade">
+                                <div class="imaagen"><img src="{{asset('img/externos/2.jpg')}}"></div>
+                                <div class="text">
+                                        <h6>70% Descuento !</h6>
+                                        <h5>SeaGate 1TB - 20.99€</h5>
+                                </div>
+                            </div>
+
+                            <div class="mySlides fade">
+                                <div class="imaagen">
+                                    <img src="{{asset('img/externos/maxtor/maxtor2.jpg')}}">
+                                </div>
+                                <div class="text">
+                                    <h6>10% Descuento !</h6>
+                                    <h5>Maxtor 500GB - 12.99€</h5>
+                                </div>
+                            </div>
+
+                            <div class="mySlides fade">
+                                <div class="imaagen">
+                                    <img src="{{asset('img/externos/3.jpg')}}">
+                                </div>
+                                <div class="text">
+                                    <h6>50% Descuento !</h6>
+                                    <h5>LG 1TB - 20.99€</h5>
+                                </div>
+                            </div>
+                            <div class="mySlides fade">
+                                <div class="imaagen">
+                                    <img src="{{asset('img/externos/4.jpg')}}">
+                                </div>
+                                <div class="text">
+                                    <h6>9% Descuento !</h6>
+                                    <h5>Samsung 4TB - 343.99€</h5>
+                                </div>
+                            </div>
+                            <div class="mySlides fade">
+                                <div class="imaagen">
+                                    <img src="{{asset('img/externos/5.jpg')}}" >
+                                </div>
+                                <div class="text">
+                                    <h6>7% Descuento !</h6>
+                                    <h5>SeaGate 500GB - 11.99€</h5>
+                                </div>
+                            </div>
+                            <div class="mySlides fade">
+
+                                <div  class="imaagen">
+
+                                   <img src="{{asset('img/externos/6.jpg')}}">
+                                </div>
+                                <div class="text">
+                                    <h6>10% Descuento !</h6>
+                                    <h5>Maxtor 3TB - 250.99€</h5>
+                                </div>
+                            </div>
+
+
+                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                        </div>
+                        <br>
+                    </div>
+
+
+
+                    <p >Ofertas Flash</p>
+                    <div id="catCarousel">
+                        <div class="slideshow-container flex_rows">
+
+                            <div class="mySlides1 fade">
+                                <div class="imaagen"><img src="{{asset('img/ej1.jpg')}}"></div>
+                                <div class="text">
+                                    <h6>50% Descuento !</h6>
+                                    <h5>Maxtor 2TB - 20.99€</h5>
+
+                                </div>
+                            </div>
+
+                            <div class="mySlides1 fade">
+                                <div class="imaagen"><img src="{{asset('img/ej2.jpg')}}"></div>
+                                <div class="text">
+                                        <h6>70% Descuento !</h6>
+                                        <h5>SeaGate 1TB - 20.99€</h5>
+                                </div>
+                            </div>
+
+                            <div class="mySlides1 fade">
+                                <div class="imaagen">
+                                    <img src="{{asset('img/ej3.png')}}">
+                                </div>
+                                <div class="text">
+                                    <h6>10% Descuento !</h6>
+                                    <h5>Maxtor 500GB - 12.99€</h5>
+                                </div>
+                            </div>
+
+                            <div class="mySlides1 fade">
+                                <div class="imaagen">
+                                    <img src="{{asset('img/ej4.jpg')}}">
+                                </div>
+                                <div class="text">
+                                    <h6>50% Descuento !</h6>
+                                    <h5>LG 1TB - 20.99€</h5>
+                                </div>
+                            </div>
+                            <div class="mySlides1 fade">
+                                <div class="imaagen">
+                                    <img src="{{asset('img/ej5.jpg')}}">
+                                </div>
+                                <div class="text">
+                                    <h6>9% Descuento !</h6>
+                                    <h5>Samsung 4TB - 343.99€</h5>
+                                </div>
+                            </div>
+                            <div class="mySlides1 fade">
+                                <div class="imaagen">
+                                    <img src="{{asset('img/ej6.jpg')}}" >
+                                </div>
+                                <div class="text">
+                                    <h6>7% Descuento !</h6>
+                                    <h5>SeaGate 500GB - 11.99€</h5>
+                                </div>
+                            </div>
+                            <div class="mySlides1 fade">
+
+                                <div  class="imaagen">
+
+                                   <img src="{{asset('img/ej7.jpg')}}">
+                                </div>
+                                <div class="text">
+                                    <h6>10% Descuento !</h6>
+                                    <h5>Maxtor 3TB - 250.99€</h5>
+                                </div>
+                            </div>
+
+
+                            <a class="prev1" onclick="plusSlides1(-1)">&#10094;</a>
+                            <a class="next1" onclick="plusSlides1(1)">&#10095;</a>
+
+                        </div>
+                        <br>
+                    </div>
+                    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+
+                </div>
+
+        <!--        Este div contiene los anuncios -->
+                <aside class="adsLateral adDerecha">
+                    <ul class="lista_ads">
+                        <li class="ad_container">
+                            <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                                <div><b>ANUNCIO</b></div>
+                                <div><img alt="UEMC" width="100%"  src="{{asset('img/ad1.png')}}"></div>
+                            </a>
+                        </li>
+                        <li class="ad_container">
+                            <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                                <div><b>ANUNCIO</b></div>
+                                <div><img alt="UEMC" width="100%" src="{{asset('img/ad2.png')}}"></div>
+                            </a>
+                        </li>
+                        <li class="ad_container">
+                            <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                                <div><b>ANUNCIO</b></div>
+                                <div><img alt="UEMC" width="100%" src="{{asset('img/ad3.png')}}"></div>
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+
+        </div>
+ 
+{% endblock %}
+
+{% block footer %}
+
+    {{ include('footer/footer.html.twig')}}
+
+{% endblock %}
