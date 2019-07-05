@@ -1,0 +1,135 @@
+{% block navBlock %}
+<nav id="mainNav">
+    <img id="logo" src="{{asset('img/logo.png')}}" width="60">
+    <ul id="lista_nav">
+        <li class="cont_enlace_interno">
+            <a href="{{path('homepage')}}">Inicio</a>
+        </li>
+        <li class="cont_enlace_interno">
+            <a href="catalogo/index.php">Catálogo</a>
+        </li>
+        <li class="cont_enlace_interno">
+            <a href="servicios/index.php">Servicios</a>
+        </li>
+        <li class="cont_enlace_interno">
+            <a href="encuentranos/index.php">Encuéntranos</a>
+        </li>
+        <li>
+            <form>
+                <input type="search" placeholder="Search">
+            </form>
+        </li>
+        <li class="dropdown-container">
+            <div class="dropdown">
+                <div class="dropdown-actuador flex_rows">
+                    <div>
+                        <img href="usuario/sign-in.php" src="{{asset('img/user-icon.png')}}" height="20px">
+                    </div>
+                    <div class="flex_cols">
+                        <div style="height: 7px; visibility: hidden"></div>
+                        <div class="down-arrow"></div>
+                    </div>
+                </div>
+                <div class="dropdown-contenido">
+                
+                {% if app.session.get('user').usuario.username is not defined or app.session.get('user').usuario.username == null %}
+                       
+                    <a class="verde" href="{{path('login')}}">Iniciar Sesión</a>
+                    <a class="azul" href="{{path('signUp')}}">Registrarse</a>
+
+                {% else %}
+
+                    <div>                        
+                            Logueado como {{app.session.get('tipo')}} : <b> {{app.session.get('user').usuario.username}} </b>
+                    </div>
+
+                    <a href="{{path('perfil')}}">Perfil de {{app.session.get('tipo')}}</a>
+
+                    {% if app.session.get('tipo') == 'cliente'%}
+
+                        <a href="../usuario/historial_pedidos.php">Historial de Pedidos</a>
+
+                    {% endif %}
+
+                        <a class="rojo" href="{{path('logout')}}">Cerrar Sesión</a>
+                    
+                {% endif %}
+                   
+                
+                </div>
+            </div>
+        </li>
+
+
+
+
+        {% if app.session.get('user') is defined and app.session.get('tipo') == 'cliente' %}
+            <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                                <img src="{{asset('img/shopping-trolley.png')}}" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                        <div class="dropdown-contenido">
+                            <a href="../cesta_compra/xxxx-cesta.php">Cesta</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                            <img src="{{asset('img/monedero-icon.png')}}" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </div>
+                        <div class="dropdown-contenido">
+                            <div>Saldo disponible {{ app.session.get('user').saldo }}€</div>
+                            <div class="verde">
+                                <form method="post">
+                                    <label>Ingresar Saldo</label>
+                                    <input style="width: 80%;" name="saldo-add" type="text">
+                                    <label>IBAN (el que sea)</label>
+                                    <input style="width: 80%;" name="iban" type="text">
+                                    <input style="width: 80%;" class="naranja" type="submit" value="Ingresar">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+        {% elseif app.session.get('user') is defined and app.session.get('tipo') == 'empleado' or app.session.get('tipo') == 'admin' %}
+            <li class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="dropdown-actuador flex_rows">
+                            <div>
+                            <!-- Introducir el enlace Admin-->
+                                <img src="{{asset('img/gear.png')}}" height="20px">
+                            </div>
+                            <div class="flex_cols">
+                                <div style="height: 7px; visibility: hidden"></div> 
+                                <div class="down-arrow"></div>                           
+                            </div>                         
+                        </div>
+                        <div class="dropdown-contenido">
+                            <a href="{{path('adminCfg')}}">Configuración Usuarios</a>
+                            <a href="../catalogo/cfgCatalogo.php">Configuración Catálogo</a>
+                        </div>                   
+                    </div>
+                </li>
+
+        {% endif %}
+        
+        
+        
+    </ul>
+</nav>
+{% endblock %}

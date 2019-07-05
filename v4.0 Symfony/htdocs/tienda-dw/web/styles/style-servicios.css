@@ -1,0 +1,41 @@
+.servicio_container {
+    position: relative;
+    width: 90%;
+    height: 20vh;
+    min-height: 110px;
+    margin: 15px 5% 15px 5%;
+    padding: 10px 0px 10px 0px;
+    border: 2.5px solid #2e2e1f;
+    border-radius: 15px;
+    background-color: white;
+    
+}
+
+.img_servicio{
+    width: 9.5%;
+    position: relative;
+    margin: 0px 5% 0px 2.5%;
+    padding: 2.5% 0px 2.5% 0px;
+}
+
+.servicio_info {
+    display: inline-block;
+    
+    overflow-y: scroll;
+}
+
+#main_container_servicios {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-left: 220px;
+    margin-right: 20px;
+    max-height: 100%;
+    min-width: 300px;
+    overflow-y: ;
+}
+
+.logo-vertical {
+    background-color: #e0e0d2;
+}
