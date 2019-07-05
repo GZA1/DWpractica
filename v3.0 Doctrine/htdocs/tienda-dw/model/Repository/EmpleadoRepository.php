@@ -28,8 +28,13 @@ class EmpleadoRepository extends EntityRepository{
     }
 
 
+<<<<<<< HEAD
     public function updatePerfilEmpleado($u, $username, $nombre, $apellidos, $photo){
         if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) && isset($photo) ){
+=======
+    public function updatePerfilEmpleado($u, $username, $nombre, $apellidos, $photoPath){
+        if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) && isset($photoPath) ){
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
             $u  ->setUsername($username)
                 ->setNombre($nombre)
                 ->setApellidos($apellidos)
@@ -48,24 +53,20 @@ class EmpleadoRepository extends EntityRepository{
             console_log($res);
             $qb = $this->_em->createQueryBuilder();
             $qb ->update('Entity\\Empleado', 'e')
+<<<<<<< HEAD
                 ->set('e.photo', ':photo')
                 ->where('e.usuario = :u')
                 ->setParameter('photo', $photo)
+=======
+                ->set('e.photoPath', ':photop')
+                ->where('e.usuario = :u')
+                ->setParameter('photop', $photoPath)
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
                 ->setParameter('u', $u);
             $res = $qb->getQuery()->getResult();
             console_log($res);
             return true;
         } else{
-            return false;
-        }
-    }
-
-    public function doIDexist($id){
-        $resultado = $this->findBy(['id'=>$id]);
-        if(sizeof($resultado) > 0){
-            return true;
-
-        }else{
             return false;
         }
     }
@@ -78,7 +79,7 @@ class EmpleadoRepository extends EntityRepository{
         }
         return false;
     }
-    
+
     public function darDeBaja($usuario){
         if(isset($usuario)){
             $qb = $this->_em->createQueryBuilder();
@@ -93,6 +94,8 @@ class EmpleadoRepository extends EntityRepository{
             return false;
         }
     }
+
+
 
 }
 

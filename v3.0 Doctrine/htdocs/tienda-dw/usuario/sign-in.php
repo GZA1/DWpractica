@@ -96,7 +96,7 @@
             if($_GET['usrerror']==1){
     ?>
     <script>
-        $('head').before('<div id="usrreg" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">Usuario y/o contraseña incorrectos</div>');
+        $('head').before('<div id="unl" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">Usuario y/o contraseña incorrectos</div>');
         setTimeout(function(){ 
             $('#usrreg').fadeOut('fast');
             }, 4000

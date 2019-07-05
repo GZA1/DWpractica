@@ -1,42 +1,42 @@
 <?php
 
 namespace AppBundle\Entity;
-use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UnidadRepository")
+ * @Entity(repositoryClass="AppBundle\Repository\UnidadRepository")
  */
 
 class Unidad
 {
     /**
-     * @ORM\Id @ORM\GeneratedValue
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @Id @GeneratedValue
+     * @Column(name="id", type="integer", nullable=false)
      */
     private $id;
     /**
-     * @ORM\Column(name="vendido", type="boolean", nullable=false)
+     * @Column(name="vendido", type="boolean", nullable=false)
      */
     private $vendido;
 
 
     /**
     * Una unidad pertenece a una cesta
-    * @ORM\ManyToOne(targetEntity="Cesta", inversedBy="unidades")
-    * @ORM\JoinColumn(name="Cesta_id", referencedColumnName="id")
+    * @ManyToOne(targetEntity="Cesta", inversedBy="unidades")
+    * @JoinColumn(name="Cesta_id", referencedColumnName="id")
     */
     private $cesta;
 
     /**
     * Una unidad pertenece a una tienda
-    * @ORM\ManyToOne(targetEntity="Tienda", inversedBy="unidades")
-    * @ORM\JoinColumn(name="Tienda_id", referencedColumnName="id")
+    * @ManyToOne(targetEntity="Tienda", inversedBy="unidades")
+    * @JoinColumn(name="Tienda_id", referencedColumnName="id")
     */
     private $tienda;
 
     /**
     * Una unidad es de un producto
-    * @ORM\ManyToOne(targetEntity="Producto", inversedBy="unidades")
-    * @ORM\JoinColumn(name="Producto_id", referencedColumnName="id")
+    * @ManyToOne(targetEntity="Producto", inversedBy="unidades")
+    * @JoinColumn(name="Producto_id", referencedColumnName="id")
     */
     private $producto;
 
@@ -45,18 +45,18 @@ class Unidad
 
     public function __construct()
     {
-
+        
     }
 
 
 
-
+    
     /** GETTERS & SETTERS */
 
 
     /**
      * Get the value of id
-     */
+     */ 
     public function getId()
     {
         return $this->id;
@@ -66,7 +66,7 @@ class Unidad
      * Set the value of id
      *
      * @return  self
-     */
+     */ 
     public function setId($id)
     {
         $this->id = $id;
@@ -76,7 +76,7 @@ class Unidad
 
     /**
      * Get the value of vendido
-     */
+     */ 
     public function isVendido()
     {
         return $this->vendido;
@@ -86,7 +86,7 @@ class Unidad
      * Set the value of vendido
      *
      * @return  self
-     */
+     */ 
     public function setVendido($vendido)
     {
         $this->vendido = $vendido;
@@ -96,7 +96,7 @@ class Unidad
 
     /**
      * Get una unidad pertenece a una cesta
-     */
+     */ 
     public function getCesta()
     {
         return $this->cesta;
@@ -106,7 +106,7 @@ class Unidad
      * Set una unidad pertenece a una cesta
      *
      * @return  self
-     */
+     */ 
     public function setCesta($cesta)
     {
         $this->cesta = $cesta;
@@ -116,7 +116,7 @@ class Unidad
 
     /**
      * Get una unidad pertenece a una tienda
-     */
+     */ 
     public function getTienda()
     {
         return $this->tienda;
@@ -126,7 +126,7 @@ class Unidad
      * Set una unidad pertenece a una tienda
      *
      * @return  self
-     */
+     */ 
     public function setTienda($tienda)
     {
         $this->tienda = $tienda;
@@ -136,7 +136,7 @@ class Unidad
 
     /**
      * Get una unidad es de un producto
-     */
+     */ 
     public function getProducto()
     {
         return $this->producto;
@@ -146,7 +146,7 @@ class Unidad
      * Set una unidad es de un producto
      *
      * @return  self
-     */
+     */ 
     public function setProducto($producto)
     {
         $this->producto = $producto;

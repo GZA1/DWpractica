@@ -1,5 +1,5 @@
 <?php
-    require_once('/xampp/appdata/model/console.php');
+    require_once('/xampp/appdata/model/Console.php');
 
     require_once("../dbconfig.php");
 
@@ -14,7 +14,7 @@
 
     $c = null;
     if(isset($_SESSION['user'])){
-        $u = $_SESSION['user'];
+        $u = new Usuario($_SESSION['user']);
         $tipo = $u->getTipo();
         $username = $u->getUsername();
     }
@@ -63,7 +63,23 @@
                     showInfo.fadeToggle(1000);
                 });
                 
-
+//                $("#detallesAdiccionalesWrapper").php(.function() {
+//                    var index = 1;
+//                    var primeraEtiqueta = $("#primeraPestaña");
+//                    var segundaEtiqueta = $("#segundaPestaña");
+//                    var primerParrafo = $("#detallesAdContent").contents();
+//                    var segundoParrafo = $("#lasReviews").contents();
+//                    
+//                    if(index = 1) primerParrafo.show();
+//                    segundaEtiqueta.click(function() {
+//                       primerParrafo.fadeOut();
+//                        segundoParrafo.fadeIn();
+//                    });
+//                    primeraEtiqueta.click(function() {
+//                       primerParrafo.fadeOut();
+//                        segundoParrafo.fadeIn();
+//                    });
+//                    });
                 $("#segundaPestaña").click(function(){
                     $("#lasReviews").fadeIn();
                     $("#detallesAdContent").fadeOut();
@@ -159,7 +175,7 @@
                 }
                 if(isset($arrayTiendas)){
                     foreach($arrayTiendas as $at){
-                       
+                        // $tienda = $tiendasRepo->findOneBy(['id'=>$at->getTienda()]);
                         
                         $cantidadPrTienda = $stockRepo->findBy(['producto'=>$_GET['pr'],'tienda'=>$at->getId()]);
                         

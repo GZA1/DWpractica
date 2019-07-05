@@ -12,14 +12,14 @@ class UsuarioRepository extends EntityRepository{
         $qb = $this->_em->createQueryBuilder();
         if( ! is_null($usuario->getUsername()) ){
             $qb ->select('u')
-                ->from('AppBundle\\Entity\\Usuario', 'u')
+                ->from('Entity\\Usuario', 'u')
                 ->where('u.username = :usr', 'u.passwd = :psw')
                 ->setParameter('usr', $usuario->getUsername())
                 ->setParameter('psw', $usuario->getPasswd());
             console_log($usuario->getUsername());
         } else if( ! is_null($usuario->getEmail()) ){
             $qb ->select('u')
-                ->from('AppBundle\\Entity\\Usuario', 'u')
+                ->from('Entity\\Usuario', 'u')
                 ->where('u.email = :email', 'u.passwd = :psw')
                 ->setParameter('email', $usuario->getEmail())
                 ->setParameter('psw', $usuario->getPasswd());
@@ -40,7 +40,7 @@ class UsuarioRepository extends EntityRepository{
     public function findByUsername($username){
         $qb = $this->_em->createQueryBuilder();
         $qb ->select('u')
-            ->from('AppBundle\\Entity\\Usuario', 'u')
+            ->from('Entity\\Usuario', 'u')
             ->where('u.username = :usr')
             ->setParameter('usr', $username);
         $res = $qb->getQuery()->getSingleResult();
@@ -51,7 +51,7 @@ class UsuarioRepository extends EntityRepository{
     public function existsUsername($username){
         $qb = $this->_em->createQueryBuilder();
         $qb ->select('count(u.idUsuario)')
-            ->from('AppBundle\\Entity\\Usuario', 'u')
+            ->from('Entity\\Usuario', 'u')
             ->where('u.username = :usr')
             ->setParameter('usr', $username);
         $res = $qb->getQuery()->getSingleScalarResult();
@@ -65,7 +65,7 @@ class UsuarioRepository extends EntityRepository{
     public function existsEmail($email){
         $qb = $this->_em->createQueryBuilder();
         $qb ->select('count(u.idUsuario)')
-            ->from('AppBundle\\Entity\\Usuario', 'u')
+            ->from('Entity\\Usuario', 'u')
             ->where('u.email = :email')
             ->setParameter('email', $email);
         $res = $qb->getQuery()->getSingleScalarResult();
@@ -80,7 +80,7 @@ class UsuarioRepository extends EntityRepository{
         if(isset($usuario) && isset($newPasswd) ){
             $usuario->setPasswd($newPasswd);
             $qb = $this->_em->createQueryBuilder();
-            $qb ->update('AppBundle\\Entity\\Usuario', 'u')
+            $qb ->update('Entity\\Usuario', 'u')
                 ->set('u.passwd', ':passwd')
                 ->where('u.idUsuario = :usr')
                 ->setParameter('passwd', $newPasswd)
@@ -91,36 +91,7 @@ class UsuarioRepository extends EntityRepository{
             return false;
         }
     }
-    public function compararPass($usuario, $pass){
-        if( isset($usuario) && isset($pass)){
-            if($usuario->getPasswd() == $pass)
-                return true;
-        }else{
-            
-            return false;
-        }
-    }
 
-    public function registrarUsuario($u){
-        if(isset($u)){
-            $this->_em->persist($u);
-            $this->_em->flush();
-            return true;
-        }
-        return false;
-    }
-    public function exists($usuario){
-        return  $this->existsEmail($usuario->getEmail()) ||
-                $this->existsUsername($usuario->getUsername());
-    }
-
-    public function findEmpleados(){
-        return $this->findBy(['tipo' => 'empleado']);
-    }
-
-    public function findClientes(){
-        return $this->findBy(['tipo' => 'cliente']);
-    }
 
 }
 

@@ -11,7 +11,8 @@ class Empleado
 {
     /** 
      * @Id
-     * @Column(name="id",length=45, nullable=false, unique=true) 
+     * @Column(name="id",length=45, nullable=false, unique=true)
+     * @GeneratedColumn(strategy="NONE")
     */
     private $id;
     /** 
@@ -21,7 +22,7 @@ class Empleado
     /** 
      * @Column(name="activo",type="boolean", nullable=false)
      */
-    private $activo = true;
+    private $activo;
     /** 
      * @Column(name="cargo",length=45, nullable=false)
      */
@@ -29,7 +30,7 @@ class Empleado
     /**
      *  @Column(name="isAdministrador",type="boolean", nullable=false)
      */
-    private $isAdministrador = false;
+    private $isAdministrador;
     
     /*                      F O R E I G N   K E Y S
     */
@@ -52,6 +53,9 @@ class Empleado
 
     public function __construct(){
         $this->generateId();
+        $this->activo = 1;
+        $this->isAdministrador = 0;
+        console_log((array)$this);
     }
 
 
@@ -207,7 +211,7 @@ class Empleado
     /*MAIN METHODS*/
 
     private function generateId(){
-        $this ->id = "EMP:" . spl_object_hash($this);
+        $this->id = "EMP:" . spl_object_hash($this);
     }
 
 

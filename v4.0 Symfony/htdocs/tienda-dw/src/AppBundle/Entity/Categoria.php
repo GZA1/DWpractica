@@ -1,52 +1,51 @@
 <?php
 
 namespace AppBundle\Entity;
-use Doctrine\ORM\Mapping as ORM;
 /**
- * @ORM\Entity(repositoryClass="Repository\CategoriaRepository")
- * @ORM\Table("categoria")
+ * @Entity(repositoryClass="AppBundle\Repository\CategoriaRepository")
+ * @Table("categoria")
  */
 
  class Categoria
  {
      /**
-      * @ORM\Id @ORM\GeneratedValue
-      * @ORM\Column(name="id", type="integer", nullable=false)
+      * @Id @GeneratedValue
+      * @Column(name="id", type="integer", nullable=false)
       */
       private $id;
 
       /**
-       * @ORM\Column(name="nombre",length=45, nullable=false)
+       * @Column(name="nombre",length=45, nullable=false)
        */
       private $nombre;
       /**
-       * @ORM\Column(name="acronimo",length=45, nullable=false)
+       * @Column(name="acronimo",length=45, nullable=false)
        */
       private $acronimo;
       /**
-       * @ORM\Column(name="descripcion",length=200, nullable=false)
+       * @Column(name="descripcion",length=200, nullable=false)
        */
       private $descripcion;
 
     /**
      * Una Categoria tiene muchos productos
-     * @ORM\OneToMany(targetEntity="Producto", mappedBy="categoria")
+     * @OneToMany(targetEntity="Producto", mappedBy="categoria")
      */
     private $productos;
 
     public function __construct()
     {
-        $this->productos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->productos = new \Doctrine\Common\Collections\ArrayCollection();  
     }
+    
 
 
-
-
+    
     /** GETTERS & SETTERS */
 
       /**
        * Get the value of id
-       */
+       */ 
       public function getId()
       {
             return $this->id;
@@ -56,7 +55,7 @@ use Doctrine\ORM\Mapping as ORM;
        * Set the value of id
        *
        * @return  self
-       */
+       */ 
       public function setId($id)
       {
             $this->id = $id;
@@ -66,7 +65,7 @@ use Doctrine\ORM\Mapping as ORM;
 
       /**
        * Get the value of nombre
-       */
+       */ 
       public function getNombre()
       {
             return $this->nombre;
@@ -76,7 +75,7 @@ use Doctrine\ORM\Mapping as ORM;
        * Set the value of nombre
        *
        * @return  self
-       */
+       */ 
       public function setNombre($nombre)
       {
             $this->nombre = $nombre;
@@ -86,7 +85,7 @@ use Doctrine\ORM\Mapping as ORM;
 
     /**
      * Get una Categoria tiene muchos productos
-     */
+     */ 
     public function getProductos()
     {
         return $this->productos;
@@ -96,7 +95,7 @@ use Doctrine\ORM\Mapping as ORM;
      * Set una Categoria tiene muchos productos
      *
      * @return  self
-     */
+     */ 
     public function setProductos($productos)
     {
         $this->productos = $productos;
@@ -106,7 +105,7 @@ use Doctrine\ORM\Mapping as ORM;
 
       /**
        * Get the value of descripcion
-       */
+       */ 
       public function getDescripcion()
       {
             return $this->descripcion;
@@ -116,7 +115,7 @@ use Doctrine\ORM\Mapping as ORM;
        * Set the value of descripcion
        *
        * @return  self
-       */
+       */ 
       public function setDescripcion($descripcion)
       {
             $this->descripcion = $descripcion;
@@ -126,7 +125,7 @@ use Doctrine\ORM\Mapping as ORM;
 
       /**
        * Get the value of acronimo
-       */
+       */ 
       public function getAcronimo()
       {
             return $this->acronimo;
@@ -136,7 +135,7 @@ use Doctrine\ORM\Mapping as ORM;
        * Set the value of acronimo
        *
        * @return  self
-       */
+       */ 
       public function setAcronimo($acronimo)
       {
             $this->acronimo = $acronimo;

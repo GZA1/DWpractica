@@ -40,7 +40,7 @@ class Tienda
 
     /** 
      * Una tienda tiene muchos empleados
-     * @OneToMany(targetEntity="Empleado", mappedBy="tienda")
+     * @OneToMany(targetEntity="Ubicacion", mappedBy="tienda")
      */
     private $empleados;
 

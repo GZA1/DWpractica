@@ -32,9 +32,9 @@
                     <label id="lTiendaId">ID de la tienda a la que pertenece</label>
                     <select id="tiendaId" name="tienda_id" form="rEMP">
                         <?php
-                        $tiendas = $em->getRepository("Entity\\Tienda")->findAll();                    
+                        $tiendas = $u->getAllTiendasID();                    
                         foreach($tiendas as $a){ ?>
-                            <option value="<?php echo $a->getId() ?>">ID <?php echo($a->getId().' - '.$a->getNombre()) ?></option>";
+                            <option value="<?php echo $a['id'] ?>">Tienda <?php echo $a['id'] ?></option>";
                         <?php 
                         }
                         ?>        
@@ -76,10 +76,10 @@
                     <label id="lIdBajaEmpleado">Seleccione el empleado a dar de baja</label>
                     <select id="idBajaEmpleado" name="idBajaEmpleado" form="bajaEMP">
                         <?php
-                        $empleados = $em->getRepository("Entity\\Empleado")->findAll(); 
+                        $empleados = $u->getAllEmpleados();
                         foreach($empleados as $e){
-                            if($e->getId() != $u->getId()){
-                                echo "<option value=".$e->getId().">".$e->getUsuario()->getUsername()."</option>";
+                            if($e['id']!=$u->getId()){
+                                echo "<option value=".$e['id'].">".$e['username']."</option>";
                             }
                     }
                     ?>        

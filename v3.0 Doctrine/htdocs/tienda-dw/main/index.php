@@ -1,6 +1,6 @@
 <?php
-    require_once("../dbconfig.php");   
-    require_once('/xampp/appdata/model/console.php');
+    require_once("../dbconfig.php");
+    require_once('/xampp/appdata/model/Console.php');
     
     use Entity\Usuario;
     use Entity\Cliente;

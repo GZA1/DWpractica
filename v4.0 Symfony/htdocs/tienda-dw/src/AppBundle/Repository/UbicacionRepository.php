@@ -9,7 +9,7 @@ require_once '/xampp/appdata/model/console.php';
 class UbicacionRepository extends EntityRepository{
 
     public function findUbicacionesPorCp($cp){
-        $DQL = "select u from AppBundle\\Entity\\Ubicacion u where u.cp = ".$cp;
+        $DQL = "select u from Entity\\Ubicacion u where u.cp = ".$cp;
         $query = $this->_em->createQuery($DQL);
         $ubic = $query->getResult();  
         return $ubic;   
@@ -18,7 +18,7 @@ class UbicacionRepository extends EntityRepository{
     public function findByMunic($municipio){
         $qb = $this->_em->createQueryBuilder();
         $qb ->select('u')
-            ->from('AppBundle\\Entity\\Ubicacion', 'u')
+            ->from('Entity\\Ubicacion', 'u')
             ->where('u.municipio = :mun')
             ->setParameter('mun', $municipio);
         $res = $qb->getQuery()->getResult();
