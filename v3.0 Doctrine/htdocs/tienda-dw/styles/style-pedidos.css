@@ -1,0 +1,68 @@
+/*
+*Colores
+*Morado: #6600cc
+*Azul: #3399ff
+*Negro: #2e2e1f
+*/
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+#logo-inic {
+    width: 20%;
+    margin: 0 40% 0 40%;
+}
+
+#contenedor-inic {
+    background-color: #e0e0d2;
+}
+
+#mainContainer {
+    margin: 0 20% 0 20%;
+    padding: 0 5vw 5vh 5vw;
+    border: 3px solid white;
+    transition: border-color 8s ease-out;
+}
+
+#mainContainer:hover #titulo{
+    color: #2672bf;
+}
+
+#mainContainer:hover{
+    border-color: #e0e0d2;
+}
+
+#titulo {
+    padding-top: 5vh;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #3399ff;
+    transition: color 4s ease-out;
+}
+
+ol{
+    padding-top: 50px;
+}
+
+ol li {
+    height: 10vh;
+    min-height: 100px;
+    border-bottom: 3px solid white;
+    padding: 25px 25px;
+}
+
+.pedido-img {
+    height: 20%;
+    min-height: 100px;
+}
+
+.pedido-container {
+    width: 60%;
+}
+
+.id-pedido {
+    width: 20%;
+    padding-left: 10%;
+}
