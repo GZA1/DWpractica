@@ -1,7 +1,0 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
-    resource: '@AppBundle/Entity/'
-    type: annotation
-    resource: '@AppBundle/Repository/'
-    type: annotation
