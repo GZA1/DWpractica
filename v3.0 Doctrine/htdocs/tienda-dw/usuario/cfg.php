@@ -193,9 +193,10 @@ require_once('/xampp/appdata/model/console.php');
                                     ->setEmail($_POST['Email']);
                         
                         if( ! $usuarioRep->exists($newUsuario) ){
+                            $imgsDir = "../img/";
                             $usuarioRep->registrarUsuario($newUsuario);
                             $newEmpleado->setUsuario($usuarioRep->findByUsername($newUsuario->getUsername()))
-                                        ->setPhotoPath($_POST['PhotoPath']) 
+                                        ->setPhoto($imgsDir.$_POST['Photo']) 
                                         ->setCargo($_POST['Cargo'])
                                         ->setTienda($tiendaSeleccionada);
                             console_log((array)$newEmpleado);

@@ -36,17 +36,17 @@ use Doctrine\ORM\Mapping as ORM;
 
     public function __construct()
     {
-        $this->productos = new \Doctrine\Common\Collections\ArrayCollection();  
+        $this->productos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
 
-    
+
+
     /** GETTERS & SETTERS */
 
       /**
        * Get the value of id
-       */ 
+       */
       public function getId()
       {
             return $this->id;
@@ -56,7 +56,7 @@ use Doctrine\ORM\Mapping as ORM;
        * Set the value of id
        *
        * @return  self
-       */ 
+       */
       public function setId($id)
       {
             $this->id = $id;
@@ -76,7 +76,7 @@ use Doctrine\ORM\Mapping as ORM;
        * Set the value of nombre
        *
        * @return  self
-       */ 
+       */
       public function setNombre($nombre)
       {
             $this->nombre = $nombre;
@@ -86,7 +86,7 @@ use Doctrine\ORM\Mapping as ORM;
 
     /**
      * Get una Categoria tiene muchos productos
-     */ 
+     */
     public function getProductos()
     {
         return $this->productos;
@@ -96,7 +96,7 @@ use Doctrine\ORM\Mapping as ORM;
      * Set una Categoria tiene muchos productos
      *
      * @return  self
-     */ 
+     */
     public function setProductos($productos)
     {
         $this->productos = $productos;
@@ -106,7 +106,7 @@ use Doctrine\ORM\Mapping as ORM;
 
       /**
        * Get the value of descripcion
-       */ 
+       */
       public function getDescripcion()
       {
             return $this->descripcion;
@@ -116,7 +116,7 @@ use Doctrine\ORM\Mapping as ORM;
        * Set the value of descripcion
        *
        * @return  self
-       */ 
+       */
       public function setDescripcion($descripcion)
       {
             $this->descripcion = $descripcion;
@@ -126,7 +126,7 @@ use Doctrine\ORM\Mapping as ORM;
 
       /**
        * Get the value of acronimo
-       */ 
+       */
       public function getAcronimo()
       {
             return $this->acronimo;
@@ -136,7 +136,7 @@ use Doctrine\ORM\Mapping as ORM;
        * Set the value of acronimo
        *
        * @return  self
-       */ 
+       */
       public function setAcronimo($acronimo)
       {
             $this->acronimo = $acronimo;

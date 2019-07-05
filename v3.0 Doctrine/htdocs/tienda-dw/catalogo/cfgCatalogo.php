@@ -258,7 +258,7 @@ require_once('/xampp/appdata/model/console.php');
 
                 <!-- 4º Formulario --- Añadir Producto -->
                 <div id="añadirProdForm" class="configForm not-active">                    
-                    <form method="post" id="aPROD">
+                    <form method="post" id="aPROD" enctype="multipart/form-data">
                         
                         <label id="nPrNombre">Nombre de Producto</label>
                         <input type="text" id="nombrePrNuevo" name="nombrePrNEW">
@@ -270,8 +270,8 @@ require_once('/xampp/appdata/model/console.php');
                         <input type="text" id="precioPrNuevo" name="precioPrNEW">
                         <label id="nPrDescripcion">Descripcion (OPT)</label>
                         <input type="text" id="descripcionPrNuevo" name="descripcionPrNEW">
-                        <label id="nPrPicPath">Path de la Foto (OPT)</label>
-                        <input type="text" id="picpathPrNuevo" name="picpathPrNEW">
+                        <label id="nPrPicPath">Foto (OPT)</label>
+                        <input type="file" class="photo" id="photoNew" name="photoNew">
                         <label>Categorias disponibles</label><br>
                         <select id="nPrCat" name="cat_prod" form="aPROD">
                             <?php 
@@ -302,8 +302,8 @@ require_once('/xampp/appdata/model/console.php');
                         <input type="text" id="precioPrEdit" name="precioPrEDIT">
                         <label id="ePrDescripcion">Descripcion</label>
                         <input type="text" id="descripcionPrEdit" name="descPrEDIT">
-                        <label id="ePrPicPath">Path de la Foto</label>
-                        <input type="text" id="picpathPrEdit" name="picpathPrEDIT">
+                        <label id="ePrPicPath">Foto</label>
+                        <input type="file" class="photo" id="photoEdit" name="photoEdit">
                         <label>Categorias disponibles</label><br>
                         <select id="catDisponibles" name="cat_eleg" form="eCAT">
                         <?php 
@@ -663,6 +663,7 @@ require_once('/xampp/appdata/model/console.php');
     console_log('POST');
         console_log($_POST['optsSubmit2']);
         if(isset($_POST['optsSubmit2'])){
+            $imgsDir = "../img/";
             
             switch($_POST['optsSubmit2']){
 
@@ -718,7 +719,7 @@ require_once('/xampp/appdata/model/console.php');
                                     ->setModelo($_POST['modeloPrNEW'])
                                     ->setPrecio($_POST['precioPrNEW'])
                                     ->setDescripcion($_POST['descripcionPrNEW'])
-                                    ->setPicPath($_POST['picpathPrNEW']);
+                                    ->setPhoto($imgsDir.$_POST['photoNew']);
                     $em->persist($nuevoProducto);
                     $em->flush();
                     header('Location: ?addPr=1');
@@ -750,7 +751,7 @@ require_once('/xampp/appdata/model/console.php');
                             $prEdit->setDescripcion($_POST['descPrEDIT']);
                         }
                         if($_POST['picpathPrEDIT'] != ""){
-                            $prEdit->setPicPath($_POST['picpathPrEDIT']);
+                            $prEdit->setPhoto($imgsDir.$_POST['photoEdit']);
                         }
                         
                         $em->persist($prEdit);

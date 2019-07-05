@@ -9,7 +9,6 @@
 
 
 {% block javascripts %}
-    
     <script type="text/javascript">
         $("document").ready(function(){
 
@@ -90,6 +89,17 @@
                             <div class="attrName attr">Domicilio:</div>
                             <p class="attr">{{ app.session.get('user').domicilio }}</p>
                         </div>
+                    {% elseif app.session.get('tipo') == 'empleado' or app.session.get('tipo') == 'admin' %}
+                        <div class="profileAttr" style="margin-bottom: 60px;">
+                            <div class="attrName attr">Foto:</div>
+                            <p class="attr">
+                                {% if app.session.get('user').photo is defined %}
+                                    <img style="height: 60px;" src="{{ asset(app.session.get('user').photo) }}"/>
+                                {% else %}
+                                    Sin foto
+                                {% endif %}
+                            </p>
+                        </div>
                     {% endif %}
 
                 </div>
@@ -102,21 +112,26 @@
 
                 <div id="cambiarDataForm" class="profileForm">
                     <h3 style="margin: 0px 0 2vh 0;">Actualizar datos del perfil</h3>
-                    <form method="post" id="cDF">
+                    <form method="post" id="cDF" enctype="multipart/form-data">
 
-                        <label>Nombre de usuario</label>
-                        <input type="text" value="{{ app.session.get('user').usuario.username }}" name="Username">
-                        <label>Nombre</label>
-                        <input type="text" value="{{ app.session.get('user').usuario.nombre }}" name="Nombre">
-                        <label>Apellidos</label>
-                        <input type="text" value="{{ app.session.get('user').usuario.apellidos }}" name="Apellidos">
+                        <label id="lUsername">Nombre de usuario</label>
+                        <input type="text" id="username" value="{{ app.session.get('user').usuario.username }}" name="Username">
+                        <label id="lNombre">Nombre</label>
+                        <input type="text" id="nombre" value="{{ app.session.get('user').usuario.nombre }}" name="Nombre">
+                        <label id="lApell">Apellidos</label>
+                        <input type="text" id="apell" value="{{ app.session.get('user').usuario.apellidos }}" name="Apellidos">
 
                         {% if app.session.get('tipo') == 'cliente' %}
                             <label>Domicilio</label>
-                            <input type="text" value="{{ app.session.get('user').domicilio}}" name="Domicilio">
+                            <input type="text" alt="Opcional" id="domic" value="{{ app.session.get('user').domicilio}}" name="Domicilio">
+                        {% elseif app.session.get('tipo') == 'empleado' or app.session.get('tipo') == 'admin' %}
+                            <label id="lphoto">Foto de perfil</label>
+                            <input type="file" accept="image/*" alt="Opcional" class="photo" id="photo" name="photo">
+                            <script src="{{ asset('js/checkPhoto.js') }}"></script>
                         {% endif %}
-                        <label>Introduzca su contraseña para confirmar</label>
-                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm">
+
+                        <label id="lPasswdConf">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" id="passwdConf" name="ContraseñaConfirm">
                         <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Actualizar Perfil">
                         <input class="submitCDF cancel" id="cancelButton" type="button" value="Cancelar">
                     </form>
@@ -126,21 +141,21 @@
                 <div id="cambiarPassForm" class="profileForm">
                     <h3 style="margin: 0px 0 2vh 0;">Cambiar contraseña</h3>
                     <form method="post" id="cambiarPass">
-                        <label id="lPasswd">Introduzca su antigua contraseña</label>
+                        <label id="lOldPasswd">Introduzca su antigua contraseña</label>
                         <input type="password" id="oldPasswd" name="oldPasswd">
-                        <label id="lPasswd">Introduzca su nueva contraseña</label>
+                        <label id="lNewPasswd">Introduzca su nueva contraseña</label>
                         <input type="password" id="newPasswd" name="newPasswd">
-                        <label id="lPasswd2">Confirme su nueva contraseña</label>
+                        <label id="lNewPasswd2">Confirme su nueva contraseña</label>
                         <input type="password" id="newPasswd2" name="newPasswd2"><br>
-                        <input class="submitCDF" type="submit" name="optsSubmit" value="Cambiar contraseña">
+                        <input class="submitCDF" type="submit" name="optsSubmit" id="actPasswdButton" value="Cambiar contraseña">
                         <input class="submitCDF cancel" id="cancelButtonPasswd" type="button" value="Cancelar">
                     </form>
                 </div>
             </div>
         </div>
-
 {% endblock %}
 
 {% block footer %}
+    <script src="{{ asset('js/checkPerfil.js') }}"></script>
     {% include 'footer/footer.html.twig' %}
 {% endblock %}

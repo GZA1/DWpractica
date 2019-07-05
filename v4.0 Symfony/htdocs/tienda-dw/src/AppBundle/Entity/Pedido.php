@@ -31,7 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -41,7 +41,7 @@ use Doctrine\ORM\Mapping as ORM;
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -51,7 +51,7 @@ use Doctrine\ORM\Mapping as ORM;
 
     /**
      * Get the value of estado
-     */ 
+     */
     public function getEstado()
     {
         return $this->estado;
@@ -61,7 +61,7 @@ use Doctrine\ORM\Mapping as ORM;
      * Set the value of estado
      *
      * @return  self
-     */ 
+     */
     public function setEstado($estado)
     {
         $this->estado = $estado;
@@ -71,7 +71,7 @@ use Doctrine\ORM\Mapping as ORM;
 
     /**
      * Get the value of fechaCreacion
-     */ 
+     */
     public function getFechaCreacion()
     {
         return $this->fechaCreacion;
@@ -81,7 +81,7 @@ use Doctrine\ORM\Mapping as ORM;
      * Set the value of fechaCreacion
      *
      * @return  self
-     */ 
+     */
     public function setFechaCreacion($fechaCreacion)
     {
         $this->fechaCreacion = $fechaCreacion;
@@ -91,7 +91,7 @@ use Doctrine\ORM\Mapping as ORM;
 
     /**
      * Get un pedido es de una cesta
-     */ 
+     */
     public function getCesta()
     {
         return $this->cesta;
@@ -101,7 +101,7 @@ use Doctrine\ORM\Mapping as ORM;
      * Set un pedido es de una cesta
      *
      * @return  self
-     */ 
+     */
     public function setCesta($cesta)
     {
         $this->cesta = $cesta;

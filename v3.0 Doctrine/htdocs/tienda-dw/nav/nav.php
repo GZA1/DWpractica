@@ -44,7 +44,7 @@
                             if($tipo=="empleado"){
                                 $empRep = $em->getRepository("Entity\\Empleado");
                                 $e = $empRep->findByUser($_SESSION['user']);
-                                if( $e->getIsAdministrador() ){
+                                if( !is_null($e) && $e->getIsAdministrador() ){
                                     $tipoLogueado = "admin";
                                 }
                             }

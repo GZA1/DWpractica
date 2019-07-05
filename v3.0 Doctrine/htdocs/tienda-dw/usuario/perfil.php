@@ -13,6 +13,7 @@
     $u = null;
     $c = null;
     $e = null;
+    $imgsDir = "img/";
    
     if(isset($_SESSION['user'])){
         $usuarioRep = $em->getRepository("Entity\\Usuario");
@@ -119,9 +120,15 @@
                     <?php
                     } else if($u->getTipo() == "empleado"){
                     ?>
-                    <div class="profileAttr">
-                        <div class="attrName attr">PhotoPath:</div>
-                        <p class="attr"><?php echo $e->getPhotoPath();?></p>
+                    <div class="profileAttr" style="margin-bottom: 60px;">
+                        <div class="attrName attr">Foto:</div>
+                        <p class="attr">
+                        <?php if( is_null($e->getPhoto()) || $e->getPhoto()=="" ){echo("Sin foto");}
+                            else{
+                                echo '<img style="height: 60px;" src="'.$e->getPhoto().'"/>';
+                            } 
+                        ?>
+                        </p>
                     </div>
                     <?php
                     }
@@ -137,7 +144,7 @@
 
                 <div id="cambiarDataForm" class="profileForm">
                     <h3 style="margin: 0px 0 2vh 0;">Actualizar datos del perfil</h3>
-                    <form method="post" id="cDF">
+                    <form method="post" enctype="multipart/form-data" id="cDF">
 
                         <label>Nombre de usuario</label>
                         <input type="text" value="<?php echo htmlspecialchars($u->getUsername());?>" name="Username">
@@ -153,8 +160,8 @@
                         <?php
                         } else if($u->getTipo() == "empleado"){
                         ?>
-                        <label id="lPhotopath">Ruta de foto de perfil</label>
-                        <input type="file" accept="image/*" defaultValue="<?php echo htmlspecialchars($e->getPhotoPath());?>" placeholder="Opcional" name="PhotoPath">
+                        <label id="lphoto">Foto de perfil</label>
+                        <input type="file" accept="image/*" alt="Opcional" id="photo" name="photo">
                         <?php
                         }
                         ?>
@@ -184,6 +191,24 @@
     </body>
         <?php require_once("../footer/footer.php"); ?>
 </html>
+<script type="text/javascript">
+(function($) {
+    $('#photo').change(function() {
+        var tamMaxMB = 16; //MB
+        var photo = $("#photo")[0].files[0];
+        if(photo !== undefined){
+            var tamPhoto = photo.size;
+            var tamPhotoMB = tamPhoto / Math.pow(1024,2);
+            if(tamPhotoMB > tamMaxMB){
+                var errorMsg = 'El fichero ocupa demasiado. El tamaño máximo permitido es de ' + tamMaxMB + 'MB. El fichero elegido posee ' + tamPhotoMB.toFixed(2) + 'MB';
+                alert(errorMsg);
+                return false;
+            }
+            console.log("Tam fichero: "+tamPhotoMB.toFixed(2)+"MB");
+        }
+    })
+})(jQuery);
+</script>   
     <?php
         if(isset($_GET['updateProfile'])){
             if($_GET['updateProfile'] == 1){
@@ -249,13 +274,15 @@
         switch($_POST['optsSubmit']){
             
             case 'Actualizar Perfil':
+                console_log((array)$_POST);
+                console_log((array)$_FILES['photo']);
                 if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
                     if( $tipo == "cliente"  && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername()  ) 
                         && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
                         header('Location: ?updateProfile=1');
                         exit;
                     }else if( $tipo == "empleado" && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername()  )
-                        && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['PhotoPath']) ){
+                        && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $imgsDir.$_FILES['photo']['name']) ){
                         header('Location: ?updateProfile=1');
                         exit;
                     }else{                        

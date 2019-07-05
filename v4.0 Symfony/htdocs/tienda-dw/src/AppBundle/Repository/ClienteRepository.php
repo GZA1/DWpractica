@@ -22,7 +22,7 @@ class ClienteRepository extends EntityRepository
             ;
             $c->setDomicilio($domicilio);
             $qb = $this->_em->createQueryBuilder();
-            $qb ->update('Entity\\Usuario', 'u')
+            $qb ->update('AppBundle\\Entity\\Usuario', 'u')
                 ->set('u.username', ':username')
                 ->set('u.nombre', ':nombre')
                 ->set('u.apellidos', ':apell')
@@ -34,7 +34,7 @@ class ClienteRepository extends EntityRepository
             $res = $qb->getQuery()->getResult();
             console_log($res);
             $qb = $this->_em->createQueryBuilder();
-            $qb ->update('Entity\\Cliente', 'c')
+            $qb ->update('AppBundle\\Entity\\Cliente', 'c')
                 ->set('c.domicilio', ':domic')
                 ->where('c.usuario = :u')
                 ->setParameter('domic', $domicilio)

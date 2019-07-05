@@ -99,7 +99,7 @@
               
               echo "<div class=\"prodContainer\">";
                 echo "<div class=\"maxedMini\">";
-                    echo "<img src=\"".$prod->getPicpath()."\">";
+                    echo "<img src=\"".$prod->getPhoto()."\">";
                 echo "</div>";
 ?>
                 <div class="prodMiniaturas flex_rows">

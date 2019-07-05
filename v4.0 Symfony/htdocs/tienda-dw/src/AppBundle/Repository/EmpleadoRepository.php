@@ -4,6 +4,9 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
+use AppBundle\Entity\Usuario;
+
+
 require_once '/xampp/appdata/model/console.php';
 
 class EmpleadoRepository extends EntityRepository{
@@ -20,14 +23,37 @@ class EmpleadoRepository extends EntityRepository{
     }
 
 
-    public function updatePerfilEmpleado($u, $username, $nombre, $apellidos){
+    public function updatePerfilEmpleado($u, $username, $nombre, $apellidos, $photo){
         if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) ){
-            $u  ->setUsername($username)
+            $u  ->getUsuario()
+                ->setUsername($username)
                 ->setNombre($nombre)
                 ->setApellidos($apellidos)
             ;
-            $this->_em->persist($u);
-            $this->_em->flush();
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->update('AppBundle\\Entity\\Usuario', 'u')
+                ->set('u.username', ':username')
+                ->set('u.nombre', ':nombre')
+                ->set('u.apellidos', ':apell')
+                ->where('u.idUsuario = :u')
+                ->setParameter('username', $username)
+                ->setParameter('nombre', $nombre)
+                ->setParameter('apell', $apellidos)
+                ->setParameter('u', $u->getUsuario());
+            $res = $qb->getQuery()->getResult();
+            console_log($res);
+            $qb = $this->_em->createQueryBuilder();
+            if($photo !== ''){
+                $photo='img/'.$photo;
+            }
+            $u ->setPhoto($photo);
+            $qb ->update('AppBundle\\Entity\\Empleado', 'e')
+                ->set('e.photo', ':photo')
+                ->where('e.id = :u')
+                ->setParameter('photo', $photo)
+                ->setParameter('u', $u);
+            $res = $qb->getQuery()->getResult();
+            console_log($res);
             return true;
         } else{
             return false;
@@ -66,6 +92,16 @@ class EmpleadoRepository extends EntityRepository{
         }else{
             return false;
         }
+    }
+
+    public function findActivos(){
+        $qb = $this->_em->createQueryBuilder();
+        $qb ->select('e')
+            ->from('AppBundle\\Entity\\Empleado', 'e')
+            ->where('e.activo = :act')
+            ->setParameter('act', 1);
+        $res = $qb->getQuery()->getResult();
+        return $res;
     }
 
 }

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TiendaRepository")
  */
 
-class Tienda 
+class Tienda
 {
     /**
      * @ORM\Id @ORM\GeneratedValue
@@ -77,7 +77,7 @@ class Tienda
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -87,7 +87,7 @@ class Tienda
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -97,7 +97,7 @@ class Tienda
 
     /**
      * Get the value of nombre
-     */ 
+     */
     public function getNombre()
     {
         return $this->nombre;
@@ -107,7 +107,7 @@ class Tienda
      * Set the value of nombre
      *
      * @return  self
-     */ 
+     */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
@@ -117,7 +117,7 @@ class Tienda
 
     /**
      * Get the value of direccion
-     */ 
+     */
     public function getDireccion()
     {
         return $this->direccion;
@@ -127,7 +127,7 @@ class Tienda
      * Set the value of direccion
      *
      * @return  self
-     */ 
+     */
     public function setDireccion($direccion)
     {
         $this->direccion = $direccion;
@@ -137,7 +137,7 @@ class Tienda
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -147,7 +147,7 @@ class Tienda
      * Set the value of email
      *
      * @return  self
-     */ 
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -157,7 +157,7 @@ class Tienda
 
     /**
      * Get uno o varios clientes tienen una ubicacion
-     */ 
+     */
     public function getUbicacion()
     {
         return $this->ubicacion;
@@ -167,7 +167,7 @@ class Tienda
      * Set uno o varios clientes tienen una ubicacion
      *
      * @return  self
-     */ 
+     */
     public function setUbicacion($ubicacion)
     {
         $this->ubicacion = $ubicacion;
@@ -177,7 +177,7 @@ class Tienda
 
     /**
      * Get una tienda tiene muchos empleados
-     */ 
+     */
     public function getEmpleados()
     {
         return $this->empleados;
@@ -187,7 +187,7 @@ class Tienda
      * Set una tienda tiene muchos empleados
      *
      * @return  self
-     */ 
+     */
     public function setEmpleados($empleados)
     {
         $this->empleados = $empleados;
@@ -197,7 +197,7 @@ class Tienda
 
     /**
      * Get una tienda tiene muchas unidades
-     */ 
+     */
     public function getUnidades()
     {
         return $this->unidades;
@@ -207,7 +207,7 @@ class Tienda
      * Set una tienda tiene muchas unidades
      *
      * @return  self
-     */ 
+     */
     public function setUnidades($unidades)
     {
         $this->unidades = $unidades;

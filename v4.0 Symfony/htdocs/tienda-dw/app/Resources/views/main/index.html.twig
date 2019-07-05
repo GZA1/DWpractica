@@ -8,7 +8,6 @@
 
 
 {% block javascripts %}
-    
     <script type="text/javascript">
         $("document").ready(function() {
 
@@ -29,7 +28,7 @@
                 $("#firstThing").fadeOut();
                 $("#thirdThing").fadeIn();
             });
-            setTimeout(function(){ 
+            setTimeout(function(){
                     $('#notificacion').fadeOut('fast');
                     }, 4000
                     );
@@ -39,18 +38,18 @@
 {% endblock %}
 
 {% block body %}
-    {% if msg is defined and msg != null %} 
-        {% if tipoMessage == 1 %}  
-            <div id="notificacion" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+    {% if msg is defined and msg != null %}
+        {% if tipoMessage == 1 %}
+            <div id="notificacion" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>
 
         {% endif %}
 
-        {% if tipoMessage == 0 %}  
-            <div id="notificacion" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
-        {% endif %}    
+        {% if tipoMessage == 0 %}
+            <div id="notificacion" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>
+        {% endif %}
     {% endif %}
 
-    
+
     {% include 'nav/nav.html.twig' %}
 
 <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
@@ -92,7 +91,6 @@
                         <br><br><br>
 
                         Donec sed vehicula elit. Etiam commodo vestibulum mi. Aliquam accumsan tincidunt suscipit. Vestibulum in finibus ante. Donec non nisi sit amet neque faucibus porttitor. Praesent in scelerisque erat. Curabitur in interdum turpis. Integer accumsan tempus fringilla. Ut elit purus, tempor et euismod ut, rutrum quis orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc pharetra massa eu vehicula venenatis.
-                        
                                             Fusce sit amet urna imperdiet, scelerisque tortor nec, iaculis odio. Maecenas ante diam, pellentesque vel arcu quis, viverra gravida sapien. Vivamus hendrerit maximus lacinia. Curabitur facilisis nibh sapien, ac efficitur erat aliquam quis. In suscipit suscipit sapien eu sollicitudin. Suspendisse vulputate magna magna, id sodales magna condimentum et. Suspendisse mattis nec nulla in accumsan. Maecenas vel est aliquet, maximus diam sit amet, ultricies sapien. Quisque tellus mi, mattis quis orci sed, consequat luctus lacus. Vestibulum et nisi congue, iaculis diam sed, accumsan eros. Sed consectetur quam quis enim facilisis, ut auctor augue gravida.<br><br><br>
 
                         Ut sit amet sapien eu mi tempor consequat vitae vel orci. Nullam non ligula congue, tincidunt justo a, posuere nibh. Quisque ac lorem pharetra, semper tortor sed, viverra justo. Phasellus finibus posuere lorem. Ut ut auctor sem, eu sodales velit. Vestibulum sit amet efficitur augue. Suspendisse eget turpis quis erat hendrerit sollicitudin. Morbi vitae libero nunc. Proin accumsan tincidunt purus non pulvinar. Mauris nec ultrices risus, non ullamcorper est.<br><br><br>
@@ -104,7 +102,6 @@
                     <img src="https://via.placeholder.com/350x150" style="max-width: 100%;">
                     <p>
                         Donec sed vehicula elit. Etiam commodo vestibulum mi. Aliquam accumsan tincidunt suscipit. Vestibulum in finibus ante. Donec non nisi sit amet neque faucibus porttitor. Praesent in scelerisque erat. Curabitur in interdum turpis. Integer accumsan tempus fringilla. Ut elit purus, tempor et euismod ut, rutrum quis orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc pharetra massa eu vehicula venenatis.
-                        
                                                 Fusce sit amet urna imperdiet, scelerisque tortor nec, iaculis odio. Maecenas ante diam, pellentesque vel arcu quis, viverra gravida sapien. Vivamus hendrerit maximus lacinia. Curabitur facilisis nibh sapien, ac efficitur erat aliquam quis. In suscipit suscipit sapien eu sollicitudin. Suspendisse vulputate magna magna, id sodales magna condimentum et. Suspendisse mattis nec nulla in accumsan. Maecenas vel est aliquet, maximus diam sit amet, ultricies sapien. Quisque tellus mi, mattis quis orci sed, consequat luctus lacus. Vestibulum et nisi congue, iaculis diam sed, accumsan eros. Sed consectetur quam quis enim facilisis, ut auctor augue gravida.
                     </p>
                     <img src="https://via.placeholder.com/350x150" style="max-width: 100%;">
@@ -144,8 +141,8 @@
 
 </div>
 
-        
-        
+
+
 {% endblock %}
 
 {% block footer %}
