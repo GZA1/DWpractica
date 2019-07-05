@@ -30,8 +30,13 @@ class EmpleadoRepository extends EntityRepository{
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function updatePerfilEmpleado($u, $username, $nombre, $apellidos, $photo){
         if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) && isset($photo) ){
+=======
+    public function updatePerfilEmpleado($u, $username, $nombre, $apellidos, $photoPath){
+        if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) && isset($photoPath) ){
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
 =======
     public function updatePerfilEmpleado($u, $username, $nombre, $apellidos, $photoPath){
         if(isset($u) && isset($username) && isset($nombre) && isset($apellidos) && isset($photoPath) ){
@@ -60,9 +65,15 @@ class EmpleadoRepository extends EntityRepository{
             $qb ->update('Entity\\Empleado', 'e')
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 ->set('e.photo', ':photo')
                 ->where('e.usuario = :u')
                 ->setParameter('photo', $photo)
+=======
+                ->set('e.photoPath', ':photop')
+                ->where('e.usuario = :u')
+                ->setParameter('photop', $photoPath)
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
 =======
                 ->set('e.photoPath', ':photop')
                 ->where('e.usuario = :u')

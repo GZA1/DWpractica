@@ -27,6 +27,7 @@
                 <input type="text" id="email" name="Email">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <label id="lPhoto">Foto de perfil (opcional)</label>
                 <input type="file" accept="image/*" alt="Opcional" id="photo" name="Photo">
                 <label id="lCargo">Cargo</label>
@@ -82,6 +83,8 @@
 =======
 =======
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
+=======
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
                 <label id="lPhotopath">Ruta de foto de perfil</label>
                 <input type="file" accept="image/*" placeholder="Opcional" id="photopath" name="PhotoPath">
                 <label id="lCargo">Cargo</label>
@@ -95,6 +98,9 @@
                         <option value="<?php echo $a->getId() ?>">ID <?php echo($a->getId().' - '.$a->getNombre()) ?></option>";
                     <?php 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
+=======
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
 =======
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
@@ -103,11 +109,14 @@
                 </select>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <label id="lPasswdConfBaja">Introduzca su contraseña para confirmar</label>
                 <input id="passwdConfBaja" type="password" placeholder="Contraseña" name="ContraseñaConfirm">
                 <input class="submitCDF" type="submit" name="optsSubmit" id="bajaButtonEMP" value="Baja Empleado">
                 <input class="submitCDF cancel" id="cancelButtonbajaEMP" type="button" value="Cancelar">
 =======
+=======
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
 =======
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
                 <label id="lPasswdConfirm">Introduzca su contraseña para confirmar</label>
@@ -158,6 +167,9 @@
             <input class="submitCDF" type="submit" name="optsSubmit" id="bajaButtonEMP" value="Baja Empleado">
             <input class="submitCDF cancel" id="cancelButtonbajaEMP" type="button" value="Cancelar">
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
+=======
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
 =======
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
