@@ -210,19 +210,19 @@ class UsuarioController extends Controller
         $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
         $empleadoRep = $em->getRepository("AppBundle\\Entity\\Empleado");
 
-        $u = $session->get('user')->getUsuario();
+        $u = $session->get('user');
 
         switch($_POST['optsSubmit']){
             
             case 'Actualizar Perfil':
-                if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
+                if( $u->getUsuario()->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
 
-                    if( $session->get('tipo') == "cliente"  && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername() )
+                    if( $session->get('tipo') == "cliente"  && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsuario()->getUsername() )
                         && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
                         
                         return $this->redirectToRoute('perfil', ['updateProfile'=>1]);
 
-                    }else if( ($session->get('tipo') == "empleado" || $session->get('tipo') == "admin") && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsername() )
+                    }else if( ($session->get('tipo') == "empleado" || $session->get('tipo') == "admin") && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsuario()->getUsername() )
                         && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_FILES['photo']['name']) ){
 
                         return $this->redirectToRoute('perfil', ['updateProfile'=>1]);
@@ -263,7 +263,7 @@ class UsuarioController extends Controller
         $tiendaRep = $em->getRepository("AppBundle\\Entity\\Tienda");
         $empleadoRep = $em->getRepository("AppBundle\\Entity\\Empleado");
         $tiendas = $tiendaRep->findAll();
-        $empleados = $empleadoRep->findAll();
+        $empleados = $empleadoRep->findActivos();
 
 
 
@@ -302,13 +302,15 @@ class UsuarioController extends Controller
     /**
      * @Route("/adminCfg", name="adminCfg_post", methods={"POST"})
      */    
-    public function adminCfgPostAction(Request $request)
+    public function adminCfgPostAction(Request $request, SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();
         $usuarioRep = $em->getRepository("AppBundle\\Entity\\Usuario");
         $tiendaRep = $em->getRepository("AppBundle\\Entity\\Tienda");
         $empleadoRep = $em->getRepository("AppBundle\\Entity\\Empleado");
+        $ubicacionRep = $em->getRepository("AppBundle\\Entity\\Ubicacion");
 
+        $u = $session->get('user')->getUsuario();
 
         if(isset($_POST['optsSubmit'])){
             switch($_POST['optsSubmit']){
@@ -328,7 +330,7 @@ class UsuarioController extends Controller
                         if( ! $usuarioRep->exists($newUsuario) ){
                             $usuarioRep->registrarUsuario($newUsuario);
                             $newEmpleado->setUsuario($usuarioRep->findByUsername($newUsuario->getUsername()))
-                                        ->setphoto($_POST['photo']) 
+                                        ->setPhoto('img/'.$_FILES['photo']['name']) 
                                         ->setCargo($_POST['Cargo'])
                                         ->setTienda($tiendaSeleccionada);
                             console_log((array)$newEmpleado);
@@ -348,7 +350,6 @@ class UsuarioController extends Controller
                     
                     case 'Baja Empleado':
                     $usBaja = $usuarioRep->find($_POST['idBajaEmpleado']);
-                    console_log((array)$usBaja);
                     if( $usBaja != $u && $empleadoRep->darDeBaja($usBaja) ){
                         
                         return $this->redirectToRoute('adminCfg', ['empDEL'=>1]);                            
@@ -362,14 +363,9 @@ class UsuarioController extends Controller
                     break;
                     
                     case 'Añadir Tienda':
-                    console_log("Add tienda");
-                    console_log($_POST);
                     if( $u->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
-                        console_log($_POST['CodigoPostal']);
-                        console_log($_POST['Municipio']);
                         $cp = $_POST['CodigoPostal'];
                         $ubic = $ubicacionRep->findOneBy(['cp'=>$cp]);
-                        console_log((array)$ubic);
                         $newTienda = new Tienda();
                         $newTienda  ->setNombre($_POST['NombreTienda'])
                         ->setDireccion($_POST['Direccion']) 

@@ -1,6 +1,3 @@
-{% block js %}
-    <script src="./checkcfgAdmin.js"></script>
-{% endblock %}
 {% block configAdmin %}
     <div id="dashboard">
         <nav id="topSect">
@@ -17,9 +14,9 @@
             <!-- 1er Formulario-->
             <div id="registrarEmpleadoForm" class="configForm">
                 
-                <form method="post" id="rEMP">
+                <form method="post" id="rEMP" enctype="multipart/form-data">
                     
-                    <label id="lUser">Nombre de usuario</label>
+                    <label id="lUsername">Nombre de usuario</label>
                     <input type="text" id="username" name="Username">
                     <label id="lPasswd">Contraseña</label>
                     <input type="password" id="passwd" name="Passwd">
@@ -28,24 +25,25 @@
                     <label id="lApell">Apellidos</label>
                     <input type="text" id="apell" name="Apellidos">
                     <label id="lEmail">Email</label>
-                        <input type="text" id="email" name="Email">
-                        <label id="lPhotopath">Ruta de foto de perfil</label>
-                        <input type="text" placeholder="Opcional" id="photopath" name="PhotoPath">
-                        <label id="lCargo">Cargo</label>
-                        <input type="text" id="cargo" name="Cargo">
-                        <label id="lTiendaId">ID de la tienda a la que pertenece</label>
-                        <select id="tiendaId" name="tienda_id" form="rEMP">
-                            {% for tienda in tiendas %}
-                                <option value="{{ tienda.id }}">ID {{tienda.id}} - {{tienda.nombre}} </option>";
-                            {% endfor %}
-                                   
-                        </select>
-                        <label id="lPasswdConfirm">Introduzca su contraseña para confirmar</label>
-                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="passwdConfirm">
-                        <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Añadir Empleado">
-                        <input class="submitCDF cancel" id="cancelButtonREMP" type="button" value="Cancelar">
-                    </form>
-                </div>
+                    <input type="text" id="email" name="Email">
+                    <label id="lPhotopath">Ruta de foto de perfil</label>
+                    <input type="file" accept="image/*" alt="Opcional" class="photo" id="photo" name="photo">
+                    <script src="{{ asset('js/checkPhoto.js') }}"></script>
+                    <label id="lCargo">Cargo</label>
+                    <input type="text" id="cargo" name="Cargo">
+                    <label id="lTiendaId">ID de la tienda a la que pertenece</label>
+                    <select id="tiendaId" name="tienda_id" form="rEMP">
+                        {% for tienda in tiendas %}
+                            <option value="{{ tienda.id }}">ID {{tienda.id}} - {{tienda.nombre}} </option>";
+                        {% endfor %}
+                                
+                    </select>
+                    <label id="lPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                    <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="passwdConfirm">
+                    <input class="submitCDF" type="submit" name="optsSubmit" id="updateButton" value="Añadir Empleado">
+                    <input class="submitCDF cancel" id="cancelButtonREMP" type="button" value="Cancelar">
+                </form>
+            </div>
 
                 <!-- 2do Formulario-->
                 <div id="añadirTiendaForm" class="configForm not-active">
@@ -78,7 +76,7 @@
                         <select id="idBajaEmpleado" name="idBajaEmpleado" form="bajaEMP">
 
                             {% for empleado in empleados %}
-                                <option value="{{ empleado.id }}">{{empleado.usuario.username}} </option>";
+                                <option value="{{ empleado.usuario.idUsuario }}">{{empleado.usuario.username}} </option>";
                             {% endfor %}
                                    
                     </select>
@@ -92,4 +90,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block js %}
+    <script src="{{ asset('js/checkCfgAdmin.js') }}"></script>
 {% endblock %}
