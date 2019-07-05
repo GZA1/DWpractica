@@ -15,6 +15,7 @@ class Empleado
     */
     private $id;
 <<<<<<< HEAD
+<<<<<<< HEAD
     /**
      * @ORM\Column(name="photo",length=45, nullable=true)
      */
@@ -30,6 +31,15 @@ class Empleado
      * @Column(name="activo",type="boolean", nullable=false)
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
      */
+=======
+    /** 
+     * @Column(name="photoPath",length=45, nullable=true)
+     */
+    private $photoPath;
+    /** 
+     * @Column(name="activo",type="boolean", nullable=false)
+     */
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
     private $activo;
     /** 
      * @Column(name="cargo",length=45, nullable=false)
@@ -92,10 +102,13 @@ class Empleado
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Get the value of photo
      */
     public function getPhoto()
 =======
+=======
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
      * Get the value of photoPath
      */ 
     public function getPhotoPath()
@@ -109,9 +122,12 @@ class Empleado
      *
      * @return  self
 <<<<<<< HEAD
+<<<<<<< HEAD
      */
     public function setPhoto($photo)
 =======
+=======
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
      */ 
     public function setPhotoPath($photoPath)
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch

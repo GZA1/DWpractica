@@ -96,10 +96,20 @@ class UsuarioRepository extends EntityRepository{
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
     public function findEmpleados(){
         return $this->findBy(['tipo' => 'empleado']);
+=======
+
+    public function findEmpleados(){
+        return $this->findBy(['tipo' => 'empleado']);
+    }
+
+    public function findClientes(){
+        return $this->findBy(['tipo' => 'cliente']);
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
     }
 
     public function findClientes(){
@@ -116,6 +126,7 @@ class UsuarioRepository extends EntityRepository{
         return false;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     public function exists($usuario){
         return  $this->existsEmail($usuario->getEmail()) ||
@@ -129,6 +140,8 @@ class UsuarioRepository extends EntityRepository{
     public function findClientes(){
         return $this->findBy(['tipo' => 'cliente']);
     }
+=======
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
 =======
 >>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
 

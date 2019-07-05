@@ -79,6 +79,7 @@ class EmpleadoRepository extends EntityRepository{
     }
 
 
+<<<<<<< HEAD
 
     public function findActivos(){
         $qb = $this->_em->createQueryBuilder();
@@ -89,6 +90,8 @@ class EmpleadoRepository extends EntityRepository{
         $res = $qb->getQuery()->getResult();
         return $res;
     }
+=======
+>>>>>>> parent of 02ea15f7... Merge remote-tracking branch 'origin/Gonza-Symfony' into mergeBranch
 
 }
 
