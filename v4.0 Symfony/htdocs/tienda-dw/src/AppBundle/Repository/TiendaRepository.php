@@ -13,7 +13,7 @@ class TiendaRepository extends EntityRepository
         $qb ->select('t')
             ->from('AppBundle\\Entity\\Tienda', 't');
         $res = $qb->getQuery()->getResult();
-        console_log((array)$res[0]->getNombre());
+        
         return $res;   
     }
 

@@ -4,7 +4,7 @@
 {% block title %} {{cat.nombre}} {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
-    <link rel="stylesheet" href="{{asset('styles/style-catologo.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/style-catalogo.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 {% endblock %}
 
@@ -183,13 +183,13 @@
                                 {% set desc = "" %}
                             {% endif %}
 
-                            {% if prod.PicPath != null %}
-                                {% set picPath = prod.picPath %}
+                            {% if prod.photo != null %}
+                                {% set photo = prod.photo %}
                             {% else %}
-                                {% set picPath = "" %}
+                                {% set photo = "" %}
                             {% endif %}
-                            {{picPath}}
-                            <a href="{{path('producto', {'producto': prod.id})}}"><img src="{{asset(picPath)}}" alt="not found"></a>
+                            
+                            <a href="{{path('producto', {'producto': prod.id})}}"><img src="{{asset(photo)}}" alt="not found"></a>
                             <p class="proTitulo">{{prod.nombre}}</p>
                             <p class="proDescripcion">{{desc}}</p>
                             <p class="proPrecio">{{prod.precio}}€</p>

@@ -3,7 +3,7 @@
 {% block title %} {{prod.nombre}} {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
-    <link rel="stylesheet" href="{{asset('styles/style-catologo.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/style-catalogo.css')}}">
 {% endblock %}
 
 {% block javascripts %}
@@ -42,7 +42,11 @@
                 $("#primeraPestaña").click(function(){
                     $("#detallesAdContent").fadeIn();
                     $("#lasReviews").fadeOut();
-                });    
+                });
+                setTimeout(function(){ 
+                    $('#notificacion').fadeOut('fast');
+                    }, 4000
+                    );    
             });
 
             
@@ -67,10 +71,10 @@
         <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
 
     <div class="mainProductoWrapper">
-    {% if prod !) null %}
+    {% if prod != null %}
         <div class="prodContainer">
-            <div class="maxedMini">;
-                <img src="{{prod.picPath}}">;
+            <div class="maxedMini">
+                <img src="{{asset(prod.photo)}}">
             </div>
             <div class="prodMiniaturas flex_rows">
                 <img src="{{asset('img/externos/5.jpg')}}">
@@ -80,61 +84,78 @@
             </div>
         </div> 
         <div class="prodDescriptionWrapper">
-        <h1 id="desTitulo" style="padding: 8px 8px 8px 8px;">{{prod.nombre}}</h1>";
-        <h2 id="desDesc" style="padding: 8px 8px 8px 8px;">{{prod.precio}}€</h2>";
+        <h1 id="desTitulo" style="padding: 8px 8px 8px 8px;">{{prod.nombre}}</h1>
+        <h2 id="desDesc" style="padding: 8px 8px 8px 8px;">{{prod.precio}}€</h2>
         <div style="border: solid; border-color: #6600cc; border-width: 3px 0; height: 0.5vh; width: 100%; margin: 10px 0"></div>
                 <div id="desCantidadesWrapper">
-                    <span id="desCantidad">Cantidad: </span>
-                    <div id="dCant2">
-                        <a id="dCMenos">-</a>
-                        <div id="dCcampo">
-                            <input id="dCShow" min="0" value="1">
-                        </div>
-                        <a id="dCMas">+</a>
-
-                    </div>
-                </div>
-
-                <div id="botonesCompras" class="flex_rows">
-                    <a>Añadir a la cesta</a>
-                    <a>COMPRAR</a>
-                </div>
-                <div id="prStockWrapper" class="flex_rows">
-                    <div id="prStElement">
-                        <span style="margin-right: 12px;">Stock:</span>
-                        <span id="prStock">{{ stock|length }}</span>";
-
-                        <span>Disponibles</span>
-                    </div>
-                    <div id="prNdElement">
-                        Descubre donde
-                        <span style="font-size: 12px; border-radius: 50%; border: solid transparent;">&or;</span>
-                    </div>
-                </div>
-                <div id="prStockEspecifico">
-                {% for unidad in stock %}                
-                    {% if arrayTiendas is not defined %}
-                        {% set arrayTiendas = [unidad.tienda]%}
+                    {% if stock is empty %}                    
+                                            
+                        <div id="noDisp"> Lo sentimos, este producto no está disponible </div>                    
                     {% else %}
-                        {% if unidad.tienda not in arrayTiendas %}
-                            {% set arrayTiendas = arrayTiendas|merge([unidad.tienda])%}
-                        {% endif %}
+                        <span id="desCantidad">Cantidad: </span>
+                        <div id="dCant2">
+                            <a id="dCMenos">-</a>
+                            <div id="dCcampo">
+                                <input id="dCShow" min="0" value="1">
+                            </div>
+                            <a id="dCMas">+</a>
+
+                        </div>
                     {% endif %}
-                {% endfor %}
-                {% if arrayTiendas is defined %}
-                    {% for tienda in arrayTiendas %}                
-                        {% for unit in unidades %}
-                            {% if unidad.tienda = tienda %}
-                                
-                                {% if productosEnTienda is not defined %}
-                                    {% set productosEnTienda = [unidad]%}
-                                {% else %}                                
-                                    {% set arrayTiendas = arrayTiendas|merge([unidad])%}                                                               
-                                {% endif %}
+
+                </div>
+                {% if stock is not empty %}                    
+                        
+                    
+                    <div id="botonesCompras" class="flex_rows">
+                        <a>Añadir a la cesta</a>
+                        <a>COMPRAR</a>
+                    </div>
+                    <div id="prStockWrapper" class="flex_rows">
+                        <div id="prStElement">
+                            <span style="margin-right: 12px;">Stock:</span>
+                            <span id="prStock">{{ stock|length }}</span>
+
+                            <span>Disponibles</span>
+                        </div>
+                        <div id="prNdElement">
+                            Descubre donde
+                            <span style="font-size: 12px; border-radius: 50%; border: solid transparent;">&or;</span>
+                        </div>
+                    </div>
+                    <div id="prStockEspecifico">
+
+                    {% set arrayTiendas = '' %}
+                    {% set productosEnTienda = '' %}
+                    {% for unidad in stock %}                
+                        {% if arrayTiendas is empty %}                    
+                            {% set arrayTiendas = [unidad.tienda] %}
+                        {% else %}
+                            {% if unidad.tienda not in arrayTiendas %}
+                                {% set arrayTiendas = arrayTiendas|merge([unidad.tienda]) %}
                             {% endif %}
-                        {% endfor %}
-                        <p>{{productosEnTienda|length}} Disponibles - {{tienda.nombre}} - {{tienda.direccion}}</p>"
+                        {% endif %}
+                    
                     {% endfor %}
+
+                    {% if arrayTiendas is not empty %}
+                        {% for shop in arrayTiendas %}                
+                            {% for unit in stock %}
+                                {% if unit.tienda == shop %}
+                                    
+                                    {% if productosEnTienda is empty %}
+                                        {% set productosEnTienda = [unit] %}
+                                    {% else %}                                
+                                        {% set productosEnTienda = productosEnTienda|merge([unit]) %}                                                               
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <p>{{productosEnTienda|length}} Disponibles - {{shop.nombre}} - {{shop.direccion}}</p>
+                            {% set productosEnTienda = "" %}
+                        {% endfor %}
+                    {% endif %}
+                        
                 {% endif %}
 
             </div>
@@ -248,9 +269,9 @@
             <div id="sugerencias">
                 <div><h1>Sugerencias</h1></div>
                 <ul id="listaSugerencias">
-                    <li><img src="../img/externos/3.jpg"></li>
-                    <li><img src="../img/externos/6.jpg"></li>
-                    <li><img src="../img/externos/7.jpg"></li>                
+                    <li><img src="{{asset('img/externos/3.jpg')}}"></li>
+                    <li><img src="{{asset('img/externos/6.jpg')}}"></li>
+                    <li><img src="{{asset('img/externos/7.jpg')}}"></li>                
                 </ul>
 
             </div>

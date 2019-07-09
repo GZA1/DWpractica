@@ -1,0 +1,493 @@
+{% extends 'base.html.twig' %}
+{% block title %} Configuracion catálogo {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/style-cfg.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/style-perfil.css')}}">
+{% endblock %}
+{% block javascripts %}
+ 
+        <script src="./checkcfgCatalogo.js"></script>
+        <script type="text/javascript">
+           $("document").ready(function(){
+            $("#optAddCAT").click(function(){
+                $("#añadirCatForm").fadeIn('fast');
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast'); 
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');   
+            });         
+            $("#optEditCAT").click(function(){
+                $("#añadirCatForm").fadeOut('fast'); 
+                $("#editCatForm").fadeIn('fast');
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');    
+            });   
+            $("#optRemCAT").click(function(){
+                $("#añadirCatForm").fadeOut('fast');
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeIn('fast');
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');    
+            });
+            $("#optAddPROD").click(function(){
+                $("#añadirCatForm").fadeOut('fast'); 
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeIn('fast'); 
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');    
+            });         
+            $("#optEditPROD").click(function(){
+                $("#añadirCatForm").fadeOut('fast');
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeIn('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');    
+            });       
+            $("#optRemPROD").click(function(){
+                $("#añadirCatForm").fadeOut('fast');  
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeIn('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');  
+            });         
+            $("#optAumSTOCK").click(function(){
+                $("#añadirCatForm").fadeOut('fast'); 
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast'); 
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');  
+                $("#aumStockForm").fadeIn('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeOut('fast');  
+            });         
+            $("#optRedSTOCK").click(function(){
+                $("#añadirCatForm").fadeOut('fast');
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeIn('fast');  
+                $("#transProdForm").fadeOut('fast');    
+            });       
+            $("#optTransPROD").click(function(){
+                $("#añadirCatForm").fadeOut('fast');  
+                $("#editCatForm").fadeOut('fast'); 
+                $("#removeCatForm").fadeOut('fast');  
+                $("#añadirProdForm").fadeOut('fast');  
+                $("#editProdForm").fadeOut('fast');  
+                $("#remProdForm").fadeOut('fast');
+                $("#aumStockForm").fadeOut('fast'); 
+                $("#redStockForm").fadeOut('fast');  
+                $("#transProdForm").fadeIn('fast');  
+            });
+            setTimeout(function(){ 
+                    $('#notificacion').fadeOut('fast');
+                    }, 4000
+                    );         
+        });
+        
+
+        
+        
+        </script>
+{% endblock %}
+
+{% block body %}
+    {% if msg is defined and msg != null %} 
+        {% if tipoMessage == 1 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+
+        {% endif %}
+
+        {% if tipoMessage == 0 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+        {% endif %}    
+    {% endif %}
+
+    <div id="contenedor-inic" class="flex_cols heightmax">
+            <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+            <div id="logo-inic">
+                <a href="../main/index.php">
+                    <img src="../img/logo_horizontal.png" width="100%">
+                </a>
+            </div>
+            <div id="dashboard">
+
+                <nav id="topSect">
+                    <div id="optsCfg">
+                    <div class="optCfg"><a style="display: inline-block;" id="optAddCAT" class="adminOpt">Añadir Categoria</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optEditCAT" class="adminOpt">Editar Categoria</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optRemCAT" class="adminOpt">Borrar Categoria</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optAddPROD" class="adminOpt">Añadir Producto</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optEditPROD" class="adminOpt">Editar Producto</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optRemPROD" class="adminOpt">Eliminar Producto</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optAumSTOCK" class="adminOpt">Aumentar Stock</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optRedSTOCK" class="adminOpt">Reducir Stock</a></div>
+                    <div class="optCfg"><a style="display: inline-block;" id="optTransPROD" class="adminOpt">Transladar Stock</a></div>
+                    <!--<div class="optCfg"><a style="display: inline-block;" id="optTransPROD" class="adminOpt">Transladar Producto</a></div>-->
+              
+
+                    </div>
+                </nav>
+        
+           <div id="botSect">
+                
+                
+                
+                <!-- 1º Formulario --- Añadir Categoria -->
+                <div id="añadirCatForm" class="configForm" >                    
+                    <form method="post" id="aCAT">
+                        
+                        <label id="newNombre">Nombre de categoria</label>
+                        <input type="text" id="nombreCatAdd" name="nombreCATAdd">
+                        <label id="newAcronimo">Acrónimo</label>
+                        <input type="text" id="acrCatAdd" name="acrCATAdd">
+                        <label id="newDescripcion">Descripción</label>
+                        <input type="text" id="descCatAdd" name="descCATAdd">
+
+                        <label id="aClPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="aCpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="addCategoria" value="Añadir Categoria">
+                        <input class="submitCDF cancel" id="cancelButtonACAT" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+                <!-- 2º Formulario --- Editar Categoria -->
+                <div id="editCatForm" class="configForm not-active">                    
+                    <form method="post" id="eCAT">
+                        <label id="CAT">Categoría </label> <br>
+                        <select id="categoriaElegida" name="cat_elegEdit" form="eCAT">
+
+                            {% for cat in categorias %}
+                                <option value="{{cat.acronimo}}"> Categoria {{cat.id}} {{cat.acronimo}} </option>
+                            {% endfor %} 
+                                  
+                        </select>
+                        <label id="editNombre">Nombre de categoria</label>
+                        <input type="text" id="nombreCatEdit" name="nombreCATEdit">
+                        <label id="editAcronimo">Acrónimo</label>
+                        <input type="text" id="acrCatEdit" name="acrCATEdit">
+                        <label id="editDescripcion">Descripción</label>
+                        <input type="text" id="descCatEdit" name="descCATEdit">
+
+                        <label id="eClPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="eCpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="editCategoria" value="Editar Categoria">
+                        <input class="submitCDF cancel" id="cancelButtonECAT" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+                <!-- 3º Formulario --- Eliminar Categoria -->
+                <div id="removeCatForm" class="configForm not-active" >                    
+                    <form method="post" id="rCAT">                        
+                        <label> Categoria </label><br>
+                        <select id="catToRem" name="cat_elegRem" form="eCAT">
+                                
+                                {% for cat in categorias %}
+                                <option value="{{cat.acronimo}}"> Categoria {{cat.id}} {{cat.acronimo}} </option>
+                            {% endfor %} 
+                                      
+                        </select>
+                        <label id="rCPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="rCpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="remCategoria" value="Eliminar Categoria">
+                        <input class="submitCDF cancel" id="cancelButtonRCAT" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+                <!-- 4º Formulario --- Añadir Producto -->
+                <div id="añadirProdForm" class="configForm not-active">                    
+                    <form method="post" id="aPROD">
+                        
+                        <label id="nPrNombre">Nombre de Producto</label>
+                        <input type="text" id="nombrePrNuevo" name="nombrePrNEW">
+                        <label id="nPrMarca">Marca</label>
+                        <input type="text" id="marcaPrNuevo" name="marcaPrNEW">
+                        <label id="nPrModelo">Modelo</label>
+                        <input type="text" id="modeloPrNuevo" name="modeloPrNEWo">
+                        <label id="nPrPrecio">Precio</label>
+                        <input type="text" id="precioPrNuevo" name="precioPrNEW">
+                        <label id="nPrDescripcion">Descripcion (OPT)</label>
+                        <input type="text" id="descripcionPrNuevo" name="descripcionPrNEW">
+                        <label id="nPrPicPath">Path de la Foto (OPT)</label>
+                        <input type="text" id="picpathPrNuevo" name="picpathPrNEW">
+                        <label>Categorias disponibles</label><br>
+                        <select id="nPrCat" name="cat_prod" form="aPROD">
+                            {% for cat in categorias %}
+                                <option value="{{cat.acronimo}}"> Categoria {{cat.id}} {{cat.acronimo}} </option>
+                            {% endfor %}                            
+                        </select>
+                        <label id="aPlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="aPpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="addProducto" value="Añadir Producto">
+                        <input class="submitCDF cancel" id="cancelButtonAPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+                <!-- 5º Formulario --- Editar Producto -->
+                <div id="editProdForm" class="configForm not-active">                    
+                    <form method="post" id="ePROD">
+                    <label id="ePrNombre">Nombre de Producto</label>
+                        <input type="text" id="nombrePrEdit" name="nombrePrEDIT">
+                        <label id="ePrMarca">Marca</label>
+                        <input type="text" id="marcaPrEdit" name="marcaPrEDIT">
+                        <label id="ePrModelo">Modelo</label>
+                        <input type="text" id="modeloPrEdit" name="modeloPrEDIT">
+                        <label id="ePrPrecio">Precio</label>
+                        <input type="text" id="precioPrEdit" name="precioPrEDIT">
+                        <label id="ePrDescripcion">Descripcion</label>
+                        <input type="text" id="descripcionPrEdit" name="descPrEDIT">
+                        <label id="ePrPicPath">Path de la Foto</label>
+                        <input type="text" id="picpathPrEdit" name="picpathPrEDIT">
+                        <label>Categorias disponibles</label><br>
+                        <select id="catDisponibles" name="cat_eleg" form="eCAT">
+                            {% for cat in categorias %}
+                                <option value="{{cat.acronimo}}"> Categoria {{cat.id}} {{cat.acronimo}} </option>
+                            {% endfor %} 
+                        </select>
+                        <label id="ePlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="ePpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="editProducto" value="Editar Producto">
+                        <input class="submitCDF cancel" id="cancelButtonEPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+                <!-- 6º Formulario --- Eliminar Producto -->
+                <div id="remProdForm" class="configForm not-active">                    
+                    <form method="post" id="rPROD">
+                        <label>Productos disponibles</label><br>
+                        <select id="prToRem" name="pr_elegRemove" form="eCAT">
+                            {% for prod in productos %}
+                                <option value="{{prod.nombre}}"> {{prod.nombre}} </option>
+                            {% endfor %}                                        
+                        </select> 
+                        <label id="rPlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="rPpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="updateButton" value="Eliminar Producto">
+                        <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+                
+                <!-- 7º Formulario --- Aumentar stock de Producto -->
+                <div id="aumStockForm" class="configForm not-active">                    
+                    <form method="post" id="aSTOCK">
+                        <label>Productos disponibles</label><br>
+                        <select id="prToAumStock" name="pr_elegAumStock" form="aSTOCK">
+                            {% for prod in productos %}
+                                <option value="{{prod.nombre}}"> {{prod.nombre}} </option>
+                            {% endfor %}                            
+                        </select>
+                        <label>Tienda que aumenta el stock</label><br>
+                        <select id="tiendaElegidaUP" name="pr_tiendaElegidaUP" form="aSTOCK">
+                            {% for shop in tiendas %}
+                                <option value="{{shop.nombre}}"> {{shop.nombre}} </option>";
+                            {% endfor %}       
+                        </select>                        
+                        <label id="aStockCant">Cantidad a Añadir</label>
+                        <input type="text" id="stockUPvalue" name="stockUPvalue">  
+                        <label id="aPSlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="aPSpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="updateButton" value="Aumentar stock">
+                        <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+
+                <!-- 8º Formulario --- Reducir stock de Producto -->
+                <div id="redStockForm" class="configForm not-active">                    
+                    <form method="post" id="rSTOCK">
+
+
+                        <table style="border: 1px solid black; text-align: center;"> 
+                            <tr>
+                                <th>Producto</th>
+                                <th>Tienda</th>
+                                <th>Cantidad</th>
+                            </tr>
+                            {% set unidadesTienda = '' %}
+                            {% for prod in productos %}
+                                {% for shop in tiendas %}
+                                    {% for unit in stock %}
+
+                                        {% if unit.tienda.id == shop.id and unit.producto.id == prod.id %}
+                                            {% if unidadesTienda is empty %}
+                                                {% set unidadesTienda = [unit] %}
+                                            {% else %}
+                                                {% set unidadesTienda = unidadesTienda|merge([unit]) %}                                            
+                                            {% endif %}                                        
+                                        {% endif %}                                        
+                                        
+                                    {% endfor %}
+
+                                    {% if unidadesTienda|length > 0 %}
+                                        <tr>
+                                            <td> {{prod.nombre}} </td>
+                                            <td> {{shop.id}} </td>
+                                            <td> {{unidadesTienda|length}} </td>
+                                        </tr>
+                                    {% endif %}
+                                    {% set unidadesTienda = '' %}
+                                {% endfor %}                             
+                            {% endfor %}
+                        </table>
+                        <label>Producto a reducir stock</label><br>
+                        <select id="prToRemStock" name="pr_elegRemStock" form="rSTOCK">
+                            {% set unidadesTienda = '' %}
+                            {% for prod in productos %}    
+                                {% for shop in tiendas %}
+                                    {% for unit in stock %}
+
+                                        {% if unit.tienda.id == shop.id and unit.producto.id == prod.id %}
+                                            {% if unidadesTienda is empty %}
+                                                {% set unidadesTienda = [unit] %}
+                                            {% else %}
+                                                {% set unidadesTienda = unidadesTienda|merge([unit]) %}                                            
+                                            {% endif %}                                        
+                                        {% endif %}                                        
+                                        
+                                    {% endfor %}
+
+                                    {% if unidadesTienda|length > 0 %}
+                                        <option value=" {{prod.nombre}} "> {{prod.nombre}} Cant. Total: {{unidadesTienda|length}} </option>
+                                    {% endif %}
+                                    {% set unidadesTienda = '' %}
+                                {% endfor %}                             
+                            {% endfor %}
+                                       
+                        </select>
+                        <label id="cantAReducir">Cantidad a reducir</label>                         
+                        <input type="text" id="stockDOWNvalue" name="stockDOWNvalue">
+                        <label>Tienda que reduce el stock</label><br>
+                        <select id="tiendaElegidaDOWN" name="pr_tiendaElegidaDOWN" form="rSTOCK">
+                            {% for prod in productos %}
+                                <option value="{{prod.nombre}}"> {{prod.nombre}} </option>
+                            {% endfor %}      
+                        </select>
+                        <label id="rPSlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="rPSpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="updateButton" value="Reducir stock">
+                        <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+
+
+
+                <!-- 9º Formulario --- Transladar Producto -->
+                <div id="transProdForm" class="configForm not-active">                    
+                    <form method="post" id="tPROD">
+                        <table style="border: 1px solid black; text-align: center;"> 
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Tienda</th>
+                                    <th>Cantidad</th>
+                                </tr>                            
+                            {% set unidadesTienda = '' %}
+                            {% for prod in productos %}
+                                {% for shop in tiendas %}
+                                    {% for unit in stock %}
+
+                                        {% if unit.tienda.id == shop.id and unit.producto.id == prod.id %}
+                                            {% if unidadesTienda is empty %}
+                                                {% set unidadesTienda = [unit] %}
+                                            {% else %}
+                                                {% set unidadesTienda = unidadesTienda|merge([unit]) %}                                            
+                                            {% endif %}                                        
+                                        {% endif %}                                        
+                                        
+                                    {% endfor %}
+
+                                    {% if unidadesTienda|length > 0 %}
+                                        <tr>
+                                            <td> {{prod.nombre}} </td>
+                                            <td> {{shop.id}} </td>
+                                            <td> {{unidadesTienda|length}} </td>
+                                        </tr>
+                                    {% endif %}
+                                    {% set unidadesTienda = '' %}
+                                {% endfor %}                             
+                            {% endfor %}
+                        </table>
+                        <label>Productos disponibles</label><br>
+                        <select id="prToTrans" name="pr_elegTrans" form="tPROD">
+                            {% set unidadesTienda = '' %}
+                            {% for prod in productos %}    
+                                {% for shop in tiendas %}
+                                    {% for unit in stock %}
+
+                                        {% if unit.tienda.id == shop.id and unit.producto.id == prod.id %}
+                                            {% if unidadesTienda is empty %}
+                                                {% set unidadesTienda = [unit] %}
+                                            {% else %}
+                                                {% set unidadesTienda = unidadesTienda|merge([unit]) %}                                            
+                                            {% endif %}                                        
+                                        {% endif %}                                        
+                                        
+                                    {% endfor %}
+
+                                    {% if unidadesTienda|length > 0 %}
+                                        <option value=" {{prod.nombre}} "> {{prod.nombre}} Cant. Total: {{unidadesTienda|length}} </option>
+                                    {% endif %}
+                                    {% set unidadesTienda = '' %}
+                                {% endfor %}                             
+                            {% endfor %}         
+                        </select> 
+                        <label id="cantATrans">Cantidad a transladar</label>                         
+                        <input type="text" id="prodTransValue" name="prodTransValue">
+                        
+                        <label>Tienda origen</label><br>
+                        <select id="tiendaElegidaTRANS1" name="pr_tiendaElegidaTRANS1" form="tPROD">
+                            {% for prod in productos %}
+                                <option value="{{prod.nombre}}"> {{prod.nombre}} </option>
+                            {% endfor %}         
+                        </select>
+                        <label>Tienda destino</label><br>
+                        <select id="tiendaElegidaTRANS2" name="pr_tiendaElegidaTRANS2" form="tPROD">
+                            {% for prod in productos %}
+                                <option value="{{prod.nombre}}"> {{prod.nombre}} </option>
+                            {% endfor %}      
+                        </select>
+                    
+                        <label id="tPlPasswdConfirm">Introduzca su contraseña para confirmar</label>
+                        <input type="password" placeholder="Contraseña" name="ContraseñaConfirm" id="tPpasswdConfirm">
+                        <input class="submitCDF" type="submit" name="optsSubmit2" id="updateButton" value="Transladar Producto">
+                        <input class="submitCDF cancel" id="cancelButtonRPROD" type="button" value="Cancelar">
+                    </form>
+                </div>
+            </div>   
+        </div>
+{% endblock %}
+
+{% block footer %}
+
+    {{ include('footer/footer.html.twig')}}
+
+{% endblock %}

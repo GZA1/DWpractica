@@ -211,7 +211,7 @@ input[type=radio]:checked ~ label{
 .slider {
     -webkit-appearance: none;
     width: 90%;
-    appearence: none;
+    appearance: none;
     height: 0.5vh;
     background: #3399ff;
     outline: none;
@@ -518,10 +518,11 @@ input[type=radio]:checked ~ label{
 
 #desCantidadesWrapper {
 
-    height: 7vh;
+    height: auto;
     line-height: 7vh;
     text-align: center;
     border-bottom: solid #6600cc;
+    margin-bottom: 4px;
 }
 
 #desCantidad {
@@ -794,4 +795,15 @@ input[type=radio]:checked ~ label{
 
 #lasReviews {
     display:none;
+}
+
+#noDisp {
+    /* background-color: blueviolet; */
+    width: 100%;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    display: block;
+    max-height: auto;
+    min-height: 3vh;
+    
 }
