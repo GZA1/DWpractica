@@ -553,7 +553,7 @@ require_once('/xampp/appdata/model/console.php');
             if($_GET['remCat'] == 1){
 ?>
             <script type="text/javascript">
-                $('head').before('<div id="remCat" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Categoria editada</div>');        
+                $('head').before('<div id="remCat" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Categoria eliminada</div>');        
                 setTimeout(function(){
                     $('#remCat').fadeOut('fast');
                     }, 4000
@@ -565,7 +565,7 @@ require_once('/xampp/appdata/model/console.php');
             if($_GET['addPr'] == 1){
 ?>
             <script type="text/javascript">
-                $('head').before('<div id="addPr" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Categoria editada</div>');        
+                $('head').before('<div id="addPr" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Producto añadido</div>');        
                 setTimeout(function(){
                     $('#addPr').fadeOut('fast');
                     }, 4000
@@ -577,7 +577,7 @@ require_once('/xampp/appdata/model/console.php');
             if($_GET['editPr'] == 1){
 ?>
             <script type="text/javascript">
-                $('head').before('<div id="editPr" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Categoria editada</div>');        
+                $('head').before('<div id="editPr" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Producto editado</div>');        
                 setTimeout(function(){
                     $('#editPr').fadeOut('fast');
                     }, 4000
@@ -589,7 +589,7 @@ require_once('/xampp/appdata/model/console.php');
             if($_GET['removePr'] == 1){
 ?>
             <script type="text/javascript">
-                $('head').before('<div id="removePr" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Categoria editada</div>');        
+                $('head').before('<div id="removePr" style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Producto eliminado</div>');        
                 setTimeout(function(){
                     $('#removePr').fadeOut('fast');
                     }, 4000

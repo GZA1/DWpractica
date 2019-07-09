@@ -8,8 +8,8 @@ select * from pedido;
 select * from categoria;
 select * from producto;
 select * from unidad;
-
-delete from usuario where idUsuario=3;
+describe Empleado;
+delete from usuario where idUsuario=8;
 
 use BD_Tienda;
 
@@ -85,6 +85,20 @@ insert into Producto(nombre, marca, modelo, precio, categoria_id) values
     ("Lacie sr-200 2TB ", "LaCie", "sr-200", 159.99, "250 GB de almacenamiento ultra rápido para todo lo que necesites", "../img/externos/5.jpg", 4),
     ("Samsung GG-22 4TB", "Samsung", "GG-22", 259.99, "4TB Almacenamiento a 5200RPM", "../img/externos/6.jpg",4),
     ("ADATA HardSkin v2", "ADATA", "HardSkin v2", 238.99, "1 TB Robusto y versátil ", "../img/externos/7.jpg", 4);
+    
+
+    update producto set photo = "img/CPU/1.jpg" where id = 1;
+    update producto set photo = "img/CPU/2.jpg" where id = 2;
+    update producto set photo = "img/CPU/3.jpg" where id = 3;
+    update producto set photo = "img/RAM/1.jpg" where id = 4;
+    update producto set photo = "img/RAM/2.jpg" where id = 5;    
+    update producto set photo = "img/externos/1.jpg" where id = 6;
+    update producto set photo = "img/externos/2.jpg" where id = 7;
+    update producto set photo = "img/externos/3.jpg" where id = 8;
+    update producto set photo = "img/externos/4.jpg" where id = 9;
+    update producto set photo = "img/externos/5.jpg" where id = 10;
+    update producto set photo = "img/externos/6.jpg" where id = 11;
+    
     
 insert into unidad(producto_id, tienda_id) values
 (6,2),
