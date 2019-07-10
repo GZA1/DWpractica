@@ -19,7 +19,7 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, SessionInterface $session)
     {
         $message = null;
         $tipoMessage = null;
@@ -40,6 +40,21 @@ class DefaultController extends Controller
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
+
+        if( $session->get('user') != null && isset($_POST['saldo-add']) ){
+            $em = $this->getDoctrine()->getManager();
+            $cli = $session->get('user');
+            $saldoAdd = $_POST['saldo-add'];
+            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
+            }else{
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
+            }
+        }
+
+        
+
         return $this->render('main/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
             'msg'=> $message,
@@ -53,5 +68,7 @@ class DefaultController extends Controller
     public function privacyPolicyAction(Request $request){
         return $this->render('main/privacy-policy.html.twig');
     }
+
+
 
 }

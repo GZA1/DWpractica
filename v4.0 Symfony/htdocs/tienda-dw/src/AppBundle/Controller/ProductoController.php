@@ -14,6 +14,8 @@ use AppBundle\Entity\Unidad;
 use AppBundle\Entity\Categoria;
 use AppBundle\Entity\Tienda;
 
+require_once('/xampp/appdata/model/console.php');
+
 
 
 class ProductoController extends Controller
@@ -54,18 +56,17 @@ class ProductoController extends Controller
      */ 
     public function catIndexPostAction(SessionInterface $session)
     {
-        $em = $this->getDoctrine()->getManager();
-        if( $session->get('user') != null){
-            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
-            $cli = $empleadoRep->findOneBy($session->get('user')->getUsuario()->getUsername());
-        }
-
         
-        $saldoAdd = $_POST['saldo-add'];
-        if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) ){
-            return $this->redirectToRoute('homepage', ['saldoadd'=>1]);
-        }else{
-            return $this->redirectToRoute('homepage', ['saldoadd'=>0]);
+        if( $session->get('user') != null && isset($_POST['saldo-add']) ){
+            $em = $this->getDoctrine()->getManager();
+            $cli = $session->get('user');
+            $saldoAdd = $_POST['saldo-add'];
+            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
+            }else{
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
+            }
         }
 
         
@@ -92,7 +93,6 @@ class ProductoController extends Controller
             $productos = $productoRep->findBy(['categoria'=> $categoria]);
             
         }
-
         
         if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
             $message = "Saldo añadido con éxito";
@@ -114,24 +114,21 @@ class ProductoController extends Controller
 
 
     /**
-     * @Route("/xxx-cat", name="xxx-cat_post", methods={"POST"})
+     * @Route("/xxx-cat/{categoria}", name="xxx-cat_post", methods={"POST"}, requirements={"categoria"="\d+"})
      */ 
     public function xxxCatPostAction(SessionInterface $session)
     {
         
-        $em = $this->getDoctrine()->getManager();
-        
-        if( $session->get('user') != null){
+        if( $session->get('user') != null && isset($_POST['saldo-add']) ){
+            $em = $this->getDoctrine()->getManager();
+            $cli = $session->get('user');
+            $saldoAdd = $_POST['saldo-add'];
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
-            $cli = $empleadoRep->findOneBy('username', $session->get('user')->getUsuario()->getUsername());
-        }
-
-        
-        $saldoAdd = $_POST['saldo-add'];
-        if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) ){
-            return $this->redirectToRoute('homepage', ['saldoadd'=>1]);
-        }else{
-            return $this->redirectToRoute('homepage', ['saldoadd'=>0]);
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
+            }else{
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
+            }
         }
 
         
@@ -177,6 +174,42 @@ class ProductoController extends Controller
                                                             'prod'=> $prod,
                                                             'stock'=> $unidades]
                                                         );
+
+        
+    }
+
+
+    /**
+     * @Route("/producto/{producto}", name="producto", methods={"POST"}, requirements={"producto"="\d+"})
+     */ 
+    public function productoPostAction(SessionInterface $session)
+    {
+        if( $session->get('user') != null && isset($_POST['saldo-add']) ){
+            $em = $this->getDoctrine()->getManager();
+            $cli = $session->get('user');
+            $saldoAdd = $_POST['saldo-add'];
+            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
+            }else{
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
+            }
+        }
+        
+        // $em = $this->getDoctrine()->getManager();
+        
+        // if( $session->get('user') != null){
+        //     $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+        //     $cli = $clienteRep->findOneBy('username', $session->get('user')->getUsuario()->getUsername());
+        // }
+
+        
+        // $saldoAdd = $_POST['saldo-add'];
+        // if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) ){
+        //     return $this->redirectToRoute('homepage', ['saldoadd'=>1]);
+        // }else{
+        //     return $this->redirectToRoute('homepage', ['saldoadd'=>0]);
+        // }
 
         
     }
@@ -272,8 +305,8 @@ class ProductoController extends Controller
     public function cfgCatalogoPostAction(SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();
+        
         if(isset($_POST['optsSubmit2'])){
-            
             switch($_POST['optsSubmit2']){
 
                 case 'Añadir Categoria':

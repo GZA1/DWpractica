@@ -13,6 +13,7 @@ use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Empleado;
 use AppBundle\Entity\Tienda;
+use AppBundle\Entity\Cesta;
 
 
 class UsuarioController extends Controller
@@ -194,7 +195,15 @@ class UsuarioController extends Controller
         if( $request->query->has('opfallida') && $request->query->get('opfallida')==1 ) {   
             $message = "Operación fallida";
             $tipoMessage = 0; 
-        }        
+        }    
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+            $message = "Saldo añadido con éxito";
+            $tipoMessage = 1;
+        }
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+            $message = "No se pudo añadir saldo correctamente";
+            $tipoMessage = 0;
+        }    
 
         return $this->render('usuario/perfil.html.twig', ['msg'=>$message, 'tipoMessage'=> $tipoMessage]);
     }
@@ -212,42 +221,55 @@ class UsuarioController extends Controller
 
         $u = $session->get('user');
 
-        switch($_POST['optsSubmit']){
-            
-            case 'Actualizar Perfil':
-                if( $u->getUsuario()->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
+        if(isset($_POST['optsSubmit'])){
+            switch($_POST['optsSubmit']){
+                
+                case 'Actualizar Perfil':
+                    if( $u->getUsuario()->getPasswd() == sha1($_POST['ContraseñaConfirm']) ){
 
-                    if( $session->get('tipo') == "cliente"  && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsuario()->getUsername() )
-                        && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
-                        
-                        return $this->redirectToRoute('perfil', ['updateProfile'=>1]);
+                        if( $session->get('tipo') == "cliente"  && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsuario()->getUsername() )
+                            && $clienteRep->updatePerfilCliente($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_POST['Domicilio']) ){
+                            
+                            return $this->redirectToRoute('perfil', ['updateProfile'=>1]);
 
-                    }else if( ($session->get('tipo') == "empleado" || $session->get('tipo') == "admin") && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsuario()->getUsername() )
-                        && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_FILES['photo']['name']) ){
+                        }else if( ($session->get('tipo') == "empleado" || $session->get('tipo') == "admin") && ( ! $usuarioRep->existsUsername($_POST['Username']) || $_POST['Username'] == $u->getUsuario()->getUsername() )
+                            && $empleadoRep->updatePerfilEmpleado($u, $_POST['Username'], $_POST['Nombre'], $_POST['Apellidos'], $_FILES['photo']['name']) ){
 
-                        return $this->redirectToRoute('perfil', ['updateProfile'=>1]);
+                            return $this->redirectToRoute('perfil', ['updateProfile'=>1]);
 
-                    }else{                        
-                        return $this->redirectToRoute('perfil', ['opfallida'=>1]);                        
+                        }else{                        
+                            return $this->redirectToRoute('perfil', ['opfallida'=>1]);                        
+                        }
+                    }else{
+                        return $this->redirectToRoute('perfil', ['confirmpasswd'=>0]);    
                     }
-                }else{
-                    return $this->redirectToRoute('perfil', ['confirmpasswd'=>0]);    
-                }
-            break;            
-               
-            case 'Cambiar contraseña':
+                break;            
+                
+                case 'Cambiar contraseña':
 
-                if( $u->getPasswd() == sha1($_POST['oldPasswd']) ){
-                    if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuarioRep->changePasswd($u, sha1($_POST['newPasswd'])) ){
-                        return $this->redirectToRoute('perfil', ['passwdchange'=>1]);    
-                    }else {
-                        return $this->redirectToRoute('perfil', ['passwdchange'=>0]);
-                    }
-                }else{
-                    return $this->redirectToRoute('perfil', ['confirmpasswd'=>0]);
-                }        
-            break;            
-                        
+                    if( $u->getPasswd() == sha1($_POST['oldPasswd']) ){
+                        if( $_POST['newPasswd'] == $_POST['newPasswd2'] && $usuarioRep->changePasswd($u, sha1($_POST['newPasswd'])) ){
+                            return $this->redirectToRoute('perfil', ['passwdchange'=>1]);    
+                        }else {
+                            return $this->redirectToRoute('perfil', ['passwdchange'=>0]);
+                        }
+                    }else{
+                        return $this->redirectToRoute('perfil', ['confirmpasswd'=>0]);
+                    }        
+                break;            
+                            
+            }
+        }
+        if( $session->get('user') != null && isset($_POST['saldo-add']) ){
+            $em = $this->getDoctrine()->getManager();
+            $cli = $session->get('user');
+            $saldoAdd = $_POST['saldo-add'];
+            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
+            }else{
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
+            }
         }
 
     }

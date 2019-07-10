@@ -47,6 +47,15 @@ class ClienteRepository extends EntityRepository
         }
     }
 
+    public function actCliente($c){
+        if(isset($c)){
+            $this->_em->persist($c);
+            $this->_em->flush();
+            return true;
+        }
+        return false;
+    }
+
 
     /** 
      * Funciona igual
