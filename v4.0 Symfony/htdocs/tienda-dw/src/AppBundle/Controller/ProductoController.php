@@ -171,6 +171,14 @@ class ProductoController extends Controller
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
+        if( $request->query->has('saldoadd') && $request->query->get('addPr')==1 ) {   // $_GET['error']
+            $message = "Añadidos";
+            $tipoMessage = 1;
+        }
+        if( $request->query->has('saldoadd') && $request->query->get('addPr')==0 ) {   // $_GET['error']
+            $message = "Error no hay suficientes unidades pertenecientes a dicha tienda";
+            $tipoMessage = 0;
+        }
         
                                         
         return $this->render('catalogo/producto.html.twig', [  'msg'=> $message, 
@@ -188,8 +196,8 @@ class ProductoController extends Controller
      */ 
     public function productoPostAction(SessionInterface $session, Request $request, $producto = null)
     {
+        $em = $this->getDoctrine()->getManager();
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
-            $em = $this->getDoctrine()->getManager();
             $cli = $session->get('user');
             $saldoAdd = $_POST['saldo-add'];
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
@@ -202,11 +210,52 @@ class ProductoController extends Controller
             $cantidad = $_POST['cantidad'];
             $tienda = $_POST['tienda'];
             $enviar = $_POST['enviar'];
-            return $this->redirectToRoute('cesta', ['producto'  => $producto,
-                                                    'cantidad'  => $cantidad,
-                                                    'tienda'    => $tienda,
-                                                    'enviar'    => $enviar
-                                                    ]);
+
+            $cestaRep = $em->getRepository("AppBundle\\Entity\\Cesta");
+            $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
+            $unidadRep = $em->getRepository("AppBundle\\Entity\\Unidad");
+            $tiendaRep = $em->getRepository("AppBundle\\Entity\\Tienda");
+            $unidades = $unidadadRep->findAll();
+
+
+            foreach( $unidades as $unit){
+                if($unit->get('producto')->getId() == $producto){
+                    if($tienda != null){
+                        if($unit->getTienda() == $tienda){
+                            if($unidadesDeseadas == null){
+                                $unidadesDeseadas = array($unit);
+                            }elseif( sizeOf($unidadesDeseadas) < $cantidad){
+                                array_push($unidadesDeseadas, $unit);
+                            }
+                        }
+                    }else{
+                        if($unidadesDeseadas == null){
+                            $unidadesDeseadas = array($unit);
+                        }elseif( sizeOf($unidadesDeseadas) < $cantidad){
+                            array_push($unidadesDeseadas, $unit);
+                        }
+                    }
+                    
+                }
+            }
+            if(sizeOf($unidadesDeseadas) < $cantidad){
+                return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>0]);    
+            }
+
+            
+            if($session->get('cesta') == null){
+                $cestaCliente = new Cesta();
+                $arrayUnidades  = $cestaCliente->get('unidades');
+                array_push($arrayUnidades, $unidadesDeseadas);
+                $session->set('cesta', $cestaCliente);                
+            }else{
+                array_push($session->get('cesta')->get('unidades'), $unidadesDeseadas);
+            }
+
+            return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>1]);
+
+
+
         }
 
         

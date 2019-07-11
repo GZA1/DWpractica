@@ -21,7 +21,7 @@
         {% endif %}    
     {% endif %}
 
-<div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
     <div class="cesta_main_container flex_cols">
         <h2 id="titulo-cesta">Cesta de la compra</h2>
         <div class="flex_rows borde-abajo">
@@ -29,80 +29,95 @@
             <div id="precio">Precio</div>
             <div id="cantidad">Cantidad</div>
         </div>
-        <div class="producto-container flex_rows borde-abajo" name="Maxtor-STSHX-M101TCBM-1TB">
-            <div class="flex_rows separador-horizontal">
-                <div class="producto-img">
-                    <a href=""><img src="../img/mxtor-m3-portable-1tb-usb-3-0-2-5-1.png" height="100%"></a>
+
+
+        {# Aqui el pr 1 de ejemplo #}
+
+        {# <div class="producto-container flex_rows borde-abajo" name="Maxtor-STSHX-M101TCBM-1TB">
+                <div class="flex_rows separador-horizontal">
+                    <div class="producto-img">
+                        <a href=""><img height="100%" src="../img/mxtor-m3-portable-1tb-usb-3-0-2-5-1.png"></a>
+                    </div>
+                    <div class="producto-contenido">
+                        <ul>
+                            <li>
+                                <a class="nombre-componente" href="">Maxtor STSHX-M101TCBM - 1 TB, USB 3.0/3.1, Color Negro</a>
+                            </li>
+                            <li>
+                                <span class="categoria-componente">Discos duros</span>
+                            </li>
+                            <li>
+                                <span class="en-stock">En stock</span>
+                            </li>
+                            <li>
+                                <span class="envio">Envío gratis
+                                </span>disponible
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="producto-contenido">
-                <ul>
-                    <li>
-                        <a href="" class="nombre-componente">Maxtor STSHX-M101TCBM - 1 TB, USB 3.0/3.1, Color Negro</a>
-                    </li>
-                    <li>
-                        <span class="categoria-componente">Discos duros</span>
-                    </li>
-                    <li>
-                        <span class="en-stock">En stock</span>
-                    </li>
-                    <li>
-                        <span class="envio">Envío gratis </span>disponible
-                    </li>
-                </ul>
-            </div>
-            </div>
-            <div class="producto-precio">
-<!--                    44,50€-->
-            </div>
-            <div class="producto-cantidad">
-                <input class="producto-cantidad-input" type="number" min="0" step="1" value="1" onchange="calcValue()">
-            </div>
-        </div>
-        <div class="producto-container flex_rows borde-abajo" name="Seagate-ExpansionSTEA4000400-4TB">
-            <div class="flex_rows separador-horizontal">
-                <div class="producto-img">
-                    <a href=""><img src="../img/seagate-expansion-2-5-4tb-usb-3-0.png" height="100%"></a>
+                <div class="producto-precio">
+                    44,50€
                 </div>
-                <div class="producto-contenido">
-                <ul>
-                    <li>
-                        <a href="" class="nombre-componente">Seagate Expansion STEA4000400 - 4TB, USB 3.0, Color Negro</a>
-                    </li>
-                    <li>
-                        <span class="categoria-componente">Discos duros</span>
-                    </li>
-                    <li>
-                        <span class="en-stock">En stock</span>
-                    </li>
-                    <li>
-                        <span class="envio">Coste de envío: </span><span class="coste-envio">5,50€</span>
-                    </li>
-                </ul>
-            </div>
-            </div>
-            <div class="producto-precio">
-<!--                    109,00€-->
-            </div>
-            <div class="producto-cantidad">
-                <input  class="producto-cantidad-input" type="number" min="0" step="1" value="1" onchange="calcValue()">
-            </div>
-        </div>
-        <div class="flex_rows">
-            <div class="separador-horizontal-80"></div>
+                <div class="producto-cantidad">
+                    <input class="producto-cantidad-input" min="0" onchange="calcValue()" step="1" type="number" value="1">
+                </div>
+            </div> #}
+
+
+        {# Aqui el pr 2 de ejemplo #}
+
+        {# <div class="producto-container flex_rows borde-abajo" name="Seagate-ExpansionSTEA4000400-4TB">
+                <div class="flex_rows separador-horizontal">
+                    <div class="producto-img">
+                        <a href=""><img height="100%" src="../img/seagate-expansion-2-5-4tb-usb-3-0.png"></a>
+                    </div>
+                    <div class="producto-contenido">
+                        <ul>
+                            <li>
+                                <a class="nombre-componente" href="">Seagate Expansion STEA4000400 - 4TB, USB 3.0, Color Negro</a>
+                            </li>
+                            <li>
+                                <span class="categoria-componente">Discos duros</span>
+                            </li>
+                            <li>
+                                <span class="en-stock">En stock</span>
+                            </li>
+                            <li>
+                                <span class="envio">Coste de envío:
+                                </span>
+                                <span class="coste-envio">5,50€</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div
+                    class="producto-precio"><!--                    109,00€-->
+                </div>
+                <div class="producto-cantidad">
+                    <input class="producto-cantidad-input" min="0" onchange="calcValue()" step="1" type="number" value="1">
+                </div>
+            </div> #}
+
+            <div class="flex_rows"> <div class="separador-horizontal-80"></div>
             <div id="subtotal">
-                Subtotal: <input id="subtotal-resultado"  class="sombreado" type="text" readonly>
+                Subtotal:
+                <input class="sombreado" id="subtotal-resultado" readonly type="text">
             </div>
         </div>
         <br>
         <div class="flex_rows">
             <div class="separador-horizontal-80"></div>
-            <div href="" id="boton-comprar" class="sombreado" onclick="tramitarPedido()">Tramitar pedido</div>
+            <div class="sombreado" href="" id="boton-comprar" onclick="tramitarPedido()">Tramitar pedido</div>
         </div>
         <br>
         <div class="flex_rows">
             <p id="resumen-pedido-tramitado"></p>
         </div>
     </div>
+
+
+
 {% endblock %}
     
 {% block footer %}
