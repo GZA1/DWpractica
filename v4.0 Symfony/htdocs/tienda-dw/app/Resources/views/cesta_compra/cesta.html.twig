@@ -21,9 +21,7 @@
         {% endif %}    
     {% endif %}
 
-
-{% endblock %}
-    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+<div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
     <div class="cesta_main_container flex_cols">
         <h2 id="titulo-cesta">Cesta de la compra</h2>
         <div class="flex_rows borde-abajo">
@@ -105,6 +103,8 @@
             <p id="resumen-pedido-tramitado"></p>
         </div>
     </div>
+{% endblock %}
+    
 {% block footer %}
 
     {{ include('footer/footer.html.twig')}}
