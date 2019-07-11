@@ -184,7 +184,7 @@ class ProductoController extends Controller
 
 
     /**
-     * @Route("/producto/{producto}", name="producto", methods={"POST"}, requirements={"producto"="\d+"})
+     * @Route("/producto/{producto}", name="producto_post", methods={"POST"}, requirements={"producto"="\d+"})
      */ 
     public function productoPostAction(SessionInterface $session, Request $request, $producto = null)
     {
@@ -194,26 +194,20 @@ class ProductoController extends Controller
             $saldoAdd = $_POST['saldo-add'];
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
             if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->updateSaldo($cli) ){
-                return $this->redirectToRoute($request->get('_route'), array_merge($request->query->all(), ['saldoadd'=>1]));
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1, 'producto'=> $producto]);
             }else{
-                return $this->redirectToRoute($request->get('_route'), array_merge($request->query->all(), ['saldoadd'=>0]));
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0, 'producto'=> $producto]);
             }
+        }else{
+            $cantidad = $_POST['cantidad'];
+            $tienda = $_POST['tienda'];
+            $enviar = $_POST['enviar'];
+            return $this->redirectToRoute('cesta', ['producto'  => $producto,
+                                                    'cantidad'  => $cantidad,
+                                                    'tienda'    => $tienda,
+                                                    'enviar'    => $enviar
+                                                    ]);
         }
-        
-        // $em = $this->getDoctrine()->getManager();
-        
-        // if( $session->get('user') != null){
-        //     $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
-        //     $cli = $clienteRep->findOneBy('username', $session->get('user')->getUsuario()->getUsername());
-        // }
-
-        
-        // $saldoAdd = $_POST['saldo-add'];
-        // if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) ){
-        //     return $this->redirectToRoute('homepage', ['saldoadd'=>1]);
-        // }else{
-        //     return $this->redirectToRoute('homepage', ['saldoadd'=>0]);
-        // }
 
         
     }
