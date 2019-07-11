@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+{% block title %} Cesta de Compra {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/style-cesta.css')}}">
+{% endblock %}
+{% block javascripts %}
+ 
+
+{% endblock %}
+
+{% block body %}
+    {% if msg is defined and msg != null %} 
+        {% if tipoMessage == 1 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+
+        {% endif %}
+
+        {% if tipoMessage == 0 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>        
+        {% endif %}    
+    {% endif %}
+
+
+{% endblock %}
+    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+    <div class="cesta_main_container flex_cols">
+        <h2 id="titulo-cesta">Cesta de la compra</h2>
+        <div class="flex_rows borde-abajo">
+            <div class="separador-horizontal"></div>
+            <div id="precio">Precio</div>
+            <div id="cantidad">Cantidad</div>
+        </div>
+        <div class="producto-container flex_rows borde-abajo" name="Maxtor-STSHX-M101TCBM-1TB">
+            <div class="flex_rows separador-horizontal">
+                <div class="producto-img">
+                    <a href=""><img src="../img/mxtor-m3-portable-1tb-usb-3-0-2-5-1.png" height="100%"></a>
+                </div>
+                <div class="producto-contenido">
+                <ul>
+                    <li>
+                        <a href="" class="nombre-componente">Maxtor STSHX-M101TCBM - 1 TB, USB 3.0/3.1, Color Negro</a>
+                    </li>
+                    <li>
+                        <span class="categoria-componente">Discos duros</span>
+                    </li>
+                    <li>
+                        <span class="en-stock">En stock</span>
+                    </li>
+                    <li>
+                        <span class="envio">Envío gratis </span>disponible
+                    </li>
+                </ul>
+            </div>
+            </div>
+            <div class="producto-precio">
+<!--                    44,50€-->
+            </div>
+            <div class="producto-cantidad">
+                <input class="producto-cantidad-input" type="number" min="0" step="1" value="1" onchange="calcValue()">
+            </div>
+        </div>
+        <div class="producto-container flex_rows borde-abajo" name="Seagate-ExpansionSTEA4000400-4TB">
+            <div class="flex_rows separador-horizontal">
+                <div class="producto-img">
+                    <a href=""><img src="../img/seagate-expansion-2-5-4tb-usb-3-0.png" height="100%"></a>
+                </div>
+                <div class="producto-contenido">
+                <ul>
+                    <li>
+                        <a href="" class="nombre-componente">Seagate Expansion STEA4000400 - 4TB, USB 3.0, Color Negro</a>
+                    </li>
+                    <li>
+                        <span class="categoria-componente">Discos duros</span>
+                    </li>
+                    <li>
+                        <span class="en-stock">En stock</span>
+                    </li>
+                    <li>
+                        <span class="envio">Coste de envío: </span><span class="coste-envio">5,50€</span>
+                    </li>
+                </ul>
+            </div>
+            </div>
+            <div class="producto-precio">
+<!--                    109,00€-->
+            </div>
+            <div class="producto-cantidad">
+                <input  class="producto-cantidad-input" type="number" min="0" step="1" value="1" onchange="calcValue()">
+            </div>
+        </div>
+        <div class="flex_rows">
+            <div class="separador-horizontal-80"></div>
+            <div id="subtotal">
+                Subtotal: <input id="subtotal-resultado"  class="sombreado" type="text" readonly>
+            </div>
+        </div>
+        <br>
+        <div class="flex_rows">
+            <div class="separador-horizontal-80"></div>
+            <div href="" id="boton-comprar" class="sombreado" onclick="tramitarPedido()">Tramitar pedido</div>
+        </div>
+        <br>
+        <div class="flex_rows">
+            <p id="resumen-pedido-tramitado"></p>
+        </div>
+    </div>
+{% block footer %}
+
+    {{ include('footer/footer.html.twig')}}
+
+{% endblock %}
