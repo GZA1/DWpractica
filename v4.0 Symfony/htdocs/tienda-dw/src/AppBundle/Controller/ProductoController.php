@@ -54,7 +54,7 @@ class ProductoController extends Controller
     /**
      * @Route("/catalogoIndex", name="catalogoIndex_post", methods={"POST"})
      */ 
-    public function catIndexPostAction(SessionInterface $session)
+    public function catIndexPostAction(SessionInterface $session, Request $request)
     {
         
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
@@ -62,7 +62,7 @@ class ProductoController extends Controller
             $cli = $session->get('user');
             $saldoAdd = $_POST['saldo-add'];
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
-            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->updateSaldo($cli) ){
                 return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
             }else{
                 return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
@@ -116,7 +116,7 @@ class ProductoController extends Controller
     /**
      * @Route("/xxx-cat/{categoria}", name="xxx-cat_post", methods={"POST"}, requirements={"categoria"="\d+"})
      */ 
-    public function xxxCatPostAction(SessionInterface $session)
+    public function xxxCatPostAction(SessionInterface $session, Request $request, $categoria = null)
     {
         
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
@@ -124,10 +124,14 @@ class ProductoController extends Controller
             $cli = $session->get('user');
             $saldoAdd = $_POST['saldo-add'];
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
-            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
-                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
+            $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
+            $productos = $productoRep->findBy(['categoria'=> $categoria]);
+            console_log($categoria);
+            console_log($request->get('_route'));
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->updateSaldo($cli) ){
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1, 'categoria'=> $categoria]);
             }else{
-                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0, 'categoria'=> $categoria]);
             }
         }
 
@@ -182,17 +186,17 @@ class ProductoController extends Controller
     /**
      * @Route("/producto/{producto}", name="producto", methods={"POST"}, requirements={"producto"="\d+"})
      */ 
-    public function productoPostAction(SessionInterface $session)
+    public function productoPostAction(SessionInterface $session, Request $request, $producto = null)
     {
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
             $em = $this->getDoctrine()->getManager();
             $cli = $session->get('user');
             $saldoAdd = $_POST['saldo-add'];
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
-            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
-                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->updateSaldo($cli) ){
+                return $this->redirectToRoute($request->get('_route'), array_merge($request->query->all(), ['saldoadd'=>1]));
             }else{
-                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
+                return $this->redirectToRoute($request->get('_route'), array_merge($request->query->all(), ['saldoadd'=>0]));
             }
         }
         

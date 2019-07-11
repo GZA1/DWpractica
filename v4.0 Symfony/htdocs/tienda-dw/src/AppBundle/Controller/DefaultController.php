@@ -46,7 +46,7 @@ class DefaultController extends Controller
             $cli = $session->get('user');
             $saldoAdd = $_POST['saldo-add'];
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
-            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->actCliente($cli) ){
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->updateSaldo($cli) ){
                 return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
             }else{
                 return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);

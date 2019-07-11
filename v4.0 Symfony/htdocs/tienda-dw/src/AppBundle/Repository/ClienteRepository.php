@@ -47,10 +47,15 @@ class ClienteRepository extends EntityRepository
         }
     }
 
-    public function actCliente($c){
+    public function updateSaldo($c){
         if(isset($c)){
-            $this->_em->persist($c);
-            $this->_em->flush();
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->update('AppBundle\\Entity\\Cliente', 'c')
+                ->set('c.saldo', ':saldo')
+                ->where('c.id = :c')
+                ->setParameter('saldo', $c->getSaldo())
+                ->setParameter('c', $c);
+            $res = $qb->getQuery()->getResult();
             return true;
         }
         return false;
