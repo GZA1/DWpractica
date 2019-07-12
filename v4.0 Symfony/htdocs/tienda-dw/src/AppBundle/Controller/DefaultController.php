@@ -52,7 +52,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/", name="homepage_post", method={"POST"})
+     * @Route("/", name="homepage_post", methods={"POST"})
      */
     public function indexPostAction(Request $request, SessionInterface $session)
     {
@@ -142,7 +142,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/encuentranos", name="encuentranos_post, method={"POST"})
+     * @Route("/encuentranos", name="encuentranos_post", methods={"POST"})
      */
     public function encuentranosPostAction(Request $request, SessionInterface $session)
     {
@@ -186,7 +186,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/servicios", name="servicios_post, method={"POST"})
+     * @Route("/servicios", name="servicios_post", methods={"POST"})
      */
     public function serviciosPostAction(Request $request, SessionInterface $session)
     {
