@@ -85,85 +85,93 @@
         </div> 
         <div class="prodDescriptionWrapper">
         <h1 id="desTitulo" style="padding: 8px 8px 8px 8px;">{{prod.nombre}}</h1>
-        <h2 id="desDesc" style="padding: 8px 8px 8px 8px;">{{prod.precio}}€</h2>
-        <div style="border: solid; border-color: #6600cc; border-width: 3px 0; height: 0.5vh; width: 100%; margin: 10px 0"></div>
-                
-                
-                
-                <form method="post" id="productoCompra">
-                    <div id="desCantidadesWrapper">
-                        {% if stock is empty %}                    
-                                                
-                            <div id="noDisp"> Lo sentimos, este producto no está disponible </div>                    
-                        {% else %}
-                            <span id="desCantidad">Cantidad: </span>
-                            <div id="dCant2">
-                                <a id="dCMenos">-</a>
-                                <div id="dCcampo">
-                                    <input type="number" id="dCShow" name="cantidad" min="0" value="1">
-                                </div>
-                                <a id="dCMas">+</a>
 
+        <form method="post" id="productoCompra">
+
+            <div id="desDesc" class="flex_cols" style="padding: 8px 8px 8px 8px;">
+                <input id="precio" name="precio" type="text" value="{{prod.precio}}">
+                <input id="precioOrig" type="text"style="display: none" value="{{prod.precio}}">
+                <div>€</div>
+            </div>
+            <div style="border: solid; border-color: #6600cc; border-width: 3px 0; height: 0.5vh; width: 100%; margin: 10px 0"></div>
+                
+                
+                
+                
+                <div id="desCantidadesWrapper">
+                    {% if stock is empty %}                    
+                                            
+                        <div id="noDisp"> Lo sentimos, este producto no está disponible </div>                    
+                    {% else %}
+                        <span id="desCantidad">Cantidad: </span>
+                        <div id="dCant2">
+                            <a id="dCMenos">-</a>
+                            <div id="dCcampo">
+                                <input type="number" id="dCShow" name="cantidad" min="0" value="1">
                             </div>
-                        {% endif %}
+                            <a id="dCMas">+</a>
 
-                    </div>
-                    {% if stock is not empty %}                    
-                            
-                        
-                        <div id="botonesCompras" class="flex_rows">
-                            <input class="radioEnviar" type="radio" id="recogerTienda" class="enviar" name="enviar" value="ti"><label for="recogerTienda">Recoger en tienda</label>
-                            <input class="radioEnviar" type="radio" id="enviarDomicilio" class="enviar" name="enviar" value="dom"><label for="enviarDomicilio">Envío a domicilio</label>
-                            <input type="submit" id="addCesta" value="Añadir a la cesta">
                         </div>
-                        <div id="prStockWrapper" class="flex_rows">
-                            <div id="prStElement">
-                                <span style="margin-right: 12px;">Stock:</span>
-                                <span id="prStock">{{ stock|length }}</span>
-
-                                <span>Disponibles</span>
-                            </div>
-                            <div id="prNdElement">
-                                Descubre donde
-                                <span style="font-size: 12px; border-radius: 50%; border: solid transparent;">&or;</span>
-                            </div>
-                        </div>
-                        <div id="prStockEspecifico" class="flex_cols">
-
-                        {% set arrayTiendas = '' %}
-                        {% set productosEnTienda = '' %}
-                        {% for unidad in stock %}                
-                            {% if arrayTiendas is empty %}                    
-                                {% set arrayTiendas = [unidad.tienda] %}
-                            {% else %}
-                                {% if unidad.tienda not in arrayTiendas %}
-                                    {% set arrayTiendas = arrayTiendas|merge([unidad.tienda]) %}
-                                {% endif %}
-                            {% endif %}
-                        
-                        {% endfor %}
-
-                        {% if arrayTiendas is not empty %}
-                            {% for shop in arrayTiendas %}                
-                                {% for unit in stock %}
-                                    {% if unit.tienda == shop %}
-                                        
-                                        {% if productosEnTienda is empty %}
-                                            {% set productosEnTienda = [unit] %}
-                                        {% else %}                                
-                                            {% set productosEnTienda = productosEnTienda|merge([unit]) %}                                                               
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                                
-                                <input type="radio" class="tienda" name="tienda" id="{{shop.nombre}}" value="{{shop.id}}">
-                                <label for="{{shop.nombre}}">{{productosEnTienda|length}} Disponibles - {{shop.nombre}} - {{shop.direccion}}</label></br>
-                                {% set productosEnTienda = "" %}
-                            {% endfor %}
-                        {% endif %}
-                            
                     {% endif %}
-                </form>
+
+                </div>
+                {% if stock is not empty %}                    
+                        
+                    
+                    <div id="botonesCompras" class="flex_rows">
+                        <input class="radioEnviar" type="radio" id="recogerTienda" class="enviar" name="enviar" value="0"><label for="recogerTienda">Recoger en tienda</label>
+                        <input class="radioEnviar" type="radio" id="enviarDomicilio" class="enviar" name="enviar" value="1"><label for="enviarDomicilio">Envío a domicilio</label>
+                        <input type="submit" id="addCesta" value="Añadir a la cesta">
+                    </div>
+                    <div id="prStockWrapper" class="flex_rows">
+                        <div id="prStElement">
+                            <span style="margin-right: 12px;">Stock:</span>
+                            <span id="prStock">{{ stock|length }}</span>
+
+                            <span>Disponibles</span>
+                        </div>
+                        <div id="prNdElement">
+                            Descubre donde
+                            <span style="font-size: 12px; border-radius: 50%; border: solid transparent;">&or;</span>
+                        </div>
+                    </div>
+                    <div id="prStockEspecifico" class="flex_cols">
+
+                    {% set arrayTiendas = '' %}
+                    {% set productosEnTienda = '' %}
+                    {% for unidad in stock %}                
+                        {% if arrayTiendas is empty %}                    
+                            {% set arrayTiendas = [unidad.tienda] %}
+                        {% else %}
+                            {% if unidad.tienda not in arrayTiendas %}
+                                {% set arrayTiendas = arrayTiendas|merge([unidad.tienda]) %}
+                            {% endif %}
+                        {% endif %}
+                    
+                    {% endfor %}
+
+                    {% if arrayTiendas is not empty %}
+                        {% for shop in arrayTiendas %}                
+                            {% for unit in stock %}
+                                {% if unit.tienda == shop %}
+                                    
+                                    {% if productosEnTienda is empty %}
+                                        {% set productosEnTienda = [unit] %}
+                                    {% else %}                                
+                                        {% set productosEnTienda = productosEnTienda|merge([unit]) %}                                                               
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <input style="display: none" value="{{productosEnTienda|length}}" id="stockTienda{{shop.id}}"></input>
+                            <input type="radio" class="tienda" name="tienda" id="{{shop.nombre}}" value="{{shop.id}}">
+                            <label for="{{shop.nombre}}">{{productosEnTienda|length}} Disponibles - {{shop.nombre}} - {{shop.direccion}}</label></br>
+                            {% set productosEnTienda = "" %}
+                        {% endfor %}
+                    {% endif %}
+                        
+                {% endif %}
+            </form>
 
 
 
@@ -183,7 +191,7 @@
             </div>
             <div style="height: 8vh; width: 100%"></div>
 
-            <script src="{{ asset('js/checkCesta.js') }}"></script>
+            <script src="{{ asset('js/checkProducto.js') }}"></script>
 
             <div id="detallesAdiccionalesWrapper">
                 <div id="detallesAdCategorias">

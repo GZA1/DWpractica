@@ -90,6 +90,10 @@ Color más claro derivado de #2e2e1f: #e0e0d2
     color: lime;
 }
 
+.sin-stock {
+    color: red;
+}
+
 .envio {
     font-weight: 700;
     font-size: 14px;
@@ -168,4 +172,8 @@ input {
     margin-left: 15px;
     letter-spacing: 1.5px;
     word-spacing: 5px;
+}
+
+#cesta-vacia{
+	padding: 10vh 0 0 0;
 }

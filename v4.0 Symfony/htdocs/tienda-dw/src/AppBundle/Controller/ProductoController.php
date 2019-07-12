@@ -13,6 +13,8 @@ use AppBundle\Entity\Producto;
 use AppBundle\Entity\Unidad;
 use AppBundle\Entity\Categoria;
 use AppBundle\Entity\Tienda;
+use AppBundle\Entity\Cesta;
+use AppBundle\Entity\Cliente;
 
 require_once('/xampp/appdata/model/console.php');
 
@@ -144,20 +146,22 @@ class ProductoController extends Controller
     public function productoAction(Request $request, SessionInterface $session, $producto = null)
     {
         
+        // $session->set('cesta', null);
         
         
         $message = null;
         $tipoMessage = null;
         $em = $this->getDoctrine()->getManager();
-        $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
-        
+
+        $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");        
         $stockRepo = $em->getRepository("AppBundle\\Entity\\Unidad");
         $tiendasRepo = $em->getRepository("AppBundle\\Entity\\Tienda");
         $prod = null;
+
         if($producto != null){
 
             $prod = $productoRep->findOneBy(['id'=> $producto]);
-            $unidades = $stockRepo->findBy(['producto'=>$prod->getId()]);
+            $unidades = $stockRepo->findBy(['producto'=>$prod->getId(), 'vendido'=> 0]);
         }        
         
         
@@ -171,14 +175,16 @@ class ProductoController extends Controller
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('addPr')==1 ) {   // $_GET['error']
-            $message = "Añadidos";
+        if( $request->query->has('addPr') && $request->query->get('addPr')==1 ) {   // $_GET['error']
+            $message = "Unidades añadidas correctamente a la cesta";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('addPr')==0 ) {   // $_GET['error']
+        if( $request->query->has('addPr') && $request->query->get('addPr')==0 ) {   // $_GET['error']
             $message = "Error no hay suficientes unidades pertenecientes a dicha tienda";
             $tipoMessage = 0;
         }
+
+        // console_log((array)$session->get('cesta')->getUnidades());
         
                                         
         return $this->render('catalogo/producto.html.twig', [  'msg'=> $message, 
@@ -197,8 +203,8 @@ class ProductoController extends Controller
     public function productoPostAction(SessionInterface $session, Request $request, $producto = null)
     {
         $em = $this->getDoctrine()->getManager();
+        $cli = $session->get('user');
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
-            $cli = $session->get('user');
             $saldoAdd = $_POST['saldo-add'];
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
             if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->updateSaldo($cli) ){
@@ -210,51 +216,40 @@ class ProductoController extends Controller
             $cantidad = $_POST['cantidad'];
             $tienda = $_POST['tienda'];
             $enviar = $_POST['enviar'];
+            $precio = $_POST['precio'];
 
             $cestaRep = $em->getRepository("AppBundle\\Entity\\Cesta");
             $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
             $unidadRep = $em->getRepository("AppBundle\\Entity\\Unidad");
             $tiendaRep = $em->getRepository("AppBundle\\Entity\\Tienda");
-            $unidades = $unidadadRep->findAll();
+            $unidades = $unidadRep->findUnidades($tienda, $producto, $cantidad);
 
+            console_log($unidades);
 
-            foreach( $unidades as $unit){
-                if($unit->get('producto')->getId() == $producto){
-                    if($tienda != null){
-                        if($unit->getTienda() == $tienda){
-                            if($unidadesDeseadas == null){
-                                $unidadesDeseadas = array($unit);
-                            }elseif( sizeOf($unidadesDeseadas) < $cantidad){
-                                array_push($unidadesDeseadas, $unit);
-                            }
-                        }
-                    }else{
-                        if($unidadesDeseadas == null){
-                            $unidadesDeseadas = array($unit);
-                        }elseif( sizeOf($unidadesDeseadas) < $cantidad){
-                            array_push($unidadesDeseadas, $unit);
-                        }
-                    }
-                    
-                }
-            }
-            if(sizeOf($unidadesDeseadas) < $cantidad){
-                return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>0]);    
+            if( ! $unidades ){
+                return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>0, 'producto'=> $producto]);    
             }
 
+            $cesta = $session->get('cesta');
             
-            if($session->get('cesta') == null){
-                $cestaCliente = new Cesta();
-                $arrayUnidades  = $cestaCliente->get('unidades');
-                array_push($arrayUnidades, $unidadesDeseadas);
-                $session->set('cesta', $cestaCliente);                
-            }else{
-                array_push($session->get('cesta')->get('unidades'), $unidadesDeseadas);
+            if( is_null($cesta) ){
+                $cesta = $cestaRep->findOneBy(['cliente' => $cli]);
+                if( is_null($cesta) ){
+                    $cesta = new Cesta();
+                    $em->persist($c);
+                    $em->flush();
+                }
+                $session->set('cesta', $cesta);
             }
 
-            return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>1]);
+            $cestaRep->addUnidades($cesta, $unidades, $precio, $enviar);
 
+            $cesta->setCliente($cli);
+            $cli->setCesta($cesta);
 
+            console_log((array)$cesta);
+
+            return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>1, 'producto'=> $producto]);
 
         }
 
@@ -588,6 +583,12 @@ class ProductoController extends Controller
             $message = "Todos los campos Vacios";
             $tipoMessage = 0;
         }
+
+        console_log((array)$session->get('cesta'));
+        console_log((array)$session->get('cesta')->getUnidades());
+        console_log((array)$session->get('cesta')->getUnidades()[0]);
+        console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto());
+        console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto()->getCategoria());
         
                                         
         return $this->render('cesta_compra/cesta.html.twig', [  'msg'=> $message, 

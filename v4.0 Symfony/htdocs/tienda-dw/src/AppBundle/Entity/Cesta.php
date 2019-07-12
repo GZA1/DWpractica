@@ -84,6 +84,18 @@ class Cesta
     }
 
     /**
+     * Add the value of costeTotal
+     *
+     * @return  self
+     */
+    public function addCosteTotal($precio)
+    {
+        $this->costeTotal += $precio;
+
+        return $this;
+    }
+
+    /**
      * Get un cliente tiene una cesta
      */
     public function getCliente()

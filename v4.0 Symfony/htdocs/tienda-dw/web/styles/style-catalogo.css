@@ -202,6 +202,7 @@
 .filterOpts > li > *:hover{
     cursor: pointer;
 }
+
 input[type=radio]:checked ~ label{
     color: rgba(102,0,204,1);
 }
@@ -506,19 +507,35 @@ input[type=radio]:checked ~ label{
     margin-block-end: 0px;
 
 }
-#desDesc {
-    display: block;
+
+#desDesc, #desDesc > * {
+	display: inline-block;
+	font-size: 1.5em;
+	margin-top: 0.83em;
+	margin-bottom: 0.83em;
+	margin-left: 0;
+	margin-right: 0;
     font-family: 'Lato', sans-serif;
-    font-size: 30px;
     color: rgba(102,0,204,0.80);
     font-weight: 900;
+	border: 0;
     margin-block-start: 0px;
     margin-block-end: 0px;
 }
 
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{
+	display: none;
+	-webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
 #desCantidadesWrapper {
 
-    height: auto;
+    height: 10vh;
     line-height: 7vh;
     text-align: center;
     border-bottom: solid #6600cc;
@@ -596,7 +613,7 @@ input[type=radio]:checked ~ label{
 
 #botonesCompras {
     width: 100%;
-    height: 9vh;
+    height: 60px;
     position: relative;
 
 }

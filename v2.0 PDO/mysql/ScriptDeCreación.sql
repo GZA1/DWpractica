@@ -186,6 +186,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Unidad` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `vendido` TINYINT(1) NOT NULL DEFAULT 0,
+  `enviar` TINYINT(1) NULL,
   `Cesta_id` INT NULL,
   `Producto_id` INT NOT NULL,
   `Tienda_id` INT NOT NULL,
@@ -234,6 +235,7 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
 
@@ -38162,7 +38164,7 @@ insert into Producto(nombre, marca, modelo, precio, photo, categoria_id) values
 	("FastSlim", 		"Kingston", "SODIMM-8GB-1600-CL15", 114.99, "img/RAM/2.jpg", 1);
  
     insert into Producto(nombre, marca, modelo, precio, descripcion, photo, categoria_id) values
-    ("WD-Sauvage88 3TB", "-WesternDigital", "Sauvage88", 200, "3TB ultrarápido" ,"img/externos/1.jpg", 3),
+    ("WD-Sauvage88 3TB", "WesternDigital", "Sauvage88", 200, "3TB ultrarápido" ,"img/externos/1.jpg", 3),
     ("Maxtor 116 500GB", "Maxtor", "116", 459.99, "500GB versátil y ágil","img/externos/2.jpg", 3),
     ("LG-Predator 1 TB", "LG", "Predator", 38.99, "1 TB de almacenamiento ultra rápido para todo lo que necesites" ,"img/externos/3.jpg", 3),
     ("Lacie sr-200 2TB ", "LaCie", "sr-200", 159.99, "250 GB de almacenamiento ultra rápido para todo lo que necesites","img/externos/4.jpg", 3),

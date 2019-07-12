@@ -17,6 +17,10 @@ class Unidad
      * @ORM\Column(name="vendido", type="boolean", nullable=false)
      */
     private $vendido;
+    /**
+     * @ORM\Column(name="enviar", type="boolean", nullable=true)
+     */
+    private $enviar;
 
 
     /**
@@ -90,6 +94,26 @@ class Unidad
     public function setVendido($vendido)
     {
         $this->vendido = $vendido;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of enviar
+     */ 
+    public function isEnviar()
+    {
+        return $this->enviar;
+    }
+
+    /**
+     * Set the value of enviar
+     *
+     * @return  self
+     */ 
+    public function setEnviar($enviar)
+    {
+        $this->enviar = $enviar;
 
         return $this;
     }
