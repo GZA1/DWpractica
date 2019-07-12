@@ -540,62 +540,29 @@ class ProductoController extends Controller
         $tiendas = $tiendaRepo->findAll();
         $stock = $unidadRepo->findAll();
                
+        $miCesta = $session->get('cesta');
+        $arrayProductos = null;
         
+        if($miCesta != null){
+            foreach($miCesta->getUnidades() as $unit){
+                if($arrayProductos == null){
+                    $arrayProductos = array($unit);
+                }else{
+                    if(!in_array($unit , $unit->getProducto())){
+                        array_push($arrayProductos, $unit);
+                    }
+                }
+            }
+        }
         
 
         
-        if( $request->query->has('addCat') && $request->query->get('addCat')==1 ) {   // $_GET['error']
-            $message = "Categoria añadida";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('editCat') && $request->query->get('editCat')==1 ) {   // $_GET['error']
-            $message = "Categoria editada";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('remCat') && $request->query->get('remCat')==1 ) {   // $_GET['error']
-            $message = "Categoria eliminada";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('addPr') && $request->query->get('addPr')==1 ) {   // $_GET['error']
-            $message = "Producto añadido";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('editPr') && $request->query->get('editPr')==1 ) {   // $_GET['error']
-            $message = "Producto editado";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('removePr') && $request->query->get('removePr')==1 ) {   // $_GET['error']
-            $message = "Producto eliminado";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('aumStock') && $request->query->get('aumStock')==1 ) {   // $_GET['error']
-            $message = "Stock aumentado";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('remStock') && $request->query->get('remStock')==1 ) {   // $_GET['error']
-            $message = "Stock reducido";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('transProd') && $request->query->get('transProd')==1 ) {   // $_GET['error']
-            $message = "Producto transladado";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('opfallida') && $request->query->get('opfallida')==1 ) {   // $_GET['error']
-            $message = "Operación fallida";
-            $tipoMessage = 0;
-        }
-        if( $request->query->has('opfallida') && $request->query->get('opfallida')==2 ) {   // $_GET['error']
-            $message = "Todos los campos Vacios";
-            $tipoMessage = 0;
-        }
+        
         
                                         
         return $this->render('cesta_compra/cesta.html.twig', [  'msg'=> $message, 
-                                                            'tipoMessage'=> $tipoMessage,
-                                                            'categorias'=> $categorias,
-                                                            'productos'=> $productos,
-                                                            'tiendas'=> $tiendas,
-                                                            'stock'=> $stock]
+                                                            'tipoMessage'=> $tipoMessage,                                                            
+                                                            'productosCesta'=> $arrayProductos]
                                                         );
 
         
