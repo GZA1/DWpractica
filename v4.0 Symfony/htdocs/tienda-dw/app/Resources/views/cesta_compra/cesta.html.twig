@@ -24,10 +24,9 @@
     {{ include('nav/nav.html.twig')}}
 
 
-    {% set arrayProductos = '' %}
+    {# {% set arrayProductos = '' %}
 
     {% if app.session.get('cesta') is defined %}
-        {# Hay cesta #}
         {% set numeroUnidadesTipo = '' %}
         {% for prod in productosCesta %}
             {% set contador = 0 %}
@@ -74,79 +73,19 @@
         {% endfor %}
 
     {% else %}
-        {# No hay cesta #}
 
         <div style="max-height: auto; min-height: 12vh;"> No ha añadido nada a su cesta aún</div>
 
 
-    {% endif %}
-        {# Aqui el pr 1 de ejemplo #}
-
-        {# <div class="producto-container flex_rows borde-abajo" name="Maxtor-STSHX-M101TCBM-1TB">
-                <div class="flex_rows separador-horizontal">
-                    <div class="producto-img">
-                        <a href=""><img height="100%" src="../img/mxtor-m3-portable-1tb-usb-3-0-2-5-1.png"></a>
-                    </div>
-                    <div class="producto-contenido">
-                        <ul>
-                            <li>
-                                <a class="nombre-componente" href="">Maxtor STSHX-M101TCBM - 1 TB, USB 3.0/3.1, Color Negro</a>
-                            </li>
-                            <li>
-                                <span class="categoria-componente">Discos duros</span>
-                            </li>
-                            <li>
-                                <span class="en-stock">En stock</span>
-                            </li>
-                            <li>
-                                <span class="envio">Envío gratis
-                                </span>disponible
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="producto-precio">
-                    44,50€
-                </div>
-                <div class="producto-cantidad">
-                    <input class="producto-cantidad-input" min="0" onchange="calcValue()" step="1" type="number" value="1">
-                </div>
-            </div> #}
+    {% endif %} #}
+        
 
 
-        {# Aqui el pr 2 de ejemplo #}
 
-        {# <div class="producto-container flex_rows borde-abajo" name="Seagate-ExpansionSTEA4000400-4TB">
-                <div class="flex_rows separador-horizontal">
-                    <div class="producto-img">
-                        <a href=""><img height="100%" src="../img/seagate-expansion-2-5-4tb-usb-3-0.png"></a>
-                    </div>
-                    <div class="producto-contenido">
-                        <ul>
-                            <li>
-                                <a class="nombre-componente" href="">Seagate Expansion STEA4000400 - 4TB, USB 3.0, Color Negro</a>
-                            </li>
-                            <li>
-                                <span class="categoria-componente">Discos duros</span>
-                            </li>
-                            <li>
-                                <span class="en-stock">En stock</span>
-                            </li>
-                            <li>
-                                <span class="envio">Coste de envío:
-                                </span>
-                                <span class="coste-envio">5,50€</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div
-                    class="producto-precio"><!--                    109,00€-->
-                </div>
-                <div class="producto-cantidad">
-                    <input class="producto-cantidad-input" min="0" onchange="calcValue()" step="1" type="number" value="1">
-                </div>
-            </div> #}
+
+
+
+        
 
     <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
     <div class="cesta_main_container flex_cols">
@@ -164,14 +103,7 @@
                 {% set prod = unidad.producto %}
                 {% set cat = unidad.producto.categoria %}
                 {% set nombre = '' %}
-
-                {% for categoria in categorias %}
-                    {{categoria.id}}
-                    {{cat}}
-                    {% if categoria.id == cat %}
-                        {% set nombre = categoria.nombre %}
-                    {% endif %}
-                {% endfor %}
+                
                 <div class="producto-container flex_rows borde-abajo" name="Seagate-ExpansionSTEA4000400-4TB">
                     <div class="flex_rows separador-horizontal">
                         <div class="producto-img">

@@ -536,19 +536,33 @@ class ProductoController extends Controller
         $stock = $unidadRepo->findAll();
 
         $miCesta = $session->get('cesta');
-        $arrayProductos = null;
+        // $arrayProductos = null;
 
-        if($miCesta != null){
-            foreach($miCesta->getUnidades() as $unit){
-                if($arrayProductos == null){
-                    $arrayProductos = array($unit);
-                }else{
-                    if(!in_array($unit , $unit->getProducto())){
-                        array_push($arrayProductos, $unit);
-                    }
-                }
-            }
-        }
+        // if($miCesta != null){
+        //     foreach($miCesta->getUnidades() as $unit){
+        //         if($arrayProductos == null){
+        //             $arrayProductos = array($unit);
+        //         }else{
+        //             if(!in_array($unit , $unit->getProducto())){
+        //                 array_push($arrayProductos, $unit);
+        //             }
+        //         }
+        //     }
+        // }
+
+
+
+
+        console_log('Cesta');
+        console_log((array)$session->get('cesta'));
+        console_log('Unidades de la cesta');
+        console_log((array)$session->get('cesta')->getUnidades());
+        console_log('Unidad 1 de la cesta');
+        console_log((array)$session->get('cesta')->getUnidades()[0]);
+        console_log('Producto de la unidad 1 de la cesta');
+        console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto());
+        console_log('Categoría del producto de la unidad 1 de la cesta');
+        console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto()->getCategoria());
 
 
 
@@ -556,8 +570,7 @@ class ProductoController extends Controller
 
 
         return $this->render('cesta_compra/cesta.html.twig', [  'msg'=> $message,
-                                                            'tipoMessage'=> $tipoMessage,
-                                                            'productosCesta'=> $arrayProductos]
+                                                            'tipoMessage'=> $tipoMessage]
                                                         );
 
 
