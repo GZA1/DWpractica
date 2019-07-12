@@ -24,19 +24,19 @@ class ProductoController extends Controller
 {
 /**
      * @Route("/catalogoIndex", name="catalogoIndex", methods={"GET"})
-     */ 
+     */
 
     public function catIndexAction(Request $request)
     {
-        
+
         $message = null;
         $tipoMessage = null;
         $em = $this->getDoctrine()->getManager();
         $categoriaRep = $em->getRepository("AppBundle\\Entity\\Categoria");
         $categorias = $categoriaRep->findAll();
-        
 
-        
+
+
         if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
@@ -45,9 +45,9 @@ class ProductoController extends Controller
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
-       
-        return $this->render('catalogo/catalogoIndex.html.twig', [  'msg'=>$message, 
-                                                            'tipoMessage'=> $tipoMessage, 
+
+        return $this->render('catalogo/catalogoIndex.html.twig', [  'msg'=>$message,
+                                                            'tipoMessage'=> $tipoMessage,
                                                             'categorias'=> $categorias]
                                                         );
     }
@@ -55,10 +55,10 @@ class ProductoController extends Controller
 
     /**
      * @Route("/catalogoIndex", name="catalogoIndex_post", methods={"POST"})
-     */ 
+     */
     public function catIndexPostAction(SessionInterface $session, Request $request)
     {
-        
+
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
             $em = $this->getDoctrine()->getManager();
             $cli = $session->get('user');
@@ -71,31 +71,31 @@ class ProductoController extends Controller
             }
         }
 
-        
+
     }
 
 
     /**
      * @Route("/xxx-cat/{categoria}", name="xxx-cat", methods={"GET"}, requirements={"categoria"="\d+"}))
-     */ 
+     */
     public function xxxCatAction(Request $request, SessionInterface $session, $categoria = null)
     {
-        
-        
-        
+
+
+
         $message = null;
         $tipoMessage = null;
         $em = $this->getDoctrine()->getManager();
         $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
         $categoriaRep = $em->getRepository("AppBundle\\Entity\\Categoria");
-        
+
         $cat = null;
-        if($categoria != null){            
+        if($categoria != null){
             $cat = $categoriaRep->findOneBy(['id'=> $categoria]);
             $productos = $productoRep->findBy(['categoria'=> $categoria]);
-            
+
         }
-        
+
         if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
@@ -104,23 +104,23 @@ class ProductoController extends Controller
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
-       
-        return $this->render('catalogo/xxx-cat.html.twig', [  'msg'=> $message, 
+
+        return $this->render('catalogo/xxx-cat.html.twig', [  'msg'=> $message,
                                                             'tipoMessage'=> $tipoMessage,
                                                             'productos'=> $productos,
                                                             'cat'=>$cat]
                                                         );
 
-        
+
     }
 
 
     /**
      * @Route("/xxx-cat/{categoria}", name="xxx-cat_post", methods={"POST"}, requirements={"categoria"="\d+"})
-     */ 
+     */
     public function xxxCatPostAction(SessionInterface $session, Request $request, $categoria = null)
     {
-        
+
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
             $em = $this->getDoctrine()->getManager();
             $cli = $session->get('user');
@@ -137,7 +137,7 @@ class ProductoController extends Controller
             }
         }
 
-        
+
     }
 
     /**
@@ -145,15 +145,15 @@ class ProductoController extends Controller
      */
     public function productoAction(Request $request, SessionInterface $session, $producto = null)
     {
-        
+
         // $session->set('cesta', null);
-        
-        
+
+
         $message = null;
         $tipoMessage = null;
         $em = $this->getDoctrine()->getManager();
 
-        $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");        
+        $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
         $stockRepo = $em->getRepository("AppBundle\\Entity\\Unidad");
         $tiendasRepo = $em->getRepository("AppBundle\\Entity\\Tienda");
         $prod = null;
@@ -162,11 +162,11 @@ class ProductoController extends Controller
 
             $prod = $productoRep->findOneBy(['id'=> $producto]);
             $unidades = $stockRepo->findBy(['producto'=>$prod->getId(), 'vendido'=> 0]);
-        }        
-        
-        
+        }
 
-        
+
+
+
         if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
@@ -185,21 +185,21 @@ class ProductoController extends Controller
         }
 
         // console_log((array)$session->get('cesta')->getUnidades());
-        
-                                        
-        return $this->render('catalogo/producto.html.twig', [  'msg'=> $message, 
+
+
+        return $this->render('catalogo/producto.html.twig', [  'msg'=> $message,
                                                             'tipoMessage'=> $tipoMessage,
                                                             'prod'=> $prod,
                                                             'stock'=> $unidades]
                                                         );
 
-        
+
     }
 
 
     /**
      * @Route("/producto/{producto}", name="producto_post", methods={"POST"}, requirements={"producto"="\d+"})
-     */ 
+     */
     public function productoPostAction(SessionInterface $session, Request $request, $producto = null)
     {
         $em = $this->getDoctrine()->getManager();
@@ -227,11 +227,11 @@ class ProductoController extends Controller
             console_log($unidades);
 
             if( ! $unidades ){
-                return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>0, 'producto'=> $producto]);    
+                return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>0, 'producto'=> $producto]);
             }
 
             $cesta = $session->get('cesta');
-            
+
             if( is_null($cesta) ){
                 $cesta = $cestaRep->findOneBy(['cliente' => $cli]);
                 if( is_null($cesta) ){
@@ -253,7 +253,7 @@ class ProductoController extends Controller
 
         }
 
-        
+
     }
 
 
@@ -264,12 +264,12 @@ class ProductoController extends Controller
      */
     public function cfgCatalogoAction(Request $request, SessionInterface $session)
     {
-        
+
         $message = null;
         $tipoMessage = null;
         $em = $this->getDoctrine()->getManager();
 
-        $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");        
+        $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
         $categoriaRepo = $em->getRepository("AppBundle\\Entity\\Categoria");
         $tiendaRepo = $em->getRepository("AppBundle\\Entity\\Tienda");
         $unidadRepo = $em->getRepository("AppBundle\\Entity\\Unidad");
@@ -277,11 +277,11 @@ class ProductoController extends Controller
         $categorias = $categoriaRepo->findAll();
         $tiendas = $tiendaRepo->findAll();
         $stock = $unidadRepo->findAll();
-               
-        
-        
 
-        
+
+
+
+
         if( $request->query->has('addCat') && $request->query->get('addCat')==1 ) {   // $_GET['error']
             $message = "Categoria añadida";
             $tipoMessage = 1;
@@ -326,9 +326,9 @@ class ProductoController extends Controller
             $message = "Todos los campos Vacios";
             $tipoMessage = 0;
         }
-        
-                                        
-        return $this->render('catalogo/cfgCatalogo.html.twig', [  'msg'=> $message, 
+
+
+        return $this->render('catalogo/cfgCatalogo.html.twig', [  'msg'=> $message,
                                                             'tipoMessage'=> $tipoMessage,
                                                             'categorias'=> $categorias,
                                                             'productos'=> $productos,
@@ -336,18 +336,18 @@ class ProductoController extends Controller
                                                             'stock'=> $stock]
                                                         );
 
-        
+
     }
 
 
 
     /**
      * @Route("/cfgCatalogo", name="cfgCatalogo_post", methods={"POST"})
-     */ 
+     */
     public function cfgCatalogoPostAction(SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();
-        
+
         if(isset($_POST['optsSubmit2'])){
             switch($_POST['optsSubmit2']){
 
@@ -359,19 +359,19 @@ class ProductoController extends Controller
                     $em->persist($nuevaCategoria);
                     $em->flush();
                     return $this->redirectToRoute('cfgCatalogo', ['addCat'=>1]);
-                    
+
                 break;
 
-                case 'Editar Categoria':                
+                case 'Editar Categoria':
                 $catEdit = $em->findOneBy('acronimo', $_POST['cat_elegEdit']);
                 if(isset($catEdit)){
                     if(empty($nombreCATEdit) && empty($acrCATEdit) && empty($descCATEdit)){
-                        return $this->redirectToRoute('cfgCatalogo', ['opFallida'=>2]);                        
+                        return $this->redirectToRoute('cfgCatalogo', ['opFallida'=>2]);
                     }else{
-                        
+
                         if($_POST['nombreCATEdit'] != ""){
                             $catEdit->setNombre($_POST['nombreCATEdit']);
-                        }                    
+                        }
                         if($_POST['acrCATEdit'] != ""){
                             $catEdit->setAcronimo($_POST['acrCATEdit']);
                         }
@@ -379,27 +379,27 @@ class ProductoController extends Controller
                             $catEdit->setDescripcion($_POST['descCATEdit']);
                         }
                     }
-                    
+
                     $em->persist($catEdit);
                     $em->flush();
-                    
-                    return $this->redirectToRoute('cfgCatalogo', ['editCat'=>1]);                        
-                    
+
+                    return $this->redirectToRoute('cfgCatalogo', ['editCat'=>1]);
+
                 }else{
-                    
-                    return $this->redirectToRoute('cfgCatalogo', ['opFallida'=>1]);                        
-                    
+
+                    return $this->redirectToRoute('cfgCatalogo', ['opFallida'=>1]);
+
                 }
-                
+
                 break;
-                
+
                 case 'Eliminar Categoria':
-                
+
                     $catRemove = $em->findOneBy('acronimo', $_POST['cat_elegRem']);
                     $em->remove($catRemove);
                     $em->flush();
-                    return $this->redirectToRoute('cfgCatalogo', ['remCat'=>1]);                        
-                    
+                    return $this->redirectToRoute('cfgCatalogo', ['remCat'=>1]);
+
                 break;
 
                 case 'Añadir Producto':
@@ -412,9 +412,9 @@ class ProductoController extends Controller
                                     ->setPicPath($_POST['picpathPrNEW']);
                     $em->persist($nuevoProducto);
                     $em->flush();
-                    return $this->redirectToRoute('cfgCatalogo', ['addPr'=>1]);                        
-                    
-                       
+                    return $this->redirectToRoute('cfgCatalogo', ['addPr'=>1]);
+
+
                 break;
 
                 case 'Editar Producto':
@@ -423,13 +423,13 @@ class ProductoController extends Controller
                     if(empty($nombrePrEDIT) && empty($marcaPrEDIT) && empty($modeloPrEDIT) && empty($precioPrEDIT)
                        && empty($descPrEDIT) && empty($picpathPrEDIT)){
 
-                        return $this->redirectToRoute('cfgCatalogo', ['opFallida'=>2]);                        
+                        return $this->redirectToRoute('cfgCatalogo', ['opFallida'=>2]);
 
                     }else{
 
                         if($_POST['nombrePrEDIT'] != ""){
                             $prEdit->setNombre($_POST['nombrePrEDIT']);
-                        }                    
+                        }
                         if($_POST['marcaPrEDIT'] != ""){
                             $prEdit->setMarca($_POST['marcaPrEDIT']);
                         }
@@ -445,17 +445,17 @@ class ProductoController extends Controller
                         if($_POST['picpathPrEDIT'] != ""){
                             $prEdit->setPicPath($_POST['picpathPrEDIT']);
                         }
-                        
+
                         $em->persist($prEdit);
                         $em->flush();
                         return $this->redirectToRoute('cfgCatalogo', ['editPr'=>1]);
-                        
+
                     }
                     }else{
                         return $this->redirectToRoute('cfgCatalogo', ['opfallida'=>1]);
-                    
+
                 }
-                
+
                 break;
 
                 case 'Eliminar Producto':
@@ -474,7 +474,7 @@ class ProductoController extends Controller
                         $em->flush();
                     }
                     return $this->redirectToRoute('cfgCatalogo', ['aumStock'=>1]);
-                        
+
 
                 break;
 
@@ -487,10 +487,10 @@ class ProductoController extends Controller
                         $em->flush();
                     }
                     return $this->redirectToRoute('cfgCatalogo', ['remStock'=>1]);
-                        
-                    
+
+
                 break;
-                
+
                 case 'Transladar producto';
                     $unitT = new Unidad();
                     $unitT->setProducto($_POST['prToTrans'])
@@ -505,14 +505,14 @@ class ProductoController extends Controller
                         $em->flush();
                     }
                     return $this->redirectToRoute('cfgCatalogo', ['transProd'=>1]);
-                    
+
                 break;
             }
         }
-        
-        
 
-        
+
+
+
     }
 
 
@@ -521,12 +521,12 @@ class ProductoController extends Controller
      */
     public function cestaAction(Request $request, SessionInterface $session)
     {
-        
+
         $message = null;
         $tipoMessage = null;
         $em = $this->getDoctrine()->getManager();
 
-        $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");        
+        $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
         $categoriaRepo = $em->getRepository("AppBundle\\Entity\\Categoria");
         $tiendaRepo = $em->getRepository("AppBundle\\Entity\\Tienda");
         $unidadRepo = $em->getRepository("AppBundle\\Entity\\Unidad");
@@ -534,72 +534,33 @@ class ProductoController extends Controller
         $categorias = $categoriaRepo->findAll();
         $tiendas = $tiendaRepo->findAll();
         $stock = $unidadRepo->findAll();
-               
-        
-        
 
-        
-        if( $request->query->has('addCat') && $request->query->get('addCat')==1 ) {   // $_GET['error']
-            $message = "Categoria añadida";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('editCat') && $request->query->get('editCat')==1 ) {   // $_GET['error']
-            $message = "Categoria editada";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('remCat') && $request->query->get('remCat')==1 ) {   // $_GET['error']
-            $message = "Categoria eliminada";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('addPr') && $request->query->get('addPr')==1 ) {   // $_GET['error']
-            $message = "Producto añadido";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('editPr') && $request->query->get('editPr')==1 ) {   // $_GET['error']
-            $message = "Producto editado";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('removePr') && $request->query->get('removePr')==1 ) {   // $_GET['error']
-            $message = "Producto eliminado";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('aumStock') && $request->query->get('aumStock')==1 ) {   // $_GET['error']
-            $message = "Stock aumentado";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('remStock') && $request->query->get('remStock')==1 ) {   // $_GET['error']
-            $message = "Stock reducido";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('transProd') && $request->query->get('transProd')==1 ) {   // $_GET['error']
-            $message = "Producto transladado";
-            $tipoMessage = 1;
-        }
-        if( $request->query->has('opfallida') && $request->query->get('opfallida')==1 ) {   // $_GET['error']
-            $message = "Operación fallida";
-            $tipoMessage = 0;
-        }
-        if( $request->query->has('opfallida') && $request->query->get('opfallida')==2 ) {   // $_GET['error']
-            $message = "Todos los campos Vacios";
-            $tipoMessage = 0;
+        $miCesta = $session->get('cesta');
+        $arrayProductos = null;
+
+        if($miCesta != null){
+            foreach($miCesta->getUnidades() as $unit){
+                if($arrayProductos == null){
+                    $arrayProductos = array($unit);
+                }else{
+                    if(!in_array($unit , $unit->getProducto())){
+                        array_push($arrayProductos, $unit);
+                    }
+                }
+            }
         }
 
-        console_log((array)$session->get('cesta'));
-        console_log((array)$session->get('cesta')->getUnidades());
-        console_log((array)$session->get('cesta')->getUnidades()[0]);
-        console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto());
-        console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto()->getCategoria());
-        
-                                        
-        return $this->render('cesta_compra/cesta.html.twig', [  'msg'=> $message, 
+
+
+
+
+
+        return $this->render('cesta_compra/cesta.html.twig', [  'msg'=> $message,
                                                             'tipoMessage'=> $tipoMessage,
-                                                            'categorias'=> $categorias,
-                                                            'productos'=> $productos,
-                                                            'tiendas'=> $tiendas,
-                                                            'stock'=> $stock]
+                                                            'productosCesta'=> $arrayProductos]
                                                         );
 
-        
+
     }
 
 

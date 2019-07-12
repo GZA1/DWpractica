@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block title %} Encuentranos {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
+    
+{% endblock %}
+{% block javascripts %}
+    
+
+{% endblock %}
+
+
+{% block body %}
+
+    {% if msg is defined and msg != null %} 
+        {% if tipoMessage == 1 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #e0e0d2;padding: 10px;">{{msg}}</div>        
+        {% endif %}
+
+        {% if tipoMessage == 0 %}  
+            <div id="notificacion" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #e0e0d2;padding: 10px;">{{msg}}</div>        
+        {% endif %}    
+    {% endif %}
+
+
+    {% include 'nav/nav.html.twig' %}
+
+    <div style="height: 10vh; min-height: 70px; visibility: hidden"></div>
+        <div class="flex_cols">
+            <div class="flex_rows" id="contenedor_main_ads">
+    <!--        Este div contiene la parte central -->
+                <div class="mainContainer altura_body_main_container">
+                    <div id="contenidoMain" class="mapa_central">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2982.3770409752533!2d-4.717704684502627!3d41.62598097924306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4712d844c78375%3A0x8532df1684bc7224!2sUniversidad+Europea+Miguel+de+Cervantes+-+UEMC!5e0!3m2!1ses!2ses!4v1547635284329" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                </div>
+        <!--        Este div contiene los anuncios -->
+                <aside class="adsLateral adDerecha">
+                    <ul class="lista_ads">
+                        <li class="ad_container">
+                            <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                                <div><b>ANUNCIO</b></div>
+                                <div><img alt="UEMC" width="100%"  src="../img/ad1.png"></div>
+                            </a>
+                        </li>
+                        <li class="ad_container">
+                            <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                                <div><b>ANUNCIO</b></div>
+                                <div><img alt="UEMC" width="100%" src="../img/ad2.png"></div>
+                            </a>
+                        </li>
+                        <li class="ad_container">
+                            <a href="http://www.uemc.es/" target="_blank" class="ad_enlace">
+                                <div><b>ANUNCIO</b></div>
+                                <div><img alt="UEMC" width="100%" src="../img/ad3.png"></div>
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    
+
+
+{% endblock %}
+{% block footer %}
+        {{ include('footer/footer.html.twig')}}
+{% endblock %}
