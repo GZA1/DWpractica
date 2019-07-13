@@ -252,6 +252,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 
+
 /*Insert múltiple para mejorar la velocidad*/
 INSERT INTO Ubicacion (cp, municipio, provincia, comunidadAutonoma, latitud, longitud)
 VALUES

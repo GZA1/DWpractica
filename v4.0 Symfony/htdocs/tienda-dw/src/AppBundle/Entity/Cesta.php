@@ -17,7 +17,7 @@ class Cesta
     /**
      * @ORM\Column(name="costeTotal",type="float", nullable=false)
      */
-    private $costeTotal;
+    private $costeTotal = 0;
 
     /**
     * Un cliente tiene una cesta
