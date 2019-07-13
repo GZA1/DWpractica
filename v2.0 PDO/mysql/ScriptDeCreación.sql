@@ -167,7 +167,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Cesta` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `costeTotal` DOUBLE NOT NULL,
+  `costeTotal` DOUBLE NOT NULL DEFAULT 0,
   `Cliente_id` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
@@ -235,6 +235,7 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
 

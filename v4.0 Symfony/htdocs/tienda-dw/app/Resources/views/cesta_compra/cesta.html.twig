@@ -103,7 +103,7 @@
                 {% set prod = unidad.producto %}
                 {% set cat = unidad.producto.categoria %}
                 {% set nombre = '' %}
-                
+
                 <div class="producto-container flex_rows borde-abajo" name="Seagate-ExpansionSTEA4000400-4TB">
                     <div class="flex_rows separador-horizontal">
                         <div class="producto-img">
@@ -152,9 +152,9 @@
                     <div
                         class="producto-precio">{{precioAct}}
                     </div>
-                    {# <div class="producto-cantidad">
-                        <input class="producto-cantidad-input" min="0" onchange="calcValue()" step="1" type="number" value="1">
-                    </div> #}
+                    <div class="producto-cantidad">
+                        <input class="producto-cantidad-input" type="text" value="1">
+                    </div>
                 </div>
 
             {% endfor %}
@@ -169,7 +169,8 @@
         </div>
         <br>
         <div class="flex_rows">
-            <div class="separador-horizontal-80"></div>
+            <div class="separador-horizontal-60"></div>
+            <a class="sombreado" href="{{path('cancelarCesta')}}" id="boton-comprar" style="background-color: red; text-decoration: none">Cancelar pedido</a>
             <div class="sombreado" href="" id="boton-comprar" onclick="tramitarPedido()">Tramitar pedido</div>
         </div>
         <br>

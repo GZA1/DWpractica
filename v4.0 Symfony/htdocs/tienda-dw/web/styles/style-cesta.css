@@ -143,6 +143,21 @@ input {
     min-width: 450px;
 }
 
+.separador-horizontal-60 {
+    width: 60%;
+    min-width: 450px;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{
+	display: none;
+	-webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
 #subtotal-resultado {
     text-align: right;
     font-weight: 800;
