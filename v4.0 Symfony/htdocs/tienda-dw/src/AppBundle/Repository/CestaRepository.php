@@ -21,7 +21,19 @@ class CestaRepository extends EntityRepository
         $cesta->setUnidades($udsCesta);
         console_log((array)$cesta->getUnidades());
 
-        $cesta->addCosteTotal($precio * $lenUds);
+        $precioTotal = $precio * $lenUds;
+        $cesta = $cesta->addCosteTotal($precioTotal);
+        
+        
+        $qb = $this->_em->createQueryBuilder();
+            $qb ->update('AppBundle\\Entity\\Cesta', 'c')
+            ->set('c.costeTotal', ':cos')
+            ->where('c.id = :cestaId')
+            ->setParameter('cos', $cesta->getCosteTotal())
+            ->setParameter('cestaId', $cesta->getId());
+            $res = $qb->getQuery()->getResult();
+
+
 
         foreach($unidades as $u){
             $qb = $this->_em->createQueryBuilder();

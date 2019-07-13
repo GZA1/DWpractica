@@ -90,7 +90,7 @@ class Cesta
      */
     public function addCosteTotal($precio)
     {
-        $this->costeTotal += $precio;
+        $this->costeTotal = $this->costeTotal + $precio;
 
         return $this;
     }
