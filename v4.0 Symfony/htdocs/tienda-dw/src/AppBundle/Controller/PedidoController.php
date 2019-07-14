@@ -19,10 +19,10 @@ use AppBundle\Entity\Producto;
 
 class PedidoController extends Controller
 {
-   
 
 
-    
+
+
     /**
      * @Route("/pedidos", name="pedidos", methods={"GET"})
      */
@@ -44,7 +44,7 @@ class PedidoController extends Controller
 
         console_log($pedidos);
         console_log((array)$pedidos[0]);
-        
+
 
 
 
@@ -58,18 +58,16 @@ class PedidoController extends Controller
     }
 
 
-    
-
      /**
      * @Route("/tramitarPedido", name="tramitarPedido", methods={"GET"})
      */
-    public function tramitarPedidoAction(Request $request, SessionInterface $session)
+    public function tramitarPedidosAction(Request $request, SessionInterface $session)
     {
         $message = null;
         $tipoMessage = null;
         $em = $this->getDoctrine()->getManager();
 
-        
+
         $cestaRep = $em->getRepository("AppBundle\\Entity\\Cesta");
 
 
@@ -78,9 +76,9 @@ class PedidoController extends Controller
         $cesta=null;
         if( !is_null($miCesta) ){
             $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);
-            
+
         }
-        
+
 
         return $this->render('cesta_compra/tramitarPedido.html.twig', [  'msg'=> $message,
                                                                         'tipoMessage'=> $tipoMessage,
@@ -100,7 +98,7 @@ class PedidoController extends Controller
 
         if(isset($_POST['submitTram'])){
             switch($_POST['submitTram']){
-                
+
                 case 'Si':
                     $pedido = new Pedido();
                     $pedido->setCesta($cesta);
@@ -117,7 +115,7 @@ class PedidoController extends Controller
             }
         }
 
-        
+
     }
 
 

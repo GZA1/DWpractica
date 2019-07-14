@@ -38147,8 +38147,7 @@ VALUES ('EMP:000000005022630e0000000012d81fbf', 'img/guitarist-407212_1920.jpg',
 
 insert into cliente (id, domicilio, Ubicacion_idUbicacion, Usuario_idUsuario) 
 values ('CLI:000000004029530e0000000014d11trs', 'Calle Mayor 15', 16238, 2); #cli1 es de Cuéllar
-insert into cesta (costeTotal, Cliente_id) values (0, 'CLI:000000004029530e0000000014d11trs');
-insert into pedido (estado, Cesta_id) values ('procesando', 1);
+
 
 
 
