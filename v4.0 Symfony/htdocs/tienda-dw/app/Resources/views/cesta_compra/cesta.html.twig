@@ -98,14 +98,23 @@
             <div id="precio">Precio</div>
             <div id="cantidad">Cantidad</div>
         </div>
-            {% set units = app.session.get('cesta').unidades %}
+
+            {% set prods = '' %}
+            {% for unidad in cesta.unidades %}
+                {% if prods is empty %}
+                    {% set prods = unidad.producto %}                    
+                {% else %}
+                    {% set prods = prods|merge([unidad.producto]) %}
+                {% endif %}
+
+            {% endfor %}
             
-            {% for unidad in units %}
+            {% for unidad in cesta.unidades %}
                 {% set prod = unidad.producto %}
                 {% set cat = unidad.producto.categoria %}
                 {% set nombre = '' %}
 
-                <div class="producto-container flex_rows borde-abajo" name="Seagate-ExpansionSTEA4000400-4TB">
+                <div class="producto-container flex_rows borde-abajo" name="{{unidad.producto.nombre}}">
                     <div class="flex_rows separador-horizontal">
                         <div class="producto-img">
                             <a href="{{path('producto', {'producto': prod.id})}}"><img height="100%" src="{{asset(prod.photo)}}"></a>
@@ -165,7 +174,7 @@
             <div class="flex_rows"> <div class="separador-horizontal-80"></div>
             <div id="subtotal">
                 Subtotal:
-                <input class="sombreado" id="subtotal-resultado" readonly type="text" value="{{app.session.get('cesta').costeTotal}}">
+                <input class="sombreado" id="subtotal-resultado" readonly type="text" value="{{cesta.costeTotal}}">
             </div>
         </div>
         <br>
@@ -181,7 +190,7 @@
 
         {% else %}
 
-        <div id="cesta-vacia">Cesta vacía :(</div>
+        <div id="cesta-vacia">Cesta vacía </div>
 
         {% endif %}
 

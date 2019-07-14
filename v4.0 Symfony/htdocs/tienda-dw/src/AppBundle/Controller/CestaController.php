@@ -45,9 +45,10 @@ class CestaController extends Controller
         // $session->set('cesta', null);
 
         $miCesta = $session->get('cesta');
+        $cesta=null;
         if( !is_null($miCesta) ){
             $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);
-            $session->set('cesta', $cesta);
+            
         }
 
         
@@ -103,7 +104,8 @@ class CestaController extends Controller
 
 
         return $this->render('cesta_compra/cesta.html.twig', [  'msg'=> $message,
-                                                            'tipoMessage'=> $tipoMessage]
+                                                            'tipoMessage'=> $tipoMessage,
+                                                            'cesta'=>$cesta]
                                                         );
 
 
