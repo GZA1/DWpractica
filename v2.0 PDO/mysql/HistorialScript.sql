@@ -11,7 +11,7 @@ select * from unidad;
 describe Cesta;
 describe Pedido;
 describe Cliente;
-delete from usuario where idUsuario=8;
+delete from cesta where id=2;
 
 use BD_Tienda;
 

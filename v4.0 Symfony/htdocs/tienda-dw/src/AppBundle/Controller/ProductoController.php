@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 use AppBundle\Entity\Producto;
+use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Unidad;
 use AppBundle\Entity\Categoria;
 use AppBundle\Entity\Tienda;
@@ -222,28 +223,57 @@ class ProductoController extends Controller
             $productoRep = $em->getRepository("AppBundle\\Entity\\Producto");
             $unidadRep = $em->getRepository("AppBundle\\Entity\\Unidad");
             $tiendaRep = $em->getRepository("AppBundle\\Entity\\Tienda");
+            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+            $usuarioRep = $em->getRepository("AppBundle\\Entity\\Usuario");
+            
+            
             $unidades = $unidadRep->findUnidades($tienda, $producto, $cantidad);
-
-            console_log($unidades);
-
             if( ! $unidades ){
                 return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>0, 'producto'=> $producto]);
             }
-
-            $cesta = $session->get('cesta');
-
-            if( is_null($cesta) ){
-                $cesta = new Cesta();
-                $cesta->setCliente($cli);
-                $cesta->setId($cestaRep->generateId($cesta));
+            
+            
+            if( $session->get('user') != null ){
+                $cliente = $session->get('user');
+            }else{
+                return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>0, 'producto'=> $producto]);
             }
+
+            if($session->get('cesta') == null){
+                
+                $cesta = $cestaRep->nuevaCesta($unidades, $cliente);
+                $session->set('cesta', $cesta);
+
+
+
+
+            }else{
+                $cesta = $cestaRep->findOneBy(['id'=>$session->get('cesta')->getId()]);
+                $units = añadirACesta($unidades, $cesta);
+                
+                $cesta = $cesta->addCosteTotal($precio * $cantidad);
+                $em->merge($cesta);
+                $em->flush();
+                $session->set('cesta', $cesta);
+            }
+
+
             
-            $cesta = $cestaRep->addUnidades($cesta, $unidades, $precio, $enviar);
-            $em->flush();
+
+            // $cesta = $session->get('cesta');
+
+            // if( is_null($cesta) ){
+            //     $cesta = new Cesta();
+            //     $cesta->setCliente($cli);
+            //     $cesta->setId($cestaRep->generateId($cesta));
+            // }
+            
+            // $cesta = $cestaRep->addUnidades($cesta, $unidades, $precio, $enviar);
             
             
-            $session->set('cesta', $cesta);
-            console_log((array)$cesta);
+            
+            // $session->set('cesta', $cesta);
+            // console_log((array)$cesta);
             
             return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>1, 'producto'=> $producto]);
 

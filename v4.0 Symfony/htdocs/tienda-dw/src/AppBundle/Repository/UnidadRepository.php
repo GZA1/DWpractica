@@ -36,6 +36,19 @@ class UnidadRepository extends EntityRepository
             return false;
         }
     }
+
+
+    public function añadirACesta($unidades, $cesta){
+        $array = array();
+        foreach($unidades as $unit){
+            $unit = $unit->setCesta($cesta);
+            $unit = $unit->setEnviar($enviar);
+            $em->merge($unit);
+            $em->flush();
+            array_push($array, $unit);            
+        }
+        return $array;
+    }
     
 }
 

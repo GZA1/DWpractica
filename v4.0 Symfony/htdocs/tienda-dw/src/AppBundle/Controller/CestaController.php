@@ -44,9 +44,17 @@ class CestaController extends Controller
 
         // $session->set('cesta', null);
 
-        $cesta = $session->get('cesta');
 
+
+        
+        // $cesta = $session->get('cesta');
+        // $miCesta = $session->get('cesta');
+        // if( !is_null($miCesta) ){
+        //     $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);
+        //     $session->set('cesta', $cesta);
+        // }
         // $arrayProductos = null;
+        
 
         // if($miCesta != null){
         //     foreach($miCesta->getUnidades() as $unit){
@@ -105,7 +113,7 @@ class CestaController extends Controller
         $em = $this->getDoctrine()->getManager();        
 
         $cestaRepo = $em->getRepository("AppBundle\\Entity\\Cesta");
-        $cestaRepo->cancelarCesta($session->get('cesta'));
+        $cesta = $cestaRepo->cancelarCesta($session->get('cesta'));
         $session->set('cesta', null);
 
         
