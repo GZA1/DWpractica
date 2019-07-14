@@ -13,16 +13,16 @@ class CestaRepository extends EntityRepository
 {
     
 
-    public function nuevaCesta($unidades, $cliente){
-        $cesta = new Cesta();
-        $cesta = $cesta->setCliente($cliente);
-                       
-        $cesta = $cesta->setUnidades($unidades);
-        $cesta = $cesta->setCosteTotal(sizeOf($unidades)*$unidades[0]->getProducto()->getPrecio());
-        $this->_em->merge($cesta);
-        $this->_em->flush();
-        return $cesta;
+    public function nuevaCesta($cesta){
+        
+        if(isset($cesta)){
+            $this->_em->persist($cesta);
+            $this->_em->flush();
+            return true;
+        }
+        return false;
     }
+
 
     public function addUnidades($cesta, $unidades, $precio, $enviar){
         // $udsCesta = $cesta->getUnidades();
@@ -77,6 +77,25 @@ class CestaRepository extends EntityRepository
         }
 
     public function cancelarCesta($cesta){
+        if(isset($cesta)){
+
+            if($cesta->getUnidades() != null){
+                
+                foreach($cesta->getUnidades() as $unit){
+                    $unit = $unit->setCesta(null);
+                    $unit = $unit->setEnviar(null);
+                    $this->_em->merge($unit);
+                    $this->_em->flush();  
+                }
+            }
+            $qb = $this->_em->createQueryBuilder();
+            $qb ->delete('AppBundle\\Entity\\Cesta', 'c')
+                ->where('c.id = :cesta')
+                ->setParameter('cesta', $cesta->getId());
+            $qb->getQuery()->getResult();
+            return true;
+        }
+        return false;
         // $udsCesta = $cesta->getUnidades();
         // $lenCesta = sizeof($udsCesta);
 

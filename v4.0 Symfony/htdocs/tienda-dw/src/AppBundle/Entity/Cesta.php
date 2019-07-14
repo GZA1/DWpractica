@@ -68,6 +68,9 @@ class Cesta
      */
     public function getCosteTotal()
     {
+        foreach($this->getUnidades() as $unit){
+            $this->costeTotal += $unit->getProducto()->getPrecio();
+        }
         return $this->costeTotal;
     }
 

@@ -44,7 +44,11 @@ class CestaController extends Controller
 
         // $session->set('cesta', null);
 
-
+        $miCesta = $session->get('cesta');
+        if( !is_null($miCesta) ){
+            $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);
+            $session->set('cesta', $cesta);
+        }
 
         
         // $cesta = $session->get('cesta');
@@ -77,7 +81,7 @@ class CestaController extends Controller
         //     }
         // }
 
-
+        
         if(!is_null($session->get('cesta'))){
 
             
@@ -87,10 +91,10 @@ class CestaController extends Controller
             console_log((array)$session->get('cesta')->getUnidades());
             console_log('Unidad 1 de la cesta');
             console_log((array)$session->get('cesta')->getUnidades()[0]);
-            console_log('Producto de la unidad 1 de la cesta');
-            console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto());
-            console_log('Categoría del producto de la unidad 1 de la cesta');
-            console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto()->getCategoria());
+            // console_log('Producto de la unidad 1 de la cesta');
+            // console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto());
+            // console_log('Categoría del producto de la unidad 1 de la cesta');
+            // console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto()->getCategoria());
             
         }
 
@@ -111,10 +115,13 @@ class CestaController extends Controller
     public function cancelarCesta(Request $request, SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();        
-
         $cestaRepo = $em->getRepository("AppBundle\\Entity\\Cesta");
-        $cesta = $cestaRepo->cancelarCesta($session->get('cesta'));
-        $session->set('cesta', null);
+        $actualCesta = $cestaRepo->findOneBy(['id'=> $session->get('cesta')->getId()]); 
+        if($cestaRepo->cancelarCesta($actualCesta)){
+            $session->set('cesta', null);
+        }else{
+            //error
+        }
 
         
 

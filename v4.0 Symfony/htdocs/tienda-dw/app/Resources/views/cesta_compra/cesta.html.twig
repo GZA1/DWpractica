@@ -98,8 +98,9 @@
             <div id="precio">Precio</div>
             <div id="cantidad">Cantidad</div>
         </div>
-
-            {% for unidad in app.session.get('cesta').unidades %}
+            {% set units = app.session.get('cesta').unidades %}
+            
+            {% for unidad in units %}
                 {% set prod = unidad.producto %}
                 {% set cat = unidad.producto.categoria %}
                 {% set nombre = '' %}

@@ -38,16 +38,18 @@ class UnidadRepository extends EntityRepository
     }
 
 
-    public function añadirACesta($unidades, $cesta){
-        $array = array();
-        foreach($unidades as $unit){
-            $unit = $unit->setCesta($cesta);
-            $unit = $unit->setEnviar($enviar);
-            $em->merge($unit);
-            $em->flush();
-            array_push($array, $unit);            
+    public function añadirACesta($unidades, $cesta, $enviar){  
+        if(isset($unidades) && isset($cesta) && isset($enviar)){
+
+            foreach($unidades as $unit){
+                $unit = $unit->setCesta($cesta);
+                $unit = $unit->setEnviar($enviar);
+                $this->_em->persist($unit);
+                $this->_em->flush();                      
+            }        
+            return true;
         }
-        return $array;
+        return false;
     }
     
 }

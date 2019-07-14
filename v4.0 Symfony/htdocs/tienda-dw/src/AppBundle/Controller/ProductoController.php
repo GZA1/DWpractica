@@ -226,6 +226,8 @@ class ProductoController extends Controller
             $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
             $usuarioRep = $em->getRepository("AppBundle\\Entity\\Usuario");
             
+            $unidadRep = $em->getRepository("AppBundle\\Entity\\Unidad");
+            
             
             $unidades = $unidadRep->findUnidades($tienda, $producto, $cantidad);
             if( ! $unidades ){
@@ -241,20 +243,24 @@ class ProductoController extends Controller
 
             if($session->get('cesta') == null){
                 
-                $cesta = $cestaRep->nuevaCesta($unidades, $cliente);
-                $session->set('cesta', $cesta);
-
-
-
+                $cli = $clienteRep->findOneBy(['id'=> $session->get('user')->getId()]);
+                $cesta = new Cesta();
+                $cesta = $cesta->setCliente($cli);
+                                 
+                if($cestaRep->nuevaCesta($cesta)){                    
+                    $unidadRep->añadirACesta($unidades, $cesta, $enviar);
+                }else{
+                    //error
+                    return $this->redirectToRoute('homepage');
+                }
+                $actualCesta = $cestaRep->findOneBy(['id'=>$cesta->getId()]);
+                $session->set('cesta', $actualCesta);
 
             }else{
                 $cesta = $cestaRep->findOneBy(['id'=>$session->get('cesta')->getId()]);
-                $units = añadirACesta($unidades, $cesta);
-                
-                $cesta = $cesta->addCosteTotal($precio * $cantidad);
-                $em->merge($cesta);
-                $em->flush();
+                $unidadRep->añadirACesta($unidades, $cesta, $enviar);
                 $session->set('cesta', $cesta);
+                $session->set('unidades', $unidades);
             }
 
 
