@@ -15,7 +15,7 @@ delete from cesta where id=2;
 
 use BD_Tienda;
 
--- drop database bd_tienda;
+drop database bd_tienda;
 
 /*INSERTS CLIENTES*/
 

@@ -29,6 +29,10 @@ use Doctrine\ORM\Mapping as ORM;
     */
     private $cesta;
 
+    public function __construct(){
+        $this->fechaCreacion = new \DateTime();
+    }
+
     /**
      * Get the value of id
      */

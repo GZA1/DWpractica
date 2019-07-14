@@ -98,65 +98,6 @@ class CestaController extends Controller
     }
 
 
-     /**
-     * @Route("/tramitarPedido", name="tramitarPedido", methods={"GET"})
-     */
-    public function historialPedidosAction(Request $request, SessionInterface $session)
-    {
-        $message = null;
-        $tipoMessage = null;
-        $em = $this->getDoctrine()->getManager();
-
-        
-        $cestaRep = $em->getRepository("AppBundle\\Entity\\Cesta");
-
-
-
-        $miCesta = $session->get('cesta');
-        $cesta=null;
-        if( !is_null($miCesta) ){
-            $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);
-            
-        }
-        
-
-        return $this->render('cesta_compra/tramitarPedido.html.twig', [  'msg'=> $message,
-                                                                        'tipoMessage'=> $tipoMessage,
-                                                                        'cesta'=>$cesta]
-                                                                    );
-    }
-
-     /**
-     * @Route("/tramitarPedido", name="tramitarPedido_post", methods={"POST"})
-     */
-    public function historialPedidosPostAction(Request $request, SessionInterface $session)
-    {
-        $cestaRep = $em->getRepository("AppBundle\\Entity\\Cesta");
-        $pedidoRep = $em->getRepository("AppBundle\\Entity\\Pedido");
-        $cesta = $cestaRep->findOneBy(['id'=>$session->get('cesta')->getId()]);
-
-        if(isset($_POST['submitTram'])){
-            switch($_POST['submitTram']){
-                
-                case 'Si':
-                    $pedido = new Pedido();
-                    $pedido->setCesta($cesta);
-                    $pedidoRep->tramitarPedido($pedido);
-                    $session->set('cesta', null);
-                    return $this->redirectToRoute('homepage', ['tramP'=>1]);
-                    break;
-                case 'No':
-                    return $this->redirectToRoute('homepage', ['tramP'=>0]);
-                    break;
-                default:
-                return $this->redirectToRoute('homepage', ['tramP'=>0]);
-                    break;
-            }
-        }
-
-        
-    }
-
 
 
 }
