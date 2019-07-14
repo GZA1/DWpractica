@@ -13,16 +13,22 @@ use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Empleado;
 
+require_once('/xampp/appdata/model/console.php');
+
+
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="homepage", methods={"GET"})
      */
     public function indexAction(Request $request, SessionInterface $session)
     {
         $message = null;
         $tipoMessage = null;
+        console_log((array)$session->get('user'));
+
+        
 
         if( $request->query->has('usrlog') && $request->query->get('usrlog')==1 ) {   // $_GET['error']
             $message = "Logueado con éxito";
@@ -49,15 +55,11 @@ class DefaultController extends Controller
         ]);
     }
 
-
-
     /**
      * @Route("/", name="homepage_post", methods={"POST"})
      */
     public function indexPostAction(Request $request, SessionInterface $session)
     {
-        
-
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
             $em = $this->getDoctrine()->getManager();
             $cli = $session->get('user');
@@ -69,8 +71,8 @@ class DefaultController extends Controller
                 return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
             }
         }
-
     }
+
 
     /**
      * @Route("/privacyPolicy", name="privacyPolicy", methods={"GET"})
@@ -93,7 +95,7 @@ class DefaultController extends Controller
     /**
      * @Route("/privacyPolicy", name="privacyPolicy_post", methods={"POST"})
      */    
-    public function privacyPolicyPostAction(Request $request){
+    public function privacyPolicyPostAction(Request $request, SessionInterface $session){
 
         if( $session->get('user') != null && isset($_POST['saldo-add']) ){
             $em = $this->getDoctrine()->getManager();
@@ -109,7 +111,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/encuentranos", name="encuentranos")
+     * @Route("/encuentranos", name="encuentranos", methods={"GET"})
      */
     public function encuentranosAction(Request $request, SessionInterface $session)
     {

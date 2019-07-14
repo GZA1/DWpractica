@@ -9,6 +9,8 @@ select * from categoria;
 select * from producto;
 select * from unidad;
 describe Cesta;
+describe Pedido;
+describe Cliente;
 delete from usuario where idUsuario=8;
 
 use BD_Tienda;

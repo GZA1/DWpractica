@@ -43,6 +43,7 @@ class CestaController extends Controller
         $stock = $unidadRepo->findAll();
 
         // $session->set('cesta', null);
+
         $miCesta = $session->get('cesta');
         if( !is_null($miCesta) ){
             $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);

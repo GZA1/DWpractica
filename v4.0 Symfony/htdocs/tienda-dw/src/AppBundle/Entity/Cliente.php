@@ -23,7 +23,7 @@ class Cliente
      */
     private $domicilio;
     /**
-     * @ORM\Column(name="saldo",length=20, nullable=false)
+     * @ORM\Column(name="saldo",type="float",  nullable=false)
      */
     private $saldo;
 
@@ -38,12 +38,13 @@ class Cliente
     private $ubicacion;
     /**
      * Una cesta tiene un cliente
-     * @ORM\OneToOne(targetEntity="Cesta", mappedBy="cliente")
+     * @ORM\OneToMany(targetEntity="Cesta", mappedBy="cliente")
+     * @ORM\JoinColumn(name="Cesta_id", referencedColumnName="id") 
      */
     private $cesta;
     /**
      * Un cliente tiene un usuario asociado
-     * @ORM\OneToOne(targetEntity="Usuario")
+    * @ORM\OneToOne(targetEntity="Usuario", mappedBy="cliente")
      * @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      */
     private $usuario;
@@ -54,6 +55,7 @@ class Cliente
 
 
     public function __construct(){
+        $this->cesta = new \Doctrine\Common\Collections\ArrayCollection();
         $this->generateId();
         $this->saldo = 0;
     }
@@ -105,7 +107,7 @@ class Cliente
      */
     public function getSaldo()
     {
-        return number_format(floatval($this->saldo),2);
+        return $this->saldo;
     }
 
     /**
@@ -168,6 +170,18 @@ class Cliente
     public function setCesta($cesta)
     {
         $this->cesta = $cesta;
+
+        return $this;
+    }
+
+    /**
+     * Add una cesta tiene un cliente
+     *
+     * @return  self
+     */
+    public function addCesta($cesta)
+    {
+        $this->cesta[sizeof((array)$this->cesta)] = $cesta;
 
         return $this;
     }

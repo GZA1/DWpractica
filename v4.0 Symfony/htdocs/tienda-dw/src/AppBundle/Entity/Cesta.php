@@ -21,7 +21,7 @@ class Cesta
 
     /**
     * Un cliente tiene una cesta
-    * @ORM\OneToOne(targetEntity="Cliente", inversedBy="cesta")
+    * @ORM\ManyToOne(targetEntity="Cliente", inversedBy="cesta")
     * @ORM\JoinColumn(name="Cliente_id", referencedColumnName="id")
     */
     private $cliente;

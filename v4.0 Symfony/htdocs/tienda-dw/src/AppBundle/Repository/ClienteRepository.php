@@ -10,7 +10,7 @@ class ClienteRepository extends EntityRepository
 {
 
     public function findByUser($usuario){
-        return $this->findOneBy(array("usuario" => $usuario));
+        return $this->findOneBy(["usuario" => $usuario]);
     }
 
     public function updatePerfilCliente($u, $username, $nombre, $apellidos, $domicilio){

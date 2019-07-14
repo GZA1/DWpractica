@@ -233,18 +233,14 @@ class ProductoController extends Controller
             $cesta = $session->get('cesta');
 
             if( is_null($cesta) ){
-                $cesta = $cestaRep->findOneBy(['cliente' => $cli]);
-                if( is_null($cesta) ){
-                    $cesta = new Cesta();
-                    $em->persist($cesta);
-                    $em->flush();
-                }
+                $cesta = new Cesta();
+                $cesta->setCliente($cli);
+                $cesta->setId($cestaRep->generateId($cesta));
+                $em->flush();
             }
             
             $cesta = $cestaRep->addUnidades($cesta, $unidades, $precio, $enviar);
             
-            $cesta->setCliente($cli);
-            $cli->setCesta($cesta);
             
             $session->set('cesta', $cesta);
             console_log((array)$cesta);

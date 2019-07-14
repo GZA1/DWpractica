@@ -15,53 +15,59 @@ class CestaRepository extends EntityRepository
         $udsCesta = $cesta->getUnidades();
         $lenCesta = sizeof($udsCesta);
         $lenUds = sizeof($unidades);
-        for($i=0; $i<$lenUds; $i++){
-            $udsCesta[$i+$lenCesta] = $unidades[$i];
-        }
-        $cesta->setUnidades($udsCesta);
-        console_log((array)$cesta->getUnidades());
+        if(!is_null($cesta)){
 
-        $precioTotal = $precio * $lenUds;
-        $cesta = $cesta->addCosteTotal($precioTotal);
-        
-        
-        $qb = $this->_em->createQueryBuilder();
+            for($i=0; $i<$lenUds; $i++){
+                $udsCesta[$i+$lenCesta] = $unidades[$i];
+            }
+            $cesta->setUnidades($udsCesta);
+            console_log((array)$cesta->getUnidades());
+
+            $precioTotal = $precio * $lenUds;
+            $cesta = $cesta->addCosteTotal($precioTotal);
+            
+            
+            $qb = $this->_em->createQueryBuilder();
             $qb ->update('AppBundle\\Entity\\Cesta', 'c')
             ->set('c.costeTotal', ':cos')
             ->where('c.id = :cestaId')
             ->setParameter('cos', $cesta->getCosteTotal())
             ->setParameter('cestaId', $cesta->getId());
             $res = $qb->getQuery()->getResult();
+            
+            console_log('Cesta');
+            console_log((array)$cesta);
 
+            
+            
+            foreach($unidades as $u){
+                $qb = $this->_em->createQueryBuilder();
+                $qb ->update('AppBundle\\Entity\\Unidad', 'u')
+                ->set('u.cesta', ':c')
+                ->set('u.enviar', ':enviar')
+                ->where('u.id = :unidad')
+                ->setParameter('c', $cesta)
+                ->setParameter('enviar', $enviar)
+                ->setParameter('unidad', $u);
+                $res = $qb->getQuery()->getResult();
+            }
+            
+            $u->setEnviar($enviar);
+            
+            console_log((array)$cesta->getUnidades());
+            console_log($cesta->getCosteTotal());
 
-
-        foreach($unidades as $u){
-            $qb = $this->_em->createQueryBuilder();
-            $qb ->update('AppBundle\\Entity\\Unidad', 'u')
-            ->set('u.cesta', ':c')
-            ->set('u.enviar', ':enviar')
-            ->where('u.id = :unidad')
-            ->setParameter('c', $cesta)
-            ->setParameter('enviar', $enviar)
-            ->setParameter('unidad', $u);
-            $res = $qb->getQuery()->getResult();
         }
-        
-        $u->setEnviar($enviar);
 
-        console_log((array)$cesta->getUnidades());
-        console_log($cesta->getCosteTotal());
-
-
-        return $cesta;
-    }
+            return $cesta;
+        }
 
     public function cancelarCesta($cesta){
         $udsCesta = $cesta->getUnidades();
         $lenCesta = sizeof($udsCesta);
 
+        $qb = $this->_em->createQueryBuilder();
         foreach($udsCesta as $u){
-            $qb = $this->_em->createQueryBuilder();
             $qb ->update('AppBundle\\Entity\\Unidad', 'u')
             ->set('u.cesta', ':c')
             ->set('u.enviar', ':e')
@@ -71,9 +77,44 @@ class CestaRepository extends EntityRepository
             ->setParameter('unidad', $u);
             $res = $qb->getQuery()->getResult();
         }
+        $qb ->delete('AppBundle\\Entity\\Cesta', 'c')
+            ->where('c.cesta = :cesta')
+            ->setParameter('cesta', null);
+            $res = $qb->getQuery()->getResult();
         return $cesta;
     }
 
+    public function addCesta($newCesta, $cliente){
+        $cliente->addCesta($newCesta);
+        $qb = $this->_em->createQueryBuilder();
+        $qb ->update('AppBundle\\Entity\\Cesta', 'c')
+        ->set('c.cliente', ':cliente')
+        ->where('c.id = :cesta')
+        ->setParameter('cliente', $cliente)
+        ->setParameter('cesta', $newCesta);
+        $res = $qb->getQuery()->getResult();
+        return $res;
+    }
+
+    public function generateId($cesta){
+        
+        $count = $this->_em->createQueryBuilder()  
+                ->select('c.id')
+                ->from('AppBundle\\Entity\\Cesta', 'c')
+                ->getQuery()
+                ->getScalarResult();
+        console_log($count);
+        if($count>0){
+            $maxid = $this->_em->createQueryBuilder('c')
+                        ->select('MAX(c.id) as cestaId')
+                        ->getQuery()
+                        ->getSingleScalarResult();
+            return $maxid + 1;
+        }else{
+            return 1;
+        }
+    
+    }
 }
 
 ?>
