@@ -30,27 +30,27 @@ class DefaultController extends Controller
 
         
 
-        if( $request->query->has('usrlog') && $request->query->get('usrlog')==1 ) {   // $_GET['error']
+        if( $request->query->has('usrlog') && $request->query->get('usrlog')==1 ) {   
             $message = "Logueado con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('usrlog') && $request->query->get('usrlog')==0 ) {   // $_GET['error']
+        if( $request->query->has('usrlog') && $request->query->get('usrlog')==0 ) {   
             $message = "Sesión cerrada";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {  
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
-        if( $request->query->has('tramP') && $request->query->get('tramP')==1 ) {   // $_GET['error']
+        if( $request->query->has('tramP') && $request->query->get('tramP')==1 ) {   
             $message = "Pedido tramitado con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('tramP') && $request->query->get('tramP')==0 ) {   // $_GET['error']
+        if( $request->query->has('tramP') && $request->query->get('tramP')==0 ) {   
             $message = "Tramitacion cancelada";
             $tipoMessage = 0;
         }
@@ -87,11 +87,11 @@ class DefaultController extends Controller
      */    
     public function privacyPolicyAction(Request $request){
 
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
@@ -126,19 +126,19 @@ class DefaultController extends Controller
         $message = null;
         $tipoMessage = null;
 
-        if( $request->query->has('usrlog') && $request->query->get('usrlog')==1 ) {   // $_GET['error']
+        if( $request->query->has('usrlog') && $request->query->get('usrlog')==1 ) {   
             $message = "Logueado con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('usrlog') && $request->query->get('usrlog')==0 ) {   // $_GET['error']
+        if( $request->query->has('usrlog') && $request->query->get('usrlog')==0 ) {   
             $message = "Sesión cerrada";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
@@ -174,19 +174,19 @@ class DefaultController extends Controller
      */    
     public function serviciosAction(Request $request){
 
-        if( $request->query->has('usrlog') && $request->query->get('usrlog')==1 ) {   // $_GET['error']
+        if( $request->query->has('usrlog') && $request->query->get('usrlog')==1 ) {   
             $message = "Logueado con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('usrlog') && $request->query->get('usrlog')==0 ) {   // $_GET['error']
+        if( $request->query->has('usrlog') && $request->query->get('usrlog')==0 ) {   
             $message = "Sesión cerrada";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
