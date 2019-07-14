@@ -14,6 +14,7 @@ use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Unidad;
 use AppBundle\Entity\Cesta;
 use AppBundle\Entity\Producto;
+use AppBundle\Entity\Pedido;
 
 
 class CestaController extends Controller
@@ -51,57 +52,23 @@ class CestaController extends Controller
             
         }
 
-        
-        // $cesta = $session->get('cesta');
-        // $miCesta = $session->get('cesta');
-        // if( !is_null($miCesta) ){
-        //     $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);
-        //     $session->set('cesta', $cesta);
-        // }
-        // $arrayProductos = null;
-        
-
-        // if($miCesta != null){
-        //     foreach($miCesta->getUnidades() as $unit){
-        //         if($arrayProductos == null){
-        //             $arrayProductos = array($unit);
-        //         }else{
-        //             if(!in_array($unit , $unit->getProducto())){
-        //                 array_push($arrayProductos, $unit);
-        //             }
-        //         }
-        //     }
-        // }
-
-        // $prod = array();
-
-        // foreach($cesta->getUnidades() as $u){
-        //     $prod[sizeof($prod)] = $u->getProducto();
-        //     for($i=0;$i<sizeof($prod);$i++){
-        //         $prod[$i] = $u->getProducto();
-        //     }
-        // }
 
         
         if(!is_null($session->get('cesta'))){
 
             
-            console_log('Cesta');
-            console_log((array)$session->get('cesta'));
-            console_log('Unidades de la cesta');
-            console_log((array)$session->get('cesta')->getUnidades());
-            console_log('Unidad 1 de la cesta');
-            console_log((array)$session->get('cesta')->getUnidades()[0]);
+            // console_log('Cesta');
+            // console_log((array)$session->get('cesta'));
+            // console_log('Unidades de la cesta');
+            // console_log((array)$session->get('cesta')->getUnidades());
+            // console_log('Unidad 1 de la cesta');
+            // console_log((array)$session->get('cesta')->getUnidades()[0]);
             // console_log('Producto de la unidad 1 de la cesta');
             // console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto());
             // console_log('Categoría del producto de la unidad 1 de la cesta');
             // console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto()->getCategoria());
             
         }
-
-
-
-
 
         return $this->render('cesta_compra/cesta.html.twig', [  'msg'=> $message,
                                                             'tipoMessage'=> $tipoMessage,
@@ -114,7 +81,7 @@ class CestaController extends Controller
      /**
      * @Route("/cancelarCesta", name="cancelarCesta", methods={"GET"})
      */
-    public function cancelarCesta(Request $request, SessionInterface $session)
+    public function cancelarCestaAction(Request $request, SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();        
         $cestaRepo = $em->getRepository("AppBundle\\Entity\\Cesta");
@@ -128,6 +95,66 @@ class CestaController extends Controller
         
 
         return $this->redirectToRoute('cesta');
+    }
+
+
+     /**
+     * @Route("/tramitarPedido", name="tramitarPedido", methods={"GET"})
+     */
+    public function historialPedidosAction(Request $request, SessionInterface $session)
+    {
+        $message = null;
+        $tipoMessage = null;
+        $em = $this->getDoctrine()->getManager();
+
+        
+        $cestaRep = $em->getRepository("AppBundle\\Entity\\Cesta");
+
+
+
+        $miCesta = $session->get('cesta');
+        $cesta=null;
+        if( !is_null($miCesta) ){
+            $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);
+            
+        }
+        
+
+        return $this->render('cesta_compra/tramitarPedido.html.twig', [  'msg'=> $message,
+                                                                        'tipoMessage'=> $tipoMessage,
+                                                                        'cesta'=>$cesta]
+                                                                    );
+    }
+
+     /**
+     * @Route("/tramitarPedido", name="tramitarPedido_post", methods={"POST"})
+     */
+    public function historialPedidosPostAction(Request $request, SessionInterface $session)
+    {
+        $cestaRep = $em->getRepository("AppBundle\\Entity\\Cesta");
+        $pedidoRep = $em->getRepository("AppBundle\\Entity\\Pedido");
+        $cesta = $cestaRep->findOneBy(['id'=>$session->get('cesta')->getId()]);
+
+        if(isset($_POST['submitTram'])){
+            switch($_POST['submitTram']){
+                
+                case 'Si':
+                    $pedido = new Pedido();
+                    $pedido->setCesta($cesta);
+                    $pedidoRep->tramitarPedido($pedido);
+                    $session->set('cesta', null);
+                    return $this->redirectToRoute('homepage', ['tramP'=>1]);
+                    break;
+                case 'No':
+                    return $this->redirectToRoute('homepage', ['tramP'=>0]);
+                    break;
+                default:
+                return $this->redirectToRoute('homepage', ['tramP'=>0]);
+                    break;
+            }
+        }
+
+        
     }
 
 

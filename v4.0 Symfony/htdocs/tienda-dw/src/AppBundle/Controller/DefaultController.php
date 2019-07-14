@@ -46,6 +46,14 @@ class DefaultController extends Controller
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
+        if( $request->query->has('tramP') && $request->query->get('tramP')==1 ) {   // $_GET['error']
+            $message = "Pedido tramitado con éxito";
+            $tipoMessage = 1;
+        }
+        if( $request->query->has('tramP') && $request->query->get('tramP')==1 ) {   // $_GET['error']
+            $message = "Tramitacion cancelada";
+            $tipoMessage = 0;
+        }
 
 
         return $this->render('main/index.html.twig', [

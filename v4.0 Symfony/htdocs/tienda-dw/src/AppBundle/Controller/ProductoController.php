@@ -259,8 +259,7 @@ class ProductoController extends Controller
             }else{
                 $cesta = $cestaRep->findOneBy(['id'=>$session->get('cesta')->getId()]);
                 $unidadRep->añadirACesta($unidades, $cesta, $enviar);
-                $session->set('cesta', $cesta);
-                $session->set('unidades', $unidades);
+                $session->set('cesta', $cesta);                
             }
 
 

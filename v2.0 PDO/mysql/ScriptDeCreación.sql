@@ -218,7 +218,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BD_Tienda`.`Pedido` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `estado` VARCHAR(45) NOT NULL,
+  `estado` TINYINT(1) NOT NULL DEFAULT 0,
   `fechaCreacion` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Cesta_id` INT NOT NULL,
   PRIMARY KEY (`id`),

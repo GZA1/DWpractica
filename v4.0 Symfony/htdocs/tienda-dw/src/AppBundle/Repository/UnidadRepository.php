@@ -14,7 +14,8 @@ class UnidadRepository extends EntityRepository
 
         $uds = $this->findBy([  'tienda'     => $tienda,
                                 'producto'   => $producto,
-                                'vendido'    => 0
+                                'vendido'    => 0,
+                                'cesta'      =>null
                                 ]);
 
         console_log($uds);

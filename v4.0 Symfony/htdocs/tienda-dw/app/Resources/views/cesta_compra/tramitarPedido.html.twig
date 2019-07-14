@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+{% block title %} Cesta de Compra {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/style-pedidos.css')}}">
+{% endblock %}
+{% block javascripts %}
+
+
+{% endblock %}
+
+{% block body %}
+    {% if msg is defined and msg != null %}
+        {% if tipoMessage == 1 %}
+            <div id="notificacion" style="width: 100%; height: 20px; color: #2fbf2f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>
+
+        {% endif %}
+
+        {% if tipoMessage == 0 %}
+            <div id="notificacion" style="width: 100%; height: 20px; color: #ff7f7f; background-color: #1e1e15;padding: 10px;">{{msg}}</div>
+        {% endif %}
+    {% endif %}
+
+    
+
+
+
+    <div class="flex_cols" id="contenedor-inic">
+        <div style="height: 10vh; min-height: 100px; visibility: hidden"></div>
+        <div id="logo-inic">
+            <a href="{{path('homepage')}}">
+                <img src="{{asset('img/logo_horizontal.png')}}" width="100%">
+            </a>
+        </div>
+        <div style="height: 10vh; min-height: 50px; visibility: hidden"></div>
+        <div id="mainContainer">
+
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Enviar a domicilio</th>
+                    <th>Precio</th>
+                </tr>
+                {% for unidad in cesta.unidades %}
+                    {% set prod = unidad.producto %}
+                    {% set cat = unidad.producto.categoria %}
+                    {% set nombre = '' %}
+
+                    <tr>
+                        <td> {{unidad.producto.photo}} </td>
+                        <td> {{unidad.producto.nombre}} </td>
+                        <td> {{unidad.producto.marca}} </td>
+                        <td> {{unidad.producto.modelo}} </td>                     
+
+                        {% if unidad.enviar == 1 %}
+                            <td> Sí ~ +0.05% </td>
+                        {% else %}
+                            <td> No </td>                            
+                        {% endif %}
+
+                        {% if unidad.enviar == 1 %}
+                            <td> {{ unidad.producto.precio * 1/20 }} </td>
+                        {% else %}
+                            <td> {{ unidad.producto.precio }} </td>
+                        {% endif %}
+                    </tr>
+
+                {% endfor %}
+                    <tr>
+                        <td colspan="5" > </td>                        
+                        <td>{{cesta.costeTotal}}</td>
+                    </tr>
+            <table>
+
+            <div> ¿Tramitar pedido? </div>
+            <input type="submit" name="submitTram" style="background-color: #3399ff;" value="Si">
+            <input type="submit" name="submitTram" style="background-color: red;" value="No">
+        </div>
+        <div style="height: 10vh; min-height: 50px; visibility: hidden"></div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block footer %}
+
+    {{ include('footer/footer.html.twig')}}
+
+{% endblock %}
