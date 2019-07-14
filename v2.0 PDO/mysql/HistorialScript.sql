@@ -11,7 +11,8 @@ select * from unidad;
 describe Cesta;
 describe Pedido;
 describe Cliente;
-delete from cesta where id=2;
+update unidad set enviar=null and Cesta_id=null where id=1;
+delete from cesta where id=4;
 
 use BD_Tienda;
 

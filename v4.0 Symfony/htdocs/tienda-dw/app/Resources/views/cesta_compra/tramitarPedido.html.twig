@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %} Cesta de Compra {% endblock %}
+{% block title %} Tramitar pedido {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('styles/style-shared.css')}}">
-    <link rel="stylesheet" href="{{asset('styles/style-pedidos.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/style-perfil.css')}}">
+    
 {% endblock %}
-{% block javascripts %}
 
-
-{% endblock %}
 
 {% block body %}
     {% if msg is defined and msg != null %}
@@ -33,7 +31,7 @@
             </a>
         </div>
         <div style="height: 10vh; min-height: 50px; visibility: hidden"></div>
-        <div id="mainContainer">
+        <div id="mainSection">
 
             <table>
                 <tr>
@@ -50,7 +48,7 @@
                     {% set nombre = '' %}
 
                     <tr>
-                        <td> {{unidad.producto.photo}} </td>
+                        <td> <img style="max-height: 15vh;"src="{{asset(unidad.producto.photo)}}"> </td>
                         <td> {{unidad.producto.nombre}} </td>
                         <td> {{unidad.producto.marca}} </td>
                         <td> {{unidad.producto.modelo}} </td>                     
@@ -62,9 +60,9 @@
                         {% endif %}
 
                         {% if unidad.enviar == 1 %}
-                            <td> {{ unidad.producto.precio * 1/20 }} </td>
+                            <td> {{ unidad.producto.precio + unidad.producto.precio * 1/20 }} </td>
                         {% else %}
-                            <td> {{ unidad.producto.precio }} </td>
+                            <td> {{ unidad.producto.precio + unidad.producto.precio }} </td>
                         {% endif %}
                     </tr>
 
@@ -73,17 +71,18 @@
                         <td colspan="5" > </td>                        
                         <td>{{cesta.costeTotal}}</td>
                     </tr>
-            <table>
+            </table>
 
             <div> ¿Tramitar pedido? </div>
-            <input type="submit" name="submitTram" style="background-color: #3399ff;" value="Si">
-            <input type="submit" name="submitTram" style="background-color: red;" value="No">
+            <form method="post">
+                <input type="submit" name="submitTram" style="background-color: #3399ff; display: inline-block; width: 12vw; height: 4vh;" value="Si">
+                <input type="submit" name="submitTram" style="background-color: red; display: inline-block;  width: 12vw; height: 4vh;" value="No">
+            </form>
         </div>
-        <div style="height: 10vh; min-height: 50px; visibility: hidden"></div>
+        
     </div>
-
-
-
+    
+    
 {% endblock %}
 
 {% block footer %}

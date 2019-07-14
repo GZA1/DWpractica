@@ -50,7 +50,7 @@ class DefaultController extends Controller
             $message = "Pedido tramitado con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('tramP') && $request->query->get('tramP')==1 ) {   // $_GET['error']
+        if( $request->query->has('tramP') && $request->query->get('tramP')==0 ) {   // $_GET['error']
             $message = "Tramitacion cancelada";
             $tipoMessage = 0;
         }

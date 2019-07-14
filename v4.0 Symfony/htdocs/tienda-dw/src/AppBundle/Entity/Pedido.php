@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
     /**
      * @ORM\Column(name="estado",length=45, nullable=false)
      */
-    private $estado;
+    private $estado = 0;
     /**
      * @ORM\Column(name="fechaCreacion",type="datetime", nullable=false)
      */
@@ -28,6 +28,11 @@ use Doctrine\ORM\Mapping as ORM;
     * @ORM\JoinColumn(name="Cesta_id", referencedColumnName="id")
     */
     private $cesta;
+
+    public function __construct(){
+        $this->fechaCreacion = new \DateTime();
+        
+    }
 
     /**
      * Get the value of id
