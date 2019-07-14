@@ -15,7 +15,7 @@ class UnidadRepository extends EntityRepository
         $uds = $this->findBy([  'tienda'     => $tienda,
                                 'producto'   => $producto,
                                 'vendido'    => 0,
-                                'cesta'      =>null
+                                'cesta'    => null
                                 ]);
 
         console_log($uds);
@@ -39,15 +39,20 @@ class UnidadRepository extends EntityRepository
     }
 
 
-    public function añadirACesta($unidades, $cesta, $enviar){  
+    public function añadirACesta($unidades, $cesta, $enviar, $precio){  
         if(isset($unidades) && isset($cesta) && isset($enviar)){
+
+            $costeTotal = $cesta->getCosteTotal();
+            $len = sizeof($unidades);
+            $cesta->addCosteTotal($len * $precio);
 
             foreach($unidades as $unit){
                 $unit = $unit->setCesta($cesta);
                 $unit = $unit->setEnviar($enviar);
                 $this->_em->persist($unit);
-                $this->_em->flush();                      
             }        
+            $this->_em->persist($cesta);
+            $this->_em->flush();
             return true;
         }
         return false;

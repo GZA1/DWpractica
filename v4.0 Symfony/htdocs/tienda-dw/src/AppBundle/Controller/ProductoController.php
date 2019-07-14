@@ -240,28 +240,29 @@ class ProductoController extends Controller
             }else{
                 return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>0, 'producto'=> $producto]);
             }
-
+            
+            
             if($session->get('cesta') == null){
                 
                 $cli = $clienteRep->findOneBy(['id'=> $session->get('user')->getId()]);
                 $cesta = new Cesta();
                 $cesta = $cesta->setCliente($cli);
-                                 
+                
                 if($cestaRep->nuevaCesta($cesta)){                    
-                    $unidadRep->añadirACesta($unidades, $cesta, $enviar);
+                    $unidadRep->añadirACesta($unidades, $cesta, $enviar, $precio);
                 }else{
                     //error
                     return $this->redirectToRoute('homepage');
                 }
-                $actualCesta = $cestaRep->findOneBy(['id'=>$cesta->getId()]);
-                $session->set('cesta', $actualCesta);
-
+                $cesta = $cestaRep->findOneBy(['id'=>$cesta->getId()]);
+                $session->set('cesta', $cesta);
+                
             }else{
                 $cesta = $cestaRep->findOneBy(['id'=>$session->get('cesta')->getId()]);
                 $unidadRep->añadirACesta($unidades, $cesta, $enviar);
                 $session->set('cesta', $cesta);                
             }
-
+            
 
             
 
