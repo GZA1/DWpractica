@@ -44,11 +44,7 @@ class CestaController extends Controller
 
         // $session->set('cesta', null);
 
-        $miCesta = $session->get('cesta');
-        if( !is_null($miCesta) ){
-            $cesta = $cestaRep->findOneBy(['id'=>$miCesta->getId()]);
-            $session->set('cesta', $cesta);
-        }
+        $cesta = $session->get('cesta');
 
         // $arrayProductos = null;
 

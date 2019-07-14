@@ -26,7 +26,7 @@ class PedidoController extends Controller
     /**
      * @Route("/pedidos", name="pedidos", methods={"GET"})
      */
-    public function cestaAction(Request $request, SessionInterface $session)
+    public function pedidosAction(Request $request, SessionInterface $session)
     {
 
         $message = null;

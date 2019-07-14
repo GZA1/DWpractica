@@ -184,7 +184,7 @@ class ProductoController extends Controller
             $tipoMessage = 0;
         }
 
-        // console_log((array)$session->get('cesta')->getUnidades());
+        console_log((array)$session->get('cesta'));
 
 
         return $this->render('catalogo/producto.html.twig', [  'msg'=> $message,
@@ -236,10 +236,10 @@ class ProductoController extends Controller
                 $cesta = new Cesta();
                 $cesta->setCliente($cli);
                 $cesta->setId($cestaRep->generateId($cesta));
-                $em->flush();
             }
             
             $cesta = $cestaRep->addUnidades($cesta, $unidades, $precio, $enviar);
+            $em->flush();
             
             
             $session->set('cesta', $cesta);

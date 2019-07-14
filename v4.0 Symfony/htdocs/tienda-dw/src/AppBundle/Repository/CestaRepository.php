@@ -32,7 +32,7 @@ class CestaRepository extends EntityRepository
             ->set('c.costeTotal', ':cos')
             ->where('c.id = :cestaId')
             ->setParameter('cos', $cesta->getCosteTotal())
-            ->setParameter('cestaId', $cesta->getId());
+            ->setParameter('cestaId', $cesta);
             $res = $qb->getQuery()->getResult();
             
             console_log('Cesta');
@@ -41,18 +41,19 @@ class CestaRepository extends EntityRepository
             
             
             foreach($unidades as $u){
-                $qb = $this->_em->createQueryBuilder();
-                $qb ->update('AppBundle\\Entity\\Unidad', 'u')
-                ->set('u.cesta', ':c')
-                ->set('u.enviar', ':enviar')
-                ->where('u.id = :unidad')
-                ->setParameter('c', $cesta)
-                ->setParameter('enviar', $enviar)
-                ->setParameter('unidad', $u);
-                $res = $qb->getQuery()->getResult();
+                // $qb = $this->_em->createQueryBuilder();
+                // $qb ->update('AppBundle\\Entity\\Unidad', 'u')
+                // // ->set('u.cesta', ':c')
+                // ->set('u.enviar', ':enviar')
+                // ->where('u.id = :unidad')
+                // // ->setParameter('c', $cesta)
+                // ->setParameter('enviar', $enviar)
+                // ->setParameter('unidad', $u);
+                // $res = $qb->getQuery()->getResult();
+                $u->setEnviar($enviar);
             }
+            $this->_em->flush();
             
-            $u->setEnviar($enviar);
             
             console_log((array)$cesta->getUnidades());
             console_log($cesta->getCosteTotal());
@@ -99,14 +100,15 @@ class CestaRepository extends EntityRepository
     public function generateId($cesta){
         
         $count = $this->_em->createQueryBuilder()  
-                ->select('c.id')
+                ->select('count(c.id)')
                 ->from('AppBundle\\Entity\\Cesta', 'c')
                 ->getQuery()
-                ->getScalarResult();
+                ->getSingleScalarResult();
         console_log($count);
         if($count>0){
-            $maxid = $this->_em->createQueryBuilder('c')
-                        ->select('MAX(c.id) as cestaId')
+            $maxid = $this->_em->createQueryBuilder()
+                        ->select('MAX(c.id)')
+                        ->from('AppBundle\\Entity\\Cesta', 'c')
                         ->getQuery()
                         ->getSingleScalarResult();
             return $maxid + 1;
