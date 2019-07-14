@@ -38,11 +38,11 @@ class ProductoController extends Controller
 
 
 
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
@@ -97,11 +97,11 @@ class ProductoController extends Controller
 
         }
 
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
@@ -168,19 +168,19 @@ class ProductoController extends Controller
 
 
 
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }
-        if( $request->query->has('addPr') && $request->query->get('addPr')==1 ) {   // $_GET['error']
+        if( $request->query->has('addPr') && $request->query->get('addPr')==1 ) {   
             $message = "Unidades añadidas correctamente a la cesta";
             $tipoMessage = 1;
         }
-        if( $request->query->has('addPr') && $request->query->get('addPr')==0 ) {   // $_GET['error']
+        if( $request->query->has('addPr') && $request->query->get('addPr')==0 ) {   
             $message = "Error no hay suficientes unidades pertenecientes a dicha tienda";
             $tipoMessage = 0;
         }
@@ -265,22 +265,6 @@ class ProductoController extends Controller
             
 
             
-
-            // $cesta = $session->get('cesta');
-
-            // if( is_null($cesta) ){
-            //     $cesta = new Cesta();
-            //     $cesta->setCliente($cli);
-            //     $cesta->setId($cestaRep->generateId($cesta));
-            // }
-            
-            // $cesta = $cestaRep->addUnidades($cesta, $unidades, $precio, $enviar);
-            
-            
-            
-            // $session->set('cesta', $cesta);
-            // console_log((array)$cesta);
-            
             return $this->redirectToRoute($request->attributes->get('_route') , ['addPr'=>1, 'producto'=> $producto]);
 
         }
@@ -314,47 +298,47 @@ class ProductoController extends Controller
 
 
 
-        if( $request->query->has('addCat') && $request->query->get('addCat')==1 ) {   // $_GET['error']
+        if( $request->query->has('addCat') && $request->query->get('addCat')==1 ) {   
             $message = "Categoria añadida";
             $tipoMessage = 1;
         }
-        if( $request->query->has('editCat') && $request->query->get('editCat')==1 ) {   // $_GET['error']
+        if( $request->query->has('editCat') && $request->query->get('editCat')==1 ) {   
             $message = "Categoria editada";
             $tipoMessage = 1;
         }
-        if( $request->query->has('remCat') && $request->query->get('remCat')==1 ) {   // $_GET['error']
+        if( $request->query->has('remCat') && $request->query->get('remCat')==1 ) {   
             $message = "Categoria eliminada";
             $tipoMessage = 1;
         }
-        if( $request->query->has('addPr') && $request->query->get('addPr')==1 ) {   // $_GET['error']
+        if( $request->query->has('addPr') && $request->query->get('addPr')==1 ) {   
             $message = "Producto añadido";
             $tipoMessage = 1;
         }
-        if( $request->query->has('editPr') && $request->query->get('editPr')==1 ) {   // $_GET['error']
+        if( $request->query->has('editPr') && $request->query->get('editPr')==1 ) {   
             $message = "Producto editado";
             $tipoMessage = 1;
         }
-        if( $request->query->has('removePr') && $request->query->get('removePr')==1 ) {   // $_GET['error']
+        if( $request->query->has('removePr') && $request->query->get('removePr')==1 ) {   
             $message = "Producto eliminado";
             $tipoMessage = 1;
         }
-        if( $request->query->has('aumStock') && $request->query->get('aumStock')==1 ) {   // $_GET['error']
+        if( $request->query->has('aumStock') && $request->query->get('aumStock')==1 ) {   
             $message = "Stock aumentado";
             $tipoMessage = 1;
         }
-        if( $request->query->has('remStock') && $request->query->get('remStock')==1 ) {   // $_GET['error']
+        if( $request->query->has('remStock') && $request->query->get('remStock')==1 ) {   
             $message = "Stock reducido";
             $tipoMessage = 1;
         }
-        if( $request->query->has('transProd') && $request->query->get('transProd')==1 ) {   // $_GET['error']
+        if( $request->query->has('transProd') && $request->query->get('transProd')==1 ) {   
             $message = "Producto transladado";
             $tipoMessage = 1;
         }
-        if( $request->query->has('opfallida') && $request->query->get('opfallida')==1 ) {   // $_GET['error']
+        if( $request->query->has('opfallida') && $request->query->get('opfallida')==1 ) {   
             $message = "Operación fallida";
             $tipoMessage = 0;
         }
-        if( $request->query->has('opfallida') && $request->query->get('opfallida')==2 ) {   // $_GET['error']
+        if( $request->query->has('opfallida') && $request->query->get('opfallida')==2 ) {   
             $message = "Todos los campos Vacios";
             $tipoMessage = 0;
         }
