@@ -45,7 +45,7 @@ class UsuarioController extends Controller
     /**
      * @Route("/login", name="login_post", methods={"POST"})
      */    
-    public function loginPostAction(Request $request, SessionInterface $session, LoggerInterface $logger)
+    public function loginPostAction(Request $request, SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -81,7 +81,7 @@ class UsuarioController extends Controller
             //$sesion->set('ip', $request->request->getClientIp());
             
            // cLog("IdUsuario logueado: " . $_SESSION['user']->getIdUsuario());
-           $logger->info('IdUsuario logueado:', ['usuario'=>$u->getUsuario()->getUsername()]);
+        //    $logger->info('IdUsuario logueado:', ['usuario'=>$u->getUsuario()->getUsername()]);
            return $this->redirectToRoute('homepage', ['usrlog'=>1]);            
             
         }

@@ -99,7 +99,7 @@
             <div id="cantidad">Cantidad</div>
         </div>
 
-            {% set prods = '' %}
+            {# {% set prods = '' %}
             {% for unidad in cesta.unidades %}
                 {% if prods is empty %}
                     {% set prods = unidad.producto %}                    
@@ -107,7 +107,7 @@
                     {% set prods = prods|merge([unidad.producto]) %}
                 {% endif %}
 
-            {% endfor %}
+            {% endfor %} #}
             
             {% for unidad in cesta.unidades %}
                 {% set prod = unidad.producto %}
