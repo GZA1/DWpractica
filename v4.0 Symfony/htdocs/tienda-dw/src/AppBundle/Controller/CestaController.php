@@ -43,6 +43,7 @@ class CestaController extends Controller
         $tiendas = $tiendaRepo->findAll();
         $stock = $unidadRepo->findAll();
 
+<<<<<<< HEAD
         if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
@@ -53,6 +54,9 @@ class CestaController extends Controller
         }
 
         // $session->set('cesta', null);
+=======
+        
+>>>>>>> origin/#Fun2
 
         $miCesta = $session->get('cesta');
         $cesta=null;
@@ -66,16 +70,16 @@ class CestaController extends Controller
         if(!is_null($session->get('cesta'))){
 
             
-            // console_log('Cesta');
-            // console_log((array)$session->get('cesta'));
-            // console_log('Unidades de la cesta');
-            // console_log((array)$session->get('cesta')->getUnidades());
-            // console_log('Unidad 1 de la cesta');
-            // console_log((array)$session->get('cesta')->getUnidades()[0]);
-            // console_log('Producto de la unidad 1 de la cesta');
-            // console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto());
-            // console_log('Categoría del producto de la unidad 1 de la cesta');
-            // console_log((array)$session->get('cesta')->getUnidades()[0]->getProducto()->getCategoria());
+            console_log('Cesta');
+            console_log((array)$cesta);
+            console_log('Unidades de la cesta');
+            console_log((array)$cesta);
+            console_log('Unidad 1 de la cesta');
+            console_log($cesta->getUnidades()[0]);
+            console_log('Producto de la unidad 1 de la cesta');
+            console_log($cesta->getUnidades()[0]->getProducto());
+            console_log('Categoría del producto de la unidad 1 de la cesta');
+            console_log($cesta->getUnidades()[0]->getProducto()->getCategoria());
             
         }
 

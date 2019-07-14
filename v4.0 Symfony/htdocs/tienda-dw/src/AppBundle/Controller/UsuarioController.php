@@ -26,12 +26,12 @@ class UsuarioController extends Controller
     {
         $message = null;
         $tipoMessage = null;
-        if( $request->query->has('usrreg') && $request->query->get('usrreg')==1 ) {   // $_GET['error']
+        if( $request->query->has('usrreg') && $request->query->get('usrreg')==1 ) {   
             $message = "Usuario registrado con éxito, proceda a loguearse";
             $tipoMessage = 1;
 
         }
-        if( $request->query->has('usrerror') && $request->query->get('usrerror')==1 ) {   // $_GET['error']
+        if( $request->query->has('usrerror') && $request->query->get('usrerror')==1 ) {   
             $message = "Usuario o contraseña incorrectos";
             $tipoMessage = 0;
         }
@@ -78,10 +78,8 @@ class UsuarioController extends Controller
             
             $session->set('user', $u);
             $session->set('tipo', $tipoLogueado);
-            //$sesion->set('ip', $request->request->getClientIp());
             
-           // cLog("IdUsuario logueado: " . $_SESSION['user']->getIdUsuario());
-        //    $logger->info('IdUsuario logueado:', ['usuario'=>$u->getUsuario()->getUsername()]);
+
            return $this->redirectToRoute('homepage', ['usrlog'=>1]);            
             
         }
@@ -109,7 +107,7 @@ class UsuarioController extends Controller
     public function signUpAction(Request $request)
     {
         $message = null;
-        if( $request->query->has('usrreg') && $request->query->get('usrreg')==0 ) {   // $_GET['error']
+        if( $request->query->has('usrreg') && $request->query->get('usrreg')==0 ) {   
             $message = "Nombre de usuario o email inválido";
         }        
 
@@ -131,7 +129,7 @@ class UsuarioController extends Controller
 
         error_reporting(E_ALL ^ E_NOTICE);
         $geo = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['HTTP_CLIENT_IP']));
-        //console_log($geo);
+        
         $munic = $geo['geoplugin_city'];
         
         $u  ->setUsername($_POST['username'])
@@ -196,11 +194,11 @@ class UsuarioController extends Controller
             $message = "Operación fallida";
             $tipoMessage = 0; 
         }    
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   
             $message = "Saldo añadido con éxito";
             $tipoMessage = 1;
         }
-        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   
             $message = "No se pudo añadir saldo correctamente";
             $tipoMessage = 0;
         }    
