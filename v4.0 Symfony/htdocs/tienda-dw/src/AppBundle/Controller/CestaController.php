@@ -43,6 +43,15 @@ class CestaController extends Controller
         $tiendas = $tiendaRepo->findAll();
         $stock = $unidadRepo->findAll();
 
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==1 ) {   // $_GET['error']
+            $message = "Saldo añadido con éxito";
+            $tipoMessage = 1;
+        }
+        if( $request->query->has('saldoadd') && $request->query->get('saldoadd')==0 ) {   // $_GET['error']
+            $message = "No se pudo añadir saldo correctamente";
+            $tipoMessage = 0;
+        }
+
         // $session->set('cesta', null);
 
         $miCesta = $session->get('cesta');
@@ -76,6 +85,27 @@ class CestaController extends Controller
                                                         );
 
 
+    }
+  
+  
+    /**
+     * @Route("/cesta", name="cestaPost", methods={"POST"})
+     */
+    public function cestaPostAction(Request $request, SessionInterface $session)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cli = $session->get('user');
+
+
+        if( $session->get('user') != null && isset($_POST['saldo-add']) ){
+            $saldoAdd = $_POST['saldo-add'];
+            $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
+            if( is_numeric($saldoAdd) && $saldoAdd > 0 && $cli->addSaldo($saldoAdd) && $clienteRep->updateSaldo($cli) ){
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>1]);
+            }else{
+                return $this->redirectToRoute($request->get('_route'), ['saldoadd'=>0]);
+            }
+        }
     }
 
      /**

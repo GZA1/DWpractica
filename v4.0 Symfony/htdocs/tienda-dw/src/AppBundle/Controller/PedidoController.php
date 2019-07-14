@@ -94,6 +94,7 @@ class PedidoController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cestaRep = $em->getRepository("AppBundle\\Entity\\Cesta");
         $pedidoRep = $em->getRepository("AppBundle\\Entity\\Pedido");
+        $clienteRep = $em->getRepository("AppBundle\\Entity\\Cliente");
         $cesta = $cestaRep->findOneBy(['id'=>$session->get('cesta')->getId()]);
 
         if(isset($_POST['submitTram'])){
@@ -102,8 +103,12 @@ class PedidoController extends Controller
                 case 'Si':
                     $pedido = new Pedido();
                     $pedido->setCesta($cesta);
-                    $pedidoRep->tramitarPedido($pedido);
+                    if( ! $pedidoRep->tramitarPedido($pedido) ){
+                        return $this->redirectToRoute('homepage', ['noMon'=>0]);
+                    }
+                    $cliente = $clienteRep->findOneBy(['id'=>$session->get('user')->getId()]);
                     $session->set('cesta', null);
+                    $session->set('user', $cliente);
                     return $this->redirectToRoute('homepage', ['tramP'=>1]);
                     break;
                 case 'No':

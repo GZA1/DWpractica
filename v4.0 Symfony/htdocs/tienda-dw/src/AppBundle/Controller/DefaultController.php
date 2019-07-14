@@ -54,6 +54,10 @@ class DefaultController extends Controller
             $message = "Tramitacion cancelada";
             $tipoMessage = 0;
         }
+        if( $request->query->has('noMon') && $request->query->get('noMon')==0 ) {   // $_GET['error']
+            $message = "No dispone de suficiente saldo";
+            $tipoMessage = 0;
+        }
 
 
         return $this->render('main/index.html.twig', [

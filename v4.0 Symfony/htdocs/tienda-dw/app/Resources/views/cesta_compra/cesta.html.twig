@@ -29,7 +29,7 @@
     <div class="cesta_main_container flex_cols">
         <h2 id="titulo-cesta">Cesta de la compra</h2>
 
-        {% if app.session.get('cesta') %}
+    {% if app.session.get('cesta') is not null %}
 
         <div class="flex_rows borde-abajo">
             <div class="separador-horizontal"></div>

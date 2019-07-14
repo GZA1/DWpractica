@@ -45,7 +45,13 @@
                         <a href="{{path('producto', {'producto': idProd1})}}"><img src="{{asset(photo)}}" height="100%"></a>
                     </div>
                     <div class="flex_cols pedido-container">
-                        <div class="estado">{{'Estado:' ~ p.estado}}</div>
+                        <div class="estado">Estado: 
+                        {% if p.estado == 0 %}
+                            procesando
+                        {% else %}
+                            enviado
+                        {% endif %}
+                        </div>
                         <div class="costeTotal">{{'Coste total del pedido: ' ~ p.cesta.costeTotal ~ '€'}}</div>
                         <div class="fechaCreac">{{'Fecha de creación: ' ~ p.fechaCreacion|date('Y-m-d H:i:s')}}</div>
                     </div>
