@@ -42,8 +42,7 @@ class PedidoController extends Controller
             $pedidos = $pedidoRep->findBy(['cesta' => $cestaRep->findBy(['cliente'=>$cli])]);
         }
 
-        console_log($pedidos);
-        console_log((array)$pedidos[0]);
+        
 
 
 
@@ -108,7 +107,7 @@ class PedidoController extends Controller
                     }
                     $cliente = $clienteRep->findOneBy(['id'=>$session->get('user')->getId()]);
                     $session->set('cesta', null);
-                    $session->set('user', $cliente);
+                    $session-get('user')->setSaldo($cliente->getSaldo());
                     return $this->redirectToRoute('homepage', ['tramP'=>1]);
                     break;
                 case 'No':
