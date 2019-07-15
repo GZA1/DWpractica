@@ -1,7 +1,7 @@
 <?php
     require_once 'dbconfig.php';
 
-     use Entities\Tienda;
+    use Entities\Tienda;
     use Entities\Categoria;
     use Entities\Producto;
     use Entities\Ubicacion;
@@ -13,15 +13,18 @@
 
     
     //$ubicaciones = $em->getRepository("Entities\\Ubicacion")->findAll();
-    $productos = $em->getRepository("Entities\\Producto")->findAll();
+    $productos = $em->getRepository("Entity\\Producto")->findAll();
     // $clientes = $em->getRepository("Entities\\Cliente")->findAll();
 
-     $categorias = $em->getRepository("Entities\\Categoria")->findAll();
+    $categorias = $em->getRepository("Entity\\Categoria")->findAll();
     echo "hola1";
     
+    $var = $em->getRepository("Entitiy\\Cliente")->doIDexist("CLI:000000004029530e0000000014d11trs");
+    echo('console.log(' . json_encode($var) . ');');
+
     try{
 
-        $DQL = "select c from Entities\\Cliente c where c.username = 'cli1'";
+        $DQL = "select c from Entity\\Cliente c where c.username = 'cli1'";
         $query = $em->createQuery($DQL);
         $clienteEspecial = $query->getResult();
     }catch(Exception $e){echo $e;}

@@ -1,10 +1,10 @@
 <?php
     require_once 'dbconfig.php';
 
-    use Entities\Categoria;
-    use Entities\Producto;
-    use Entities\Ubicacion;
-    use Entities\Cliente;
+    use Entitiy\Categoria;
+    use Entity\Producto;
+    use Entity\Ubicacion;
+    use Entity\Cliente;
     
     $em = GetEntityManager();
 
@@ -41,6 +41,10 @@
     /* Caso 6. Obtener objetos a traves de una relacion */
     /* select * from catalogo_productos where catalogo_categorias_id = 'NNN */
     $productosRAM = $categoriaRAM->getProductos();     
+
+
+    $var = $em->getRepository("Entitiy\\Cliente")->doIDexist("CLI:000000004029530e0000000014d11trs");
+    echo('console.log(' . json_encode($var) . ');');
 ?>
 <html>
 
