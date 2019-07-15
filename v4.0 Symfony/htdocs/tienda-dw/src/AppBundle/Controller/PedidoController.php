@@ -105,7 +105,7 @@ class PedidoController extends Controller
                     }
                     $cliente = $clienteRep->findOneBy(['id'=>$session->get('user')->getId()]);
                     $session->set('cesta', null);
-                    $session->get('user')->setSaldo($cliente->getSaldo());
+                    $session-get('user')->setSaldo($cliente->getSaldo());
                     return $this->redirectToRoute('homepage', ['tramP'=>1]);
                     break;
                 case 'No':

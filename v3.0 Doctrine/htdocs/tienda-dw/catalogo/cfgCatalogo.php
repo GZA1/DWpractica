@@ -6,6 +6,9 @@ require_once('/xampp/appdata/model/console.php');
     use Entity\Cliente;
     use Entity\Empleado;
     use Entity\Categoria;
+    use Entity\Producto;
+    use Entity\Tienda;
+    use Entity\Unidad;
 
 
     $em = GetEntityManager();
@@ -216,7 +219,7 @@ require_once('/xampp/appdata/model/console.php');
                             <?php
                             $categorias = $em->getRepository("Entity\\Categoria")->findAll();
                              foreach($categorias as $c){ ?>
-                                <option value=" <?php echo $c->getAcronimo() ?>">  <?php echo $c->getAcronimo() ?></option>";
+                                <option value="<?php echo $c->getAcronimo()?>"><?php echo $c->getAcronimo()?></option>";
                             <?php 
                             }
                             ?>        
@@ -244,7 +247,7 @@ require_once('/xampp/appdata/model/console.php');
                                 $categorias = $em->getRepository("Entity\\Categoria")->findAll();
                                 foreach($categorias as $c){ ?>
                                     
-                                    <option value=" <?php echo $c->getAcronimo() ?>"><?php echo $c->getAcronimo() ?></option>";
+                                    <option value="<?php echo $c->getAcronimo()?>"><?php echo $c->getAcronimo()?></option>";
                                 <?php 
                                 }
                                 ?>        
@@ -277,7 +280,7 @@ require_once('/xampp/appdata/model/console.php');
                             <?php 
                                 $categorias = $em->getRepository("Entity\\Categoria")->findAll();
                                 foreach($categorias as $c){ ?>
-                                    <option value=" <?php echo $c->getAcronimo() ?>"> Categoria <?php echo $c->getId().$c->getAcronimo(); ?></option>";
+                                    <option value="<?php echo $c->getAcronimo()?>"> Categoria <?php echo $c->getId().$c->getAcronimo(); ?></option>";
                             <?php 
                                 }
                             ?>
@@ -293,7 +296,17 @@ require_once('/xampp/appdata/model/console.php');
                 <div id="editProdForm" class="configForm not-active">                    
                     <form method="post" id="ePROD">
                     <label id="ePrNombre">Nombre de Producto</label>
-                        <input type="text" id="nombrePrEdit" name="nombrePrEDIT">
+                    <select id="nPr" name="nombrePrEDIT" form="ePROD">
+                            <?php 
+                                $productos = $em->getRepository("Entity\\Producto")->findAll();
+                                foreach($productos as $c){ ?>
+                                    <option value="<?php echo $c->getNombre()?>"> Producto <?php echo $c->getId().$c->getNombre(); ?></option>";
+                            <?php 
+                                }
+                            ?>
+                       </select> 
+                        
+                        
                         <label id="ePrMarca">Marca</label>
                         <input type="text" id="marcaPrEdit" name="marcaPrEDIT">
                         <label id="ePrModelo">Modelo</label>
@@ -309,7 +322,7 @@ require_once('/xampp/appdata/model/console.php');
                         <?php 
                             $categorias = $em->getRepository("Entity\\Categoria")->findAll();
                             foreach($categorias as $c){ ?>
-                                <option value=" <?php echo $c->getAcronimo() ?>"> Categoria <?php echo "Id:  ".$c->getId()." - ".$c->getAcronimo(); ?></option>";
+                                <option value="<?php echo $c->getAcronimo()?>"> Categoria <?php echo "Id:  ".$c->getId()." - ".$c->getAcronimo(); ?></option>";
                         <?php 
                             }
                         ?>
@@ -329,7 +342,7 @@ require_once('/xampp/appdata/model/console.php');
                                 <?php
                                 $productos = $em->getRepository("Entity\\Producto")->findAll();
                                 foreach($productos as $p){ ?>
-                                    <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                    <option value="<?php echo $p->getNombre()?>"> <?php echo $p->getNombre() ?></option>";
                                 <?php 
                                 }
                                 ?>        
@@ -349,7 +362,7 @@ require_once('/xampp/appdata/model/console.php');
                                 <?php
                                 $productos = $em->getRepository("Entity\\Producto")->findAll();
                                 foreach($productos as $p){ ?>
-                                    <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                    <option value="<?php echo $p->getId()?>"> <?php echo $p->getId()." ".$p->getNombre() ?></option>";
                                 <?php 
                                 }
                                 ?>        
@@ -359,7 +372,7 @@ require_once('/xampp/appdata/model/console.php');
                                 <?php
                                 $productos = $em->getRepository("Entity\\Tienda")->findAll();
                                 foreach($productos as $p){ ?>
-                                    <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                    <option value="<?php echo $p->getId()?>"> <?php echo $p->getId() ?><?php echo $p->getNombre() ?></option>";
                                 <?php 
                                 }
                                 ?>        
@@ -413,7 +426,7 @@ require_once('/xampp/appdata/model/console.php');
                                     foreach($tiendas as $t){
                                         $unidadesTienda = $em->getRepository("Entity\\Unidad")->findBy(['producto'=> $p->getId(),'tienda'=> $t->getId()]);
                                         if(sizeof($unidadesTienda) > 0){ ?>
-                                            <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                            <option value="<?php echo $p->getId()?>"><?php echo $p->getId()?> <?php echo $p->getNombre() ?></option>";
                                 <?php
                                         }
                                     } 
@@ -427,7 +440,7 @@ require_once('/xampp/appdata/model/console.php');
                                     <?php
                                     $productos = $em->getRepository("Entity\\Tienda")->findAll();
                                     foreach($productos as $p){ ?>
-                                        <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                        <option value="<?php echo $p->getId()?>"><?php echo $p->getId()?> <?php echo $p->getNombre() ?></option>";
                                     <?php 
                                     }
                                     ?>        
@@ -478,7 +491,7 @@ require_once('/xampp/appdata/model/console.php');
                                     foreach($tiendas as $t){
                                         $unidadesTienda = $em->getRepository("Entity\\Unidad")->findBy(['producto'=> $p->getId(),'tienda'=> $t->getId()]);
                                         if(sizeof($unidadesTienda) > 0){ ?>
-                                            <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                            <option value="<?php echo $p->getId()?>"> <?php echo $p->getNombre() ?></option>";
                                 <?php
                                         }
                                     } 
@@ -493,7 +506,7 @@ require_once('/xampp/appdata/model/console.php');
                                     <?php
                                     $productos = $em->getRepository("Entity\\Tienda")->findAll();
                                     foreach($productos as $p){ ?>
-                                        <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                        <option value="<?php echo $p->getId()?>"> <?php echo $p->getNombre() ?></option>";
                                     <?php 
                                     }
                                     ?>        
@@ -502,7 +515,7 @@ require_once('/xampp/appdata/model/console.php');
                         <select id="tiendaElegidaTRANS2" name="pr_tiendaElegidaTRANS2" form="tPROD">
                                     <?php                                    
                                     foreach($productos as $p){ ?>
-                                        <option value=" <?php echo $p->getNombre() ?>"> <?php echo $p->getNombre() ?></option>";
+                                        <option value="<?php echo $p->getId()?>"> <?php echo $p->getNombre() ?></option>";
                                     <?php 
                                     }
                                     ?>        
@@ -608,6 +621,7 @@ require_once('/xampp/appdata/model/console.php');
                         );        
                 </script>
 <?php 
+            
                 }else if($_GET['opfallida'] == 2){
 ?>
                 <script type="text/javascript">
@@ -618,8 +632,9 @@ require_once('/xampp/appdata/model/console.php');
                         );        
                 </script>
 <?php
-                }
-        }else if($_GET['aumStock'] == 1){
+                }      
+        }else if(isset($_GET['aumStock'])){
+            if($_GET['aumStock'] == 1){
             ?>
                 <script type="text/javascript">
                 $('head').before('<div id="aumStock"  style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Stock aumentado</div>');        
@@ -629,8 +644,9 @@ require_once('/xampp/appdata/model/console.php');
                     );        
             </script>
 <?php
-            
-        }else if($_GET['remStock'] == 1){
+            }
+        }else if(isset($_GET['remStock'])){
+            if($_GET['remStock'] == 1){
 ?>
             <script type="text/javascript">
                 $('head').before('<div id="remStock"  style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Stock reducido</div>');        
@@ -640,7 +656,9 @@ require_once('/xampp/appdata/model/console.php');
                     );        
             </script>
 <?php
-        }else if($_GET['transProd'] == 1){
+            }
+        }else if(isset($_GET['transProd'])){
+            if($_GET['transProd'] == 1){
             ?>
             <script type="text/javascript">
                 $('head').before('<div id="transProd"  style="width: 100%; height: 20px; color: #3ca51f; font-weight: 900; background-color: #e0e0d2; padding: 10px;">Producto transladado</div>');        
@@ -651,6 +669,7 @@ require_once('/xampp/appdata/model/console.php');
             </script>
 <?php
         }
+    }
         
 ?>
 
@@ -677,10 +696,11 @@ require_once('/xampp/appdata/model/console.php');
                     header('Location: ?addCat=1');
                 break;
 
-                case 'Editar Categoria':                
-                $catEdit = $em->findOneBy('acronimo', $_POST['cat_elegEdit']);
-                if(isset($catEdit)){
-                    if(empty($nombreCATEdit) && empty($acrCATEdit) && empty($descCATEdit)){
+                case 'Editar Categoria': 
+
+                $catEdit = $em->getRepository("Entity\\Categoria")->findOneBy(['acronimo'=> $_POST['cat_elegEdit']]);
+                // if(isset($catEdit)){
+                    if(empty($_POST['nombreCATEdit']) && empty($_POST['acrCATEdit']) && empty($_POST['descCATEdit'])){
                         header('Location: ?opFallida=2');
                     }else{
 
@@ -698,15 +718,15 @@ require_once('/xampp/appdata/model/console.php');
                     $em->persist($catEdit);
                     $em->flush();
                     header('Location: ?editCat=1');
-                }else{
+                // }else{
                     
-                    header('Location: ?opfallida=1');
-                }
+                //     header('Location: ?opfallida=1');
+                // }
                 
                 break;
 
                 case 'Eliminar Categoria':
-                    $catRemove = $em->findOneBy('acronimo', $_POST['cat_elegRem']);
+                    $catRemove = $em->getRepository("Entity\\Categoria")->findOneBy('nombre', $_POST['nombrePrNEW']);
                     $em->remove($catRemove);
                     $em->flush();
                     header('Location: ?remCat=1');
@@ -717,9 +737,15 @@ require_once('/xampp/appdata/model/console.php');
                     $nuevoProducto->setNombre($_POST['nombrePrNEW'])
                                     ->setMarca($_POST['marcaPrNEW'])
                                     ->setModelo($_POST['modeloPrNEW'])
-                                    ->setPrecio($_POST['precioPrNEW'])
-                                    ->setDescripcion($_POST['descripcionPrNEW'])
-                                    ->setPhoto($imgsDir.$_POST['photoNew']);
+                                    ->setPrecio($_POST['precioPrNEW']);
+                    if(isset($_POST['descripcionPrNEW'])){
+                        $nuevoProducto->setDescripcion($_POST['descripcionPrNEW']);
+                    }
+                    if(isset($_POST['photoNew'])){
+                        $nuevoProducto->setPhoto($imgsDir.$_POST['photoNew']);
+                    }
+                        
+                    
                     $em->persist($nuevoProducto);
                     $em->flush();
                     header('Location: ?addPr=1');
@@ -727,17 +753,17 @@ require_once('/xampp/appdata/model/console.php');
                 break;
 
                 case 'Editar Producto':
-                $catEdit = $em->findOneBy('acronimo', $_POST['cat_elegEdit']);
+                $prEdit = $em->getRepository("Entity\\Producto")->findOneBy(['nombre'=> $_POST['nombrePrEDIT']]);
                 if(isset($prEdit)){
-                    if(empty($nombrePrEDIT) && empty($marcaPrEDIT) && empty($modeloPrEDIT) && empty($precioPrEDIT)
-                       && empty($descPrEDIT) && empty($picpathPrEDIT)){
+                    if(empty($_POST['nombrePrEDIT']) && empty($_POST['marcaPrEDIT']) && empty($_POST['modeloPrEDIT']) && empty($_POST['precioPrEDIT'])
+                       && empty($_POST['descPrEDIT']) && empty($_POST['photoEdit'])){
 
                         header('Location: ?opFallida=2');
                     }else{
 
-                        if($_POST['nombrePrEDIT'] != ""){
-                            $prEdit->setNombre($_POST['nombrePrEDIT']);
-                        }                    
+                        // if($_POST['nombrePrEDIT'] != ""){
+                        //     $prEdit->setNombre($_POST['nombrePrEDIT']);
+                        // }                    
                         if($_POST['marcaPrEDIT'] != ""){
                             $prEdit->setMarca($_POST['marcaPrEDIT']);
                         }
@@ -757,25 +783,30 @@ require_once('/xampp/appdata/model/console.php');
                         $em->persist($prEdit);
                         $em->flush();
                         header('Location: ?editPr=1');
+                    
                     }
-                    }else{
+                }else{
                     header('Location: ?opfallida=1');
                 }
                 
                 break;
 
                 case 'Eliminar Producto':
-                    $prRemove = $em->findOneBy('nombre', $_POST['pr_elegRemove']);
+                    $prRemove = $em->getRepository("Entity\\Producto")->findOneBy('nombre', $_POST['pr_elegRemove']);
                     $em->remove($prRemove);
                     $em->flush();
                     header('Location: ?removePr=1');
                 break;
 
-                case 'Aumentar stock';
+                case 'Aumentar stock':
+                    
+                $tienda = $em->getRepository("Entity\\Tienda")->findOneBy(['id'=>$_POST['pr_tiendaElegidaUP']]);
+                $prod = $em->getRepository("Entity\\Producto")->findOneBy(['id'=>$_POST['pr_elegAumStock']]);
+                for($i=0; $i<$_POST['stockUPvalue']; $i++){
                     $unit = new Unidad();
-                    $unit->setProducto($_POST['prToAumStock'])
-                            ->setTienda($_POST['tiendaElegidaUP']);
-                    for($i=0; i<$_POST['stockUPvalue']; $i++){
+                    $unit->setProducto($prod)
+                            ->setVendido(false)
+                            ->setTienda($tienda);
                         $em->persist($unit);
                         $em->flush();
                     }
@@ -783,27 +814,38 @@ require_once('/xampp/appdata/model/console.php');
 
                 break;
 
-                case 'Reducir stock';
-                    $unit = new Unidad();
-                    $unit->setProducto($_POST['prToRemStock'])
-                            ->setTienda($_POST['tiendaElegidaDOWN']);
-                    for($i=0; i<$_POST['stockDOWNvalue']; $i++){
-                        $em->remove($unit);
+                case 'Reducir stock':
+                
+                    $unit = $em->getRepository("Entity\\Unidad")->findBy(['producto'=>$_POST['pr_elegRemStock'],
+                                                'tienda'=>$_POST['pr_tiendaElegidaDOWN']]);
+                   
+
+                    for($i=0; $i<$_POST['stockDOWNvalue']; $i++){
+                        $em->remove($unit[$i]);
                         $em->flush();
                     }
+
                     header('Location: ?remStock=1');
                 break;
                 
-                case 'Transladar producto';
-                    $unitT = new Unidad();
-                    $unitT->setProducto($_POST['prToTrans'])
-                            ->setTienda($_POST['prodTransValue']);
-                    $unitR->setProducto($_POST['prToTrans'])
-                            ->setTienda($_POST['prodTransValue']);
+                case 'Transladar Producto':
 
-                    for($i=0; i<$_POST['prodTransValue']; $i++){
-                        $em->remove($unitR);
+                
+                $unitR = $em->getRepository("Entity\\Unidad")->findBy(['producto'=>$_POST['pr_elegTrans'],
+                                                                        'tienda'=>$_POST['pr_tiendaElegidaTRANS1']]);
+                $tienda = $em->getRepository("Entity\\Tienda")->findOneBy(['id'=>$_POST['pr_tiendaElegidaTRANS2']]);
+                $prod = $em->getRepository("Entity\\Producto")->findOneBy(['id'=>$_POST['pr_elegTrans']]);                  
+                    
+                    for($i=0; $i<$_POST['prodTransValue']; $i++){
+                        
+                        $em->remove($unitR[$i]);                        
                         $em->flush();
+                    }
+                    for($i=0; $i<$_POST['prodTransValue']; $i++){
+                        $unitT = new Unidad();
+                        $unitT->setProducto($prod)
+                                ->setVendido(false)
+                                ->setTienda($tienda);
                         $em->persist($unitT);
                         $em->flush();
                     }
