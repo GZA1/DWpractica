@@ -18,8 +18,8 @@ class EmpleadoRepository extends EntityRepository
     public function getEmpleadoByID($username, $passwd, $nombre, $apell, $email, $photoPath, $active, $cargo, $isAdministrador, $tienda_id){
         
         $DQL = "select * from Entities\\Empleado where id = :id";
-        $query = -> $this ->createQuery($DQL);
-        $query->setParameters('id' => 'Bob');
+        $query = -> $this->createQuery($DQL);
+        $query->setParameters('id', $id);
         $emp = $query->$em->getResult();
     }
 
@@ -28,12 +28,12 @@ class EmpleadoRepository extends EntityRepository
         if(isset($username), isset($name), isset($surnames)){
         $DQL = "update Entities\\Empleado set  username = :Username, nombre = :Nombre, apellidos = :Apellidos where id = :id";
         $query = $this->$em->createQuery($DQL);
-        $query->setParameters(  
+        $query->setParameters(  array(
                                 'id' => $id,
                                 'Username'=> $username,
                                 'Nombre' => $nombre,
                                 'Apellidos' => $surnames                           
-                            );           
+                            ));           
             return true;
         }else{
             return false;

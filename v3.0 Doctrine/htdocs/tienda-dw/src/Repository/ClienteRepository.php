@@ -17,8 +17,8 @@ class ClienteRepository extends EntityRepository
      */
     public function doIDexist($id){
         $DQL = "select count(*) from Entities\\Empleado where id = :ID";
-        $query = $this->$_em->createQuery($DQL);
-        $query->setParameters('ID' => $id);
+        $query = $this->$em->createQuery($DQL);
+        $query->setParameters('ID', $id);
         $resultado = $query->getResult();
         if($resultado > 0){
             return true;
@@ -43,7 +43,7 @@ class ClienteRepository extends EntityRepository
     {
         $DQL ="select * from Entities\\Pedido, Entities\\Cesta where Cliente_id = :id, ";
         $query = $this->$em->createQuery();
-        $query->setParameters('id' => $id);
+        $query->setParameters('id', $id);
         return $query->getResult();
     }
 
@@ -54,7 +54,7 @@ class ClienteRepository extends EntityRepository
     private function getDataClienteId($id){
 
         $DQL = "select * from Entities/Cliente where id = :id"; 
-        $query->setParameters('id' => $id);
+        $query->setParameters('id', $id);
         return $query->getResult();
     }
 
@@ -67,13 +67,13 @@ class ClienteRepository extends EntityRepository
         if(isset($username) & isset($name) && isset($surnames) && isset($address)){
             
         $consulta = "update Cliente set username = :Username, nombre = :Nombre, apellidos = :Apellidos, domicilio = :Domicilio WHERE id = :id";
-        $query->setParameters(
+        $query->setParameters(array(
                                 'id' => $id,
                                 'Username' => $username,
                                 'Nombre' => $name,
                                 'Apellidos' => $surnames,
                                 'Domicilio' => $address
-                            );                                    
+                            ));                                    
          return true;   
         }else{
             return false;
